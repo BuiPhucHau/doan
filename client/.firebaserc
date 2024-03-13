@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "datanhahang": {
+      "hosting": {
+        "client": [
+          "datanhahang"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "datanhahang"
+  }
+}
