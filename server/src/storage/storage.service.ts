@@ -19,7 +19,7 @@ export class StorageService {
     folderName: string,
   ): Promise<string[]> {
     try {
-      const bucketName = 'gs://storagedoan.appspot.com';
+      const bucketName = 'gs://datanhahang.appspot.com';
       const publicUrls: string[] = [];
 
       await Promise.all(

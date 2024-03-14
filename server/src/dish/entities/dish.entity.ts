@@ -15,9 +15,7 @@ export class Dish {
     
     @Prop({required: true})
     description: string;
-    
-    @Prop({required: true})
-    image: string;
+
     
     @Prop({
         type: mongoose.Schema.Types.ObjectId,
@@ -27,11 +25,10 @@ export class Dish {
     cId: string;
 
     @Prop({
-        type: mongoose.Schema.Types.ObjectId,
+      // type: mongoose.Schema.Types.ObjectId,
         ref: 'Storage',
         required: true})
-      image: string;
-      
+    image: string;
 }
 
 export const DishSchema = SchemaFactory.createForClass(Dish);

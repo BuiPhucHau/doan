@@ -4,6 +4,8 @@ import { Dish } from './entities/dish.entity';
 import { Model } from 'mongoose';
 import { Category } from 'src/category/entities/category.entity';
 import { CreateDishDto } from './dto/create-dish.dto';
+import { UpdateDishDto } from './dto/update-dish.dto';
+import { Storage } from 'src/storage/entities/storage.entity';
 
 @Injectable()
 export class DishService {
@@ -25,15 +27,63 @@ export class DishService {
  }
  async findAll() {
     try{
-      const cars = await this.dishModel.find()
+      const dishes = await this.dishModel.find()
       .populate('image','urls', this.storageModel)
-      .populate('categoryId','name', this.categoryModel)
+      .populate('cId','name', this.categoryModel)
       .exec();
-      return cars;
+      return dishes;
+    }
+    catch(err){
+      throw new HttpException(err.message, err.status);
+    }
+  }
+  
+  async findByObjectId(objectId: string) {
+    try{
+      const dishes = await this.dishModel.findById(objectId)
+      .populate('image','urls', this.storageModel)
+      .populate('cId','name', this.categoryModel)
+      .exec();
+      return dishes;
     }
     catch(err){
       throw new HttpException(err.message, err.status);
     }
   }
 
+  async findOne(id: string) {
+    try{
+      const dish = await this.dishModel.findOne({dId : id})
+      .populate('image','urls', this.storageModel)
+      .populate('cId','name', this.categoryModel)
+      .exec();
+      return dish;
+    }
+    catch(err){
+      throw new HttpException(err.message, err.status);
+    }
+  }
+
+  async update(id: string, updateDishDto: UpdateDishDto) {
+    try {
+      const updatedDish = await this.dishModel.findOneAndUpdate(
+        {dId: id},
+        {...updateDishDto},
+        {new: true}
+      );
+      return updatedDish;
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
+  async remove(id: string) {
+    try{
+      const deletedDish = await this.dishModel.findOneAndDelete({dId: id});
+      return deletedDish;
+    }
+    catch(err){
+      throw new HttpException(err.message, err.status);
+    }
+  }
 }
