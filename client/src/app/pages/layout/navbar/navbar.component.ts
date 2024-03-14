@@ -31,6 +31,10 @@ export class NavbarComponent  {
     else if (tabName == 'order') {
       this.router.navigate(['base/order']);
     }
+    else if (tabName == 'login') {
+      this.router.navigate(['base/login']);
+    }
+   
   }
 
   homeclick(){
