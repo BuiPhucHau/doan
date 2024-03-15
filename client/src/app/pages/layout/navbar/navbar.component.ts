@@ -28,11 +28,14 @@ export class NavbarComponent  {
     else if (tabName == 'location') {
       this.router.navigate(['base/location']);
     }
+    else if (tabName == 'new') {
+      this.router.navigate(['base/new']);
+    }
     else if (tabName == 'order') {
       this.router.navigate(['base/order']);
     }
     else if (tabName == 'login') {
-      this.router.navigate(['base/login']);
+      this.router.navigate(['/login']);
     }
    
   }

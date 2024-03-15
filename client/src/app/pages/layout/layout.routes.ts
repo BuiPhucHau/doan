@@ -38,12 +38,17 @@ export const LAYOUT_ROUTES: Routes = [
             import('./location/location.routes').then((m) => m.LOCATION_ROUTES),
         },
         {
-          path: 'base/login',
+          path: 'base/new',
+          loadChildren: () =>
+            import('./new/new.routes').then((m) => m.NEW_ROUTERS),
+        },
+        {
+          path: 'login',
           loadChildren: () =>
             import('../login/login.routes').then((m) => m.LOGIN_ROUTES),
         },
         {
-          path: 'base/register',
+          path: 'register',
           loadChildren: () =>
             import('../register/register.routes').then((m) => m.REGISTER_ROUTES),
         },
