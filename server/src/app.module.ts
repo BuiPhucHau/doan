@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CategoryModule } from './category/category.module';
 import { StorageModule } from './storage/storage.module';
 import { DishModule } from './dish/dish.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [MongooseModule.forRoot(
@@ -12,7 +13,8 @@ import { DishModule } from './dish/dish.module';
 
   CategoryModule,
   StorageModule,
-  DishModule
+  DishModule,
+  UserModule
 ],
   controllers: [AppController],
   providers: [AppService],

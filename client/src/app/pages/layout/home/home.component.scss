@@ -34,16 +34,19 @@
     .b {
         font-size: 60px;
         font-weight: 600;
+        color: white;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     .c {
         font-size: 18px;
         margin: 0.5rem;
+        
     }
     .restaurant {
         display: flex;
         flex-direction: row;
         justify-content: center;
+        color: var(--tui-primary);
     }
 }
 
@@ -82,3 +85,80 @@
     }
 }
 
+.rectangle_3 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center menu horizontally */
+    align-items: center; /* Center menu vertically */
+  
+  }
+
+.rectangle_4 {
+    width: 100%;
+    height: 500px;
+    background-image: url(../../../../assets/image/happycustomer.jpg);
+    display: flex; 
+    flex-direction: column; 
+    text-align: center; 
+  opacity: 0.7;
+    h1 {
+      color: black;
+      margin-top: 5rem;
+      margin-bottom: 3rem;
+    }
+    .happy {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .text_happy {
+            font-size: 16px;
+            width: 600px;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+        }
+        .phay {
+            font-size: 50px;
+            margin-bottom: 5rem;
+        }
+    }
+
+  }
+
+.foot {
+    width: 100%;
+    height: 350px;
+    background-color: var(--tui-background);
+    padding: 40px 400px 40px 400px;
+    display: flex;
+    flex-direction: row;
+    
+
+    
+    .title_foot {
+        color:  white;
+        font-size: 20px;
+        font-weight: 600; 
+        margin-bottom: 2rem; 
+    }
+
+    .bridge_foot {
+        color:  white;
+        font-size: 16px;
+        
+    }
+    .pages_foot{
+        color:  white;
+        font-size: 16px;
+        
+        margin-bottom: 2rem; 
+    }
+    .opening_foot {
+        color:  white;
+        font-size: 16px;
+       
+    }
+}

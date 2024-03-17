@@ -25,7 +25,7 @@ export class Dish {
     cId: string;
 
     @Prop({
-      // type: mongoose.Schema.Types.ObjectId,
+       type: mongoose.Schema.Types.ObjectId,
         ref: 'Storage',
         required: true})
     image: string;
