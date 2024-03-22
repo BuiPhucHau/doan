@@ -7,7 +7,7 @@ export const get = createAction (
 
 export const getSuccess = createAction (
     '[category] Get Success',
-    props<{categories: [Category]}>()
+    props<{categories: Category[]}>()
 );
 
 export const getFailure = createAction (

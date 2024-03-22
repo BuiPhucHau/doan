@@ -28,19 +28,19 @@ export class UserController {
   }
 
   @Get()
-  findOne(@Query('id') id: string) {
+  async findOne(@Query('id') id: string) {
     try {
-      const user = this.userService.findOne(id);
+      const user = await this.userService.findOne(id);
       return user;
     } catch (error) {
       throw error;
     }
   }
 
-  @Get('email')
-  findByEmail(@Query('email') email: string) {
+  @Get(':email')
+  async findByEmail(@Param('email') email: string) {
     try {
-      const user = this.userService.findByEmail(email);
+      const user = await this.userService.findByEmail(email);
       return user;
     } catch (error) {
       throw error;

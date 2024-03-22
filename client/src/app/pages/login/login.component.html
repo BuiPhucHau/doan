@@ -18,7 +18,10 @@
             </label>
             <a href="#"> Forgot password? </a>
         </div>
-        <button type="submit"> Log In</button>
+        <div class="container_login">
+            <button type="submit" (click)="loginWithAccount()"> Log In</button>
+            <button class="loginwithgg" type="submit" (click)="loginWithGoogle()"> Login With Google</button>
+        </div>
         <div class="register">
             <p> Don't have an account? 
                 <a (click)="registerclick()">Register</a>

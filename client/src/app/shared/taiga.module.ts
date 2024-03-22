@@ -18,6 +18,7 @@ import {
   TuiStringifyContentPipeModule,
   TuiTabsModule,
 } from '@taiga-ui/kit';
+
 import {
   TuiActiveZoneModule,
   TuiFilterPipeModule,

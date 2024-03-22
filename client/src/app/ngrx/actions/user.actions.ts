@@ -1,18 +1,23 @@
 import { createAction, props } from "@ngrx/store";
-import { UserFirebase } from "../../models/userfirebase.model";
+import { User } from "../../models/user.model";
 
-export const login = createAction('[Auth] login');
+export const getByEmail = createAction('[User] get by email', props<{ email: string }>());
 
-export const loginSuccess = createAction('[Auth] loginSuccess');
+export const getByEmailSuccess = createAction('[User] get by email success', props<{ user : User }>()); 
 
-export const loginFailure = createAction('[Auth] loginFailure', props<{ error: any }>());
+export const getByEmailFailure = createAction('[User] get by email failure', props<{ error: any }>()); 
 
-export const logout = createAction('[Auth] logout');
+export const createUser = createAction('[User] create user', props<{ user: User }>());
 
-export const logoutSuccess = createAction('[Auth] logoutSuccess');
+export const createUserSuccess = createAction('[User] create user success', props<{ user: User }>());
 
-export const logoutFailure = createAction('[Auth] logoutFailure', props<{ error: any }>());
+export const createUserFailure = createAction('[User] create user failure', props<{ error: any }>());
 
-export const storageUserFirebase = createAction('[Auth] stored user firebase', (userFirebase: UserFirebase) => ({userFirebase}));
-
-export const resetState = createAction('[Auth] reset state');
+export const storedUser = createAction(
+    '[User] Stored User',
+    (user: User) => ({ user })
+  )
+  
+  export const resetUser = createAction(
+    '[User] Reset User'
+  );

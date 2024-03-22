@@ -1,9 +1,9 @@
-import { UserFirebase } from "../../models/userfirebase.model";
+import { UserFirebase } from "../../models/userFirebase.model";
 
-export interface UserFirebaseState { 
-    userFirebase: UserFirebase;
+export interface AuthState {
+    userFirebase: UserFirebase
     isLoading: boolean;
-    isGetSuccess: boolean;
-    getErrMess: string;
-    isLogoutSuccess: string;
+    isSuccessful: boolean;
+    errorMessage: string;
+    isLogoutSuccess: boolean;
 }

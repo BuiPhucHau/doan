@@ -1,18 +1,50 @@
 <div class="container">
 
-    <div class="logo" (click)="homeclick()">
+    <div class="logo" (click)="home()">
         <img src="../../../../assets/image/logo.png" class="logo_img">
         <p class="name">CurstGourmet</p>
     </div>
 
     <section class="select">
-        <button (click)="select('menu')" [ngClass]="{'active': selected === 'menu'}">Menu</button>
-        <button (click)="select('booking')" [ngClass]="{'active': selected === 'booking'}">Table Booking</button>
-        <button (click)="select('location')" [ngClass]="{'active': selected === 'location'}">Locations</button>
-        <button (click)="select('new')" [ngClass]="{'active': selected === 'new'}">News</button>
-        <button (click)="select('order')" [ngClass]="{'active': selected === 'order'}">Delivery</button>
-    </section>
+        <button *ngFor="let page of pages; let i = index"
+                [class.selected]="pageSelected === i"
+                (click)="selected(i)">{{ page.name }}</button>
+      </section>
+    <div class="login" *ngIf="!userForm.value.uid" (click)="login()">
+        <p>Login</p>
+    </div>
 
-    <button (click)="select('login')" [ngClass]="{'active': selected === 'login'}">Login</button>
+    <div class="login" *ngIf="userForm.value.uid">
+        <img style="width: 40px;
+            height: 40px;
+            border-radius: 50%;" src={{userForm.value.avatar}} alt="">
+        <p style="font-size: 14px; margin-right: 2rem; margin-left: 1rem;">{{userForm.value.name}}</p>
+        <div class="profile_menu">
+            <p (click)="logout()">Logout</p>
+        </div>
+
+    </div>
+
+
 </div>
 
+<!-- <div id="profile" *ngIf="userForm.value.uid">
+    <div class="profile_infor">
+        <div class="profile_img">
+            <img src={{userForm.value.avatar}} alt="">
+        </div>
+        <div class="profile_info_box">
+            <h3>Welcome</h3>
+            <p>{{userForm.value.name}}</p>
+        </div>
+    </div>
+    <div class="profile_menu">
+        <i (click)="logout()" class="fa-solid fa-right-from-bracket"></i>
+    </div>
+</div>
+
+<div id="profile" *ngIf="!userForm.value.uid">
+    <div class="btn_login" (click)="login()">
+        <p>Đăng nhập</p>
+    </div>
+</div> -->

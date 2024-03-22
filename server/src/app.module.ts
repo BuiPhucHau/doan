@@ -9,7 +9,7 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [MongooseModule.forRoot(
-    'mongodb+srv://phuchau0385:hau123@cluster0.2jkroxq.mongodb.net/'),
+    'mongodb+srv://phuchau0385:buihau038@cluster0.giztluo.mongodb.net/'),
 
   CategoryModule,
   StorageModule,
