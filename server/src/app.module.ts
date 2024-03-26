@@ -6,6 +6,7 @@ import { CategoryModule } from './category/category.module';
 import { StorageModule } from './storage/storage.module';
 import { DishModule } from './dish/dish.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [MongooseModule.forRoot(
@@ -14,7 +15,8 @@ import { UserModule } from './user/user.module';
   CategoryModule,
   StorageModule,
   DishModule,
-  UserModule
+  UserModule,
+  AuthModule
 ],
   controllers: [AppController],
   providers: [AppService],
