@@ -8,13 +8,13 @@ import { InjectModel } from '@nestjs/mongoose';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(User.name) private readonly userModel: Model<User>
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
-      const createdUser = new this.userModel(createUserDto);
-      return await createdUser.save();
+      const newUser  = new this.userModel(createUserDto);
+      return await newUser .save();
     } catch (error) {
       throw new HttpException(error.message, error.status);
     }
@@ -22,7 +22,7 @@ export class UserService {
 
   async findAll() {
     try {
-      const users = await this.userModel.find().exec();
+      const users = await this.userModel.find();
       return users;
     } catch (error) {
       throw new HttpException(error.message, error.status);
@@ -51,7 +51,6 @@ export class UserService {
           avatar: '404 user not found',
           phone: '404 user not found',
           Adress: '404 user not found',
-          role: '404 user not found',
         };
         return userClone;
       }

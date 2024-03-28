@@ -6,7 +6,7 @@ export class CreateUserDto {
         public name: string,
         public avatar: string,
         public phone: string,
-        public adress: string,
-        public role: string,
+        public address: string,
+
     ) {}
 }
