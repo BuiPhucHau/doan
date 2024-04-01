@@ -16,14 +16,14 @@ export class DishService {
     @InjectModel(Storage.name) private readonly storageModel: Model<Storage>,
  ){}
 
- async create (createCarDto: CreateDishDto): Promise<Dish> {
-    try{
-        const createdDish = new this.dishModel(createCarDto);
-        return await createdDish.save();
-    }
-    catch(err){
-        throw new HttpException(err.message, err.status);
-    }
+ async create (createDishDto: CreateDishDto): Promise<Dish> {
+  try{
+    const createdDish = new this.dishModel(createDishDto);
+    return await createdDish.save();
+}
+catch(err){
+    throw new HttpException(err.message, err.status);
+}
  }
  async findAll() {
     try{

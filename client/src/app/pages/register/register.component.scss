@@ -1,36 +1,38 @@
-@import url(//doan/client/src/assets/image/background-login.jpg);
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Open Sans",sans-serif;
-}
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    width: 100%;
-    padding: 0 10px;
-}
 
-body::before {
-    content: "";
-    position: absolute;
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
-    background: url(/assets/image/background-login.jpg);
-    background-position: center;
-    background-size: cover;
+    position: relative;
+    
+    img {
+        width: 100vw;
+        height: 900px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        transform: translate(-50%, -50%);
+        
+    
+    }
+    
 }
+
 .wrapper {
-    width: 400px;
-    border-radius: 8px;
-    padding: 30px;
+    position: relative; 
+    width: 500px;
+    border-radius: 16px;
+    padding: 50px;
     text-align: center;
-    border: 2px solid rgb(12, 12, 12) ;
+    border: 2px solid #ebdd94;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(9px);
+
 }
 form {
     display: flex;
@@ -38,12 +40,12 @@ form {
 }
 h2 {
     font-size: 2rem;
-    margin-bottom: 20px;
-    color:rgb(245, 247, 238);
+    margin-bottom: 40px;
+    color:black;
 }
 .input-field {
     position: relative;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 2px solid #ebdd94;
     margin: 15px 0;
 }
 .input-field label {
@@ -51,7 +53,7 @@ h2 {
     top: 50%;
     left: 0;
     transform: translateY(-50%);
-    color:rgb(173, 186, 107);
+    color:rgb(117, 113, 113);
     font-size: 15px;
     pointer-events: none;
     transition: 0.15s ease;
@@ -62,8 +64,8 @@ h2 {
     background: transparent;
     border: none;
     outline: none;
-    font-size: 16px;
-    color:white;
+    font-size: 1px;
+    color:black;
 
 
 }
@@ -73,15 +75,20 @@ h2 {
     top: 10px;
     transform: translateY(-120%);
 }
+
 .forget {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 25px 0 35px 0;
-    color: white;
+    color: rgb(185, 37, 37);
 
 }
-
+#remember {
+    accent-color: black
+    ;
+  
+}
 .forget label {
     display: flex;
     align-items: center;
@@ -90,15 +97,24 @@ h2 {
     margin-left: 8px;
 }
 .wrapper a {
-    color:white;
+    color:rgb(26, 95, 214);
     text-decoration: none;
 }
 .wrapper a:hover {
     text-decoration: underline;
 }
+
+.container_login {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
 button{
-    background: white;
-    color:black;
+    width: 85%;
+    background: rgb(49, 49, 49);
+    color:rgb(255, 255, 255);
     font-weight: 600;
     border: none;
     padding: 12px 20px;
@@ -107,15 +123,20 @@ button{
     font-size: 16px;
     border: 2px solid transparent;
     transition: 0.3s ease;
-
+    margin-top: 1rem;
 }
 button:hover {
     color: wheat;
     border-color: #fff;
-    background-color: rgb(26, 23, 23);
+    background-color: rgb(23, 23, 26);
 }
 .register {
     text-align: center;
+    font-style: unset;
+    font-weight: bold; 
     margin-top: 30px;
-    color:rgb(213, 237, 93);
+    color: rgb(49, 49, 49) !important;
+}
+a{
+    color: #1876F4 !important;
 }

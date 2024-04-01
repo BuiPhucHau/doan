@@ -2,12 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put } from '@
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthService } from 'src/auth/auth.service';
+// import { AuthService } from 'src/auth/auth.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService, private readonly authService: AuthService) {}
-
+  constructor(private readonly userService: UserService,) {}
+  // private readonly authService: AuthService
   @Post('create')
   async create(@Body() createUserDto: CreateUserDto) {
     try {
@@ -18,7 +18,7 @@ export class UserController {
     }
   }
 
-  @Get('all')
+  @Get('get-all')
   async findAll() {
     try {
       const users = await this.userService.findAll();
