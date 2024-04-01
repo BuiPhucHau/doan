@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 // import { AuthModule } from './auth/auth.module';
 import { ReservationModule } from './reservation/reservation.module';
 import { TableModule } from './table/table.module';
+import { LocationModule } from './location/location.module';
 
 @Module({
   imports: [MongooseModule.forRoot(
@@ -20,7 +21,8 @@ import { TableModule } from './table/table.module';
   UserModule,
   // AuthModule,
   ReservationModule,
-  TableModule
+  TableModule,
+  LocationModule
 ],
   controllers: [AppController],
   providers: [AppService],
