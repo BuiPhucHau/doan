@@ -28,4 +28,39 @@ export class LocationService {
       throw new HttpException(err.message, err.status);
     }
   }
+
+
+  async findOne(id) {
+    try{
+      const location = await this.locationModel.findOne({locationId: id}).exec();
+      return location;
+    }
+    catch(err){
+      throw new HttpException(err.message, err.status);
+    }
+  }
+
+  async update(id: string, updateLocationDto: UpdateLocationDto) {
+    try{
+      const updatedLocation = await this.locationModel.findOneAndUpdate(
+        {categoryId: id},
+        {...updateLocationDto},
+        {new: true}
+      );
+      return updatedLocation;
+  }
+  catch(err) {
+    throw new HttpException(err.message, err.status);
+  }
+}
+  async remove(id: string) {
+    try{
+      const deletedCategory = await this.locationModel.findOneAndDelete({categoryId: id});
+      return deletedCategory;
+    }
+    catch(err){
+      throw new HttpException(err.message, err.status);
+    }
+  }
+   
 }
