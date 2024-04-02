@@ -58,8 +58,8 @@ export class CategoryService {
   
     async remove(id: string) {
       try{
-        const deletedDish = await this.categoryModel.findOneAndDelete({categoryId: id});
-        return deletedDish;
+        const deletedCategory = await this.categoryModel.findOneAndDelete({categoryId: id});
+        return deletedCategory;
       }
       catch(err){
         throw new HttpException(err.message, err.status);
