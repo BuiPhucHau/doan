@@ -17,7 +17,7 @@ export class CategoryController {
     }
   }
 
-  @Get('all')
+  @Get('get-all')
   async findAll() {
     try {
       const categories = await this.categoryService.findAll();

@@ -36,6 +36,8 @@ export class NavbarComponent  {
     {id: 3, name: 'Location', link: 'base/location',},
     {id: 4, name: 'News', link: 'base/new',},
     {id: 5, name: 'Order', link: 'base/order',},
+    {id: 6, name: 'Location', link: 'base/location',},
+    
     
   ];
 
