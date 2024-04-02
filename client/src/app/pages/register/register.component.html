@@ -10,7 +10,7 @@
         <!-- name -->
         <div class="input-field" *ngIf="this.isLoginWithGoogle==false">
           <input type="text" placeholder="Name" required formControlName="name">
-          <label>Name</label>
+          
         </div>
         <div class="input-field" *ngIf="this.isLoginWithGoogle==true">
           <input type="text" [placeholder]="userFirebase.name" required formControlName="name">
@@ -25,7 +25,7 @@
         <!-- //email -->
         <div class="input-field" *ngIf="this.isLoginWithGoogle==false">
           <input type="text" placeholder="Email" formControlName="email" required>
-          <label>Email</label>
+          
         </div>
         <div class="input-field" *ngIf="this.isLoginWithGoogle==true">
           <input type="text" [placeholder]="userFirebase.email" formControlName="email" required>

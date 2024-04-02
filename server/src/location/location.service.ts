@@ -9,6 +9,7 @@ import { Location } from './entities/location.entity';
 export class LocationService {
   constructor(
     @InjectModel(Location.name) private readonly locationModel: Model<Location>,
+    @InjectModel(Storage.name) private readonly storageModel: Model<Storage>,
   ) {}
 
   async create(createLocationDto: CreateLocationDto) {
@@ -55,8 +56,8 @@ export class LocationService {
 }
   async remove(id: string) {
     try{
-      const deletedCategory = await this.locationModel.findOneAndDelete({categoryId: id});
-      return deletedCategory;
+      const deletedLocation = await this.locationModel.findOneAndDelete({locationId: id});
+      return deletedLocation;
     }
     catch(err){
       throw new HttpException(err.message, err.status);
