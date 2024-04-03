@@ -11,6 +11,8 @@ import { UserModule } from './user/user.module';
 import { ReservationModule } from './reservation/reservation.module';
 import { TableModule } from './table/table.module';
 import { LocationModule } from './location/location.module';
+import { OrderModule } from './order/order.module';
+import { OrderdetailModule } from './orderdetail/orderdetail.module';
 
 
 @Module({
@@ -27,7 +29,13 @@ import { LocationModule } from './location/location.module';
   TableModule,
   
  
-  LocationModule
+  LocationModule,
+  
+ 
+  OrderModule,
+  
+ 
+  OrderdetailModule
 ],
   controllers: [AppController],
   providers: [AppService],
