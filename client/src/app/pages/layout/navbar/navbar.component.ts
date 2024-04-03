@@ -9,6 +9,7 @@ import { UserState } from '../../../ngrx/state/user.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as AuthActions from '../../../ngrx/actions/auth.actions';
 import * as UserAction from '../../../ngrx/actions/user.actions';
+import * as UserActions from '../../../ngrx/actions/user.actions';
 import { combineLatest } from 'rxjs';
 
 interface Page {
@@ -25,7 +26,6 @@ interface Page {
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent  {
-  // selected: string = '';
 
   pageSelected: number =0 ;
   url = '';
@@ -34,9 +34,8 @@ export class NavbarComponent  {
     {id: 1, name: 'Menu', link: 'base/menu',},
     {id: 2, name: 'Booking', link: 'base/booking',},
     {id: 3, name: 'Location', link: 'base/location',},
-    {id: 4, name: 'News', link: 'base/new',},
-    {id: 5, name: 'Order', link: 'base/order',},
-    {id: 6, name: 'Location', link: 'base/location',},
+    {id: 4, name: 'Order', link: 'base/order',},
+    {id: 5, name: 'Location', link: 'base/location',},
     
     
   ];
@@ -59,7 +58,9 @@ export class NavbarComponent  {
       if(user._id != null && user._id != undefined) {
         this.user = user;
       } else {
-        this.user = <User>{};
+        const userAsJson = sessionStorage.getItem('user');
+        this.user = JSON.parse(userAsJson || '');
+        this.store.dispatch(UserActions.storedUser(this.user));
       }
     });
     
@@ -122,8 +123,11 @@ export class NavbarComponent  {
     route: this.route$,
     user: this.user$,
   }).subscribe((res) => {
-    if (this.pages.length == 6) {
-      this.pages.splice(5, 1);
+    if (res.user.role != 'admin') {
+      console.log(res.user.role);
+      console.log(this.pages.length);
+    if (this.pages.length == 5) {
+      this.pages.splice(4, 1);
       this.pages[this.pages.length - 1].id = this.pages.length - 1;
     }
   
@@ -134,8 +138,9 @@ export class NavbarComponent  {
       this.router.url === '/base/booking' ? (this.pageSelected = 2) : null;
       this.router.url === '/base/location' ? (this.pageSelected = 3) : null;
       this.router.url === '/base/order' ? (this.pageSelected = 4) : null;
-      this.router.url === '/base/new' ? (this.pageSelected = 5) : null;
+     
     }
+  }
   });
   }
 
