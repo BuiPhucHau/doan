@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument } from "mongoose";
+import mongoose, { HydratedDocument } from "mongoose";
 
 export type LocationDocument = HydratedDocument<Location>;
 
@@ -10,6 +10,20 @@ export class Location {
 
     @Prop({required: true})
     address: string;
+
+    @Prop({required: true})
+    name: string;
+
+    @Prop({required: true})
+    phone: string;
+
+    @Prop({
+       type: mongoose.Schema.Types.ObjectId,
+        ref: 'Storage',
+        required: true})
+    image: string;
+     
 }
+
 
 export const LocationSchema = SchemaFactory.createForClass(Location);
