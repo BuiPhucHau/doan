@@ -1,3 +1,136 @@
-<h1>hi</h1>
-<h1>hi</h1>
-<h1>hi</h1>
+
+<div class="container">
+    <div class="card_dish">
+        <div tuiCarouselButtons class="wrapper">
+
+            <tui-carousel #carousel class="carousel">
+                <tui-island *tuiItem>
+                    <div *ngFor="let item of items; let i = index">
+                        <div *ngIf="item.id === '1'">
+                            <p id="content">{{ item.title }}</p>
+                            <div class="grid-container">
+                                <div *ngFor="let dish of item.dishes" class="grid-item">
+                                    <div tuiCardMedium tuiSurface class="dish_item">
+                                        <h2 tuiTitle>
+                                            <p class="dish_name">{{ dish.name }}</p>
+                                        </h2>
+                                        <tui-badge appearance="custom" class="money">
+                                            <p class="price">{{ dish.price }}</p>
+                                        </tui-badge>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tui-island>
+                <tui-island *tuiItem>
+                    <div *ngFor="let item of items; let i = index">
+                        <div *ngIf="item.id === '2'">
+                            <p id="content">{{ item.title }}</p>
+                            <div class="grid-container">
+                                <div *ngFor="let dish of item.dishes" class="grid-item">
+                                    <div tuiCardMedium tuiSurface class="dish_item">
+                                        <h2 tuiTitle>
+                                            <p class="dish_name">{{ dish.name }}</p>
+                                        </h2>
+                                        <tui-badge appearance="custom" class="money">
+                                            <p class="price">{{ dish.price }}</p>
+                                        </tui-badge>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tui-island>
+                <tui-island *tuiItem>
+                    <div *ngFor="let item of items; let i = index">
+                        <div *ngIf="item.id === '3'">
+                            <p id="content">{{ item.title }}</p>
+                            <div class="grid-container">
+                                <div *ngFor="let dish of item.dishes" class="grid-item">
+                                    <div tuiCardMedium tuiSurface class="dish_item">
+                                        <h2 tuiTitle>
+                                            <p class="dish_name">{{ dish.name }}</p>
+                                        </h2>
+                                        <tui-badge appearance="custom" class="money">
+                                            <p class="price">{{ dish.price }}</p>
+                                        </tui-badge>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tui-island>
+                <tui-island *tuiItem>
+                    <tui-loader></tui-loader>
+                </tui-island>
+                <tui-island *tuiItem class="tui-island_text-align_center">
+                    <h2 class="tui-island__title">Failed to load</h2>
+                    <p>
+                        <tui-marker-icon mode="error" src="tuiIconClose"></tui-marker-icon>
+                    </p>
+                </tui-island>
+            </tui-carousel>
+            <button icon="tuiIconChevronLeftLarge" title="Previous" tuiIconButton type="button"
+                (click)="carousel.prev()">
+            </button>
+            <button icon="tuiIconChevronRightLarge" title="Next" tuiIconButton type="button" (click)="carousel.next()">
+            </button>
+
+        </div>
+    </div>
+    <div class="bill">
+        <p id="content_1">Your Order</p>
+        <div class="bill_item">
+            <form class="b-form" [formGroup]="testForm">
+                <label [tuiLabel]="label1">
+                    <tui-input formControlName="testValue" nativeId="uniqueId" tuiTextfieldSize="m"
+                        [tuiTextfieldLabelOutside]="true">
+                        0,00
+                    </tui-input>
+                </label>
+                <ng-template #label1>
+                    <p id="content_2">Name</p>
+                </ng-template>
+            </form>
+            <form class="b-form" [formGroup]="testForm">
+                <label [tuiLabel]="label2">
+                    <tui-input formControlName="testValue" nativeId="uniqueId" tuiTextfieldSize="m"
+                        [tuiTextfieldLabelOutside]="true">
+                        0,00
+                    </tui-input>
+                </label>
+                <ng-template #label2>
+                    <p id="content_2">Quantity</p>
+                </ng-template>
+            </form>
+            <form class="b-form" [formGroup]="testForm">
+                <label [tuiLabel]="label3">
+                    <tui-input formControlName="testValue" nativeId="uniqueId" tuiTextfieldSize="m"
+                        [tuiTextfieldLabelOutside]="true">
+                        0,00
+                    </tui-input>
+                </label>
+                <ng-template #label3>
+                    <p id="content_2">Price</p>
+                </ng-template>
+            </form>
+            <form class="b-form" [formGroup]="testForm">
+                <label [tuiLabel]="label4">
+                    <tui-input formControlName="testValue" nativeId="uniqueId" tuiTextfieldSize="m"
+                        [tuiTextfieldLabelOutside]="true">
+                        0,00
+                    </tui-input>
+                </label>
+                <ng-template #label4>
+                    <p id="content_2">Total Price</p>
+                </ng-template>
+            </form>
+            <div class="button_1">
+                <button appearance="primary" tuiButton>
+                    <p>Pay</p>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
