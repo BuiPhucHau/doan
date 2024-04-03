@@ -26,6 +26,7 @@ interface Page {
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent  {
+  // selected: string = '';
 
   pageSelected: number =0 ;
   url = '';
@@ -34,8 +35,9 @@ export class NavbarComponent  {
     {id: 1, name: 'Menu', link: 'base/menu',},
     {id: 2, name: 'Booking', link: 'base/booking',},
     {id: 3, name: 'Location', link: 'base/location',},
-    {id: 4, name: 'Order', link: 'base/order',},
-    {id: 5, name: 'Location', link: 'base/location',},
+    {id: 4, name: 'News', link: 'base/new',},
+    {id: 5, name: 'Order', link: 'base/order',},
+    {id: 6, name: 'Location', link: 'base/location',},
     
     
   ];
@@ -56,11 +58,11 @@ export class NavbarComponent  {
 
     this.user$.subscribe((user) => {
       if(user._id != null && user._id != undefined) {
+        console.log(user);
         this.user = user;
       } else {
-        const userAsJson = sessionStorage.getItem('user');
-        this.user = JSON.parse(userAsJson || '');
-        this.store.dispatch(UserActions.storedUser(this.user));
+        
+        this.user = { _id: '', uid: '', avatar: '', email: '', name: '', role: '', password: '', phone: '', address: ''};
       }
     });
     
@@ -82,52 +84,16 @@ export class NavbarComponent  {
       }
     });
 
-//check admin
-  //   combineLatest({
-  //     route: this.route$,
-  //     user: this.user$,
-  //   }).subscribe((res) => {
-  //     // if (res.user.role != 'Admin') {
-  //     //   console.log(res.user.role);
-  //     //   // console.log(this.pages.length);
-  //       if (this.pages.length == 6) {
-  //     //     this.pages.splice(6, 1);
-  //     //     this.pages[this.pages.length - 1].id = this.pages.length - 1;
-  //     //   }
-  //     //   if (this.router.url != this.url) {
-  //     //     this.url = this.router.url;
-  //     //     this.router.url === '/base/home' ? (this.pageSelected = 0) : null;
-  //     //     this.router.url === '/base/menu' ? (this.pageSelected = 1) : null;
-  //     //     this.router.url === '/base/booking' ? (this.pageSelected = 2) : null;
-  //     //     this.router.url === '/base/location' ? (this.pageSelected = 3) : null;
-  //     //     this.router.url === '/base/order' ? (this.pageSelected = 4) : null;
-  //     //     this.router.url === '/base/new' ? (this.pageSelected = 5) : null;
-  //     //   }
-  //     // } else {
-  //       if (this.router.url != this.url) {
-  //         this.url = this.router.url;
-  //         this.router.url === '/base/home' ? (this.pageSelected = 0) : null;
-  //         this.router.url === '/base/menu' ? (this.pageSelected = 1) : null;
-  //         this.router.url === '/base/booking' ? (this.pageSelected = 2) : null;
-  //         this.router.url === '/base/location' ? (this.pageSelected = 3) : null;
-  //         this.router.url === '/base/order' ? (this.pageSelected = 4) : null;
-  //         this.router.url === '/base/new' ? (this.pageSelected = 5) : null;
-  //         // this.router.url === '/base/admin' ? (this.pageSelected = 6) : null;
-  //       }
-  //     }
-  //   });
-  //  }
 
-  //kh check admin
   combineLatest({
     route: this.route$,
     user: this.user$,
   }).subscribe((res) => {
-    if (res.user.role != 'admin') {
+    if (res.user.role != 'Admin') {
       console.log(res.user.role);
       console.log(this.pages.length);
-    if (this.pages.length == 5) {
-      this.pages.splice(4, 1);
+    if (this.pages.length == 6) {
+      this.pages.splice(5, 1);
       this.pages[this.pages.length - 1].id = this.pages.length - 1;
     }
   
@@ -138,7 +104,19 @@ export class NavbarComponent  {
       this.router.url === '/base/booking' ? (this.pageSelected = 2) : null;
       this.router.url === '/base/location' ? (this.pageSelected = 3) : null;
       this.router.url === '/base/order' ? (this.pageSelected = 4) : null;
-     
+      this.router.url === '/base/new' ? (this.pageSelected = 5) : null;
+    }
+
+  } else {
+    if (this.router.url != this.url) {
+      this.url = this.router.url;
+      this.router.url === '/base/home' ? (this.pageSelected = 0) : null;
+      this.router.url === '/base/menu' ? (this.pageSelected = 1) : null;
+      this.router.url === '/base/booking' ? (this.pageSelected = 2) : null;
+      this.router.url === '/base/location' ? (this.pageSelected = 3) : null;
+      this.router.url === '/base/order' ? (this.pageSelected = 4) : null;
+      this.router.url === '/base/new' ? (this.pageSelected = 5) : null;
+     // this.router.url === '/base/admin' ? (this.pageSelected = 6) : null;
     }
   }
   });
@@ -146,6 +124,7 @@ export class NavbarComponent  {
 
 
   selected(index: number) {
+    console.log('navigate success')
     this.router.navigate([this.pages[index].link]);
   }
 

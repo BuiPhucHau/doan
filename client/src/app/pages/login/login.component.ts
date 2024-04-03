@@ -52,9 +52,8 @@ export class LoginComponent {
         this.isGetSuccessUser = true;
         console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
 
-        if (this.accountData.password != '' && this.accountData.email != '' && !this.isLoginWithGoogle) {
+        if (this.accountData.password != '' && this.accountData.email != '') {
           console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
-          console.log('Có user nhưng kh phải Google');
           if (user.password == this.accountData.password) {
             const userAsJsoBth = JSON.stringify(user);
             localStorage.setItem('user', userAsJsoBth);

@@ -11,11 +11,12 @@ import * as UserActions from '../../ngrx/actions/user.actions';
 import { User } from '../../models/user.model';
 import { ShareModule } from '../../shared/shared.module';
 import { TaigaModule } from '../../shared/taiga.module';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ShareModule, TaigaModule],
+  imports: [ShareModule, TaigaModule, FormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
