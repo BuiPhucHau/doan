@@ -30,16 +30,16 @@ export class LocationController {
   @Put('update')
   async update(@Query('id') id: string, @Body() updateLocationDto: UpdateLocationDto) {
     try{
-      const newLocation = await this.locationService.update(id, updateLocationDto);
-      return newLocation;
+      const updatedLocation = await this.locationService.update(id, updateLocationDto);
+      return updatedLocation;
     }
     catch(err){
       throw err;
     }
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
+  @Delete('delete')
+  async remove(@Query('id') id: string) {
     try{
       const deletedLocation = await this.locationService.remove(id);
       return deletedLocation;

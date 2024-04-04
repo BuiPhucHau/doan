@@ -43,6 +43,11 @@ export const LAYOUT_ROUTES: Routes = [
             import('./new/new.routes').then((m) => m.NEW_ROUTERS),
         },
         {
+          path: 'base/admin',
+          loadChildren: () =>
+            import ('./admin/admin.routes').then((m) => m.ADMIN_ROUTERS),
+        },
+        {
           path: 'login',
           loadChildren: () =>
             import('../login/login.routes').then((m) => m.LOGIN_ROUTES),

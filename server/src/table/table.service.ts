@@ -57,5 +57,14 @@ export class TableService {
   }
 }
 
+  async remove(id: string) {
+    try {
+      const deletedTable = await this.tableModel.findOneAndDelete({ tableId: id });
+      return deletedTable;
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
+
 
 }

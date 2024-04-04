@@ -21,6 +21,12 @@ export class Table {
   })
   reservationId?: string;
 
+  @Prop ({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Location',
+    required: true,
+  })
+  locationId: string;
 }
 
 export const TableSchema = SchemaFactory.createForClass(Table);

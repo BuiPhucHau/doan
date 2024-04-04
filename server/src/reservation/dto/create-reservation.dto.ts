@@ -1,6 +1,6 @@
 export class CreateReservationDto {
     constructor(
-        public rId: string,
+        public reservationId: string,
         public numberofPeople: number,
         public date: Date,
         public time: string,

@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  Put,
+  Query,
 } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
@@ -31,6 +33,16 @@ export class ReservationController {
     try {
       const reservations = await this.reservationService.findAll();
       return reservations;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Put('update')
+  async update(@Query('id') id: string, @Body() updateReservationDto: UpdateReservationDto) {
+    try {
+      const updatedReservation = await this.reservationService.update(id, updateReservationDto);
+      return updatedReservation;
     } catch (error) {
       throw error;
     }

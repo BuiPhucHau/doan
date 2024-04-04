@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CategoryService } from 'src/category/category.service';
 import { DishService } from './dish.service';
 import { CreateDishDto } from './dto/create-dish.dto';

@@ -12,6 +12,8 @@ export class ReservationService {
   constructor(
     @InjectModel(Reservation.name)
     private readonly reservationModel: Model<Reservation>,
+    @InjectModel(Table.name)
+    private readonly tableModel: Model<Table>,
     @Inject(TableService) private readonly tableService: TableService,
   ) {}
 
@@ -19,9 +21,26 @@ export class ReservationService {
     createReservationDto: CreateReservationDto,
   ): Promise<Reservation> {
     try {
-      const createReservation = new this.reservationModel(createReservationDto);
-      return await createReservation.save();
-    } catch (error) {}
+      // Kiểm tra trạng thái bàn
+      const table = await this.tableModel.findOne({
+        tableId: createReservationDto.tableId,
+      });
+      if (table.status === true) {
+        // Tạo và lưu reservation
+        const createReservation = new this.reservationModel(createReservationDto,);
+        // Lưu reservation
+        const savedReservation = await createReservation.save();
+        // Cập nhật trạng thái bàn
+        table.status = false;
+        table.reservationId = createReservation._id.toString();
+        await table.save();
+
+        return savedReservation;
+      }
+      throw new Error('Table is not available for reservation');
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
   }
 
   async findAll() {
@@ -33,7 +52,7 @@ export class ReservationService {
     }
   }
 
-  async update (id: string, updateReservationDto:  UpdateReservationDto) {
+  async update(id: string, updateReservationDto: UpdateReservationDto) {
     try {
       const updatedReservation = await this.reservationModel.findOneAndUpdate(
         { reservationId: id },

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put } from '@nestjs/common';
 import { TableService } from './table.service';
 import { CreateTableDto } from './dto/create-table.dto';
 import { UpdateTableDto } from './dto/update-table.dto';
@@ -27,4 +27,23 @@ export class TableController {
     }
   }
 
+  @Put('update')
+  async update(@Query('id') id: string, @Body() updateTableDto: UpdateTableDto) {
+    try {
+      const updatedTable = await this.tableService.update(id, updateTableDto);
+      return updatedTable;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Delete('delete')
+  async remove(@Query('id') id: string) {
+    try {
+      const deletedTable = await this.tableService.remove(id);
+      return deletedTable;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

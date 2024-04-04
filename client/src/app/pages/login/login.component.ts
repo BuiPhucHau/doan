@@ -24,8 +24,8 @@ import * as AuthActions from '../../ngrx/actions/auth.actions';
 export class LoginComponent {
 
   isLoginWithGoogle = false;
-  user$ = this.store.select('user' , 'user');
-  userFirebase : UserFirebase = <UserFirebase>{};
+  user$ = this.store.select('user', 'user');
+  userFirebase: UserFirebase = <UserFirebase>{};
   userFirebase$ = this.store.select('auth', 'userFirebase');
   isGetSuccessUser = false;
 
@@ -35,20 +35,20 @@ export class LoginComponent {
     private store: Store<{ auth: AuthState; user: UserState }>
   ) {
     onAuthStateChanged(this.auth, (user) => {
-          if (user && user.email != undefined && user.email !="") {
-            this.isLoginWithGoogle = true;
-            this.userFirebase = {
-              uid: user.uid,
-              email: user.email || '',
-              name: user.displayName || '',
-              picture: user.photoURL || '',
-            };
-            this.store.dispatch(UserActions.getByEmail({ email: user.email||"" }));
-          }
-        });
+      if (user && user.email) {
+        this.isLoginWithGoogle = true;
+        this.userFirebase = {
+          uid: user.uid,
+          email: user.email || '',
+          name: user.displayName || '',
+          picture: user.photoURL || '',
+        };
+        this.store.dispatch(UserActions.getByEmail({ email: user.email || "" }));
+      }
+    });
 
     this.user$.subscribe((user) => {
-      if (user != <User>{} && user != null && user != undefined && user.email != undefined) {
+      if (user && user.email) {
         this.isGetSuccessUser = true;
         console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
 
@@ -67,7 +67,7 @@ export class LoginComponent {
             };
           }
         } else {
-          if ( this.isLoginWithGoogle && this.userFirebase.email == user.email) {
+          if (this.isLoginWithGoogle && this.userFirebase.email == user.email) {
 
             console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
             const userAsJsonGG = JSON.stringify(user);
@@ -78,12 +78,10 @@ export class LoginComponent {
             this.isGetSuccessUser = false;
           }
         }
-      }
-      if (this.isGetSuccessUser && user.email == "404 user not found"&& this.isLoginWithGoogle)
-      {
+      } else if (this.isGetSuccessUser && user && user.email == "404 user not found" && this.isLoginWithGoogle) {
 
-          console.log(this.userFirebase);
-          this.router.navigate(['/register']);
+        console.log(this.userFirebase);
+        this.router.navigate(['/register']);
 
       }
     });
@@ -98,7 +96,7 @@ export class LoginComponent {
     email: '',
     password: '',
   };
-  
+
   loginWithAccount() {
     this.accountData = {
       email: this.accountForm.value.email || '',
