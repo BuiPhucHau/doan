@@ -34,8 +34,7 @@ export class NavbarComponent {
     { id: 2, name: 'Location', link: 'base/location' },
     { id: 3, name: 'News', link: 'base/new' },
     { id: 4, name: 'Order', link: 'base/order' },
-    { id: 5, name: 'Location', link: 'base/location' },
-    { id: 6, name: 'Admin', link: 'base/admin' },
+    { id: 5, name: 'Admin', link: 'base/admin' },
   ];
   user: User = <User>{};
   route$ = this.router.events;
@@ -121,11 +120,11 @@ export class NavbarComponent {
     if (res.user && res.user.role != 'admin') {
       console.log(res.user.role);
       console.log(this.pages.length);
-      if (this.pages.length === 7) {
-        this.pages.splice(6, 1);
+      if (this.pages.length === 6) {
+        this.pages.splice(5, 1);
       }
     } else if (res.user && res.user.role === 'admin') {
-      const adminPage = { id: 6, name: 'Admin', link: 'base/admin' };
+      const adminPage = { id: 5, name: 'Admin', link: 'base/admin' };
       if (!this.pages.find(page => page.id === adminPage.id)) {
         this.pages.push(adminPage);
       }

@@ -6,13 +6,10 @@
     </div>
 
     <section class="select">
-        <button *ngFor="let page of pages; let i = index"
-                [class.selected]="pageSelected === i"
-                (click)="selected(i)">{{ page.name }}</button>
-      </section>
-    <div class="login" *ngIf="!userForm.value.uid" (click)="login()">
-        <p>Login</p>
-    </div>
+        <button *ngFor="let page of pages; let i = index" [class.selected]="pageSelected === i" (click)="selected(i)">{{
+            page.name }}</button>
+    </section>
+
 
     <div class="login" *ngIf="userForm.value.uid">
         <img style="width: 40px;
@@ -22,9 +19,11 @@
         <div class="profile_menu">
             <p (click)="logout()">Logout</p>
         </div>
-
     </div>
 
+    <div class="login" *ngIf="!userForm.value.uid" (click)="login()">
+        <p>Login</p>
+    </div>
 
 </div>
 

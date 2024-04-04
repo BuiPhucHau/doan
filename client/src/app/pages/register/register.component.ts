@@ -98,9 +98,6 @@ export class RegisterComponent {
         }
       }
 
-    
-  
-
   loginclick() {
     this.router.navigate(['/login']);
   }

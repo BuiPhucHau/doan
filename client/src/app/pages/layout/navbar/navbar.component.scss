@@ -9,6 +9,7 @@
 }
 
 .logo {
+    // width: 10%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -24,6 +25,7 @@
     }
 }
 
+
 .login {
     width: auto;
     color: white;
@@ -36,13 +38,14 @@
     justify-content: space-between;
 }
 .select {
+    width: 60%;
     height: 100%;
     display: flex;
     font-size: 14px;
     justify-content: center;
     align-items: center;
     position: relative;
-    margin-right: 5rem;
+    // margin-right: 5rem;
 }
 
 button {
@@ -114,8 +117,4 @@ button {
             color: white;
         }
     }
-
-    
-
-
 }

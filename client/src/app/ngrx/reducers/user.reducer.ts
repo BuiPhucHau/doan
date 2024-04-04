@@ -85,7 +85,6 @@ export const userReducer = createReducer(
   
   on(UserActions.storedUser, (state, {user, type}) =>{
     console.log(type);
-    
     return {
       ...state,
       user: user
@@ -94,7 +93,6 @@ export const userReducer = createReducer(
 
   on(UserActions.resetUser, (state, {type}) =>{
     console.log(type);
-    
     return {
       ...state,
       isGetLoading: false,

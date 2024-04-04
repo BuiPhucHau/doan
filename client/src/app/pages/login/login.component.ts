@@ -56,7 +56,7 @@ export class LoginComponent {
           console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
           if (user.password == this.accountData.password) {
             const userAsJsoBth = JSON.stringify(user);
-            localStorage.setItem('user', userAsJsoBth);
+            sessionStorage.setItem('user', userAsJsoBth);
             console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
             this.router.navigate(['/base/home']);
             this.isGetSuccessUser = false;
