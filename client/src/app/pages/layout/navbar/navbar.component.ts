@@ -118,8 +118,8 @@ export class NavbarComponent {
     user: this.user$,
   }).subscribe((res) => {
     if (res.user && res.user.role != 'admin') {
-      console.log(res.user.role);
-      console.log(this.pages.length);
+      // console.log(res.user.role);
+      // console.log(this.pages.length);
       if (this.pages.length === 6) {
         this.pages.splice(5, 1);
       }

@@ -34,6 +34,7 @@ export class LoginComponent {
     private auth: Auth,
     private store: Store<{ auth: AuthState; user: UserState }>
   ) {
+    
     onAuthStateChanged(this.auth, (user) => {
       if (user && user.email) {
         this.isLoginWithGoogle = true;
@@ -72,13 +73,13 @@ export class LoginComponent {
             console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
             const userAsJsonGG = JSON.stringify(user);
             sessionStorage.setItem('user', userAsJsonGG);
-
+            console.log(sessionStorage);
             this.router.navigate(['/base/home']);
             console.log('login w gg');
             this.isGetSuccessUser = false;
           }
         }
-      } else if (this.isGetSuccessUser && user && user.email == "404 user not found" && this.isLoginWithGoogle) {
+      } else if (this.isGetSuccessUser && user.email == "404 user not found"&& this.isLoginWithGoogle) {
 
         console.log(this.userFirebase);
         this.router.navigate(['/register']);

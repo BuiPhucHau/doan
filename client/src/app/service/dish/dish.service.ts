@@ -1,9 +1,44 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Dish } from '../../models/dish.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DishService {
+  constructor(private httpClient: HttpClient) {}
 
-  constructor() { }
+  createDish(dish : any) { 
+    return this.httpClient.post<Dish[] | any>('http://localhost:3000/dish/create', dish);
+  }
+
+  getDishes(isConfirmed: boolean) {
+    return this.httpClient.get<Dish[] | any>(
+      `http://localhost:3000/dish?isConfirmed=${isConfirmed}`
+    );
+  }
+
+  removeDish(dId: string) {
+    return this.httpClient.delete(
+      `http://localhost:3000/dish/delete?=id/${dId}`
+    );
+  }
+
+  updateDish(dish: any) {
+    return this.httpClient.put<Dish[] | any>(
+      `http://localhost:3000/dish/update/${dish.dId}`, dish
+    );
+  }
+
+  confirmDish(dId: string) {
+    return this.httpClient.put<Dish[] | any>(
+      `http://localhost:3000/dish/confirm/${dId}`, {status: true}
+    );
+  }
+
+  updateStatusAll( ids: string[], status: boolean) {
+    return this.httpClient.put<Dish[] | any>(
+      `http://localhost:3000/dish/allstatus?status=${status}`, {ids}
+    );
+  }
 }

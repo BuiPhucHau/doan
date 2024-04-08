@@ -29,6 +29,12 @@ export class Dish {
         ref: 'Storage',
         required: true})
     image: string;
+
+    @Prop({required: true})
+    status: boolean;
+
+    @Prop({required: true})
+    isConfirmed: boolean;
 }
 
 export const DishSchema = SchemaFactory.createForClass(Dish);

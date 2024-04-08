@@ -8,6 +8,8 @@ export class CreateDishDto {
         public price: number,
         public image: string,
         public cId: string,
+        public status: boolean,
+        public isConfirmed: boolean
     ) 
     {}
 }

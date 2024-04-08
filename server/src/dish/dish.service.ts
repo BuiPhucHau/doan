@@ -77,6 +77,34 @@ catch(err){
     }
   }
 
+  async updateStatus(id: string, status: boolean){
+    try{
+      const updatedDish = await this.dishModel.findOneAndUpdate(
+        {dId: id},
+        {status: status},
+        {new: true}
+        );
+        return updatedDish;
+    }
+    catch(err){
+      throw new HttpException(err.message, err.status);
+    }
+  }
+
+  async updateIsConfirmed(id: string, isConfirmed: boolean){
+    try{
+      const updatedDish = await this.dishModel.findOneAndUpdate(
+        {dId: id},
+        {isConfirmed: isConfirmed},
+        {new: true}
+        );
+        return updatedDish;
+    }
+    catch(err){
+      throw new HttpException(err.message, err.status);
+    }
+  }
+
   async remove(id: string) {
     try{
       const deletedDish = await this.dishModel.findOneAndDelete({dId: id});

@@ -2,6 +2,9 @@ import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
 import { TuiRootModule, TuiDialogModule, TuiAlertModule, TUI_SANITIZER } from "@taiga-ui/core";
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { User } from "./models/user.model";
+import { Store } from "@ngrx/store";
+import { UserState } from "./ngrx/state/user.state";
 
 @Component({
   selector: 'app-root',
@@ -13,4 +16,10 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'client';
+
+  user: User = <User>{};
+  constructor(
+    private store: Store<{user: UserState}>
+  ){
+  }
 }
