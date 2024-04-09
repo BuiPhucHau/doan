@@ -8,14 +8,12 @@ import { Dish } from '../../models/dish.model';
 export class DishService {
   constructor(private httpClient: HttpClient) {}
 
-  createDish(dish : any) { 
-    return this.httpClient.post<Dish[] | any>('http://localhost:3000/dish/create', dish);
+  getDish() {
+    return this.httpClient.get<Dish[] | any>('http://localhost:3000/dish/get-all');
   }
 
-  getDishes(isConfirmed: boolean) {
-    return this.httpClient.get<Dish[] | any>(
-      `http://localhost:3000/dish?isConfirmed=${isConfirmed}`
-    );
+  createDish(dish : any) { 
+    return this.httpClient.post<Dish[] | any>('http://localhost:3000/dish/create', dish);
   }
 
   removeDish(dId: string) {

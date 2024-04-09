@@ -1,3 +1,6 @@
+import { Category } from './category.model';
+import { Storage } from './storage.model';
+
 
 export interface Dish {
     _id: string,
@@ -5,8 +8,8 @@ export interface Dish {
     nameDish: string,
     description: string,
     price: number,
-    image: string,
-    cId: string,
+    image: Storage,
+    cId: Category,
     status: boolean,
     // isConfirmed:boolean
 }

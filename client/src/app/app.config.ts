@@ -16,7 +16,9 @@ import { AuthEffects } from './ngrx/effects/auth.effects';
 import { provideHttpClient } from '@angular/common/http';
 import { environment } from '../environments/environments';
 import { userReducer } from './ngrx/reducers/user.reducer';
+import { dishReducer } from './ngrx/reducers/dish.reducer';
 import { UserEffects } from './ngrx/effects/user.effects';
+import { DishEffects } from './ngrx/effects/dish.effects';
 
 
 export const appConfig: ApplicationConfig = {
@@ -35,7 +37,9 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideState({name: 'auth', reducer: authReducer}),
     provideState({name: 'user', reducer: userReducer}),
-    provideEffects([AuthEffects, UserEffects]),
+    provideState ({name: 'dish', reducer: dishReducer}),
+    
+    provideEffects([AuthEffects, UserEffects, DishEffects]),
     provideHttpClient(),
   ],
 };

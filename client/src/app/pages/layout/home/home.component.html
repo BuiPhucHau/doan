@@ -44,13 +44,23 @@
 
 </div>
 
-<div class="rectangle_3">
-  <p>hi</p>
+<div class="rectangle_3"  >
+    <div *ngFor="let dish of dishList">
+       <h1 style="color: red; ">{{dish.nameDish}}</h1> 
+       <h1 style="color: red; ">{{dish.description}}</h1> 
+    </div>
 </div>
+        
+<!-- <div class="rectangle_3">
+    <h1>Hi</h1>
+</div> -->
 
-<div class="rectangle_4">
-    <div class="happy">
-        <h1>HAPPY CUSTOMERS</h1>
+
+
+<div class="rectangle_4" >
+    <div class="happy" *ngFor="let dish of dishList">
+        <!-- <h1>HAPPY CUSTOMERS</h1> -->
+        <h1>{{dish.nameDish}}</h1>
     </div>
     <div class="happy">
         <p class="text_happy"> We hope you enjoyed the dish. We believe this dish has given you an unforgettable dining

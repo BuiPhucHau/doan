@@ -11,16 +11,13 @@ export class DishEffects {
   getDish$ = createEffect(() =>
     this.action$.pipe(
       ofType(DishActions.get),
-      exhaustMap((action) =>
-        this.dishService.getDishes(action.isConfirmed).pipe(
+      exhaustMap(() =>
+        this.dishService.getDish().pipe(
           map((items) => {
-            if (items != null || items != undefined) {
-              if (items.message) {
-                return DishActions.getFailure({ getErrMess: items.message });
-              }
-              return DishActions.getSucces({ dishList: items });
+            if(items.length > 0) {
+              return DishActions.getSuccess({ dishList: items });
             } else {
-              return DishActions.getFailure({ getErrMess: 'Dish null' });
+              return DishActions.getFailure({ getErrMess: 'No dish found' });
             }
           }),
           catchError((err) => of(DishActions.getFailure({ getErrMess: err })))
