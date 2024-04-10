@@ -13,6 +13,7 @@ import { TableModule } from './table/table.module';
 import { LocationModule } from './location/location.module';
 import { OrderModule } from './order/order.module';
 import { OrderdetailModule } from './orderdetail/orderdetail.module';
+import { PaymentModule } from './payment/payment.module';
 
 
 @Module({
@@ -35,7 +36,10 @@ import { OrderdetailModule } from './orderdetail/orderdetail.module';
   OrderModule,
   
  
-  OrderdetailModule
+  OrderdetailModule,
+  
+ 
+  PaymentModule
 ],
   controllers: [AppController],
   providers: [AppService],
