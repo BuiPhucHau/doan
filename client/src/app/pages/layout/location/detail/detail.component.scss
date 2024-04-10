@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Nanum+Gothic+Coding&family=Pacifico&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 .container {
     width: 100%;
     height: 100%;
@@ -6,12 +7,16 @@
 .title {
     width: 100%;
     height: 25%;
-    background-color: rgb(98, 236, 251);
+    background-color:white;
+    font-size: 25px;
     display: flex;
+    font-weight: 600;
     justify-content: center;
     align-items: center;
     .text {
         margin: 0;
+       
+        font-weight: 700;
         }
 }
 
@@ -21,11 +26,12 @@
     background-color: bisque;
     display:flex;
     flex-direction: row;
-
+    border: solid 1px black;
     .image {
         width: 60%;
         height: 100%;
-        background-color: black;
+        background-image: url("/../../assets/image/location-1.jpg");
+        background-size: cover;
     }
 
     .container_detail {
@@ -33,15 +39,32 @@
         height: 100%;
         background-color: white;
         display: flex;
+        font-size: 10px;
         align-items: center;
         justify-content: center;
+       .Access{
+        font-family: "Dancing Script", cursive;
+        font-size: 80px;
+        font-weight: 400;
 
+       }
+       .address{
+        font-family: "Dancing Script", cursive;
+        font-size: 20px;
+        font-weight: 500;
+       }
+       .phone{
+        font-family: "Dancing Script", cursive;
+        font-weight: 500;
+        font-size: 20px;
+       }
         .detail {
-            width: 400px;
+            width: 550px;
             height: 400px;
             margin-top: 3rem;
-            margin-right: 10rem;
-            background-color: bisque;
+            margin-right: 7rem;
+            margin-left: 4rem;
+            
         }
     }
 }
