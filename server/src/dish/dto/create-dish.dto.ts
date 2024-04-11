@@ -9,7 +9,8 @@ export class CreateDishDto {
         public image: string,
         public cId: string,
         public status: boolean,
-        public isConfirmed: boolean
+        // public isConfirmed: boolean
+        public featured: boolean
     ) 
     {}
 }

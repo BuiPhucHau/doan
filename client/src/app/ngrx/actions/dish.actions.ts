@@ -3,6 +3,8 @@ import { Dish } from '../../models/dish.model';
 
 export const get = createAction(
     '[Dish] get all',
+    props<{ featured?: boolean }>()
+    
   );
 
 export const getSuccess = createAction(

@@ -34,7 +34,7 @@ export class Dish {
     status: boolean;
 
     @Prop({required: true})
-    isConfirmed: boolean;
+    featured: boolean;
 }
 
 export const DishSchema = SchemaFactory.createForClass(Dish);

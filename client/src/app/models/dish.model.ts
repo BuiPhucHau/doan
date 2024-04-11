@@ -11,5 +11,6 @@ export interface Dish {
     image: Storage,
     cId: Category,
     status: boolean,
+    featured: boolean,
     // isConfirmed:boolean
 }

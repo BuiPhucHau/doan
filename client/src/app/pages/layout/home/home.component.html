@@ -21,6 +21,7 @@
                 TABLE BOOKING
             </button>
         </div>
+
     </div>
 </div>
 <div class="rectangle_2">
@@ -43,19 +44,33 @@
 
 </div>
 
-<div class="rectangle_3"  >
-    <div class="menu" *ngFor="let dish of dishList">
-       <h1>{{dish.nameDish}}</h1>
-       <p>{{dish.description}}</p>
+<!-- <div class="rectangle_3"  >
+    <div *ngFor="let dish of dishList">
+        <div class="dish_featured" *ngIf="dish.featured">
+            <img class="image_featured" *ngFor="let img of dish.image.urls" [src]="img" alt="">
+        </div>
     </div>
-</div>
-        
-<!-- <div class="rectangle_3">
-    <h1>Hi</h1>
 </div> -->
+<div class="container_slider">
+    <div class="slider" (mouseenter)="stopSlider()" (mouseleave)="startSlider()">
+        <div class="list" [style.transform]="'translateX(' + (-activeIndex * 1300) + 'px)'">
+            <div class="item" *ngFor="let dish of dishList">
+                <img class="image_featured" *ngFor="let img of dish.image.urls" [src]="img" alt="">
+            </div>
+        </div>
+    </div>
+    <button class="next" (click)="nextSlide()">></button>
+</div>
 
 
-<div class="rectangle_4" >
+
+
+
+
+
+
+
+<div class="rectangle_4">
     <div class="happy">
         <h1>HAPPY CUSTOMERS</h1>
     </div>
