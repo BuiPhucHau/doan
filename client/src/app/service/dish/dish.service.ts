@@ -28,11 +28,11 @@ export class DishService {
     );
   }
 
-  confirmDish(dId: string) {
-    return this.httpClient.put<Dish[] | any>(
-      `http://localhost:3000/dish/confirm/${dId}`, {status: true}
-    );
-  }
+  // confirmDish(dId: string) {
+  //   return this.httpClient.put<Dish[] | any>(
+  //     `http://localhost:3000/dish/confirm/${dId}`, {status: true}
+  //   );
+  // }
 
   updateStatusAll( ids: string[], status: boolean) {
     return this.httpClient.put<Dish[] | any>(

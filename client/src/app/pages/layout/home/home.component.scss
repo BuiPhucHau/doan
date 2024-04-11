@@ -90,12 +90,20 @@
 
 .rectangle_3 {
     width: 100%;
-    height: 100%;
+    height: 500px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center menu horizontally */
-    align-items: center; /* Center menu vertically */
+    justify-content: center;
+    align-items: center;
   
+    .menu {
+        width: auto;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
   }
 
 .rectangle_4 {

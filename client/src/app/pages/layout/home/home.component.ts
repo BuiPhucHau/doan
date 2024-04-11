@@ -36,18 +36,16 @@ export class HomeComponent implements OnDestroy{
       dish: DishState;
       auth: AuthState;
       user: UserState;
-
     }>,
   ) {
     this.store.dispatch(DishActions.get());
-
+    
     this.subscriptions.push(
       this.dish$.subscribe((dishList) => {
         if (dishList.length>0) { 
           console.log(dishList);
           this.dishList = dishList;
         }
-        
     }),
 
       // this.user$.subscribe((user) => {
@@ -67,9 +65,7 @@ export class HomeComponent implements OnDestroy{
       //     this.store.dispatch(UserActions.storedUser(this.user));
       //   }
       // })
-  );
-    
-    
+  );  
   }
   ngOnDestroy(): void {
    this.subscriptions.forEach((subscription) => {
