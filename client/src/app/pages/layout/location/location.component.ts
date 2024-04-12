@@ -38,8 +38,8 @@ export class LocationComponent {
 
     {
       
-      name:"Curst Gourmet Trường Sơn",
-      address:"Số 01 Trường Sơn, Cư Xá Bắc Hải, P.15, Quận 10 "
+      name:"Curst Gourmet Thành Thái",
+      address:" 45 Thành thái, P.15, Quận 10 "
     },
 
     {
