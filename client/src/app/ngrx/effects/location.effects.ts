@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, exhaustMap, map, of } from 'rxjs';
 import { LocationService } from '../../service/location/location.service';
 import * as LocationActions from '../actions/location.actions';
 
@@ -11,15 +10,23 @@ export class LocationEffects {
   constructor(
     private actions$: Actions,
     private locationService: LocationService
-  ) {}
+  ) { }
 
-  loadLocation$ = createEffect(() => this.actions$.pipe(
+  getLocation$ = createEffect(() => 
+    this.actions$.pipe(
     ofType(LocationActions.get),
-    switchMap(() =>
+    exhaustMap(() =>
       this.locationService.getLocation().pipe(
-        map(locationList => LocationActions.getSuccess({ locationList })),
-        catchError(error => of(LocationActions.getFailure({ getErrMess: error.message }))) 
+        map((items) => {
+          if (items.length > 0) {
+            return LocationActions.getSuccess({ locationList: items });
+          } else {
+            return LocationActions.getFailure({ getErrMess: 'No location found' });
+          }
+        }),
+        catchError((err) => of(LocationActions.getFailure({ getErrMess: err })))
       )
     )
-  ));
+  )
+  );
 }

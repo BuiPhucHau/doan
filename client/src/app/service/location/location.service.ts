@@ -12,15 +12,15 @@ export class LocationService {
     return this.httpClient.get<Location[] | any>('http://localhost:3000/location/get-all');
   }
 
-  createLocation(dish : any) { 
-    return this.httpClient.post<Location[] | any>('http://localhost:3000/Location/create', dish);
+  createLocation(location : any) { 
+    return this.httpClient.post<Location[] | any>('http://localhost:3000/Location/create', location);
   }
 
-  removeLocation(dId: string) {
-    return this.httpClient.delete(
-      `http://localhost:3000/Location/delete?=id/${dId}`
-    );
-  }
+  // removeLocation(dId: string) {
+  //   return this.httpClient.delete(
+  //     `http://localhost:3000/Location/delete?=id/${dId}`
+  //   );
+  // }
 
 //   updateLocation(dish: any) {
 //     return this.httpClient.put<Location[] | any>(

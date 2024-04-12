@@ -1,12 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import * as LocationActions from '../actions/location.actions';
 import { Location } from '../../models/location.model';
-export interface LocationState {
-  isGetLoading: boolean;
-  isGetSuccess: boolean;
-  getErrMess: any;
-  locationList: any[]; // Assuming your locationList can contain any type of data
-}
+import { LocationState } from '../state/location.state';
 
 export const initialState: LocationState = {
   isGetLoading: false,
@@ -17,24 +12,33 @@ export const initialState: LocationState = {
 
 export const locationReducer = createReducer(
   initialState,
-  on(LocationActions.get, state => ({
-    ...state,
-    isGetLoading: true,
-    isGetSuccess: false,
-    getErrMess: '',
-  })),
+  on(LocationActions.get, (state) => {
 
-  on(LocationActions.getSuccess, (state, action) => ({
-    ...state,
-    isGetLoading: false,
-    isGetSuccess: true,
-    locationList: action.locationList,
-  })),
+    console.log('get location reducer');
+    return {
+      ...state,
+      isGetLoading: true,
+      isGetSuccess: false,
+      getErrMess: '',
+    };
+  }),
 
-  on(LocationActions.getFailure, (state, action) => ({
-    ...state,
-    isGetLoading: false,
-    isGetSuccess: false,
-    getErrMess: action.getErrMess,
-  }))
+  on(LocationActions.getSuccess, (state, action) => {
+    console.log('getsuccess location reducer');
+    return {
+      ...state,
+      isGetLoading: false,
+      isGetSuccess: true,
+     locationList : action.locationList,
+    };
+  }),
+
+  on(LocationActions.getFailure, (state, action) => {
+    return {
+      ...state,
+      isGetLoading: false,
+      isGetSuccess: false,
+      getErrMess: action.getErrMess,
+    };
+  })
 );

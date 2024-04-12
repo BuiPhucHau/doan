@@ -50,23 +50,7 @@ export class HomeComponent implements OnDestroy{
         
     }),
 
-      // this.user$.subscribe((user) => {
-      //   if (user._id != null && user._id != undefined) {
-      //     this.user = user;
-
-      //     const userAsJson = JSON.stringify(user);
-      //     // Lưu đối tượng userAsJson vào sessionStorage
-      //     sessionStorage.setItem('user', userAsJson);
-      //     console.log('Lưu vào sessionStorage');
-      //   } else {
-          
-      //     // Lấy đối tượng user từ sessionStorage
-      //     const userAsJson = sessionStorage.getItem('user');
-      //     // Chuyển đổi chuỗi sang đối tượng user
-      //     this.user = JSON.parse(userAsJson || '');
-      //     this.store.dispatch(UserActions.storedUser(this.user));
-      //   }
-      // })
+    
   );
     
     
