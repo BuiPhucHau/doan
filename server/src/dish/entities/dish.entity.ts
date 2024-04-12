@@ -21,7 +21,7 @@ export class Dish {
     @Prop({
         required: true
     })
-    cId: Category[];
+    category: Category;
 
     @Prop({
        type: mongoose.Schema.Types.ObjectId,

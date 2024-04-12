@@ -9,7 +9,7 @@ export interface Dish {
     description: string,
     price: number,
     image: Storage,
-    cId: Category,
+    category: Category,
     status: boolean,
     featured: boolean,
     // isConfirmed:boolean
