@@ -29,7 +29,7 @@ catch(err){
     try{
       const dishes = await this.dishModel.find()
       .populate('image','urls', this.storageModel)
-      .populate('cId','name', this.categoryModel)
+      .populate('cId','nameCategory', this.categoryModel)
       .exec();
       return dishes;
     }
@@ -42,7 +42,7 @@ catch(err){
     try{
       const dishes = await this.dishModel.findById(objectId)
       .populate('image','urls', this.storageModel)
-      .populate('cId','name', this.categoryModel)
+      .populate('cId','nameCategory', this.categoryModel)
       .exec();
       return dishes;
     }
@@ -55,7 +55,7 @@ catch(err){
     try{
       const dish = await this.dishModel.findOne({dId : id})
       .populate('image','urls', this.storageModel)
-      .populate('cId','name', this.categoryModel)
+      .populate('cId','nameCategory', this.categoryModel)
       .exec();
       return dish;
     }
