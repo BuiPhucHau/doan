@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ShareModule } from '../../../shared/shared.module';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { Router } from '@angular/router';
@@ -7,10 +7,9 @@ import { DishState } from '../../../ngrx/state/dish.state';
 import { AuthState } from '../../../ngrx/state/auth.state';
 import { UserState } from '../../../ngrx/state/user.state';
 import { User } from '../../../models/user.model';
-import * as UserActions from '../../../ngrx/actions/user.actions';
 import * as DishActions from '../../../ngrx/actions/dish.actions';
 import { Dish } from '../../../models/dish.model';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home', 

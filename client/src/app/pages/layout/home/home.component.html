@@ -55,6 +55,7 @@
     <div class="slider" (mouseenter)="stopSlider()" (mouseleave)="startSlider()">
         <div class="list" [style.transform]="'translateX(' + (-activeIndex * 1300) + 'px)'">
             <div class="item" *ngFor="let dish of dishList">
+                    <!-- <p>{{dish.nameDish}}</p> -->
                 <img class="image_featured" *ngFor="let img of dish.image.urls" [src]="img" alt="">
             </div>
         </div>
