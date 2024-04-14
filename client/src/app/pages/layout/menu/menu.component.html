@@ -1,51 +1,47 @@
 <div class="container">
-
     <div tuiCarouselButtons class="wrapper">
         <button icon="tuiIconChevronLeftLarge" title="Previous" tuiIconButton type="button"
             (click)="carousel.prev()"></button>
         <tui-carousel #carousel class="carousel">
             <tui-island *tuiItem>
-                <ng-container *ngFor="let item of items; let i = index">
-                    <div *ngIf="item.id === '1'">
-                        <p id="content">{{ item.title }}</p>
+                <ng-container >
+                    <div *ngFor="let dish of dishList">
+                        <p *ngIf="dish.cId.cId ==='category_1'" id="content">{{dish.cId.nameCategory}}</p>
                         <ul>
-                            <li *ngFor="let dish of item.dishes">
-                                <p class="dish_item">{{ dish.name }}</p>
+                            <li >
+                                <p class="dish_item">{{ dish.nameDish }}</p>
                                 <p class="price">{{ dish.price }}</p>
                             </li>
                         </ul>
                     </div>
                 </ng-container>
             </tui-island>
-
-            <tui-island *tuiItem>
-                <ng-container *ngFor="let item of items; let i = index">
-                    <div *ngIf="item.id === '2'">
-                        <p id="content">{{ item.title }}</p>
-                        <ul>
-                            <li *ngFor="let dish of item.dishes">
-                                <p class="dish_item">{{ dish.name }}</p>
-                                <p class="price">{{ dish.price }}</p>
-                            </li>
-                        </ul>
-                    </div>
-                </ng-container>
-            </tui-island>
-            
-            <tui-island *tuiItem>
-                <ng-container *ngFor="let item of items; let i = index">
-                    <div *ngIf="item.id === '3'">
-                        <p id="content">{{ item.title }}</p>
-                        <ul>
-                            <li *ngFor="let dish of item.dishes">
-                                <p class="dish_item">{{ dish.name }}</p>
-                                <p class="price">{{ dish.price }}</p>
-                            </li>
-                        </ul>
-                    </div>
-                </ng-container>
-            </tui-island>
-            
+                <tui-island *tuiItem>
+                    <ng-container >
+                        <div *ngFor="let dish of dishList">
+                            <p *ngIf="dish.cId.cId ==='category_2'" id="content">{{dish.cId.nameCategory}}</p>
+                            <ul>
+                                <li >
+                                    <p class="dish_item">{{ dish.nameDish }}</p>
+                                    <p class="price">{{ dish.price }}</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </ng-container>
+                </tui-island>
+                    <tui-island *tuiItem>
+                        <ng-container >
+                            <div *ngFor="let dish of dishList">
+                                <p *ngIf="dish.cId.cId ==='category_3'" id="content">{{dish.cId.nameCategory}}</p>
+                                <ul>
+                                    <li >
+                                        <p class="dish_item">{{ dish.nameDish }}</p>
+                                        <p class="price">{{ dish.price }}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-container>
+                    </tui-island>
             <tui-island *tuiItem>
                 <tui-loader></tui-loader>
             </tui-island>
@@ -56,8 +52,7 @@
                 </p>
             </tui-island>
         </tui-carousel>
-
         <button icon="tuiIconChevronRightLarge" title="Next" tuiIconButton type="button"
             (click)="carousel.next()"></button>
-    </div>
+</div>
 </div>
