@@ -29,7 +29,6 @@ catch(err){
     try{
       const dishes = await this.dishModel.find()
       .populate('image','urls', this.storageModel)
-      .populate('cId','nameCategory', this.categoryModel)
       .exec();
       return dishes;
     }
