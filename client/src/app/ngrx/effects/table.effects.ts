@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { TableService } from "../../service/table/table.service";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { catchError, exhaustMap, map } from "rxjs";
+import { catchError, exhaustMap, map, of } from "rxjs";
 import * as TableActions from "../actions/table.actions";
 
 @Injectable()
