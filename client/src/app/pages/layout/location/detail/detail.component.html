@@ -1,17 +1,16 @@
+<!-- detail.component.html -->
 <div class="container">
-    <div class="title">
-        <h1 class="text">Curst Gourmet Trường Sơn</h1>
+    <div class="header">
+        <h1 class="text_header">CURST GOURMET</h1>
     </div>
-    <div class="location_detail">
-        <div class="image">
-
-        </div>
-        <div class="container_detail">
-            <div class="detail">
-                <h1 class="Access">Access</h1>
-                <h2 class="address">72 Nguyễn Thị Minh Khai, Phường 6, Quận 3, Thành phố Hồ Chí</h2>
-                <h2 class="phone">Phone: 09868686</h2>
+    <div *ngFor="let location of locationList" class="detail">
+        <h2>Name: {{ location.name}}</h2>
+        <h2>Phone: {{ location.phone }}</h2>
+        <h2>Address: {{ location.address }}</h2>
+        <div class="image-gallery">
+            <div class="image-container" *ngFor="let img of location.image.urls">
+                <img class="image_featured" [src]="img" alt="">
             </div>
         </div>
     </div>
-</div> 
+</div>

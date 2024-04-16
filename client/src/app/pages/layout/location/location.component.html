@@ -5,29 +5,10 @@
     <div class="location">
         <div class="p1" *ngFor="let location of locationList">
             <h3>{{location.name}}</h3>
-            <img class="image_featured" *ngFor="let img of location.image." [src]="img" alt="">
+            <img class="image_featured" *ngFor="let img of location.image.urls" [src]="img" alt="">
             <button class="Detail"(click)="detail()"> View Detail</button>
         </div>
-        <!-- <div class="p2">
-            <h3>Curst Gourmet Nguyễn Thị Thập</h3>
-            <button class="Detail"(click)="detail()"> View Detail</button>
-        </div>
-        <div class="p3">
-            <h3>Curst Gourmet Ngô Đức Kế</h3>
-            <button class="Detail"(click)="detail()"> View Detail</button>
-        </div>
-        <div class="p4">
-            <h3>Curst Gourmet Trường Sơn</h3>
-            <button class="Detail"(click)="detail()"> View Detail</button>
-        </div>
-        <div class="p5">
-            <h3>Curst Gourmet Trường Sơn</h3>
-            <button class="Detail"(click)="detail()"> View Detail</button>
-        </div>
-        <div class="p6">
-            <h3>Curst Gourmet Trần Hưng Đạo</h3>
-           
-        </div> -->
+       
     </div>
 
     
