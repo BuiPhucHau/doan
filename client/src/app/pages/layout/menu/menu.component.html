@@ -18,40 +18,35 @@
                     </ng-container>
                 </ng-container>
             </tui-island>
-                <tui-island *tuiItem>
-                    <ng-container *ngFor="let dish of dishList" >
-                        <div *ngIf="dish.category.cId === 'category_2'">
-                            <p id="content">{{dish.category.nameCategory}}</p>
-                            <ul>
-                                <li >
+            <tui-island *tuiItem>
+                <ng-container *ngFor="let category of categories">
+                    <ng-container *ngIf="category.cId === 'category_2'">
+                        <p id="content">{{ category.nameCategory }}</p>
+                        <ul>
+                            <ng-container *ngFor="let dish of dishList">
+                                <li *ngIf="dish.category.cId === 'category_2'">
                                     <p class="dish_item">{{ dish.nameDish }}</p>
                                     <p class="price">{{ dish.price }}</p>
                                 </li>
-                            </ul>
-                        </div>
+                            </ng-container>
+                        </ul>
                     </ng-container>
-                </tui-island>
-                    <tui-island *tuiItem>
-                        <ng-container >
-                            <div *ngFor="let dish of dishList">
-                                <p *ngIf="dish.category.cId ==='category_3'" id="content">{{dish.category.nameCategory}}</p>
-                                <ul>
-                                    <li >
-                                        <p class="dish_item">{{ dish.nameDish }}</p>
-                                        <p class="price">{{ dish.price }}</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </ng-container>
-                    </tui-island>
-            <tui-island *tuiItem>
-                <tui-loader></tui-loader>
+                </ng-container>
             </tui-island>
-            <tui-island *tuiItem class="tui-island_text-align_center">
-                <h2 class="tui-island__title">Failed to load</h2>
-                <p>
-                    <tui-marker-icon mode="error" src="tuiIconClose"></tui-marker-icon>
-                </p>
+            <tui-island *tuiItem>
+                <ng-container *ngFor="let category of categories">
+                    <ng-container *ngIf="category.cId === 'category_3'">
+                        <p id="content">{{ category.nameCategory }}</p>
+                        <ul>
+                            <ng-container *ngFor="let dish of dishList">
+                                <li *ngIf="dish.category.cId === 'category_3'">
+                                    <p class="dish_item">{{ dish.nameDish }}</p>
+                                    <p class="price">{{ dish.price }}</p>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </ng-container>
+                </ng-container>
             </tui-island>
         </tui-carousel>
         <button icon="tuiIconChevronRightLarge" title="Next" tuiIconButton type="button"
