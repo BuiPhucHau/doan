@@ -9,7 +9,7 @@ export class CreateDishDto {
         public description: string,
         public price: number,
         public image: string,
-        public cId: Category[],
+        public category: Category,
         public status: boolean,
         // public isConfirmed: boolean
         public featured: boolean

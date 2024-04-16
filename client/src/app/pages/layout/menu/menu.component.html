@@ -6,7 +6,7 @@
             <tui-island *tuiItem>
                 <ng-container >
                     <div *ngFor="let dish of dishList">
-                        <p *ngIf="dish.cId.cId ==='category_1'" id="content">{{dish.cId.nameCategory}}</p>
+                        <p *ngIf="dish.category.cId ==='category_2'" id="content">{{dish.category.nameCategory}}</p>
                         <ul>
                             <li >
                                 <p class="dish_item">{{ dish.nameDish }}</p>
@@ -19,7 +19,7 @@
                 <tui-island *tuiItem>
                     <ng-container >
                         <div *ngFor="let dish of dishList">
-                            <p *ngIf="dish.cId.cId ==='category_2'" id="content">{{dish.cId.nameCategory}}</p>
+                            <p *ngIf="dish.category.cId ==='category_2'" id="content">{{dish.category.nameCategory}}</p>
                             <ul>
                                 <li >
                                     <p class="dish_item">{{ dish.nameDish }}</p>
@@ -29,7 +29,7 @@
                         </div>
                     </ng-container>
                 </tui-island>
-                    <tui-island *tuiItem>
+                    <!-- <tui-island *tuiItem>
                         <ng-container >
                             <div *ngFor="let dish of dishList">
                                 <p *ngIf="dish.cId.cId ==='category_3'" id="content">{{dish.cId.nameCategory}}</p>
@@ -41,7 +41,7 @@
                                 </ul>
                             </div>
                         </ng-container>
-                    </tui-island>
+                    </tui-island> -->
             <tui-island *tuiItem>
                 <tui-loader></tui-loader>
             </tui-island>
