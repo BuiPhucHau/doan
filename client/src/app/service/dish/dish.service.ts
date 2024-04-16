@@ -16,27 +16,27 @@ export class DishService {
     return this.httpClient.post<Dish[] | any>('http://localhost:3000/dish/create', dish);
   }
 
-  removeDish(dId: string) {
-    return this.httpClient.delete(
-      `http://localhost:3000/dish/delete?=id/${dId}`
-    );
-  }
+  // removeDish(dId: string) {
+  //   return this.httpClient.delete(
+  //     `http://localhost:3000/dish/delete?=id/${dId}`
+  //   );
+  // }
 
-  updateDish(dish: any) {
-    return this.httpClient.put<Dish[] | any>(
-      `http://localhost:3000/dish/update/${dish.dId}`, dish
-    );
-  }
+  // updateDish(dish: any) {
+  //   return this.httpClient.put<Dish[] | any>(
+  //     `http://localhost:3000/dish/update/${dish.dId}`, dish
+  //   );
+  // }
 
-  confirmDish(dId: string) {
-    return this.httpClient.put<Dish[] | any>(
-      `http://localhost:3000/dish/confirm/${dId}`, {status: true}
-    );
-  }
+  // confirmDish(dId: string) {
+  //   return this.httpClient.put<Dish[] | any>(
+  //     `http://localhost:3000/dish/confirm/${dId}`, {status: true}
+  //   );
+  // }
 
-  updateStatusAll( ids: string[], status: boolean) {
-    return this.httpClient.put<Dish[] | any>(
-      `http://localhost:3000/dish/allstatus?status=${status}`, {ids}
-    );
-  }
+  // updateStatusAll( ids: string[], status: boolean) {
+  //   return this.httpClient.put<Dish[] | any>(
+  //     `http://localhost:3000/dish/allstatus?status=${status}`, {ids}
+  //   );
+  // }
 }

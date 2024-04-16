@@ -17,8 +17,7 @@ export const locationReducer = createReducer(
   initialState,
   on(LocationActions.get, (state, action) => {
 
-    console.log('get location reducer');
-    return {
+    console.log('get location reducer');    return {
       ...state,
       isGetLoading: true,
       isGetSuccess: false,

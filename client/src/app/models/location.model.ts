@@ -1,4 +1,4 @@
-import { Storage } from '@angular/fire/storage';
+import { Storage } from "./storage.model";
 
 export interface Location {
   _id: string,

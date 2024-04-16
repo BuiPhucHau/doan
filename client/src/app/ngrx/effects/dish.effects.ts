@@ -6,7 +6,10 @@ import * as DishActions from '../actions/dish.actions';
 
 @Injectable()
 export class DishEffects {
-  constructor(private dishService: DishService, private action$: Actions) {}
+  constructor(
+    private dishService: DishService,
+    private action$: Actions
+  ) {}
 
   getDish$ = createEffect(() =>
     this.action$.pipe(
