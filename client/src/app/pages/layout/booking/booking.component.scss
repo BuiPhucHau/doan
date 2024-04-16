@@ -1,94 +1,157 @@
 .container {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.wrapper {
-    width: 60%;
-    border-radius: 16px;
-    padding: 50px;
-    text-align: center;
-    border: 2px solid #ebdd94;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(9px);
+.container-table {
+    width: 50%;
+    height: 100%;
+    border-left: 0.5px solid rgb(180, 180, 180);
+    border-right: 0.5px solid rgb(180, 180, 180);
+
+    .container-filter {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .address {
+            display: flex;
+            width: 200px;
+            margin: 1rem;
+        }
+    
+        .filter {
+            display: flex;
+            flex-direction: row;
+
+            .filter-table {
+                display: flex;
+                flex-direction: row;
+                margin-left: 1rem;
+                margin-bottom: 1rem;
+                border-radius: 10px;
+                border:1px solid rgb(209, 209, 209); /* Set default background color */
+              }
+              
+              .filter-table.active {
+                border: 2px solid var(--tui-primary);
+
+              }
+        }
+    }
+
+    
+
+
+    .tables {
+        width: 100%;
+        height: 80%;
+        margin: auto;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: grid;
+        text-align: center;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 0fr));
+        .table {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 1.5rem;
+        }
+    }
 }
 
-.container_name{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.line {
     width: 100%;
+    height: 0.5px;
+    background-color: rgb(180, 180, 180);
 }
 
-h2 {
-    font-size: 2rem;
-    margin-bottom: 40px;
-    color:black;
+.container-detail_table {
+    width: 20%;
+    height: 100%;
+    border-right: 0.5px solid rgb(180, 180, 180);
+    // border: 2px solid #ebdd94;
+    // padding: 50px;
+    // backdrop-filter: blur(10px);
+    // -webkit-backdrop-filter: blur(9px);
+
+
+    .container_name {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+
+    .input-reservation {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1.5rem;
+    }
+
+    .input-client {
+        margin: 1rem;
+    }
+
+    .lable-reservation {
+        font-size: 14px;
+        font-weight: normal;
+    }
 }
 
-.input-field {
-    position: relative;
-    border-bottom: 2px solid #ebdd94;
-    margin: 35px 50px 0px 50px; 
 
-    flex: 1;
+
+.t-image ng-star-inserted {
+    width: 50% !important;
+    height: 50% !important;
+    object-fit: cover;
 }
-.input-field label {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    color:rgb(117, 113, 113);
-    font-size: 15px;
-    pointer-events: none;
-    transition: 0.15s ease;
-}
-.input-field input {
-    width: 100%;
-    height: 40px;
+
+.avatar {
+    box-shadow: var(--tui-shadow);
     background: transparent;
-    border: none;
-    outline: none;
-    font-size: 1px;
-    color:black;
+    border: 1px solid;
+    height: 150px !important;
+    width: 150px !important;
 
-
+    &:hover {
+        box-shadow: var(--tui-shadow-hover);
+    }
 }
 
-.input-field select {
-    width: 100%;
-    height: 40px;
-    background: transparent;
-    border: none;
-    outline: none;
-font-size: 14px;
-    color:black;
-  }
-
-.input-field input:focus~label,
-.input-field input:valid~label{
-    font-size: 0.8rem;
-    top: 10px;
-    transform: translateY(-120%);
+.input {
+    width: 150px !important;
 }
-
-.forget {
-    display: flex;
+.detail_save{
+    display: flex;justify-content: space-between;
     align-items: center;
-    justify-content: space-between;
-    margin: 25px 0 35px 0;
-    color: rgb(185, 37, 37);
-
+    flex-direction: row;
 }
-
-.container_number{
+.btn_save {
+    margin: 1rem;
     display: flex;
-    flex-direction: column;
-    align-items: start;
+    justify-content: flex-end;
+
 }
-#a{
-    margin: 0px 0px 0px 50px;
+
+.save {
+    display: flex;
+    justify-content: center;
+    font-size: 14px !important;
+    border-radius: 5px;
+    width: 60px !important;
+    height: 35px !important;
+    color: white !important;
+    font-weight: 400 !important;
+    background-color: var(--tui-primary);
+
 }

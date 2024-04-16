@@ -5,8 +5,11 @@ export type TableDocument = HydratedDocument<Table>;
 
 @Schema({ timestamps: true })
 export class Table {
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   tableId: string;
+
+  @Prop({ required: true })
+  tableName: string;
 
   @Prop({ required: true })
   seats: number;
