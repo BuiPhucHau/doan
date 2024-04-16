@@ -21,8 +21,8 @@ import { UserEffects } from './ngrx/effects/user.effects';
 import { DishEffects } from './ngrx/effects/dish.effects';
 import { locationReducer } from './ngrx/reducers/location.reducer';
 import { LocationEffects } from './ngrx/effects/location.effects';
-
-
+import { categoryReducer } from './ngrx/reducers/category.reducer';
+import { CategoryEffects } from './ngrx/effects/category.effects';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
@@ -41,8 +41,9 @@ export const appConfig: ApplicationConfig = {
     provideState({name: 'user', reducer: userReducer}),
     provideState ({name: 'dish', reducer: dishReducer}),
     provideState ({name: 'location', reducer: locationReducer}),
+    provideState ({name: 'category', reducer: categoryReducer}),
     
-    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects]),
+    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects, CategoryEffects]),
     provideHttpClient(),
   ],
 };
