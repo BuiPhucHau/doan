@@ -13,22 +13,26 @@
 
       <div class="filter">
         <button *ngFor="let person of persons"
-                appearance="custom"
-                size="s"
                 tuiButton
+                
+                size="s"
                 type="button"
                 class="filter-table"
                 [ngClass]="{ 'active': person.isActive }"
-                (click)="toggleActive(person)">
-      
+                (click)="filterTable(person.seats)">
           {{ person.seats }}
         </button>
       </div>
+      
+  
+      
+      
+
 
     </div>
 
     <div class="tables">
-      <div class="table" *ngFor="let table of tableList">
+      <div class="table"*ngFor="let table of filteredTables">
         <tui-avatar class="hi" fallback="tuiIconUserLarge" new class="tui-space_left-3 avatar"
           [avatarUrl]="wrongUrl"></tui-avatar>
         <p class="table-number">{{ table.tableName}}</p>

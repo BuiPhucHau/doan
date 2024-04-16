@@ -27,6 +27,8 @@ import { CategoryEffects } from './ngrx/effects/category.effects';
 
 import { tableReducer } from './ngrx/reducers/table.reducer';
 import { TableEffects } from './ngrx/effects/table.effects';
+import { reservationReducer } from './ngrx/reducers/reservation.reducer';
+import { ReservationEffects } from './ngrx/effects/reservation.effects';
 
 
 
@@ -48,14 +50,15 @@ export const appConfig: ApplicationConfig = {
     provideState({name: 'user', reducer: userReducer}),
     provideState ({name: 'dish', reducer: dishReducer}),
     provideState ({name: 'location', reducer: locationReducer}),
-
     provideState ({name: 'category', reducer: categoryReducer}),
-    
-    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects, CategoryEffects]),
-
     provideState ({name: 'table', reducer: tableReducer}),
+    provideState ({name: 'reservation', reducer: reservationReducer}),
+
+
+    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects, CategoryEffects, TableEffects, ReservationEffects]),
+
+
     
-    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects, TableEffects]),
 
     provideHttpClient(),
   ],
