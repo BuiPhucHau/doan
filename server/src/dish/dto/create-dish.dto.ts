@@ -1,3 +1,5 @@
+import { Category } from "src/category/entities/category.entity";
+
 export class CreateDishDto {
 
     constructor 
@@ -7,9 +9,10 @@ export class CreateDishDto {
         public description: string,
         public price: number,
         public image: string,
-        public cId: string,
+        public cId: Category[],
         public status: boolean,
-        public isConfirmed: boolean
+        // public isConfirmed: boolean
+        public featured: boolean
     ) 
     {}
 }

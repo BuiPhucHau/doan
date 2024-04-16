@@ -4,5 +4,6 @@ export interface LocationState {
     isGetLoading: boolean;
     isGetSuccess: boolean;
     getErrMess: string;
-    locationList: Location[]; 
+    locationList: Location[];
+
 }

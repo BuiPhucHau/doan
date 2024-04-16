@@ -3,11 +3,12 @@
         <h1 class="text_header">CURST GOURMET</h1>
     </div>
     <div class="location">
-        <div class="p1">
-            <h3>Curst Gourmet Nguyễn Thị Minh Khai</h3>
+        <div class="p1" *ngFor="let location of locationList">
+            <h3>{{location.name}}</h3>
+            <img class="image_featured" *ngFor="let img of location.image." [src]="img" alt="">
             <button class="Detail"(click)="detail()"> View Detail</button>
         </div>
-        <div class="p2">
+        <!-- <div class="p2">
             <h3>Curst Gourmet Nguyễn Thị Thập</h3>
             <button class="Detail"(click)="detail()"> View Detail</button>
         </div>
@@ -25,8 +26,8 @@
         </div>
         <div class="p6">
             <h3>Curst Gourmet Trần Hưng Đạo</h3>
-            <button class="Detail"(click)="detail()"> View Detail</button>
-        </div>
+           
+        </div> -->
     </div>
 
     

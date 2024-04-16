@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, {HydratedDocument} from 'mongoose';
+import { Category } from 'src/category/entities/category.entity';
 
 export type DishDocument = HydratedDocument<Dish>;
 @Schema({timestamps: true})
@@ -18,11 +19,9 @@ export class Dish {
 
     
     @Prop({
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category',
         required: true
     })
-    cId: string;
+    cId: Category[];
 
     @Prop({
        type: mongoose.Schema.Types.ObjectId,
@@ -34,7 +33,7 @@ export class Dish {
     status: boolean;
 
     @Prop({required: true})
-    isConfirmed: boolean;
+    featured: boolean;
 }
 
 export const DishSchema = SchemaFactory.createForClass(Dish);

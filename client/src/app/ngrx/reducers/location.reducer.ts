@@ -1,21 +1,23 @@
-import { createReducer, on } from '@ngrx/store';
-import * as LocationActions from '../actions/location.actions';
-import { Location } from '../../models/location.model';
-import { LocationState } from '../state/location.state';
+import { createReducer, on } from "@ngrx/store";
+import { LocationState } from "../state/location.state";
+import * as LocationActions from "../actions/location.actions";
+
 
 export const initialState: LocationState = {
+
   isGetLoading: false,
   isGetSuccess: false,
   getErrMess: '',
   locationList: [],
+
 };
+
 
 export const locationReducer = createReducer(
   initialState,
-  on(LocationActions.get, (state) => {
+  on(LocationActions.get, (state, action) => {
 
-    console.log('get location reducer');
-    return {
+    console.log('get location reducer');    return {
       ...state,
       isGetLoading: true,
       isGetSuccess: false,
@@ -29,7 +31,7 @@ export const locationReducer = createReducer(
       ...state,
       isGetLoading: false,
       isGetSuccess: true,
-     locationList : action.locationList,
+      locationList: action.locationList,
     };
   }),
 
@@ -41,4 +43,5 @@ export const locationReducer = createReducer(
       getErrMess: action.getErrMess,
     };
   })
+
 );

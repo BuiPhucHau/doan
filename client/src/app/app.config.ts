@@ -19,6 +19,8 @@ import { userReducer } from './ngrx/reducers/user.reducer';
 import { dishReducer } from './ngrx/reducers/dish.reducer';
 import { UserEffects } from './ngrx/effects/user.effects';
 import { DishEffects } from './ngrx/effects/dish.effects';
+import { locationReducer } from './ngrx/reducers/location.reducer';
+import { LocationEffects } from './ngrx/effects/location.effects';
 
 
 export const appConfig: ApplicationConfig = {
@@ -38,8 +40,9 @@ export const appConfig: ApplicationConfig = {
     provideState({name: 'auth', reducer: authReducer}),
     provideState({name: 'user', reducer: userReducer}),
     provideState ({name: 'dish', reducer: dishReducer}),
+    provideState ({name: 'location', reducer: locationReducer}),
     
-    provideEffects([AuthEffects, UserEffects, DishEffects]),
+    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects]),
     provideHttpClient(),
   ],
 };
