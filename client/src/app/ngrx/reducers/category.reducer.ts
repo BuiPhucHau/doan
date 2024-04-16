@@ -13,22 +13,24 @@ export const initialState: categoryState = {
 export const categoryReducer = createReducer (
     initialState,
     on(CategoryActions.get, (state, action) => {
-        let newState: categoryState = {
-            ...state,
-            isGetting: true,
-            isGetSuccess: false,
-            getErrorMessage: '',
-        };
-        return newState;
+  
+      console.log('get category reducer');
+      return {
+        ...state,
+        isGetLoading: true,
+        isGetSuccess: false,
+        getErrMess: '',
+      };
     }),
+  
     on(CategoryActions.getSuccess, (state, action) => {
+        console.log('get success category reducer')
         let newState: categoryState = {
             ...state,
             isGetting: false,
-            isGetSuccess: true,
-            getErrorMessage: '',
+            isGetSuccess: true, 
             categories: action.categories,
-        };
+        }; 
         return newState;
     }),
     on(CategoryActions.getFailure, (state, action) => {
@@ -40,4 +42,4 @@ export const categoryReducer = createReducer (
         };
         return newState;
     }),
-)
+);

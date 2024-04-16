@@ -4,22 +4,24 @@
             (click)="carousel.prev()"></button>
         <tui-carousel #carousel class="carousel">
             <tui-island *tuiItem>
-                <ng-container >
-                    <div *ngFor="let dish of dishList">
-                        <p *ngIf="dish.category.cId ==='category_2'" id="content">{{dish.category.nameCategory}}</p>
+                <ng-container *ngFor="let category of categories">
+                    <ng-container *ngIf="category.cId === 'category_1'">
+                        <p id="content">{{ category.nameCategory }}</p>
                         <ul>
-                            <li >
-                                <p class="dish_item">{{ dish.nameDish }}</p>
-                                <p class="price">{{ dish.price }}</p>
-                            </li>
+                            <ng-container *ngFor="let dish of dishList">
+                                <li *ngIf="dish.category.cId === 'category_1'">
+                                    <p class="dish_item">{{ dish.nameDish }}</p>
+                                    <p class="price">{{ dish.price }}</p>
+                                </li>
+                            </ng-container>
                         </ul>
-                    </div>
+                    </ng-container>
                 </ng-container>
             </tui-island>
                 <tui-island *tuiItem>
-                    <ng-container >
-                        <div *ngFor="let dish of dishList">
-                            <p *ngIf="dish.category.cId ==='category_2'" id="content">{{dish.category.nameCategory}}</p>
+                    <ng-container *ngFor="let dish of dishList" >
+                        <div *ngIf="dish.category.cId === 'category_2'">
+                            <p id="content">{{dish.category.nameCategory}}</p>
                             <ul>
                                 <li >
                                     <p class="dish_item">{{ dish.nameDish }}</p>
@@ -29,10 +31,10 @@
                         </div>
                     </ng-container>
                 </tui-island>
-                    <!-- <tui-island *tuiItem>
+                    <tui-island *tuiItem>
                         <ng-container >
                             <div *ngFor="let dish of dishList">
-                                <p *ngIf="dish.cId.cId ==='category_3'" id="content">{{dish.cId.nameCategory}}</p>
+                                <p *ngIf="dish.category.cId ==='category_3'" id="content">{{dish.category.nameCategory}}</p>
                                 <ul>
                                     <li >
                                         <p class="dish_item">{{ dish.nameDish }}</p>
@@ -41,7 +43,7 @@
                                 </ul>
                             </div>
                         </ng-container>
-                    </tui-island> -->
+                    </tui-island>
             <tui-island *tuiItem>
                 <tui-loader></tui-loader>
             </tui-island>
