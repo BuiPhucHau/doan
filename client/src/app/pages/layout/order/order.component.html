@@ -4,14 +4,33 @@
         <div tuiCarouselButtons class="wrapper">
             <tui-carousel #carousel class="carousel">
                 <tui-island *tuiItem>
-                    <div *ngFor="let item of items; let i = index">
-                        <div *ngIf="item.id === '1'">
-                            <p id="content">{{ item.title }}</p>
-                            <div class="grid-container">
-                                <div *ngFor="let dish of item.dishes" class="grid-item">
+                    <div *ngFor="let category of categories">
+                        <div *ngIf="category.nameCategory ==='Appetizer'">
+                            <p id="content"> {{ category.nameCategory }} </p>
+                            <div *ngFor="let dish of dishList,let i = index" class="grid-container">
+                                <div *ngIf="dish.category.nameCategory === 'Appetizer'" class="grid-item">
                                     <div tuiCardMedium tuiSurface class="dish_item">
                                         <h2 tuiTitle>
-                                            <p class="dish_name">{{ dish.name }}</p>
+                                            <p class="dish_name">{{ dish.nameDish }}</p>
+                                        </h2>
+                                        <tui-badge appearance="custom" class="money">
+                                            <p class="price">{{ dish.price }}</p>
+                                        </tui-badge>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tui-island>
+                <!-- <tui-island *tuiItem>
+                    <div *ngFor="let dish of dishList; let i = index">
+                        <div *ngIf="dish.category.cId !== 'category_2'">
+                            <p id="content">{{ dish.category.nameCategory }}</p>
+                            <div class="grid-container">
+                                <div  class="grid-item">
+                                    <div tuiCardMedium tuiSurface class="dish_item">
+                                        <h2 tuiTitle>
+                                            <p class="dish_name">{{ dish.nameDish }}</p>
                                         </h2>
                                         <tui-badge appearance="custom" class="money">
                                             <p class="price">{{ dish.price }}</p>
@@ -23,14 +42,14 @@
                     </div>
                 </tui-island>
                 <tui-island *tuiItem>
-                    <div *ngFor="let item of items; let i = index">
-                        <div *ngIf="item.id === '2'">
-                            <p id="content">{{ item.title }}</p>
+                    <div *ngFor="let dish of dishList; let i = index">
+                        <div *ngIf="dish.category.cId === 'category_3'">
+                            <p id="content">{{ dish.category.nameCategory }}</p>
                             <div class="grid-container">
-                                <div *ngFor="let dish of item.dishes" class="grid-item">
+                                <div  class="grid-item">
                                     <div tuiCardMedium tuiSurface class="dish_item">
                                         <h2 tuiTitle>
-                                            <p class="dish_name">{{ dish.name }}</p>
+                                            <p class="dish_name">{{ dish.nameDish }}</p>
                                         </h2>
                                         <tui-badge appearance="custom" class="money">
                                             <p class="price">{{ dish.price }}</p>
@@ -40,26 +59,7 @@
                             </div>
                         </div>
                     </div>
-                </tui-island>
-                <tui-island *tuiItem>
-                    <div *ngFor="let item of items; let i = index">
-                        <div *ngIf="item.id === '3'">
-                            <p id="content">{{ item.title }}</p>
-                            <div class="grid-container">
-                                <div *ngFor="let dish of item.dishes" class="grid-item">
-                                    <div tuiCardMedium tuiSurface class="dish_item">
-                                        <h2 tuiTitle>
-                                            <p class="dish_name">{{ dish.name }}</p>
-                                        </h2>
-                                        <tui-badge appearance="custom" class="money">
-                                            <p class="price">{{ dish.price }}</p>
-                                        </tui-badge>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </tui-island>
+                </tui-island> -->
                 <tui-island *tuiItem>
                     <tui-loader></tui-loader>
                 </tui-island>

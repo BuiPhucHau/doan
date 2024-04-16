@@ -12,7 +12,7 @@ export class CategoryService {
     private readonly categoryModel: Model<Category>,
   ) {}
 
-  async create(createCategoryDto: CreateCategoryDto) {
+  async create (createCategoryDto: CreateCategoryDto): Promise<Category> {
     try{
       const createdCategory = new this.categoryModel(createCategoryDto);
       return await createdCategory.save();  

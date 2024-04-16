@@ -9,6 +9,6 @@ export class CategoryService {
 
   constructor(private httpClient: HttpClient) { }
   getCategories() {
-    return this.httpClient.get<Category[]>('http://localhost:3000/category/all');
+    return this.httpClient.get<Category[]>('http://localhost:3000/category/get-all');
   }
 }
