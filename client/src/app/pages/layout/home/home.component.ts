@@ -23,6 +23,21 @@ export class HomeComponent implements OnDestroy{
 
   index = 0;
  
+  readonly itemsCount = 3;
+ 
+
+  get rounded(): number {
+      return Math.floor(this.index / this.itemsCount);
+  }
+
+  onIndex(index: number): void {
+      this.index = index * this.itemsCount;
+  }
+
+
+
+
+
 
   userFirebase$ = this.store.select('auth', 'userFirebase');
   user$ = this.store.select('user', 'user');

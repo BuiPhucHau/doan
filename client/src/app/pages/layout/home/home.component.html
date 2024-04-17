@@ -51,24 +51,42 @@
         </div>
     </div>
 </div> -->
-<div class="container_slider">
+
+<div class="rectangle_3">
+    <tui-carousel
+      [itemsCount]="3"
+      [(index)]="index"
+    >
+      <ng-container *ngFor="let dish of dishList">
+        <tui-island *tuiItem class="dish_featured">
+            <div  *ngIf="dish.featured">
+                <img class="image_featured" *ngFor="let img of dish.image.urls" [src]="img" alt="">
+            </div>
+          
+        </tui-island>
+      </ng-container>
+    </tui-carousel>
+    <tui-pagination
+      size="s"
+      class="tui-space_top-4"
+      [index]="rounded"
+      [length]="dishList.length / 3"
+      (indexChange)="onIndex($event)"
+    ></tui-pagination>
+  </div>
+
+<!-- <div class="container_slider">
     <div class="slider" (mouseenter)="stopSlider()" (mouseleave)="startSlider()">
         <div class="list" [style.transform]="'translateX(' + (-activeIndex * 1300) + 'px)'">
             <div class="item" *ngFor="let dish of dishList">
                     <!-- <p>{{dish.nameDish}}</p> -->
-                <img class="image_featured" *ngFor="let img of dish.image.urls" [src]="img" alt="">
-            </div>
+                <!-- 
+                 -->
+            <!-- </div>
         </div>
     </div>
     <button class="next" (click)="nextSlide()">></button>
-</div>
-
-
-
-
-
-
-
+</div> -->
 
 
 <div class="rectangle_4">

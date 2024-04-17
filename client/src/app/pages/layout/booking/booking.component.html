@@ -1,20 +1,18 @@
 <div class="container">
-  
   <div class="container-table">
     <h2 style="margin-left: 1rem; margin-top: 1rem;">Table Reservation</h2>
     <div class="container-filter">
       <div class="address">
         <tui-select tuiTextfieldSize="m" [formControl]="testValue">
           Restaurant Branch
-          <input placeholder="Choose your branch" tuiTextfield />
+          <input placeholder="Select branch" tuiTextfield />
           <tui-data-list-wrapper *tuiDataList [items]="branch"></tui-data-list-wrapper>
         </tui-select>
       </div>
 
       <div class="filter">
         <button *ngFor="let person of persons"
-                tuiButton
-                
+                tuiButton    
                 size="s"
                 type="button"
                 class="filter-table"
@@ -23,12 +21,6 @@
           {{ person.seats }}
         </button>
       </div>
-      
-  
-      
-      
-
-
     </div>
 
     <div class="tables">
@@ -97,3 +89,4 @@
     </div>
   </div>
 </div>
+

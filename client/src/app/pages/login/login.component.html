@@ -4,13 +4,15 @@
     <div class="wrapper">
         <form action="#">
             <h2>LOGIN</h2>
-            <div class="input-field">
-                <input type="text" required>
-                <label> Enter your email</label>
-            </div>
-            <div class="input-field">
-                <input type="text" required>
-                <label> Enter your password</label>
+            <div [formGroup]="accountForm">
+                <div class="input-field">
+                    <input type="text" required>
+                    <label> Enter your email</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" required>
+                    <label> Enter your password</label>
+                </div>
             </div>
             <div class="container_login">
                 <button type="submit" (click)="loginWithAccount()"> Log In</button>

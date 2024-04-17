@@ -52,7 +52,7 @@ export class LoginComponent {
       if (user && user.email) {
         this.isGetSuccessUser = true;
         console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
-
+        this.router.navigate(['/register']);
         if (this.accountData.password != '' && this.accountData.email != '') {
           console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
           if (user.password == this.accountData.password) {
