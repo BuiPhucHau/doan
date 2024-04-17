@@ -24,7 +24,15 @@ export const locationReducer = createReducer(
       getErrMess: '',
     };
   }),
-
+  on(LocationActions.getLocationId, (state, action) => {
+    console.log('get by id location reducer');
+    return {
+      ...state,
+      isGetLoading: false,
+      isGetSuccess: true,
+      locationId: action.locationId,
+    };
+  }),
   on(LocationActions.getSuccess, (state, action) => {
     console.log('getsuccess location reducer');
     return {

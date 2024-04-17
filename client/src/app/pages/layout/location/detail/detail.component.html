@@ -1,16 +1,18 @@
-<!-- detail.component.html -->
 <div class="container">
     <div class="header">
         <h1 class="text_header">CURST GOURMET</h1>
     </div>
-    <div *ngFor="let location of locationList" class="detail">
-        <h2>Name: {{ location.name}}</h2>
-        <h2>Phone: {{ location.phone }}</h2>
-        <h2>Address: {{ location.address }}</h2>
-        <div class="image-gallery">
-            <div class="image-container" *ngFor="let img of location.image.urls">
-                <img class="image_featured" [src]="img" alt="">
+    <div class="detail">
+        <div *ngIf="selectedLocation">
+            <h2>Name: {{ selectedLocation.name }}</h2>
+            <h2>Phone: {{ selectedLocation.phone }}</h2>
+            <h2>Address: {{ selectedLocation.address }}</h2>
+            <div class="image-gallery">
+                <div class="image-container" *ngIf="selectedLocation.image.urls">
+                    <img class="image_featured" *ngFor="let img of selectedLocation.image.urls" [src]="img" alt="">
+                </div>
             </div>
         </div>
+        <div *ngIf="!selectedLocation">Location not found.</div>
     </div>
 </div>

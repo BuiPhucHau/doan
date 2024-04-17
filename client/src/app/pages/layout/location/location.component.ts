@@ -1,13 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ShareModule } from '../../../shared/shared.module';
 import { TaigaModule } from '../../../shared/taiga.module';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LocationState } from '../../../ngrx/state/location.state';
 import { Subscription } from 'rxjs';
 import { get } from '../../../ngrx/actions/location.actions';
 import { Location } from '../../../models/location.model';
-
+import * as LocationActions from '../../../ngrx/actions/location.actions';
 
 @Component({
   selector: 'app-location',
@@ -21,9 +21,11 @@ export class LocationComponent implements OnDestroy {
   location$ = this.store.select('location', 'locationList');
   locationList: Location[] = [];
 
+
   subcriptions: Subscription[] = [];
 
- constructor(private router: Router,
+ constructor(
+  private router: Router,
   private store: Store<{
     location: LocationState;
   }>
@@ -40,7 +42,7 @@ export class LocationComponent implements OnDestroy {
 
  }
 
- ngOnInit() {
+ ngOnInit(){
   this.store.dispatch(get());
    this.subcriptions.push(
      this.location$.subscribe((locationList) => {
@@ -52,14 +54,16 @@ export class LocationComponent implements OnDestroy {
    );
  }
  
+
+ 
   ngOnDestroy(): void {
     this.subcriptions.forEach((sub) => sub.unsubscribe());
   }
 
   
-  detail(){
-
-    this.router.navigate(['/base/location/detail']);
+  detail(locationId :string ){
+    this.router.navigate(['base/location/detail/', locationId]);
+    console.log(locationId);
   }
 
 

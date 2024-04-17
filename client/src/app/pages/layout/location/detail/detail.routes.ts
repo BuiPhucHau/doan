@@ -4,5 +4,9 @@ export const DETAIL_ROUTES: Routes = [
     {
         path: '',
         component: DetailComponent
+    },
+    {
+        path: ':locationId',
+        component: DetailComponent
     }
 ];

@@ -43,6 +43,11 @@ export const LAYOUT_ROUTES: Routes = [
             import('./location/detail/detail.routes').then((m) => m.DETAIL_ROUTES),
         },
         {
+          path: 'base/location/detail/locationId',
+          loadChildren: () =>
+            import('./location/detail/detail.routes').then((m) => m.DETAIL_ROUTES),
+        },
+        {
           path: 'base/new',
           loadChildren: () =>
             import('./new/new.routes').then((m) => m.NEW_ROUTERS),
