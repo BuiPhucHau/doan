@@ -14,6 +14,8 @@ import { LocationModule } from './location/location.module';
 import { OrderModule } from './order/order.module';
 import { OrderdetailModule } from './orderdetail/orderdetail.module';
 import { PaymentModule } from './payment/payment.module';
+import { NewModule } from './new/new.module';
+
 
 
 @Module({
@@ -39,7 +41,10 @@ import { PaymentModule } from './payment/payment.module';
   OrderdetailModule,
   
  
-  PaymentModule
+  PaymentModule,
+  
+ 
+  NewModule
 ],
   controllers: [AppController],
   providers: [AppService],
