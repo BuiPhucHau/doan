@@ -34,15 +34,15 @@ export class LocationService {
   }
 
 
-  // async findOne(id) {
-  //   try{
-  //     const location = await this.locationModel.findOne({locationId: id}).exec();
-  //     return location;
-  //   }
-  //   catch(err){
-  //     throw new HttpException(err.message, err.status);
-  //   }
-  // }
+  async findOne(id: string) {
+    try{
+      const location = await this.locationModel.findOne({locationId: id}).exec();
+      return location;
+    }
+    catch(err){
+      throw new HttpException(err.message, err.status);
+    }
+  }
 
   async update(id: string, updateLocationDto: UpdateLocationDto) {
     try{

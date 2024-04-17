@@ -6,7 +6,10 @@ import { LocationState } from '../../../../ngrx/state/location.state';
 import { Location } from '../../../../models/location.model';
 import { ShareModule } from '../../../../shared/shared.module';
 import { TaigaModule } from '../../../../shared/taiga.module';
-import { get } from '../../../../ngrx/actions/location.actions'; 
+import { get } from '../../../../ngrx/actions/location.actions';
+import { LocationService } from '../../../../service/location/location.service'; 
+
+
 @Component({
   selector: 'app-detail',  
   standalone: true,
@@ -18,10 +21,12 @@ export class DetailComponent implements OnDestroy {
 
   location$ = this.store.select('location', 'locationList');
   locationList: Location[] = [];
-
+  selectedLocation: Location | undefined;
   subcriptions: Subscription[] = [];
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
+    private locationService: LocationService,
     private store: Store<{ location: LocationState }>
   ) {
     this.store.dispatch(get());
@@ -35,7 +40,7 @@ export class DetailComponent implements OnDestroy {
     );
   
   }
-  ngOnInit() {
+  ngOnInit():void {
     this.store.dispatch(get());
      this.subcriptions.push(
        this.location$.subscribe((locationList) => {
@@ -45,7 +50,13 @@ export class DetailComponent implements OnDestroy {
          }
        }),
      );
-   }
+     this.route.params.subscribe(params => {
+      const locationId = params['locationId'];
+      if (locationId) {
+        this.selectedLocation = this.locationList.find(location => location.locationId === locationId);
+      }
+    });
+  }
    ngOnDestroy(): void {
     this.subcriptions.forEach((sub) => sub.unsubscribe());
   }

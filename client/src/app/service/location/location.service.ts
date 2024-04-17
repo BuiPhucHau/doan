@@ -13,12 +13,11 @@ export class LocationService {
   getLocation() {
     return this.httpClient.get<Location[] | any>('http://localhost:3000/location/get-all');
   }
-
+  getLocationId(locationId: string) {
+    return this.httpClient.get<Location[] | any>('http://localhost:3000/location/locationId');
+  }
   createLocation() {
     return this.httpClient.post<Location[] | any>('http://localhost:3000/location/create', location);
   }
-
-  
-
 
 }

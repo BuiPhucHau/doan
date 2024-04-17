@@ -26,7 +26,15 @@ export class LocationController {
       throw err;
     }
   }
-
+  @Get(':id') 
+  async findOne(@Param('id') id: string) {
+    try {
+      const location = await this.locationService.findOne(id);
+      return location;
+    } catch (err) {
+      throw err;
+    }
+  }
   @Put('update')
   async update(@Query('id') id: string, @Body() updateLocationDto: UpdateLocationDto) {
     try{
