@@ -45,16 +45,26 @@ import * as LocationActions from '../../../ngrx/actions/location.actions';
       reservationTime: new FormControl(''),
       paxNumber: new FormControl(''),
     });
-    testValue = new FormControl();
-    
-    branch = [
-      'Luke Skywalker',
-      'Leia Organa Solo',
-      'Darth Vader',
-      'Han Solo',
-      'Obi-Wan Kenobi',
-      'Yoda',
-    ];
+
+    bookingTable = new FormGroup({
+      reservationId: new FormControl('', Validators.required),
+      numberofPeople: new FormControl('', Validators.required),
+      tableId: new FormControl('', Validators.required),
+      date: new FormControl('', Validators.required),
+      time: new FormControl('', Validators.required),
+      phone: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
+    })
+
+    addbookingTabke: any = {
+      reservationId: '',
+      numberofPeople: '',
+      tableId: '',
+      date: '',
+      time: '',
+      phone: '',
+      name: ''
+    };
 
     persons = [
       { seats: 'All', isActive: true },
@@ -73,18 +83,6 @@ import * as LocationActions from '../../../ngrx/actions/location.actions';
 
     taxNumberOptions = ['1', '2', '3', '4', '5', '6'];
 
-    tables = [
-      { id: 1, name: '1', status: 'Trống' },
-      { id: 2, name: '2', status: 'Trống' },
-      { id: 3, name: '3', status: 'Trống' },
-      { id: 4, name: '4', status: 'Trống' },
-      { id: 5, name: '5', status: 'Trống' },
-      { id: 6, name: '6', status: 'Trống' },
-      { id: 7, name: '7', status: 'Trống' },
-      { id: 8, name: '8', status: 'Trống' },
-      { id: 9, name: '9', status: 'Trống' },
-      { id: 10, name: '10', status: 'Trống' },
-    ];
 
     constructor(
       private router: Router,

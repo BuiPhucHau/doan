@@ -43,8 +43,20 @@ export class ReservationController {
     try {
       const updatedReservation = await this.reservationService.update(id, updateReservationDto);
       return updatedReservation;
-    } catch (error) {
-      throw error;
+    }
+    catch(err) {
+      throw err;
+    }
+  }
+
+  @Delete('delete')
+  async remove(@Query('id') id: string) {
+    try {
+      const deletedReservation = await this.reservationService.remove(id);
+      return deletedReservation;
+    }
+    catch(err) {
+      throw err;
     }
   }
 }

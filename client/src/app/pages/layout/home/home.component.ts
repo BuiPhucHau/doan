@@ -21,23 +21,6 @@ import { Subscription } from 'rxjs';
 })
 export class HomeComponent implements OnDestroy{
 
-  index = 0;
- 
-  readonly itemsCount = 3;
- 
-
-  get rounded(): number {
-      return Math.floor(this.index / this.itemsCount);
-  }
-
-  onIndex(index: number): void {
-      this.index = index * this.itemsCount;
-  }
-
-
-
-
-
 
   userFirebase$ = this.store.select('auth', 'userFirebase');
   user$ = this.store.select('user', 'user');
@@ -48,9 +31,6 @@ export class HomeComponent implements OnDestroy{
 
   subscriptions: Subscription[] = [];
   
-  interval: any; // Biến để lưu trữ định kỳ tự động chuyển slide
-  intervalTime = 2000; // Thời gian giữa mỗi lần chuyển slide (5 giây)
-  activeIndex = 0;
   constructor (private router: Router,
     private store: Store<{
       dish: DishState;
@@ -73,34 +53,7 @@ export class HomeComponent implements OnDestroy{
     
     
   }
-  // Hàm này sẽ bắt đầu tự động chuyển đổi slide
-  startSlider() {
-    this.interval = setInterval(() => {
-      this.nextSlide();
-    }, this.intervalTime);
-  }
-  
-  stopSlider() {
-    clearInterval(this.interval);
-  }
-  
-  nextSlide(): void {
-    if (this.activeIndex < this.dishList.length - 1) {
-      this.activeIndex++;
-    } else {
-      this.activeIndex = 0;
-    }
-  }
-  
-  prevSlide(): void {
-    if (this.activeIndex > 0) {
-      this.activeIndex--;
-    } else {
-      this.activeIndex = this.dishList.length - 1;
-    }
-  }
 
-  // Hàm này được gọi khi component được tạo ra
   ngOnInit() {
     this.store.dispatch(DishActions.get({ featured: true }));
 
@@ -109,7 +62,6 @@ export class HomeComponent implements OnDestroy{
         if (dishList.length > 0) {
           console.log(dishList);
           this.dishList = dishList;
-          this.startSlider(); // Bắt đầu chạy slider khi danh sách món ăn đã được load
         }
       })
     );
@@ -117,7 +69,6 @@ export class HomeComponent implements OnDestroy{
 
   // Hàm này được gọi khi component bị hủy
   ngOnDestroy(): void {
-    this.stopSlider(); // Dừng chạy slider khi component bị hủy
     this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();
     });
@@ -127,7 +78,5 @@ export class HomeComponent implements OnDestroy{
   tablebooking() {
     this.router.navigate(['base/booking']);
   }
-
-
 
 }

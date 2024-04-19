@@ -27,9 +27,10 @@ export class Reservation {
     uId: string;
 
     @Prop({required: true})
-    
     phone: string;
 
+    @Prop({ required: true })
+    status: boolean;
 }
 
 export const ReservationSchema = SchemaFactory.createForClass(Reservation);

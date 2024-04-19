@@ -24,22 +24,6 @@ import { environment } from '../../environments/environments'; // Sửa đổi �
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    // StoreModule.forRoot({
-    //   dish: dishReducer,
-    //   storage: storageReducer,
-    //   auth: authReducer,
-    //   user: userReducer,
-    // }),
-    // EffectsModule.forRoot([
-    //   DishEffects,
-    //   StorageEffects,
-    //   AuthEffects,
-    //   UserEffects,
-    // ]),
-    // provideFirebaseApp(() => initializeApp(environment)), // Sửa đổi đây
-    // provideAuth(() => getAuth()),
-    // provideFirestore(() => getFirestore()),
-    // provideStorage(() => getStorage()),
   ],
   exports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
 })
