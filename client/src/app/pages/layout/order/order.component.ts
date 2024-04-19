@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -16,18 +16,20 @@ import * as CategoryActions from '../../../ngrx/actions/category.actions';
 import { Dish } from '../../../models/dish.model';
 import { Observable, Subscription } from 'rxjs';
 import { Category } from '../../../models/category.model';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [TaigaModule, ReactiveFormsModule, CommonModule],
+  imports: [TaigaModule,FontAwesomeModule, ReactiveFormsModule, CommonModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss',
 })
 export class OrderComponent {
   readonly testForm = new FormGroup({
     testValue: new FormControl(),
+    
   });
 
   index = 0;
@@ -39,6 +41,7 @@ export class OrderComponent {
   dishList: Dish[] = [];
   categories: Category[] = [];
 
+  readonly control = new FormControl('', Validators.minLength(12));
   subscriptions: Subscription[] = [];
 
   constructor(private router: Router,
