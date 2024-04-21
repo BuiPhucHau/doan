@@ -2,18 +2,28 @@
   <div class="container-table">
     <h2 style="margin-left: 1rem; margin-top: 1rem;">Table Reservation</h2>
     <div class="container-filter">
-      <div class="address">
-            <select class="branch" name="branch" >
-              <option value="branch1" *ngFor="let location of locationList">{{location.name}}</option>
-            </select>
+      <!-- <div class="address">
+        <select class="branch" name="branch">
+          <option *ngFor="let location of locationList" [value]="location.locationId">{{location.name}}</option>
+        </select>
+      </div> -->
 
-      </div>
+      <!-- [(ngModel)]="locationValue" (ngModelChange)="locationValueChange()"  -->
+
+      <div class="search_location">
+        <tui-combo-box class="b-form" [tuiTextfieldCleaner]="true">
+            Chọn địa điểm
+            <input tuiTextfield [attr.ng-reflect-focus]="false"/>
+            <tui-data-list-wrapper *tuiDataList [items]="locationList | tuiFilterByInput"></tui-data-list-wrapper>
+        </tui-combo-box>
+    </div>
 
       <div class="filter">
-        <button *ngFor="let person of persons"
+        <button  *ngFor="let person of persons"
                 tuiButton    
                 size="s"
                 type="button"
+                appearance="custom"
                 class="filter-table"
                 [ngClass]="{ 'active': person.isActive }"
                 (click)="filterTable(person.seats)">

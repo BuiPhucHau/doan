@@ -9,5 +9,5 @@ export interface New {
     news: string;
     title: string; 
     text: string;
-    image: string;
+    image: Storage;
   }

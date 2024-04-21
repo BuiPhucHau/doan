@@ -12,9 +12,9 @@ export class NewService {
     return this.httpClient.get<New[] | any>('http://localhost:3000/new/get-all');
   }
 
-  createNew() { 
-    return this.httpClient.post<New[] | any>('http://localhost:3000/new/create', new);
-  }
+  // createNew() { 
+  //   return this.httpClient.post<New[] | any>('http://localhost:3000/new/create', new);
+  // }
 
   // removeNew(dId: string) {
   //   return this.httpClient.delete(

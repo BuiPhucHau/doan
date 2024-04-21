@@ -23,7 +23,7 @@ import * as LocationActions from '../../../ngrx/actions/location.actions';
   export class BookingComponent implements OnDestroy {
     table$ = this.store.select('table', 'tableList');
     location$ = this.store.select('location', 'locationList');
-    locationList: Location[] = [];
+    locationList: readonly string[] = [];
     tableList: Table[] = [];
     filteredTables: Table[] = [];
     subscriptions: Subscription[] = [];
@@ -106,34 +106,9 @@ import * as LocationActions from '../../../ngrx/actions/location.actions';
       this.store.dispatch(LocationActions.get());
 
       this.subscriptions.push(
-        this.location$.subscribe((locationList) => {
-          if (locationList.length > 0) {
-            console.log(locationList);
-            this.locationList = locationList;
-          }
-        })
-      );
-    }
-
-    ngOnInit() {
-      this.store.dispatch(TableActions.get());
-
-      this.subscriptions.push(
-        this.table$.subscribe((tableList) => {
-          if (tableList.length > 0) {
-            console.log(tableList);
-            this.tableList = tableList;
-          }
-        })
-      );
-
-      this.store.dispatch(LocationActions.get());
-
-      this.subscriptions.push(
-        this.location$.subscribe((locationList) => {
-          if (locationList.length > 0) {
-            console.log(locationList);
-            this.locationList = locationList;
+        this.location$.subscribe((locations) => {
+          if (locations.length > 0) {
+            this.locationList = locations.map(location => location.name);
           }
         })
       );
@@ -143,6 +118,16 @@ import * as LocationActions from '../../../ngrx/actions/location.actions';
       this.subscriptions.forEach((subscription) => {
         subscription.unsubscribe();
       });
+    }
+    locationValue: any;
+    onLocationChange() {
+      console.log("Branch is selected: ", this.locationValue);
+      if (this.locationValue != null) {
+        // this.store.dispatch(TableActions.get({ locationId: this.locationValue }));
+      }
+      else {
+        this.store.dispatch(TableActions.get());
+      }
     }
 
     filterTable(seats: string): void {
@@ -154,6 +139,11 @@ import * as LocationActions from '../../../ngrx/actions/location.actions';
         this.filteredTables = this.tableList.filter(table => table.seats === seatsNumber);
       }
       console.log('Filtered Tables:', this.filteredTables);
+    }
+
+    
+    selectBranch(locationId: string): void {
+      
     }
     
   }

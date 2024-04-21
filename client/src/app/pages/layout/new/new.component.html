@@ -1,62 +1,23 @@
-<div class="row">
-   
-  
-  <div class="example-1 card">
-      <div class="wrapper">
-        <div class="date">
-          <span class="day">18</span>
-          <span class="month">April</span>
-          <span class="year">2024</span>
-        </div>
-        <div class="data">
-          <div class="content">
-            <span class="news">Customer Gratitude</span>
-            <h1 class="title"><a href="#">Big sale, anyone born in April will get 20% off total bill</a></h1>
-            <p class="text">The promotional programs at CURSTGOURMET not only help you have a fun meal with friends and relatives and are a great place for a meaningful birthday. CURSTGOURMET saves information about these programs so you don't miss them. Attractive offers!</p>
-             <label for="show-menu" class="menu-button"><span></span></label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-
-
-    <div class="example-2 card">
-      <div class="wrapper">
-        <div class="date">
-          <span class="day">18</span>
-          <span class="month">April</span>
-          <span class="year">2024</span>
-        </div>
-        <div class="data">
-          <div class="content">
-            <span class="news">Customer Gratitude</span>
-            <h1 class="title"><a href="#">10% discount on total bill on November 20</a></h1>
-            <p class="text">In gratitude for Mother's Day, when customers come with their mothers to the restaurant on October 20, they will receive a 10% discount and restaurant staff will take free photos with their mothers and relatives.</p>
-            <label for="show-menu" class="menu-button"><span></span></label>
+<div class="container">
+  <div class="row">
+    <div class="carousel-container">
+      <div class="carousel-track" [style.transform]="transformStyle">
+        <div class="card example-1" *ngFor="let new of newList; let i = index">
+          <div class="wrapper">
+            <img *ngFor="let img of new.image.urls" [src]="img" alt="" class="image">
+            <div class="date">
+              <span class="day">{{ new.day }}</span>
+              <span class="month">{{ new.month }}</span>
+              <span class="year">{{ new.year }}</span>
             </div>
+            <div class="data">
+              <span class="news">{{ new.news }}</span>
+              <h1 class="title"><a href="#">{{ new.title }}</a></h1>
+              <p class="text">{{ new.text }}</p>
             </div>
-      </div>
-    </div>
-
-   
-    <div class="example-3 card">
-      <div class="wrapper">
-        <div class="date">
-          <span class="day">20</span>
-          <span class="month">April</span>
-          <span class="year">2024</span>
-        </div>
-        <div class="data">
-          <div class="content">
-            <span class="news">Special Offer</span>
-            <h1 class="title"><a href="#">Free Dessert with Every Main Course</a></h1>
-            <p class="text">Enjoy a complimentary dessert of your choice with every main course purchased. Indulge in our delicious selection of desserts while savoring your favorite dishes.</p>
-            <label for="show-menu" class="menu-button"><span></span></label>
           </div>
         </div>
       </div>
     </div>
   </div>
-    
+</div>
