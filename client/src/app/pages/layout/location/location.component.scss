@@ -1,7 +1,10 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Nanum+Gothic+Coding&family=Pacifico&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 .container {
     width: 100%;
     height: auto-fit;
-    background-color: beige;
+    background-color: white;
     display: flex;
     flex-direction: column;
 }
@@ -9,7 +12,7 @@
     position: relative;
 }
 
-.image_featured {
+.image {
     width: 100%;
     height: 535px;
     display: flex;
@@ -26,10 +29,11 @@
     height: 150px;
     width: 100%;
     background-color: white;
-
+    font-size: 20px;
     .text_header {
-        font-size: 45px;
-        font-weight: 500;
+        font-family: "Pacifico", cursive;
+        font-weight: 400;
+        font-style: normal;
     }
 }
 
