@@ -11,29 +11,24 @@
       <!-- [(ngModel)]="locationValue" (ngModelChange)="locationValueChange()"  -->
 
       <div class="search_location">
-        <tui-combo-box class="b-form" [tuiTextfieldCleaner]="true">
-            Chọn địa điểm
-            <input tuiTextfield [attr.ng-reflect-focus]="false"/>
-            <tui-data-list-wrapper *tuiDataList [items]="locationList | tuiFilterByInput"></tui-data-list-wrapper>
+        <tui-combo-box tuiTextfieldSize="s" class="b-form" [(ngModel)]="locationValue"
+          (ngModelChange)="onLocationChange()" [tuiTextfieldCleaner]="true">
+          Select your branch
+          <input tuiTextfield (input)="locationValue" />
+          <tui-data-list-wrapper *tuiDataList [items]="locationList"></tui-data-list-wrapper>
         </tui-combo-box>
-    </div>
+      </div>
 
       <div class="filter">
-        <button  *ngFor="let person of persons"
-                tuiButton    
-                size="s"
-                type="button"
-                appearance="custom"
-                class="filter-table"
-                [ngClass]="{ 'active': person.isActive }"
-                (click)="filterTable(person.seats)">
+        <button *ngFor="let person of persons" tuiButton size="s" type="button" appearance="custom" class="filter-table"
+          [ngClass]="{ 'active': person.isActive }" (click)="filterTable(person.seats)">
           {{ person.seats }}
         </button>
       </div>
     </div>
 
     <div class="tables">
-      <div class="table"*ngFor="let table of filteredTables">
+      <div class="table" *ngFor="let table of filteredTables">
         <tui-avatar class="hi" fallback="tuiIconUserLarge" new class="tui-space_left-3 avatar"
           [avatarUrl]="wrongUrl"></tui-avatar>
         <p class="table-number">{{ table.tableName}}</p>
@@ -98,4 +93,3 @@
     </div>
   </div>
 </div>
-
