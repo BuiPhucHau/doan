@@ -13,8 +13,9 @@ export class ReservationService {
     return this.httpClient.get<Reservation[] | any>('http://localhost:3000/reservation/get-all');
   }
 
-  createReservation (reservation: any) {
-    return this.httpClient.post<Reservation[] | any>('http://localhost:3000/reservation/create', reservation);
+  createReservation (reservation: Reservation) {
+    console.log(reservation);
+    return this.httpClient.post<Reservation>('http://localhost:3000/reservation/create', reservation);
   }
 
   updateReservation (reservationId: string) {

@@ -22,6 +22,7 @@ export class ReservationController {
     try {
       const newReservation =
         await this.reservationService.create(createReservationDto);
+        console.log(newReservation);
       return newReservation;
     } catch (error) {
       throw error;

@@ -28,10 +28,10 @@
     </div>
 
     <div class="tables">
-      <div class="table" *ngFor="let table of filteredTables">
+      <div  (click)="selectTable(table.tableId)" class="table" *ngFor="let table of filteredTables">
         <tui-avatar class="hi" fallback="tuiIconUserLarge" new class="tui-space_left-3 avatar"
           [avatarUrl]="wrongUrl"></tui-avatar>
-        <p class="table-number">{{ table.tableName}}</p>
+        <p  class="table-number">{{ table.tableName}}</p>
       </div>
     </div>
   </div>
@@ -40,56 +40,70 @@
     <div class="detail_save">
       <p style="font-size: 14px; font-weight: bold; margin: 1rem;">Reservation Details</p>
       <div class="btn_save">
-        <button class="save" appearance="custom" tuiButton type="button">Save</button>
+        <button class="save" appearance="custom" tuiButton type="button" (click)="createBookingTable()">Save</button>
       </div>
     </div>
 
+    <form [formGroup]="bookingTable">
+      <div class="input-reservation">
+        <label class="label-reservation">Table Number</label>
+        <!-- <tui-select class="input" tuiTextfieldSize="m" formControlName="tableNumber">
+          0
+          <input placeholder="Select table" tuiTextfield />
+          <tui-data-list-wrapper *tuiDataList [items]="tableNumberOptions"></tui-data-list-wrapper>
+        </tui-select> -->
+        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="tableId" [tuiTextfieldCleaner]="true">
+          Table
+          <input tuiTextfield type="text" />
+        </tui-input>
+      </div>
+
+      <!-- Reservation Date -->
+      <div class="input-reservation">
+        <label class="label-reservation">Reservation Date</label>
+        <tui-input-date class="input" tuiTextfieldSize="m" formControlName="date">Date</tui-input-date>
+      </div>
+
+      <!-- Reservation Time -->
+      <div class="input-reservation">
+        <label class="label-reservation">Reservation Time</label>
+        <tui-input-time formControlName="time" [items]="time" class="input"
+          tuiTextfieldSize="m">Time</tui-input-time>
+      </div>
+
+      <!-- Pax Number -->
+      <div class="input-reservation">
+        <label class="label-reservation">Pax Number</label>
+        <tui-select class="input" tuiTextfieldSize="m" formControlName="numberofPeople">
+          0
+          <input placeholder="Select number" tuiTextfield />
+          <tui-data-list-wrapper *tuiDataList [items]="taxNumberOptions"></tui-data-list-wrapper>
+        </tui-select>
+      </div>
+
+      <div class="line"></div>
+      <p style="font-size: 14px; margin: 1rem; font-weight: bold;">Client Details</p>
+
+      <!-- Full Name -->
+      <div class="input-client">
+        <label class="label-client">Full Name</label>
+        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="name" [tuiTextfieldCleaner]="true">
+          Name
+          <input tuiTextfield type="text" />
+        </tui-input>
+        <tui-error formControlName="name" [error]="[] | tuiFieldError | async"></tui-error>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="input-client">
+        <label class="label-client">Phone Number</label>
+        <tui-input-phone tuiTextfieldSize="m" class="b-form" formControlName="phone" [tuiTextfieldCleaner]="true">
+          Phone
+          <input tuiTextfield type="text" />
+        </tui-input-phone>
+      </div>
+    </form>
     <!-- Table Number -->
-    <div class="input-reservation">
-      <label class="label-reservation">Table Number</label>
-      <tui-select class="input" tuiTextfieldSize="m" formControlName="tableNumber">
-        0
-        <input placeholder="Select table" tuiTextfield />
-        <tui-data-list-wrapper *tuiDataList [items]="tableNumberOptions"></tui-data-list-wrapper>
-      </tui-select>
-    </div>
 
-    <!-- Reservation Date -->
-    <div class="input-reservation">
-      <label class="label-reservation">Reservation Date</label>
-      <tui-input-date class="input" tuiTextfieldSize="m" formControlName="reservationDate">Date</tui-input-date>
-    </div>
-
-    <!-- Reservation Time -->
-    <div class="input-reservation">
-      <label class="label-reservation">Reservation Time</label>
-      <tui-input-time formControlName="reservationTime" [items]="time" class="input"
-        tuiTextfieldSize="m">Time</tui-input-time>
-    </div>
-
-    <!-- Pax Number -->
-    <div class="input-reservation">
-      <label class="label-reservation">Pax Number</label>
-      <tui-select class="input" tuiTextfieldSize="m" formControlName="paxNumber">
-        0
-        <input placeholder="Select number" tuiTextfield />
-        <tui-data-list-wrapper *tuiDataList [items]="taxNumberOptions"></tui-data-list-wrapper>
-      </tui-select>
-    </div>
-
-    <div class="line"></div>
-    <p style="font-size: 14px; margin: 1rem; font-weight: bold;">Client Details</p>
-
-    <!-- Full Name -->
-    <div class="input-client">
-      <label class="label-client">Full Name</label>
-      <tui-input tuiTextfieldSize="m" class="b-form" [formControl]="control">Name</tui-input>
-    </div>
-
-    <!-- Phone Number -->
-    <div class="input-client">
-      <label class="label-client">Phone Number</label>
-      <tui-input-phone tuiTextfieldSize="m" class="b-form" [formControl]="control">Phone</tui-input-phone>
-    </div>
   </div>
 </div>

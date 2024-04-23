@@ -23,7 +23,7 @@ export class Reservation {
     @Prop({required: true})
     tableId: string;
 
-    @Prop({required: true})
+    @Prop()
     uId: string;
 
     @Prop({required: true})
