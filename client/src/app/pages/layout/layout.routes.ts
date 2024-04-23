@@ -33,6 +33,11 @@ export const LAYOUT_ROUTES: Routes = [
             import('./order/order.routes').then((m) => m.ORDER_ROUTERS),
         },
         {
+          path: 'base/order/cart',
+          loadChildren: () =>
+            import('./order/order.routes').then((m) => m.ORDER_ROUTERS),
+        },
+        {
           path: 'base/location',
           loadChildren: () =>
             import('./location/location.routes').then((m) => m.LOCATION_ROUTES),
@@ -66,6 +71,12 @@ export const LAYOUT_ROUTES: Routes = [
           path: 'register',
           loadChildren: () =>
             import('../register/register.routes').then((m) => m.REGISTER_ROUTES),
+        },
+        {
+          path: 'base/menu/dish-detail',
+          loadChildren: () =>
+            import('../layout/menu/dishdetail/dishdetail.routes').then((m) => m.DISHDETAIL_ROUTERS),  
+
         },
         
     ]
