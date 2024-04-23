@@ -11,7 +11,14 @@ export const getSuccess = createAction(
   '[Dish] get success',
   props<{ dishList: Dish[] }>()
 );
-
+export const addtoCart = createAction(
+  '[Dish] Add to Cart',
+  props<{ dish: Dish }>()
+);
+export const addtoDetail = createAction(
+  '[Dish] Add to Detail',
+  props<{ dish: Dish }>()
+);
 export const getFailure = createAction(
     '[Dish] get failure',
     props<{ getErrMess: any }>()

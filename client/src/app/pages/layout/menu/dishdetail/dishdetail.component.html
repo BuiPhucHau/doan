@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="dish_detail" *ngIf="selectDish">
+    <div class="dish_detail__image">
+      <img [src]="selectDish.image.urls" alt="dish image" />
+    </div>
+    <div class="dish_detail__info">
+      <h2>{{ selectDish.nameDish }}</h2>
+      <p>{{ selectDish.description }}</p>
+      <p>{{ selectDish.price | currency }}</p>
+      <button (click)="addtoCart(dish)">Add to cart</button>
+    </div>
+
+  </div>
+</div>

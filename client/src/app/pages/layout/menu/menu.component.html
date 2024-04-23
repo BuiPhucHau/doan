@@ -1,58 +1,39 @@
 <div class="container">
-    <div class="dish_container">
-    <tui-carousel #carousel class="carousel">
-        <tui-island *tuiItem>
-            <ng-container *ngFor="let category of categories">
-                <ng-container *ngIf="category.cId === 'category_1'">
-                    <p id="content">{{ category.nameCategory }}</p>
-                    <ul>
-                        <ng-container *ngFor="let dish of dishList">
-                            <li *ngIf="dish.category.cId === 'category_1'">
-                                <p class="dish_item">{{ dish.nameDish }}</p>
-                                <p class="price">{{ dish.price }}</p>
-                            </li>
-                        </ng-container>
-                    </ul>
-                </ng-container>
-            </ng-container>
-        </tui-island>
-        <tui-island *tuiItem>
-            <ng-container *ngFor="let category of categories">
-                <ng-container *ngIf="category.cId === 'category_2'">
-                    <p id="content">{{ category.nameCategory }}</p>
-                    <ul>
-                        <ng-container *ngFor="let dish of dishList">
-                            <li *ngIf="dish.category.cId === 'category_2'">
-                                <p class="dish_item">{{ dish.nameDish }}</p>
-                                <p class="price">{{ dish.price }}</p>
-                            </li>
-                        </ng-container>
-                    </ul>
-                </ng-container>
-            </ng-container>
-        </tui-island>
-        <tui-island *tuiItem>
-            <ng-container *ngFor="let category of categories">
-                <ng-container *ngIf="category.cId === 'category_3'">
-                    <p id="content">{{ category.nameCategory }}</p>
-                    <ul>
-                        <ng-container *ngFor="let dish of dishList">
-                            <li *ngIf="dish.category.cId === 'category_3'">
-                                <p class="dish_item">{{ dish.nameDish }}</p>
-                                <p class="price">{{ dish.price }}</p>
-                            </li>
-                        </ng-container>
-                    </ul>
-                </ng-container>
-            </ng-container>
-        </tui-island>
-        
-    </tui-carousel>
-    <div tuiCarouselButtons class="wrapper">
-        <button icon="tuiIconChevronLeftLarge" title="Previous" tuiIconButton type="button"
-            (click)="carousel.prev()"></button>
-        <button icon="tuiIconChevronRightLarge" title="Next" tuiIconButton type="button"
-            (click)="carousel.next()"></button>
+  <div class="top">
+    <div class="select_price" >
+      <tui-select tuiTextfieldSize="m" [formControl]="selectedDish">
+        Select Price
+        <input placeholder="Select branch" tuiTextfield />
+        <tui-data-list-wrapper *tuiDataList [items]="branch"></tui-data-list-wrapper>
+      </tui-select>
     </div>
-</div>
+    <div class="select_dish"  >
+      <div *ngFor="let namedish of namedishs">
+        <span class="name_dish" [ngClass]="{'active': namedish.isActice}" (click)="filterDishes(namedish.nameCategory)">
+          {{namedish.nameCategory}}
+        </span>
+      </div>
+      
+      <!-- <span class="name_dish" (click)="filterDishes('Main dishes')">Main Dish</span>
+      <span class="name_dish" (click)="filterDishes('Desserts')">Dessert</span> -->
+    </div>
+  </div>
+  <hr>
+  
+  <div class="menu">
+    <div class="grid_dish" *ngFor="let dish of filteredDishes">
+      <div class="dish" (click)="showDetail(dish.dId)" >
+        <div class="dish_img">
+          <img class="image_featured" *ngFor="let img of dish.image.urls" [src]="img" alt="">
+        </div>
+        <div class="dish_info">
+          <h3>{{dish.nameDish}}</h3>
+          <div class="dish_price">
+            <span>{{dish.price}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

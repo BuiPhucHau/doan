@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { ShareModule } from '../../../shared/shared.module';
 import { Router } from '@angular/router';
@@ -14,12 +14,13 @@ import * as CategoryActions from '../../../ngrx/actions/category.actions';
 import { Dish } from '../../../models/dish.model';
 import { Category } from '../../../models/category.model';
 import { Observable, Subscription } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [TaigaModule,ShareModule],
+  imports: [TaigaModule, ShareModule],
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss', 
+  styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
   index = 0;
@@ -30,13 +31,33 @@ export class MenuComponent {
 
   dish$ = this.store.select('dish', 'dishList');
   category$ = this.store.select('category', 'categories');
-  
+
   dishList: Dish[] = [];
   categories: Category[] = [];
   subscriptions: Subscription[] = [];
+  //testValue = new FormControl();
+  filteredDishes: any[] = [];
+  selectDish : any;
+  selectedDish: FormControl = new FormControl();
+  branch = [
+    'Food can be taken home',
+    'Food cannot be taken home',
 
+  ];
 
-  constructor (private router: Router,
+  namedishs = [
+    { nameCategory : 'All', isActice : true},
+    { nameCategory : 'Appetizer', isActice : false},
+    { nameCategory : 'Main dishes', isActice : false},
+    { nameCategory : 'Desserts', isActice : false},
+  ];
+  toggleActive(namedish : any)
+  {
+    namedish.isActice = !namedish.isActice;
+  }
+
+  ;
+  constructor(private router: Router,
     private store: Store<{
       dish: DishState;
       auth: AuthState;
@@ -48,42 +69,63 @@ export class MenuComponent {
     this.store.dispatch(CategoryActions.get());
     this.subscriptions.push(
       this.dish$.subscribe((dishList) => {
-        if (dishList.length>0) { 
+        if (dishList.length > 0) {
           console.log(dishList);
           this.dishList = dishList
         }
-        
-    }),
-    this.category$.subscribe((categories) => {
-      if (categories && categories.length > 0) {
-        console.log(categories);
-        this.categories = categories;
-      }
-    }),
-  );
-}
 
-ngOnInit() {
-  this.store.dispatch(DishActions.get({}));
+      }),
+      this.category$.subscribe((categories) => {
+        if (categories && categories.length > 0) {
+          console.log(categories);
+          this.categories = categories;
+        }
+      }),
+
+    );
+
+  }
+
+  ngOnInit() : void {
+    this.store.dispatch(DishActions.get({}));
     this.subscriptions.push(
       this.dish$.subscribe((dishList) => {
-        if(dishList.length>0) {
+        if (dishList.length > 0) {
           console.log(dishList);
           this.dishList = dishList;
+          this.filterDishes('All');
         }
       }
-    ),
-    this.category$.subscribe((categories) => {
-      if (categories && categories.length > 0) {
-        console.log(categories);
-        this.categories = categories;
-      }
-    }),
-  );
+      ),
+      this.category$.subscribe((categories) => {
+        if (categories && categories.length > 0) {
+          console.log(categories);
+          this.categories = categories;
+        }
 
-}
-ngOnDestroy() {
-  this.subscriptions.forEach((subscription) => { subscription.unsubscribe();
+      }),
+      this.selectedDish.valueChanges.subscribe((value: string) => {
+        this.filterDishes(value);
+      }),
+    );
+  }
+
+  filterDishes(nameCategory: string): void {
+    this.namedishs.forEach((p) => (p.isActice = p.nameCategory === nameCategory));
+    if(nameCategory === 'All') {
+    this.filteredDishes = [...this.dishList];
+  }
+  else {
+    this.filteredDishes = this.dishList.filter((dish) => dish.category.nameCategory === nameCategory);
+  }
+  }
+  showDetail(dId: string) {
+    this.router.navigate(['base/menu/dish-detail',dId]);
+    console.log(dId);
+  }
+  ngOnDestroy() {
+  this.subscriptions.forEach((subscription) => {
+    subscription.unsubscribe();
 
   });
 }

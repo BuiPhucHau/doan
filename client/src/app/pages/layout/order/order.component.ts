@@ -24,7 +24,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   standalone: true,
   imports: [TaigaModule,FontAwesomeModule, ReactiveFormsModule, CommonModule],
   templateUrl: './order.component.html',
-  styleUrl: './order.component.scss',
+  styleUrl: './order.component.less',
 })
 export class OrderComponent {
   readonly testForm = new FormGroup({
@@ -40,6 +40,7 @@ export class OrderComponent {
   category$ = this.store.select('category', 'categories');
   dishList: Dish[] = [];
   categories: Category[] = [];
+  dish: Dish = <Dish>{};
 
   readonly control = new FormControl('', Validators.minLength(12));
   subscriptions: Subscription[] = [];
@@ -69,6 +70,11 @@ export class OrderComponent {
         }
       }),
     );
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation && navigation.extras.state) {
+      const dish = navigation.extras.state['dish']; 
+      
+    }
   }
   ngOnInit() {
     this.store.dispatch(DishActions.get({}));

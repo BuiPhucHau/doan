@@ -12,16 +12,18 @@
                             <p class="dish-number">{{ dish.nameDish}}</p>
                             <p class="dish-number">{{ dish.price}}</p>
                             <div class="btn_add_minus">
-                                <button class="btn" appearance="custom" tuiButton type="button">
-                                    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
-                                </button>
-                                <tui-input tuiTextfieldSize="m" class="input_quantity" [formControl]="control">0</tui-input>
-                                <button class="btn" appearance="custom" tuiButton type="button">
-                                    <fa-icon [icon]="['fas', 'minus']"></fa-icon>
-                                </button>
+                                <span class="material-symbols-outlined">
+                                    add
+                                </span>
+                               <div class="input_number">
+                                0
+                               </div>
+                                <span class="material-symbols-outlined">
+                                    remove
+                                </span>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </tui-island>
@@ -37,13 +39,7 @@
                             <p class="dish-number">{{ dish.price}}</p>
                         </div>
                         <div>
-                            <button class="btn" appearance="custom" tuiButton type="button">
-                                <fa-icon [icon]="['fas', 'plus']"></fa-icon>
-                            </button>
 
-                            <button class="btn" appearance="custom" tuiButton type="button">
-                                <fa-icon [icon]="['fas', 'minus']"></fa-icon>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -55,19 +51,26 @@
                 <div class="dishs">
                     <div *ngFor="let dish of dishList">
                         <div class="dish" *ngIf="dish.category.cId ==='category_3'">
-                            <img class="dish-img" [src]="dish.image.urls" alt="dish">
-                            <p class="dish-number">{{ dish.nameDish}}</p>
-                            <p class="dish-number">{{ dish.price}}</p>
-                           
+                            <div class="img">
+                                <img class="dish-img" [src]="dish.image.urls" alt="dish">
+                            </div>
+                            <div class="content">
+                                <p class="dish-number">{{ dish.nameDish}}</p>
+                                <p class="dish-number">{{ dish.price}}</p>
+                            </div>
+                            <div class="btn_add_minus">
+                                sadkasn
+                                <span class="material-symbols-outlined">
+                                    add
+                                </span>
+                                <input type="text" class="input_number" value="0">
+                                <span class="material-symbols-outlined">
+                                    remove
+                                </span>
+                            </div>
                         </div>
                         <div>
-                            <button class="btn" appearance="custom" tuiButton type="button">
-                                <fa-icon [icon]="['fas', 'plus']"></fa-icon>
-                            </button>
-                            <tui-input tuiTextfieldSize="m" class="b-form" [formControl]="control">Name</tui-input>
-                            <button class="btn" appearance="custom" tuiButton type="button">
-                                <fa-icon [icon]="['fas', 'minus']"></fa-icon>
-                            </button>
+
                         </div>
                     </div>
                 </div>
@@ -79,7 +82,7 @@
             <button icon="tuiIconChevronRightLarge" title="Next" tuiIconButton type="button"
                 (click)="carousel.next()"></button>
         </div>
-</div>
+    </div>
 
 
 
