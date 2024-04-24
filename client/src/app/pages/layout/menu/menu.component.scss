@@ -31,9 +31,11 @@
         justify-content: space-around;
         align-items: center;
         text-align: center;
+        cursor: pointer;
         .name_dish.active {
             border-bottom: 2px solid rgb(209, 209, 209);
             border-radius: 2px;
+            
         }
 
     }
