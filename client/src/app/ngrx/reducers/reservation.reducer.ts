@@ -47,7 +47,7 @@ export const reservationReducer = createReducer(
 
   //////////////////////////// CREATE reservation //////////////////////////
   on(ReservationActions.createReservation, (state, action) => {
-    console.log(action)
+    // console.log(action)
     return {
       ...state,
       isCreateReservationLoading: true,
@@ -56,7 +56,7 @@ export const reservationReducer = createReducer(
     };
   }),
   on(ReservationActions.createReservationSuccess, (state, action) => {
-    console.log(action.reservation)
+    // console.log(action.reservation)
     return {
       ...state,
       reservation: action.reservation,

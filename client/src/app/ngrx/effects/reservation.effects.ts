@@ -38,7 +38,7 @@ export class ReservationEffects {
       exhaustMap((action) =>
         this.reservationService.createReservation(action.reservation).pipe(
           map(() => {
-            console.log(action.reservation)
+            // console.log(action.reservation)
             return ReservationActions.createReservationSuccess({reservation: action.reservation});
           }),
           catchError((err) =>

@@ -14,7 +14,7 @@ export class ReservationService {
   }
 
   createReservation (reservation: Reservation) {
-    console.log(reservation);
+    // console.log(reservation);
     return this.httpClient.post<Reservation>('http://localhost:3000/reservation/create', reservation);
   }
 
