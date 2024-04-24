@@ -18,8 +18,10 @@ import * as NewActions from '../../../ngrx/actions/new.actions';
   styleUrl: './new.component.scss'
 })
 export class NewComponent implements OnDestroy{
+
 [x: string]: any;
 selectedSlide: number = 0;
+
   new$ = this.store.select('new', 'newList');
   newList: New[] = [];
 
@@ -47,6 +49,7 @@ selectednew: any;
 
  }
 
+
 //  moveCarousel(direction: 'prev' | 'next') {
 //   if (direction === 'next') {
 //     this.currentIndex++;
@@ -61,6 +64,7 @@ selectednew: any;
 //   this.transformStyle = `translateX(${offset}%)`;
 // }
 // 
+
  ngOnInit(){
   this.store.dispatch(get());
   this.subcriptions.push(

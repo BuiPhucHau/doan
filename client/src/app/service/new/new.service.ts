@@ -16,6 +16,7 @@ export class NewService {
 //     return this.httpClient.post<New[] | any>('http://localhost:3000/new/create', new);
 //   }
 
+
   // removeNew(dId: string) {
   //   return this.httpClient.delete(
   //     `http://localhost:3000/New/delete?=id/${dId}`

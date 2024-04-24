@@ -64,4 +64,29 @@ export class ReservationService {
       throw new HttpException(error.message, error.status);
     }
   }
+
+  async updateStatus(id: string) {
+    try{
+      const updatedReservation = await this.reservationModel.findByIdAndUpdate(
+        id,
+        {status: true},
+        {new: true}
+        );
+        return updatedReservation;
+    }
+    catch(err){
+      throw new HttpException(err.message, err.status);
+    }
+  }
+
+
+  async remove(id: string) {
+    try{
+      const deletedReservation = await this.reservationModel.findOneAndDelete({reservationId: id});
+      return deletedReservation;
+    }
+    catch(err){
+      throw new HttpException(err.message, err.status);
+    }
+  }
 }

@@ -6,4 +6,8 @@ export const ORDER_ROUTERS: Routes = [
         path: '',
         component: OrderComponent 
     },
+    { 
+        path: ':dId',
+        component: OrderComponent 
+    },
 ]

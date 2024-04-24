@@ -1,75 +1,135 @@
 <div class="container">
-    <div class="container-order">
-        <div *ngFor="let category of categories">
-            <h2 *ngIf="category.cId === 'category_1'" style="margin-left: 1rem; margin-top: 1rem;">
-                {{category.nameCategory}}</h2>
-        </div>
-        <div class="dishes">
-            <div class="dish" *ngFor="let dish of dishList">
-                <div *ngIf="dish.category.cId === 'category_1'" >
-                    <div class="card_dish" tuiCardMedium tuiSurface="flat">
-                        <img [src]="dish.image" tuiCardMedia>
-                        <h2 tuiTitle>
-                            {{dish.nameDish}}
-                            <span tuiSubtitle>{{dish.price}}</span>
-                        </h2>
+    <div class="container-dish">
+        <tui-carousel #carousel class="carousel">
+            <tui-island *tuiItem>
+                <div *ngFor="let category of categories" class="title">
+                    <p *ngIf="category.cId === 'category_1'" class="category_title">{{category.nameCategory}}</p>
+                </div>
+                <div class="dishs">
+                    <div *ngFor="let dish of dishList">
+                        <div class="dish" *ngIf="dish.category.cId ==='category_1'">
+                            <img class="dish-img" [src]="dish.image.urls" alt="dish">
+                            <p class="dish-number">{{ dish.nameDish}}</p>
+                            <p class="dish-number">{{ dish.price}}</p>
+                            <div class="btn_add_minus">
+                                <span class="material-symbols-outlined">
+                                    add
+                                </span>
+                               <div class="input_number">
+                                0
+                               </div>
+                                <span class="material-symbols-outlined">
+                                    remove
+                                </span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
+            </tui-island>
+            <tui-island *tuiItem>
+                <div *ngFor="let category of categories" class="title">
+                    <p *ngIf="category.cId === 'category_2'" class="category_title">{{category.nameCategory}}</p>
+                </div>
+                <div class="dishs">
+                    <div *ngFor="let dish of dishList">
+                        <div class="dish" *ngIf="dish.category.cId ==='category_2'">
+                            <img class="dish-img" [src]="dish.image.urls" alt="dish">
+                            <p class="dish-number">{{ dish.nameDish}}</p>
+                            <p class="dish-number">{{ dish.price}}</p>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </tui-island>
+            <tui-island *tuiItem>
+                <div *ngFor="let category of categories" class="title">
+                    <p *ngIf="category.cId === 'category_3'" class="category_title">{{category.nameCategory}}</p>
+                </div>
+                <div class="dishs">
+                    <div *ngFor="let dish of dishList">
+                        <div class="dish" *ngIf="dish.category.cId ==='category_3'">
+                            <div class="img">
+                                <img class="dish-img" [src]="dish.image.urls" alt="dish">
+                            </div>
+                            <div class="content">
+                                <p class="dish-number">{{ dish.nameDish}}</p>
+                                <p class="dish-number">{{ dish.price}}</p>
+                            </div>
+                            <div class="btn_add_minus">
+                                sadkasn
+                                <span class="material-symbols-outlined">
+                                    add
+                                </span>
+                                <input type="text" class="input_number" value="0">
+                                <span class="material-symbols-outlined">
+                                    remove
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </tui-island>
+        </tui-carousel>
+        <div tuiCarouselButtons class="wrapper">
+            <button icon="tuiIconChevronLeftLarge" title="Previous" tuiIconButton type="button"
+                (click)="carousel.prev()"></button>
+            <button icon="tuiIconChevronRightLarge" title="Next" tuiIconButton type="button"
+                (click)="carousel.next()"></button>
         </div>
     </div>
-    <div class="bill">
-        <p id="content_1">Your Order</p>
-        <div class="bill_item">
-            <form class="b-form" [formGroup]="testForm">
-                <label [tuiLabel]="label1">
-                    <tui-input formControlName="testValue" nativeId="uniqueId" tuiTextfieldSize="m"
-                        [tuiTextfieldLabelOutside]="true">
-                        0,00
-                    </tui-input>
-                </label>
-                <ng-template #label1>
-                    <p id="content_2">Name</p>
-                </ng-template>
-            </form>
-            <form class="b-form" [formGroup]="testForm">
-                <label [tuiLabel]="label2">
-                    <tui-input formControlName="testValue" nativeId="uniqueId" tuiTextfieldSize="m"
-                        [tuiTextfieldLabelOutside]="true">
-                        0,00
-                    </tui-input>
-                </label>
-                <ng-template #label2>
-                    <p id="content_2">Quantity</p>
-                </ng-template>
-            </form>
-            <form class="b-form" [formGroup]="testForm">
-                <label [tuiLabel]="label3">
-                    <tui-input formControlName="testValue" nativeId="uniqueId" tuiTextfieldSize="m"
-                        [tuiTextfieldLabelOutside]="true">
-                        0,00
-                    </tui-input>
-                </label>
-                <ng-template #label3>
-                    <p id="content_2">Price</p>
-                </ng-template>
-            </form>
-            <form class="b-form" [formGroup]="testForm">
-                <label [tuiLabel]="label4">
-                    <tui-input formControlName="testValue" nativeId="uniqueId" tuiTextfieldSize="m"
-                        [tuiTextfieldLabelOutside]="true">
-                        0,00
-                    </tui-input>
-                </label>
-                <ng-template #label4>
-                    <p id="content_2">Total Price</p>
-                </ng-template>
-            </form>
-            <div class="button_1">
-                <button appearance="primary" tuiButton>
-                    <p>Pay</p>
-                </button>
+
+
+
+    <div class="container-detail_payment">
+        <div class="detail_save">
+            <p style="font-size: 14px; font-weight: bold; margin: 1rem;">Your Payment</p>
+            <div class="btn_save">
+                <button class="save" appearance="custom" tuiButton type="button">Save</button>
             </div>
+        </div>
+
+        <div class="input-payment">
+            <label class="label-payment">Dish Name</label>
+            <tui-input tuiTextfieldSize="m" class="b-form" [formControl]="control">Name</tui-input>
+        </div>
+
+
+        <div class="input-payment">
+            <label class="label-payment">Quantity</label>
+            <tui-input tuiTextfieldSize="m" class="b-form" [formControl]="control">Quantity</tui-input>
+        </div>
+
+
+        <div class="input-payment">
+            <label class="label-payment">Dish Price</label>
+            <tui-input tuiTextfieldSize="m" class="b-form" [formControl]="control">Price</tui-input>
+        </div>
+
+
+        <div class="input-payment">
+            <label class="label-payment">Total Price</label>
+            <tui-input tuiTextfieldSize="m" class="b-form" [formControl]="control">Price</tui-input>
+        </div>
+
+        <div class="line"></div>
+        <p style="font-size: 14px; margin: 1rem; font-weight: bold;">Client Details</p>
+
+        <!-- Full Name -->
+        <div class="input-client">
+            <label class="label-client">Full Name</label>
+            <tui-input tuiTextfieldSize="m" class="b-form" [formControl]="control">Name</tui-input>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="input-client">
+            <label class="label-client">Phone Number</label>
+            <tui-input-phone tuiTextfieldSize="m" class="b-form" [formControl]="control">Phone</tui-input-phone>
         </div>
     </div>
 </div>

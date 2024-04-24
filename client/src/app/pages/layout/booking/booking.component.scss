@@ -21,6 +21,15 @@
             display: flex;
             width: 200px;
             margin: 1rem;
+            .branch {
+                border-radius: 10px;
+                height: 40px;
+                width: 175px;
+                    border-color: rgb(208, 208, 208);
+                    border-width: 1px;
+                    border-style: solid;
+            
+            }
         }
     
         .filter {
@@ -42,9 +51,13 @@
               }
         }
     }
-
     
-
+    .search_location {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+        width: 250px;
+    }
 
     .tables {
         width: auto;

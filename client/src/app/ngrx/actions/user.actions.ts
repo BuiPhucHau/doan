@@ -1,6 +1,8 @@
 import { createAction, props } from "@ngrx/store";
 import { User } from "../../models/user.model";
 
+export const getUserId = createAction('[User] Get User ID', props<{ userId: string }>());
+
 export const getByEmail = createAction('[User] get by email', props<{ email: string }>());
 
 export const getByEmailSuccess = createAction('[User] get by email success', props<{ user : User }>()); 
