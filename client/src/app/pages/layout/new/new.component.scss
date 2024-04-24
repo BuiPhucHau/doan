@@ -1,9 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
-// .carousel-img {
-//   max-width: 100%; /* or any other max-width you prefer */
-//   height: auto;
-//   max-height: 300px; /* Adjust the max-height as needed */
-// }
+
 
 $regal-blue: #034378;
 $san-juan: #2d4e68;
@@ -23,12 +19,35 @@ sans-serif;
     clear: both;
   }
 }
-
+body {
+  background-image: linear-gradient(to right, $regal-blue, $san-juan);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  font-family: $open-sans;
+}
 * {
   box-sizing: border-box;
 }
 
 
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%; /* Phân chia overlay thành hai phần bằng nhau */
+  z-index: 999;
+  cursor: pointer;
+  background: transparent; /* Đảm bảo overlay không che phủ nội dung */
+}
 
 .container {
   width: 100%;
@@ -46,8 +65,8 @@ h1 {
 }
 
 .row {
-  width: 70%;
-  height: 100%;
+  max-width: 900px;
+  margin: 50px auto 0;
 }
 .carousel-container {
   width: 100%;
@@ -55,25 +74,21 @@ h1 {
 }
 .carousel-track {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  flex-wrap: nowrap; /* Đảm bảo các card nằm trên một hàng */
+  transition: transform 0.3s ease-in-out;
 }
 
 .card {
-  flex: 0 0 100%;
-  width: 100%;
+  flex: 0 0 50%; /* Mỗi card chiếm 50% chiều rộng của track */
+  box-sizing: border-box; /* Đảm bảo padding và border được tính trong width */
+  padding: 0 15px; /* Tạo khoảng cách giữa các card */
   display: flex;
-  align-items: center;
-  justify-content: center;
- 
-  float: left;
-  padding: 0 1.7rem;
-  width: 50%;
-  margin-top: 50px;
+  justify-content: center; 
   .menu-content {
    
     @include cf;
-    margin: 10;
-    padding: 10;
+    margin: 0;
+    padding: 0;
     list-style-type: none;
     li {
       display: inline-block;
@@ -92,20 +107,13 @@ h1 {
     }
   }
   .wrapper {
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba($black, 0.5);
-  text-align: center;
-    
-    min-height: 540px;
+    background-color: $white;
+    padding: 5px;
+    margin: 10px;
+    height: 500px; /* Thay thế max-height bằng height */
+    width: 370px; /* Thay thế max-width bằng width */
     position: relative;
     overflow: hidden;
-    .image {
-      width: 100%;
-  
-      object-fit: cover;
-    }
-
-
     box-shadow: 0 19px 38px rgba($black, 0.3), 0 15px 12px rgba($black, 0.2);
     &:hover {
       .data {
@@ -113,11 +121,19 @@ h1 {
       }
     }
   }
+  
+  .wrapper .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
   .data {
-    background-color: $white;
+   background-color: $white;
     position: absolute;
     bottom: 0;
     width: 100%;
+   
     transform: translateY(calc(70px + 1em));
     transition: transform 0.3s;
     .content {
@@ -187,12 +203,16 @@ h1 {
     border: none;
     outline: none;
   }
-  .prev {
-    left: 10px;
-  }
+  // .prev {
+  //   left: 10px;
+  // }
   
-  .next {
-    right: 10px;
+  // .next {
+  //   right: 10px;
+  // }
+  .content {
+    background-color: $white;
+    box-shadow: 0 5px 30px 10px rgba($black, 0.3);
   }
   .title {
     a {
@@ -264,3 +284,34 @@ h1 {
 
   
  
+#slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+#slider label {
+  display: none;
+  width: 100%;
+  position: absolute;
+  transition: transform 0.5s ease;
+}
+
+#slider input[type="radio"]:checked + label {
+  display: block;
+}
+
+.card {
+  transition: opacity 0.5s ease;
+}
+
+.card.example-1 {
+  display: flex;
+  justify-content: center;
+  width: 100%; /* Adjust based on your design */
+}
+
+.wrapper {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+}
