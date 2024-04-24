@@ -37,6 +37,7 @@ export class StorageController {
     }
   }
 
+  
   @Get('image')
   async getFiles(@Query('folderName') folderName: string): Promise<Storage> {
     try {

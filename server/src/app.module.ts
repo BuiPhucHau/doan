@@ -30,20 +30,10 @@ import { NewModule } from './new/new.module';
   // AuthModule,
   ReservationModule,
   TableModule,
-  
- 
   LocationModule,
-  
- 
   OrderModule,
-  
- 
   OrderdetailModule,
-  
- 
   PaymentModule,
-  
- 
   NewModule
 ],
   controllers: [AppController],
