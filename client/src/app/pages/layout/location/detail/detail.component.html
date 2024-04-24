@@ -1,18 +1,19 @@
 <div class="container">
-    <div class="header">
-        <h1 class="text_header">CURST GOURMET</h1>
+    <div *ngIf="selectedLocation" class="title">
+        <h1 class="text">{{ selectedLocation.name }}</h1>
     </div>
-    <div class="detail">
-        <div *ngIf="selectedLocation">
-            <h2>Name: {{ selectedLocation.name }}</h2>
-            <h2>Phone: {{ selectedLocation.phone }}</h2>
-            <h2>Address: {{ selectedLocation.address }}</h2>
-            <div class="image-gallery">
-                <div class="image-container" *ngIf="selectedLocation.image.urls">
-                    <img class="image_featured" *ngFor="let img of selectedLocation.image.urls" [src]="img" alt="">
+    <div class="location_detail">
+        <div class="image"></div>
+        <div class="container_detail">
+            <div class="detail">
+                <div *ngIf="selectedLocation">
+                    <h2 class="Access"> Access</h2>
+                    <!-- <h2 class="Name"> {{ selectedLocation.name }}</h2> -->
+                    <h2 class="phone">Phone: {{ selectedLocation.phone }}</h2>
+                    <h2 class="address">Address: {{ selectedLocation.address }}</h2>
                 </div>
+                <div *ngIf="!selectedLocation" class="detail">Location not found.</div>
             </div>
         </div>
-        <div *ngIf="!selectedLocation">Location not found.</div>
     </div>
 </div>

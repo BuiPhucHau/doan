@@ -57,7 +57,6 @@ export const appConfig: ApplicationConfig = {
     provideState ({name: 'reservation', reducer: reservationReducer}),
     provideState ({name: 'new', reducer: newReducer}),
 
-
     provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects, CategoryEffects, TableEffects, ReservationEffects, NewEffects]),
 
 
