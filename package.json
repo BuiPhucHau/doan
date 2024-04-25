@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@taiga-ui/experimental": "^3.76.0"
+  }
+}

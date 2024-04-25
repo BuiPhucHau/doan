@@ -18,7 +18,7 @@ import {
   TuiStringifyContentPipeModule,
   TuiTabsModule,
 } from '@taiga-ui/kit';
-
+import {TuiIconModule} from '@taiga-ui/experimental';
 import {
   TuiActiveZoneModule,
   TuiFilterPipeModule,
@@ -95,7 +95,7 @@ const TaigaModules = [
   TuiTextareaModule,
   TuiInputDateRangeModule,
   TuiInputPhoneInternationalModule,
-
+  TuiIconModule,
   TuiButtonModule,
   TuiActionModule,
 

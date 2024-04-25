@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { ShareModule } from '../../../shared/shared.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -28,7 +28,7 @@ import { Reservation } from '../../../models/reservation.model';
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',
 })
-export class BookingComponent implements OnDestroy {
+export class BookingComponent implements OnInit, OnDestroy {
 
 
   ////////////// Location
@@ -56,6 +56,9 @@ export class BookingComponent implements OnDestroy {
   // 'https:cdn-icons-png.flaticon.com/512/4726/4726492.png';
   readonly currentDate = new Date();
 
+  // Tắt tự động dropdown của input Time
+  activateDropdown = false;
+
   // Lấy timestamp hiện tại
   timestamp = Date.now();
   // Khởi tạo Date object từ timestamp
@@ -73,7 +76,7 @@ export class BookingComponent implements OnDestroy {
     tableId: new FormControl('', Validators.required),
     numberofPeople: new FormControl('', Validators.required),
     date: new FormControl(new TuiDay(this.year, this.month, this.day)),
-    time: new FormControl(this.time, Validators.required),
+    time: new FormControl({value: this.time, disabled: true}, Validators.required),
     name: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
   });
@@ -117,14 +120,14 @@ export class BookingComponent implements OnDestroy {
           console.log(tableList);
           this.tableList = tableList;
           this.onLocationChange();
-          // this.filterTable('All');
+          this.filterTable('All');
         }
       }),
 
       //////////////////////////// Location
       this.location$.subscribe((locations) => {
         if (locations.length > 0) {
-          this.locationList = locations.map((location) => location.locationId);
+          this.locationList = locations.map((location) => location.name);
         }
       }),
 
@@ -140,7 +143,16 @@ export class BookingComponent implements OnDestroy {
       }),
     );
 
-  
+  }
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.activateDropdown = true;
+      // Kiểm tra xem FormControl có tồn tại trước khi gọi phương thức enable trên nó
+      const timeControl = this.bookingTable.get('time');
+      if (timeControl) {
+        timeControl.enable();
+      }
+    }, 100);
   }
 
   ngOnDestroy(): void {
@@ -184,7 +196,7 @@ export class BookingComponent implements OnDestroy {
         phone: this.bookingTable.value.phone??"",
         status: true,
       };
-      console.log(addbookingTabke);
+      console.log('Đặt bàn thành công',addbookingTabke);
 
       this.store.dispatch(ReservationActions.createReservation({reservation: addbookingTabke}));
   }

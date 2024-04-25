@@ -47,7 +47,7 @@
     <form [formGroup]="bookingTable">
       <div class="input-reservation">
         <label class="label-reservation">Table Number</label>
-        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="tableId" [tuiTextfieldCleaner]="true">
+        <tui-input tuiTextfieldSize="m" class="input" formControlName="tableId" [tuiTextfieldCleaner]="true">
           Table
           <input tuiTextfield type="text" />
         </tui-input>
@@ -63,7 +63,10 @@
       <div class="input-reservation">
         <label class="label-reservation">Reservation Time</label>
         <tui-input-time formControlName="time" [items]="time" class="input"
-          tuiTextfieldSize="m">Time</tui-input-time>
+          tuiTextfieldSize="m"
+          [readOnly]="!activateDropdown"
+          [tuiTextfieldCleaner]="true"
+          >Time</tui-input-time>
       </div>
 
       <!-- Pax Number -->
@@ -71,7 +74,6 @@
         <label class="label-reservation">Pax Number</label>
         <tui-select class="input" tuiTextfieldSize="m" formControlName="numberofPeople">
           0
-          <input placeholder="Select number" tuiTextfield />
           <tui-data-list-wrapper *tuiDataList [items]="taxNumberOptions"></tui-data-list-wrapper>
         </tui-select>
       </div>
@@ -92,7 +94,7 @@
       <!-- Phone Number -->
       <div class="input-client">
         <label class="label-client">Phone Number</label>
-        <tui-input-phone tuiTextfieldSize="m" class="b-form" formControlName="phone" [tuiTextfieldCleaner]="true">
+        <tui-input-phone countryCode="+84" tuiTextfieldSize="m" class="b-form" formControlName="phone" [tuiTextfieldCleaner]="true">
           Phone
           <input tuiTextfield type="text" />
         </tui-input-phone>

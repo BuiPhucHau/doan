@@ -1,122 +1,131 @@
 .container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background: var(--tui-background);
-    justify-content: space-between;
-    // position: fixed;
-    // z-index: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--tui-background);
+  justify-content: space-between;
+  // position: fixed;
+  // z-index: 100%;
 }
 
 .logo {
-    // width: 10%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    cursor: pointer;
-    .logo_img {
-        width: 50px;
-        height: 50px;
-    }
-    .name {
-        color: white;
-        font-size: 20px;
-        font-weight: 600;  
-    }
+  // width: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  .logo_img {
+    width: 50px;
+    height: 50px;
+  }
+  .name {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+  }
 }
-
 
 .login {
-    width: auto;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    margin: 0 2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  width: auto;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+.material-symbols-outlined {
+    font-size: 30px;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 200,
+  'GRAD' 200,
+  'opsz' 48
+}
+
 }
 .select {
-    width: 60%;
-    height: 100%;
-    display: flex;
-    font-size: 14px;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    // margin-right: 5rem;
+  width: 60%;
+  height: 100%;
+  display: flex;
+  font-size: 14px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  // margin-right: 5rem;
 }
 
 button {
-    height: 2rem;
-    color:  white;
-    font-size: 14px;
-    font-weight: 600;
-    margin: 0 2rem;
-    cursor: pointer;
-    text-decoration: none;
-    border: none; /* Loại bỏ viền mặc định của nút */
-    background: transparent; /* Để nút trở thành trong suốt */
+  height: 2rem;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 2rem;
+  cursor: pointer;
+  text-decoration: none;
+  border: none; /* Loại bỏ viền mặc định của nút */
+  background: transparent; /* Để nút trở thành trong suốt */
 }
 
 .active {
-    border-bottom: 2px solid var(--tui-font); /* Điều chỉnh màu và độ dày theo ý muốn */
+  border-bottom: 2px solid var(--tui-font); /* Điều chỉnh màu và độ dày theo ý muốn */
 }
 
 .profile {
+  display: flex;
+  height: 7%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 auto;
+
+  .profile_infor {
     display: flex;
-    height: 7%;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 80%;
+
+    .profile_img {
+      img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+      }
+    }
+
+    .profile_info_box {
+      h3 {
+        margin: 0;
+        font-weight: bold;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  .profile_menu {
+    font-size: 1.2rem;
+  }
+
+  .btn_login {
     margin: 0 auto;
+    //border: solid 1px #4B60EE;
+    border-radius: 0.625rem;
+    background-color: #4b60ee;
+    cursor: pointer;
 
-    .profile_infor {
-        display: flex;
-        flex-direction: row;
-
-        .profile_img {
-            img {
-                width: 3rem;
-                height: 3rem;
-                border-radius: 50%;
-                margin-right: 0.5rem;
-            }
-        }
-
-        .profile_info_box {
-            h3 {
-                margin: 0;
-                font-weight: bold;
-            }
-
-            p {
-                margin: 0;
-                font-size: 0.75rem;
-            }
-        }
+    p {
+      margin: 0;
+      font-size: 0.75rem;
+      padding: 8px;
+      color: white;
     }
-
-    .profile_menu {
-        font-size: 1.2rem;
-    }
-
-    .btn_login {
-        margin: 0 auto;
-        //border: solid 1px #4B60EE;
-        border-radius: 0.625rem;
-        background-color: #4B60EE;
-        cursor: pointer;
-
-        p {
-            margin: 0;
-            font-size: 0.75rem;
-            padding: 8px;
-            color: white;
-        }
-    }
+  }
 }
