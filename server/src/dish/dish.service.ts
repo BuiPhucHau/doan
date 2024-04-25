@@ -50,12 +50,9 @@ catch(err){
     }
   }
 
-  async findOne(id: string) {
+  async findOne(dId: string) {
     try{
-      const dish = await this.dishModel.findOne({dId : id})
-      .populate('image','urls', this.storageModel)
-      .populate('cId','nameCategory', this.categoryModel)
-      .exec();
+      const dish = await this.dishModel.findOne({dId : dId})
       return dish;
     }
     catch(err){

@@ -40,7 +40,7 @@ export class OrderComponent {
   category$ = this.store.select('category', 'categories');
   dishList: Dish[] = [];
   categories: Category[] = [];
-  dish: Dish = <Dish>{};
+  dishes: Dish = <Dish>{};
 
   readonly control = new FormControl('', Validators.minLength(12));
   subscriptions: Subscription[] = [];
@@ -72,9 +72,12 @@ export class OrderComponent {
     );
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
-      const dish = navigation.extras.state['dish']; 
-      
+      const dishes = navigation.extras.state['dish']; 
+      if (dishes) {
+        this.dishList = dishes;
     }
+  }
+
   }
   ngOnInit() {
     this.store.dispatch(DishActions.get({}));

@@ -34,9 +34,9 @@ export class LocationService {
   }
 
 
-  async findOne(id: string) {
+  async findOne(locationId: string) {
     try{
-      const location = await this.locationModel.findOne({locationId: id}).exec();
+      const location = await this.locationModel.findOne({locationId: locationId})
       return location;
     }
     catch(err){

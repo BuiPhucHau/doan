@@ -3,7 +3,11 @@
         <h1 class="text">{{ selectedLocation.name }}</h1>
     </div>
     <div class="location_detail">
-        <div class="image"></div>
+        <div class="location_image">
+            <div id="image" *ngFor="let location of locationList">
+              <img class="image_featured" *ngIf="selectedLocation.locationId === location.locationId" [src]="location.image.urls" alt="">
+            </div>
+          </div>
         <div class="container_detail">
             <div class="detail">
                 <div *ngIf="selectedLocation">

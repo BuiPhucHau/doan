@@ -6,11 +6,11 @@
                     <p *ngIf="category.cId === 'category_1'" class="category_title">{{category.nameCategory}}</p>
                 </div>
                 <div class="dishs">
-                    <div *ngFor="let dish of dishList">
-                        <div class="dish" *ngIf="dish.category.cId ==='category_1'">
-                            <img class="dish-img" [src]="dish.image.urls" alt="dish">
-                            <p class="dish-number">{{ dish.nameDish}}</p>
-                            <p class="dish-number">{{ dish.price}}</p>
+                    <div *ngIf="dishes">
+                        <div class="dish" *ngIf="dishes.category.cId ==='category_1'">
+                            <img class="dish-img" [src]="dishes.image.urls" alt="dish">
+                            <p class="dish-number">{{ dishes.nameDish}}</p>
+                            <p class="dish-number">{{ dishes.price}}</p>
                             <div class="btn_add_minus">
                                 <span class="material-symbols-outlined">
                                     add
