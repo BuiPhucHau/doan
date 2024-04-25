@@ -34,12 +34,15 @@ export class BookingComponent implements OnDestroy {
   ////////////// Location
   location$ = this.store.select('location', 'locationList');
   locationList: readonly string[] = [];
+  
 
   ////////////// Table
   table$ = this.store.select('table', 'tableList');
   tableList: Table[] = [];
   filteredTables: Table[] = [];
 
+  tableTakenByLocationId$ = this.store.select('table', 'getTableByLocationId');
+  tableToRender: Table[] = [];
 
   ////////////// Reservation
   isCreateReservation$ = this.store.select('reservation', 'reservation');
@@ -64,13 +67,13 @@ export class BookingComponent implements OnDestroy {
   year = this.date.getFullYear();
 
 
+  time = tuiCreateTimePeriods(18, 23, [0, 30]);
+
   bookingTable = new FormGroup({
     tableId: new FormControl('', Validators.required),
     numberofPeople: new FormControl('', Validators.required),
-    // DateStart: new FormControl(new TuiDay(this.year, this.month, this.day)),
-    // DateEnd: new FormControl(new TuiDay(this.year, this.month, this.day)),
     date: new FormControl(new TuiDay(this.year, this.month, this.day)),
-    time: new FormControl(tuiCreateTimePeriods(18, 23, [0, 30])),
+    time: new FormControl(this.time, Validators.required),
     name: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
   });
@@ -81,6 +84,7 @@ export class BookingComponent implements OnDestroy {
     { seats: '2 Person', isActive: false },
     { seats: '4 Person', isActive: false },
     { seats: '6 Person', isActive: false },
+    { seats: '8 Person', isActive: false },
   ];
 
   toggleActive(person: any) {
@@ -88,12 +92,9 @@ export class BookingComponent implements OnDestroy {
   }
 
 
+  tableNumberOptions = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
-  time = tuiCreateTimePeriods(18, 23, [0, 30]);
-
-  tableNumberOptions = ['1', '2', '3', '4', '5', '6'];
-
-  taxNumberOptions = ['1', '2', '3', '4', '5', '6'];
+  taxNumberOptions = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
   constructor(
     private router: Router,
@@ -106,29 +107,40 @@ export class BookingComponent implements OnDestroy {
 
     /////////////////////////// Table
     this.store.dispatch(TableActions.get());
-
+    this.store.dispatch(LocationActions.get());
 
     this.subscriptions.push(
+
+
       this.table$.subscribe((tableList) => {
         if (tableList.length > 0) {
           console.log(tableList);
           this.tableList = tableList;
-          this.filterTable('All');
+          this.onLocationChange();
+          // this.filterTable('All');
         }
       }),
 
-    );
-
-    //////////////////////////// Location
-    this.store.dispatch(LocationActions.get());
-
-    this.subscriptions.push(
+      //////////////////////////// Location
       this.location$.subscribe((locations) => {
         if (locations.length > 0) {
-          this.locationList = locations.map((location) => location.name);
+          this.locationList = locations.map((location) => location.locationId);
         }
-      })
+      }),
+
+      //////////////////////////// get Table by Location
+      this.tableTakenByLocationId$.subscribe((tables) =>{
+        if(tables.length>0){
+          console.log('Tables:', tables);
+          this.tableToRender = tables;
+        }else {
+          console.log('No tables received for the location');
+          this.tableToRender = [];
+        }
+      }),
     );
+
+  
   }
 
   ngOnDestroy(): void {
@@ -140,9 +152,11 @@ export class BookingComponent implements OnDestroy {
   onLocationChange() {
     console.log('Branch is selected: ', this.locationValue);
     if (this.locationValue != null) {
-      // this.store.dispatch(TableActions.get({ locationId: this.locationValue }));
+      console.log('Get table by location:', this.locationValue);
+      console.log(this.tableToRender);
+      this.store.dispatch(TableActions.getByLocation({ locationId: this.locationValue }));
     } else {
-      this.store.dispatch(TableActions.get());
+      console.log('No location selected');
     }
   }
 
@@ -165,7 +179,7 @@ export class BookingComponent implements OnDestroy {
         numberofPeople: this.bookingTable.value.numberofPeople??"",
         tableId: this.bookingTable.value.tableId??"",
         date: this.bookingTable.value.date??new Date(),
-        time: (this.bookingTable.value.time??tuiCreateTimePeriods(18, 23, [0, 30])).toString(),
+        time: this.bookingTable.value.time?.toString() ?? "",
         name: this.bookingTable.value.name??"",
         phone: this.bookingTable.value.phone??"",
         status: true,

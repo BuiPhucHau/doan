@@ -47,11 +47,6 @@
     <form [formGroup]="bookingTable">
       <div class="input-reservation">
         <label class="label-reservation">Table Number</label>
-        <!-- <tui-select class="input" tuiTextfieldSize="m" formControlName="tableNumber">
-          0
-          <input placeholder="Select table" tuiTextfield />
-          <tui-data-list-wrapper *tuiDataList [items]="tableNumberOptions"></tui-data-list-wrapper>
-        </tui-select> -->
         <tui-input tuiTextfieldSize="m" class="b-form" formControlName="tableId" [tuiTextfieldCleaner]="true">
           Table
           <input tuiTextfield type="text" />
