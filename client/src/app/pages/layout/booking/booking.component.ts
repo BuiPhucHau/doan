@@ -15,11 +15,8 @@ import { LocationState } from '../../../ngrx/state/location.state';
 import * as LocationActions from '../../../ngrx/actions/location.actions';
 import * as ReservationActions from '../../../ngrx/actions/reservation.actions';
 import { generateReservationId } from '../../../../environments/environments';
-import { User } from '@angular/fire/auth';
-import { AuthState } from '../../../ngrx/state/auth.state';
-import { UserState } from '../../../ngrx/state/user.state';
 import { ReservationState } from '../../../ngrx/state/reservation.state';
-import { Reservation } from '../../../models/reservation.model';
+
 
 @Component({
   selector: 'app-booking',
@@ -30,11 +27,9 @@ import { Reservation } from '../../../models/reservation.model';
 })
 export class BookingComponent implements OnInit, OnDestroy {
 
-
   ////////////// Location
   location$ = this.store.select('location', 'locationList');
   locationList: readonly string[] = [];
-  
 
   ////////////// Table
   table$ = this.store.select('table', 'tableList');
@@ -46,7 +41,6 @@ export class BookingComponent implements OnInit, OnDestroy {
 
   ////////////// Reservation
   isCreateReservation$ = this.store.select('reservation', 'reservation');
-
 
   subscriptions: Subscription[] = [];
 
@@ -113,8 +107,7 @@ export class BookingComponent implements OnInit, OnDestroy {
     this.store.dispatch(LocationActions.get());
 
     this.subscriptions.push(
-
-
+      //////////////////////////// Table
       this.table$.subscribe((tableList) => {
         if (tableList.length > 0) {
           console.log(tableList);
@@ -160,6 +153,8 @@ export class BookingComponent implements OnInit, OnDestroy {
       subscription.unsubscribe();
     });
   }
+
+  ///////////////////////////// Location
   locationValue: any;
   onLocationChange() {
     console.log('Branch is selected: ', this.locationValue);
@@ -172,6 +167,8 @@ export class BookingComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  ///////////////////////////// Filter Table
   filterTable(seats: string): void {
     this.persons.forEach((p) => (p.isActive = p.seats === seats));
     if (seats === 'All') {
@@ -201,12 +198,11 @@ export class BookingComponent implements OnInit, OnDestroy {
       this.store.dispatch(ReservationActions.createReservation({reservation: addbookingTabke}));
   }
 
+  ///////////////////////////// Lấy id table khi selected
   selectTable(tableId: string): void {
     const selectedTable = this.tableList.find((table) => table.tableId === tableId);
     if (selectedTable) {
-      // Lấy được bàn từ tableList dựa trên tableId
       console.log('Selected Table:', selectedTable);
-      // Điều gì đó khác ở đây nếu bạn muốn thực hiện sau khi lấy được bàn
       this.bookingTable.patchValue({
         tableId: selectedTable.tableId
       });
