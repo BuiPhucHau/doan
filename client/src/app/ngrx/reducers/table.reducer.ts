@@ -9,6 +9,12 @@ export const initialState: TableState = {
       isGetSuccess: false,
       getErrMess: '',
       tableList: [],
+
+
+      isGetByLocationLoading: false,
+      isGetByLocationSuccess: false,
+      getByLocationErrMess: '',
+      getTableByLocationId: []
     
 };
 
@@ -43,6 +49,35 @@ export const tableReducer = createReducer(
         getErrMess: action.getErrMess,
       };
     }),
+
+    on(TableActions.getByLocation, (state, action) => {
+      return {
+        ...state,
+        isGetByLocationLoading: true,
+        isGetByLocationSuccess: false,
+        getByLocationErrMess: '',
+      };
+    }),
+
+    on(TableActions.getByLocationSuccess, (state, action) => {
+      return {
+        ...state,
+        getTableByLocationId: action.tableList,
+        isGetByLocationLoading: false,
+        isGetByLocationSuccess: true,
+        tableList: action.tableList,
+      };
+    }),
+
+    on(TableActions.getByLocationFailure, (state, action) => {
+      return {
+        ...state,
+        isGetByLocationLoading: false,
+        isGetByLocationSuccess: false,
+        getByLocationErrMess: action.getByLocationErrMess,
+      };
+    }),
+
     // on(TableActions.update, (state, action) => {
     //   return {
     //     ...state,
