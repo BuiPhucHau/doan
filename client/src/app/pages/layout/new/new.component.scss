@@ -1,9 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
-// .carousel-img {
-//   max-width: 100%; /* or any other max-width you prefer */
-//   height: auto;
-//   max-height: 300px; /* Adjust the max-height as needed */
-// }
 
 
 $regal-blue: #034378;
@@ -24,7 +19,6 @@ sans-serif;
     clear: both;
   }
 }
-
 body {
   background-image: linear-gradient(to right, $regal-blue, $san-juan);
   -webkit-font-smoothing: antialiased;
@@ -32,11 +26,9 @@ body {
   height: 100vh;
   font-family: $open-sans;
 }
-
 * {
   box-sizing: border-box;
 }
-
 
 
 .prev {
@@ -57,7 +49,6 @@ body {
   background: transparent; /* Đảm bảo overlay không che phủ nội dung */
 }
 
-
 .container {
   width: 100%;
   height: 100%;
@@ -74,18 +65,13 @@ h1 {
 }
 
 .row {
-  width: 70%;
-  height: 100%;
+  max-width: 900px;
+  margin: 50px auto 0;
 }
 .carousel-container {
   width: 100%;
   overflow: hidden;
 }
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
 .carousel-track {
   display: flex;
   flex-wrap: nowrap; /* Đảm bảo các card nằm trên một hàng */
@@ -98,25 +84,11 @@ h1 {
   padding: 0 15px; /* Tạo khoảng cách giữa các card */
   display: flex;
   justify-content: center; 
-
-
-.card {
-  flex: 0 0 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
- 
-  float: left;
-  padding: 0 1.7rem;
-  width: 50%;
-  margin-top: 50px;
-
   .menu-content {
    
     @include cf;
-    margin: 10;
-    padding: 10;
+    margin: 0;
+    padding: 0;
     list-style-type: none;
     li {
       display: inline-block;
@@ -140,22 +112,8 @@ h1 {
     margin: 10px;
     height: 500px; /* Thay thế max-height bằng height */
     width: 370px; /* Thay thế max-width bằng width */
-     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  padding: 20px;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba($black, 0.5);
-  text-align: center;
-    
-    min-height: 540px;
     position: relative;
     overflow: hidden;
-    .image {
-      width: 100%;
-  
-      object-fit: cover;
-    }
-
-
     box-shadow: 0 19px 38px rgba($black, 0.3), 0 15px 12px rgba($black, 0.2);
     &:hover {
       .data {
@@ -164,17 +122,14 @@ h1 {
     }
   }
   
-  .wrapper, .image {
+  .wrapper .image {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
   
   .data {
-
    background-color: $white;
-
-
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -207,6 +162,7 @@ h1 {
 }
 
 .example-1 {
+  
   
   .date {
 
@@ -244,18 +200,19 @@ h1 {
     transform: translateY(-50%);
     cursor: pointer;
     background-color: $white;
-    border: none;
+    
     outline: none;
   }
-
+  // .prev {y
+  //   left: 10px;
+  // }
+  
+  // .next {
+  //   right: 10px;
+  // }
   .content {
     background-color: $white;
     box-shadow: 0 5px 30px 10px rgba($black, 0.3);
-
-  }
-  
-  .next {
-    right: 10px;
   }
   .title {
     a {
@@ -354,4 +311,7 @@ h1 {
   width: 100%; /* Adjust based on your design */
 }
 
+.wrapper {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
 }
