@@ -11,6 +11,8 @@ import * as CategoryActions from '../../../../ngrx/actions/category.actions';
 import { ShareModule } from '../../../../shared/shared.module';
 import { TaigaModule } from '../../../../shared/taiga.module';
 import { get } from '../../../../ngrx/actions/location.actions';
+import { DishService } from '../../../../service/dish/dish.service';
+
 @Component({
   selector: 'app-dishdetail',
   standalone: true,
@@ -22,13 +24,14 @@ export class DishdetailComponent implements OnDestroy {
   dish$ = this.store.select('dish', 'dishList');
   category$ = this.store.select('category', 'categories');
   dishList: Dish[] = [];
-  dish: Dish = <Dish>{};
+  dishOrder: Dish = <Dish>{};
   categories: Category[] = [];
   subcriptions: Subscription[] = [];
   selectDish: any;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private dishService: DishService,
     private store: Store<{
       dish: DishState;
       category: categoryState;
@@ -67,22 +70,12 @@ export class DishdetailComponent implements OnDestroy {
         }
       }),
     );
-    this.route.params.subscribe(params => {
-      const dId = params['dId'];
-      if (dId) {
-        this.selectDish = this.dishList.find(dish => dish.dId === dId);
-        localStorage.setItem('selectDish', JSON.stringify(this.selectDish));
-      }
-      console.log(' doi tuong ' + this.selectDish);
-      const storedDish = localStorage.getItem('selectDish');
-      if (storedDish) {
-        this.selectDish = JSON.parse(storedDish);
-        console.log('JSON' + storedDish);
-      } else {
-        this.selectDish = null; 
-      }
-    });
-   
+    const dishId = this.route.snapshot.paramMap.get('dId');
+    if (dishId) {
+      this.dishService.getDishById(dishId).subscribe((dish: any) => {
+        this.selectDish = dish;
+      });
+    }
   }
   ngOnDestroy(): void {
     this.subcriptions.forEach((sub) => sub.unsubscribe());
@@ -90,9 +83,9 @@ export class DishdetailComponent implements OnDestroy {
   goBack(): void {
     this.router.navigate(['/base/menu']);
   }
-  addtoCart(dish: Dish): void {
-    this.store.dispatch(DishActions.addtoCart({ dish: dish }));
-    this.router.navigate(['/base/order'], { state: { dish: dish } });
+  addtoCart(dishOrder: Dish): void {
+    this.store.dispatch(DishActions.addtoCart({ dish: dishOrder }));
+    this.router.navigate(['/base/order'], { state: { dish: dishOrder } });
   }
 
 }

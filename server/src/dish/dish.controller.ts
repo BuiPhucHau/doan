@@ -33,9 +33,9 @@ export class DishController {
     }
 
     @Get('getbyDishId')
-    async findOne(@Query('id') id: string ) {
+    async findOne(@Query('dId') dId: string ) {
         try {
-            const dish = await this.dishService.findOne(id);
+            const dish = await this.dishService.findOne(dId);
             return dish;
         } catch (error) {
             throw error;

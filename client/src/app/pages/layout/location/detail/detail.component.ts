@@ -21,7 +21,7 @@ export class DetailComponent implements OnDestroy {
 
   location$ = this.store.select('location', 'locationList');
   locationList: Location[] = [];
-  selectedLocation: Location | undefined;
+  selectedLocation: any;
   subcriptions: Subscription[] = [];
   constructor(
     private route: ActivatedRoute,
@@ -50,12 +50,18 @@ export class DetailComponent implements OnDestroy {
          }
        }),
      );
-     this.route.params.subscribe(params => {
-      const locationId = params['locationId'];
-      if (locationId) {
-        this.selectedLocation = this.locationList.find(location => location.locationId === locationId);
-      }
-    });
+     const loId = this.route.snapshot.paramMap.get('locationId');
+     if (loId) {
+       this.locationService.getLocationById(loId).subscribe((location: any) => {
+         this.selectedLocation = location;
+       });
+     }
+    //  this.route.params.subscribe(params => {
+    //   const locationId = params['locationId'];
+    //   if (locationId) {
+    //     this.selectedLocation = this.locationList.find(location => location.locationId === locationId);
+    //   }
+    // });
   }
    ngOnDestroy(): void {
     this.subcriptions.forEach((sub) => sub.unsubscribe());

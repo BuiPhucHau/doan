@@ -11,6 +11,9 @@ export class DishService {
   getDish() {
     return this.httpClient.get<Dish[] | any>('http://localhost:3000/dish/get-all');
   }
+  getDishById(dId: string) {
+    return this.httpClient.get<Dish[] | any>(`http://localhost:3000/dish/getbyDishId?dId=${dId}`);
+  }
 
   createDish(dish : any) { 
     return this.httpClient.post<Dish[] | any>('http://localhost:3000/dish/create', dish);

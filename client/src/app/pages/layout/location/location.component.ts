@@ -52,6 +52,7 @@ export class LocationComponent implements OnDestroy {
        }
      }),
    );
+   
  }
  
 
