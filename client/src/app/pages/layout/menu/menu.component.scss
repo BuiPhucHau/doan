@@ -52,9 +52,9 @@ hr{
 }
 .menu{
     width: 70%;
-    height: 90%;
+    height: 80%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 0fr));
     grid-gap: 20px;
 .grid_dish {
     width: 200px;
