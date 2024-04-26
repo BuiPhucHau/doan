@@ -26,10 +26,10 @@ export class LocationController {
       throw err;
     }
   }
-  @Get(':id') 
-  async findOne(@Param('id') id: string) {
+  @Get('getByLocationId') 
+  async findOne(@Query('locationId') locationId: string) {
     try {
-      const location = await this.locationService.findOne(id);
+      const location = await this.locationService.findOne(locationId);
       return location;
     } catch (err) {
       throw err;

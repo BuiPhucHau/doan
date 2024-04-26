@@ -1,14 +1,25 @@
 <div class="container">
-  <div class="dish_detail" *ngIf="selectDish">
-    <div class="dish_detail__image">
-      <img [src]="selectDish.image.urls" alt="dish image" />
+  <div class="dish_image">
+    <div id="image" *ngFor="let dish of dishList">
+      <img class="image_featured" *ngIf="selectDish.dId === dish.dId" [src]="dish.image.urls" alt="">
     </div>
-    <div class="dish_detail__info">
-      <h2>{{ selectDish.nameDish }}</h2>
-      <p>{{ selectDish.description }}</p>
-      <p>{{ selectDish.price | currency }}</p>
-      <button (click)="addtoCart(dish)">Add to cart</button>
+  </div>
+  <div class="dish_info" *ngIf="selectDish">
+    <div class="info">
+        <div id="info_1">
+          <h2>{{selectDish.nameDish}}</h2>
+          <h2>{{selectDish.price}}</h2>
+        </div>
+        <div id="desscription">
+          <p>{{selectDish.description}}</p>
+        </div>    
+      </div>
+    <div class="button">
+      <div id="btn_add">
+        <button class="btn" (click)="addtoCart(dishOrder)" >Add to cart</button>
+      </div>
+      <div id="btn_back">
+        <button class="btn" (click)="goBack()">Back</button>
     </div>
-
   </div>
 </div>

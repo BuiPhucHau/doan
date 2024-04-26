@@ -23,7 +23,7 @@ interface Page {
   standalone: true,
   imports: [ShareModule, TaigaModule],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
   pageSelected: number = 0;
@@ -34,7 +34,8 @@ export class NavbarComponent {
     { id: 2, name: 'Location', link: 'base/location' },
     { id: 3, name: 'News', link: 'base/new' },
     { id: 4, name: 'Order', link: 'base/order' },
-    { id: 5, name: 'Admin', link: 'base/admin' },
+    { id: 5, name: 'Contact', link: 'base/contact' },
+    { id: 6, name: 'Admin', link: 'base/admin' },
   ];
   user: User = <User>{};
   route$ = this.router.events;
@@ -48,14 +49,26 @@ export class NavbarComponent {
     avatar: new FormControl('', Validators.required),
   });
 
-  constructor(private router: Router, private store: Store<{ auth: AuthState; user: UserState }>) {
-
+  constructor(
+    private router: Router,
+    private store: Store<{ auth: AuthState; user: UserState }>
+  ) {
     this.user$.subscribe((user) => {
       if (user && user._id != null && user._id != undefined) {
         console.log(user);
         this.user = user;
       } else {
-        this.user = { _id: '', uid: '', avatar: '', email: '', name: '', role: '', password: '', phone: '', address: '' };
+        this.user = {
+          _id: '',
+          uid: '',
+          avatar: '',
+          email: '',
+          name: '',
+          role: '',
+          password: '',
+          phone: '',
+          address: '',
+        };
       }
     });
 
@@ -66,7 +79,6 @@ export class NavbarComponent {
         this.userForm.controls.name.setValue(user.user.name);
         this.userForm.controls.uid.setValue(user.user.uid);
       }
-      
     });
 
     this.auth$.subscribe((res) => {
@@ -78,54 +90,56 @@ export class NavbarComponent {
         this.store.dispatch(UserAction.resetUser());
       }
     });
-  combineLatest({
-    route: this.route$,
-    user: this.user$,
-  }).subscribe((res) => {
-    if (res.user && res.user.role != 'admin') {
-      // console.log(res.user.role);
-      // console.log(this.pages.length);
-      if (this.pages.length === 6) {
-        this.pages.splice(5, 1);
+    combineLatest({
+      route: this.route$,
+      user: this.user$,
+    }).subscribe((res) => {
+      if (res.user && res.user.role != 'admin') {
+        if (this.pages.length === 7) {
+          this.pages.splice(6, 1);
+        }
+      } else if (res.user && res.user.role === 'admin') {
+        const adminPage = { id: 6, name: 'Admin', link: 'base/admin' };
+        if (!this.pages.find((page) => page.id === adminPage.id)) {
+          this.pages.push(adminPage);
+        }
       }
-    } else if (res.user && res.user.role === 'admin') {
-      const adminPage = { id: 5, name: 'Admin', link: 'base/admin' };
-      if (!this.pages.find(page => page.id === adminPage.id)) {
-        this.pages.push(adminPage);
+
+      if (this.router.url != this.url) {
+        this.url = this.router.url;
+        switch (this.router.url) {
+          case '/base/home':
+            this.pageSelected = 0;
+            break;
+          case '/base/menu':
+            this.pageSelected = 1;
+            break;
+          case '/base/booking':
+            this.pageSelected = 2;
+            break;
+          case '/base/location':
+            this.pageSelected = 3;
+            break;
+          case '/base/order':
+            this.pageSelected = 4;
+            break;
+          case '/base/new':
+            this.pageSelected = 5;
+            break;
+          case '/base/contact':
+            this.pageSelected = 6;
+            break;
+          case '/base/admin':
+            this.pageSelected = 7;
+            break;
+          default:
+            break;
+        }
       }
-    }
-  
-    if (this.router.url != this.url) {
-      this.url = this.router.url;
-      switch (this.router.url) {
-        case '/base/home':
-          this.pageSelected = 0;
-          break;
-        case '/base/menu':
-          this.pageSelected = 1;
-          break;
-        case '/base/booking':
-          this.pageSelected = 2;
-          break;
-        case '/base/location':
-          this.pageSelected = 3;
-          break;
-        case '/base/order':
-          this.pageSelected = 4;
-          break;
-        case '/base/new':
-          this.pageSelected = 5;
-          break;
-        case '/base/admin':
-          this.pageSelected = 6;
-          break;
-        default:
-          break;
-      }
-    }
-  });}
+    });
+  }
   selected(index: number) {
-    console.log('navigate success')
+    console.log('navigate success');
     this.router.navigate([this.pages[index].link]);
   }
 

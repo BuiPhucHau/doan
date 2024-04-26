@@ -102,11 +102,19 @@ selectednew: any;
   }
 
   moveToNextSlide(): void {
-    const nextIndex = (this.currentIndex + 1) % this.newList.length;
+    let nextIndex = this.currentIndex + 1;
+    if (nextIndex >= this.newList.length) {
+      nextIndex = 0;
+    }
     this.moveToSlide(nextIndex);
   }
-
+  
   moveToSlide(index: number): void {
+    if (index < 0) {
+      index = this.newList.length - 1;
+    } else if (index >= this.newList.length) {
+      index = 0;
+    }
     this.currentIndex = index;
     this.transformStyle = `translateX(-${100 * this.currentIndex}%)`;
   }
