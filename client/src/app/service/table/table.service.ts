@@ -13,6 +13,10 @@ export class TableService {
     return this.httpClient.get<Table[] | any>('http://localhost:3000/table/get-all');
   }
 
+  getByLocation (name: string) {
+    return this.httpClient.get<Table[] | any>(`http://localhost:3000/table/getByLocation?id=${name}`);
+  }
+
   createTable(table: any) {
     return this.httpClient.post<Table[] | any>('http://localhost:3000/table/create', table);
   }
