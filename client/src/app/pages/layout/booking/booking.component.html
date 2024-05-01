@@ -33,10 +33,22 @@
           [avatarUrl]="wrongUrl"></tui-avatar>
         <p  class="table-number">{{ table.tableName}}</p>
       </div>
-      
     </div>
   </div>
 
+  <!-- <div class="tables">
+    <div (click)="selectTable(table.tableId)" class="table" *ngFor="let table of filteredTables">
+      <tui-avatar 
+        class="hi" 
+        [avatarUrl]="table.status ? table.avatarUrl : 'https://i.pinimg.com/originals/6c/02/af/6c02af8fd72ff6f43cb0234e5e6e3c90.gif'" 
+        fallback="tuiIconUserLarge" 
+        new 
+        class="tui-space_left-3 avatar">
+      </tui-avatar>
+      <p class="table-number">{{ table.tableName }}</p>
+    </div>
+  </div> -->
+  
   <div class="container-detail_table">
     <div class="detail_save">
       <p style="font-size: 14px; font-weight: bold; margin: 1rem;">Reservation Details</p>

@@ -30,6 +30,13 @@ export class Table {
     required: true,
   })
   locationId: string;
+
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+     ref: 'Storage',
+     required: true})
+     avatarUrl?: string;
+
 }
 
 export const TableSchema = SchemaFactory.createForClass(Table);
