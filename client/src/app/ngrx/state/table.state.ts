@@ -6,9 +6,10 @@ export interface TableState {
     getErrMess: string;
     tableList: Table[]; 
 
-    isGetByLocationLoading: boolean;
-    isGetByLocationSuccess: boolean;
-    getByLocationErrMess: string;
-    getTableByLocationId: Table[];
+    isGetByLocationIdLoading: boolean;
+    isGetByLocationIdSuccess: boolean;
+    getByLocationIdErrMess: string;
+    tablesTakenByGetByLocationId: Table[];
     
+
 }

@@ -25,8 +25,8 @@ export class Table {
   reservationId?: string;
 
   @Prop ({
-    // type: mongoose.Schema.Types.ObjectId,
-    // ref: 'Location',
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Location',
     required: true,
   })
   locationId: string;

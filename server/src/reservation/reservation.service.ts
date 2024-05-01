@@ -25,13 +25,13 @@ export class ReservationService {
       const table = await this.tableModel.findOne({
         tableId: createReservationDto.tableId,
       });
-      if (table.status === true) {
+      if (table.status === false) {
         // Tạo và lưu reservation
         const createReservation = new this.reservationModel(createReservationDto,);
         // Lưu reservation
         const savedReservation = await createReservation.save();
         // Cập nhật trạng thái bàn
-        table.status = false;
+        table.status = true;
         table.reservationId = createReservation._id.toString();
         await table.save();
 
@@ -69,7 +69,7 @@ export class ReservationService {
     try{
       const updatedReservation = await this.reservationModel.findByIdAndUpdate(
         id,
-        {status: true},
+        {status: false},
         {new: true}
         );
         return updatedReservation;
