@@ -47,6 +47,7 @@ export class BookingComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   readonly control = new FormControl('', Validators.minLength(12));
+  
   readonly wrongUrl =
     'https://i.pinimg.com/originals/6c/02/af/6c02af8fd72ff6f43cb0234e5e6e3c90.gif';
 
@@ -163,7 +164,6 @@ export class BookingComponent implements OnInit, OnDestroy {
   
   createBookingTable() {
     const selectedTable = this.tableList.find(table => table.tableId === this.bookingTable.value.tableId);
-
     // Check if the table has been selected and if it is available
     if (!selectedTable) {
       this.alerts.open('Table not found, please select a valid table.', {status: 'error'}).subscribe();
@@ -174,7 +174,8 @@ export class BookingComponent implements OnInit, OnDestroy {
       this.alerts.open('This table is already booked, please select another table.', {status: 'warning'}).subscribe();
       return; // Stop further execution if the table is unavailable
     }
-    const addbookingTabke: any = {
+
+    const addbookingTable: any = {
       reservationId: generateReservationId(),
       numberofPeople: this.bookingTable.value.numberofPeople??"",
       tableId: this.bookingTable.value.tableId??"",
@@ -184,9 +185,10 @@ export class BookingComponent implements OnInit, OnDestroy {
       phone: this.bookingTable.value.phone??"",
       status: false,
     };
-    console.log('Đặt bàn thành công',addbookingTabke);
+    console.log('Đặt bàn thành công',addbookingTable);
    
-    this.store.dispatch(ReservationActions.createReservation({reservation: addbookingTabke}));
+    this.store.dispatch(ReservationActions.createReservation({reservation: addbookingTable}));
+
     this.alerts.open('Booking table success.').subscribe();
     }
 
