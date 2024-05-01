@@ -32,7 +32,7 @@ export class TableEffects {
           exhaustMap((action) => 
             this.tableService.getByLocation(action.locationId).pipe(
                 map((tables)=>{
-                    console.log('tables', tables)
+                    // console.log('tables', tables)
                     return TableActions.getByLocationIdSuccess({tableList: tables})
                 }),
                 catchError((error)=>{

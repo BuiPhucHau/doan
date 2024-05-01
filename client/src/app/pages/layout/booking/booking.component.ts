@@ -17,7 +17,7 @@ import * as ReservationActions from '../../../ngrx/actions/reservation.actions';
 import { generateReservationId } from '../../../../environments/environments';
 import { ReservationState } from '../../../ngrx/state/reservation.state';
 import { TuiAlertService } from '@taiga-ui/core';
-
+import { set } from '@angular/fire/database';
 
 @Component({
   selector: 'app-booking',
@@ -27,29 +27,33 @@ import { TuiAlertService } from '@taiga-ui/core';
   styleUrl: './booking.component.scss',
 })
 export class BookingComponent implements OnInit, OnDestroy {
-
-  ////////////// Location
+  /// Location
   location$ = this.store.select('location', 'locationList');
   locationList: readonly string[] = [];
-  tables: readonly string [] = []
+  tables: readonly string[] = [];
 
-  ////////////// Table
+  /// Table
   table$ = this.store.select('table', 'tableList');
   tableList: Table[] = [];
   filteredTables: Table[] = [];
 
-  tablesTakenByLocationId$ = this.store.select('table', 'tablesTakenByGetByLocationId');
+  tablesTakenByLocationId$ = this.store.select(
+    'table',
+    'tablesTakenByGetByLocationId'
+  );
   tableToRender: Table[] = [];
 
-  ////////////// Reservation
+  /// Reservation
   isCreateReservation$ = this.store.select('reservation', 'reservation');
 
   subscriptions: Subscription[] = [];
 
   readonly control = new FormControl('', Validators.minLength(12));
-  
-  readonly wrongUrl =
-    'https://i.pinimg.com/originals/6c/02/af/6c02af8fd72ff6f43cb0234e5e6e3c90.gif';
+
+  readonly havenotbook =
+    'https://mir-s3-cdn-cf.behance.net/project_modules/hd/49b9fb71435435.5bc589814d44f.gif';
+  readonly havebooked =
+    'https://cdn3.iconfinder.com/data/icons/popular-badges/48/ryan-27-512.png';
 
   readonly currentDate = new Date();
 
@@ -66,18 +70,20 @@ export class BookingComponent implements OnInit, OnDestroy {
   month = this.date.getMonth();
   year = this.date.getFullYear();
 
-
   time = tuiCreateTimePeriods(18, 23, [0, 30]);
 
   bookingTable = new FormGroup({
     tableId: new FormControl('', Validators.required),
-    numberofPeople: new FormControl('', Validators.required),
     date: new FormControl(new TuiDay(this.year, this.month, this.day)),
-    time: new FormControl({value: this.time, disabled: true}, Validators.required),
+    time: new FormControl(
+      { value: this.time, disabled: true },
+      Validators.required
+    ),
+    numberofPeople: new FormControl('', Validators.required),
+    setdishes: new FormControl(false, Validators.required),
     name: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
   });
-  
 
   persons = [
     { seats: 'All', isActive: true },
@@ -91,10 +97,17 @@ export class BookingComponent implements OnInit, OnDestroy {
     person.isActive = !person.isActive;
   }
 
-
   tableNumberOptions = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
   taxNumberOptions = ['1', '2', '3', '4', '5', '6', '7', '8'];
+
+  exampleForm = new FormGroup({
+    exampleControl: new FormControl(''),
+  });
+
+  open1 = false;
+  open2 = false;
+  open3 = false;
 
   constructor(
     private router: Router,
@@ -106,53 +119,51 @@ export class BookingComponent implements OnInit, OnDestroy {
     @Inject(TuiAlertService)
     private readonly alerts: TuiAlertService
   ) {
-
-    /////////////////////////// Table
+    /// Table
     this.store.dispatch(TableActions.get());
     this.store.dispatch(LocationActions.get());
 
     this.subscriptions.push(
-      //////////////////////////// Table
+      /// Table
       this.table$.subscribe((tableList) => {
         if (tableList.length > 0) {
           console.log(tableList);
           this.tableList = tableList;
-          this.onLocationChange();
-          this.filterTable('All');
+          // this.onLocationChange();
+          // this.filterTable('All');
         }
       }),
 
-      //////////////////////////// Location
+      /// Location
       this.location$.subscribe((locations) => {
         if (locations.length > 0) {
           this.locationList = locations.map((location) => location.name);
         }
       }),
 
-      //////////////////////////// get Table by Location
-      this.tablesTakenByLocationId$.subscribe((tables) =>{
-        if(tables.length>0){
-          console.log('Tables:', tables);
+      /// get Table by Location
+      this.tablesTakenByLocationId$.subscribe((tables) => {
+        if (tables.length > 0) {
+          console.log('Get tables by location:', tables);
           this.tableToRender = tables;
-        }else {
+          this.filteredTables = [...this.tableToRender];
+        } else {
           console.log('No tables received for the location');
-          this.alerts.open('Please select a branch  !!!', { status: 'info' }).subscribe();
+          this.alerts
+            .open('Please select a branch  !!!', { status: 'info' })
+            .subscribe();
         }
-      }),
+      })
     );
-
   }
   ngOnInit(): void {
     setTimeout(() => {
       this.activateDropdown = true;
-      // Kiểm tra xem FormControl có tồn tại trước khi gọi phương thức enable trên nó
       const timeControl = this.bookingTable.get('time');
       if (timeControl) {
         timeControl.enable();
       }
     }, 100);
-
-
   }
 
   ngOnDestroy(): void {
@@ -161,57 +172,56 @@ export class BookingComponent implements OnInit, OnDestroy {
     });
   }
 
-  
-  createBookingTable() {
-    const selectedTable = this.tableList.find(table => table.tableId === this.bookingTable.value.tableId);
-    // Check if the table has been selected and if it is available
-    if (!selectedTable) {
-      this.alerts.open('Table not found, please select a valid table.', {status: 'error'}).subscribe();
-      return; // Stop further execution if no table is found
-    }
-  
-    if (selectedTable.status === true) {
-      this.alerts.open('This table is already booked, please select another table.', {status: 'warning'}).subscribe();
-      return; // Stop further execution if the table is unavailable
-    }
+  setDishes_showDialog(): void {
+    this.open1 = true;
+  }
+  createBookingTable_showDialog(): void {
+    this.open2 = true;
+  }
 
+  createBookingTable(): void {
+    this.open3 = true;
     const addbookingTable: any = {
       reservationId: generateReservationId(),
-      numberofPeople: this.bookingTable.value.numberofPeople??"",
-      tableId: this.bookingTable.value.tableId??"",
-      date: this.bookingTable.value.date??new Date(),
-      time: this.bookingTable.value.time?.toString() ?? "",
-      name: this.bookingTable.value.name??"",
-      phone: this.bookingTable.value.phone??"",
-      status: false,
+      tableId: this.bookingTable.value.tableId ?? '',
+      date: this.bookingTable.value.date ?? new Date(),
+      time: this.bookingTable.value.time?.toString() ?? '',
+      numberofPeople: this.bookingTable.value.numberofPeople ?? '',
+      setdishes: this.bookingTable.value.setdishes ?? false,
+      name: this.bookingTable.value.name ?? '',
+      phone: this.bookingTable.value.phone ?? '',
+      status: true,
     };
-    console.log('Đặt bàn thành công',addbookingTable);
-   
-    this.store.dispatch(ReservationActions.createReservation({reservation: addbookingTable}));
+    console.log('Đặt bàn thành công', addbookingTable);
+
+    this.store.dispatch(
+      ReservationActions.createReservation({ reservation: addbookingTable })
+    );
 
     this.alerts.open('Booking table success.').subscribe();
-    }
+  }
 
-  ///////////////////////////// Location
+  /// Location
   locationValue: any;
   onLocationChange() {
     console.log('Branch is selected: ', this.locationValue);
-    if (this.locationValue != null) {
-      console.log('Get table by location:', this.locationValue);
-      this.store.dispatch(TableActions.getByLocationId({ locationId: this.locationValue }));
-    } else {
+    if (this.locationValue != null && this.locationValue !== '') {
+      this.store.dispatch(
+        TableActions.getByLocationId({ locationId: this.locationValue })
+      );
+    } 
+    else {
       console.log('No location selected');
     }
   }
 
-
-  ///////////////////////////// Filter Table
+  /// Filter Table
   filterTable(seats: string): void {
     this.persons.forEach((p) => (p.isActive = p.seats === seats));
     if (seats === 'All') {
       this.filteredTables = [...this.tableToRender];
     } else {
-      const seatsNumber = parseInt(seats.split(' ')[0], 10); // extract the number
+      const seatsNumber = parseInt(seats.split(' ')[0], 10);
       this.filteredTables = this.tableToRender.filter(
         (table) => table.seats === seatsNumber
       );
@@ -219,19 +229,31 @@ export class BookingComponent implements OnInit, OnDestroy {
     console.log('Filtered Tables:', this.filteredTables);
   }
 
-
-  ///////////////////////////// Lấy id table khi selected
+  /// Lấy id table khi selected
   selectTable(tableId: string): void {
-    const selectedTable = this.tableList.find((table) => table.tableId === tableId);
-    if (selectedTable) {
-      console.log('Selected Table:', selectedTable);
-      this.bookingTable.patchValue({
-        tableId: selectedTable.tableId
-      });
-    } else {
-      console.error('Table not found:', tableId);
+    const selectedTable = this.tableList.find(
+      (table) => table.tableId === tableId
+    );
+    if (!selectedTable) {
+      this.alerts
+        .open('Table not found, please select a valid table.', {
+          status: 'error',
+        })
+        .subscribe();
+      return;
     }
+    if (selectedTable.status === true) {
+      this.alerts
+        .open('This table is already booked, please select another table.', {
+          status: 'warning',
+        })
+        .subscribe();
+      return;
+    }
+
+    console.log('Selected Table:', selectedTable);
+    this.bookingTable.patchValue({
+      tableId: selectedTable.tableId,
+    });
   }
-
-
 }

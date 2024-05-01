@@ -3,10 +3,11 @@ export class CreateTableDto {
         public tableId: string,
         public tableName: string,
         public seats: number,
+        public setdishes: boolean,
         public status: boolean,
         public locationId: string,
         public reservationId?: string,
-        public avatarUrl?: string
+
     ) {
 
     }

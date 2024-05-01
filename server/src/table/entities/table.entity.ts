@@ -17,6 +17,9 @@ export class Table {
   @Prop({ required: true })
   status: boolean;
 
+  @Prop({ required: true })
+  setdishes: boolean;
+
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Reservation',
@@ -31,11 +34,6 @@ export class Table {
   })
   locationId: string;
 
-  @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-     ref: 'Storage',
-     required: true})
-     avatarUrl?: string;
 
 }
 

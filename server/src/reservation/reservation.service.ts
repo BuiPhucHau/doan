@@ -28,8 +28,10 @@ export class ReservationService {
       if (table.status === false) {
         // Tạo và lưu reservation
         const createReservation = new this.reservationModel(createReservationDto,);
+        
         // Lưu reservation
         const savedReservation = await createReservation.save();
+        
         // Cập nhật trạng thái bàn
         table.status = true;
         table.reservationId = createReservation._id.toString();
