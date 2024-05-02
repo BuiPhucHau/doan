@@ -46,6 +46,7 @@
     "jquery": "^3.7.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "walkway.js": "^0.0.9",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
