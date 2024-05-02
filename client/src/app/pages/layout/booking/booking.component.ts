@@ -157,6 +157,13 @@ export class BookingComponent implements OnInit, OnDestroy {
     );
   }
   ngOnInit(): void {
+
+    const savedLocation = sessionStorage.getItem('selectedLocation');
+    if (savedLocation) {
+      this.locationValue = savedLocation;
+      this.onLocationChange();
+    }
+
     setTimeout(() => {
       this.activateDropdown = true;
       const timeControl = this.bookingTable.get('time');
@@ -181,6 +188,7 @@ export class BookingComponent implements OnInit, OnDestroy {
 
   createBookingTable(): void {
     this.open3 = true;
+
     const addbookingTable: any = {
       reservationId: generateReservationId(),
       tableId: this.bookingTable.value.tableId ?? '',
@@ -199,6 +207,12 @@ export class BookingComponent implements OnInit, OnDestroy {
     );
 
     this.alerts.open('Booking table success.').subscribe();
+
+      // Lưu vị trí hiện tại vào session storage trước khi tải lại
+      sessionStorage.setItem('selectedLocation', this.locationValue);
+
+      // Tải lại trang
+      window.location.reload();
   }
 
   /// Location
