@@ -1,3 +1,4 @@
+import { BookingComponent } from './booking/booking.component';
 import { LayoutComponent } from './layout.component';
 
 import { Routes } from '@angular/router';
@@ -55,6 +56,12 @@ export const LAYOUT_ROUTES: Routes = [
           import('./location/detail/detail.routes').then(
             (m) => m.DETAIL_ROUTES
           ),
+      },{
+        path: 'base/booking/locationId',
+        loadChildren: () =>
+          import('./booking/booking.routes').then(
+            (m) => m.BOOKING_ROUTERS
+          ),
       },
       {
         path: 'base/new',
@@ -93,7 +100,8 @@ export const LAYOUT_ROUTES: Routes = [
         path: 'base/contact',
         loadChildren: () =>
           import('./contact/contact.routes').then((m) => m.CONTACT_ROUTERS),
-      },
+      }
+      
     ],
   },
 ];

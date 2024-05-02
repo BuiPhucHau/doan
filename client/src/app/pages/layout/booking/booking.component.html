@@ -44,11 +44,11 @@
 
       <div class="btn_save">
         <button class="save" appearance="custom" tuiButton tuiHintDirection="top" type="button"
-          (click)="setDishes_showDialog()">Save</button>
+          (click)="createBookingTable_showDialog()">Save</button>
       </div>
 
       <!-- Dialog - Lưu món -->
-      <ng-template let-observer [tuiDialogOptions]="{label: 'Do you want ', size: 's'}"
+      <!-- <ng-template let-observer [tuiDialogOptions]="{label: 'Do you want to prepare the dish in advance? ', size: 's'}"
         [(tuiDialog)]="open1">
         <form [formGroup]="exampleForm" (ngSubmit)="observer.complete()">
           <p>set 1</p>
@@ -62,7 +62,7 @@
             </button>
           </p>
         </form>
-      </ng-template>
+      </ng-template> -->
 
       <!-- Dialog - Đặt cọc -->
       <ng-template let-observer [tuiDialogOptions]="{label: 'Notification', size: 's'}" [(tuiDialog)]="open2">
@@ -98,9 +98,6 @@
           </p>
         </form>
       </ng-template>
-
-
-
     </div>
 
     <form [formGroup]="bookingTable">

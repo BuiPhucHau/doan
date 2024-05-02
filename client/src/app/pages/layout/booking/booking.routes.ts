@@ -6,4 +6,5 @@ export const BOOKING_ROUTERS: Routes = [
     path: '',
     component: BookingComponent
     },
+    { path: ':locationId', component: BookingComponent },
 ]

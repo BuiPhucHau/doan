@@ -61,12 +61,13 @@
 
     .tables {
         width: auto;
-        height: auto;
+        height: 80%;
         margin: auto;
         display: flex;
         text-align: center;
         justify-content: center;
         align-items: center;
+        overflow-y: scroll;
         display: grid;
         text-align: center;
         grid-template-columns: repeat(auto-fit, minmax(200px, 0fr));

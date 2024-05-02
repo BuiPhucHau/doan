@@ -68,7 +68,8 @@ export class DetailComponent implements OnDestroy {
     this.router.navigate(['/base/location']);
   }
   tablebooking() {
-    this.router.navigate(['base/booking']);
+    console.log(this.selectedLocation);
+    this.router.navigate(['base/booking', { locationId: this.selectedLocation.id }]);
   }
 }
 

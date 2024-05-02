@@ -4,7 +4,27 @@
     </div>
     <div class="container-main">
         <div class="main">
-            <tui-svg src="tuiIconHomeLarge"></tui-svg>
+            <div class="input-location">
+                <label class="label-client">Name</label>
+                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="name" [tuiTextfieldCleaner]="true">
+                  Name
+                  <input tuiTextfield type="text" />
+                </tui-input>
+            </div>
+            <div class="input-location">
+                <label class="label-client">Phone</label>
+                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="name" [tuiTextfieldCleaner]="true">
+                  Phone
+                  <input tuiTextfield type="text" />
+                </tui-input>
+            </div>
+            <div class="input-location">
+                <label class="label-client">Adress</label>
+                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="name" [tuiTextfieldCleaner]="true">
+                    Adress
+                  <input tuiTextfield type="text" />
+                </tui-input>
+            </div>
         </div>
     </div>
 </div>
