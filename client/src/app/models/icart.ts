@@ -1,8 +1,7 @@
 import { Category } from './category.model';
 import { Storage } from './storage.model';
 
-
-export interface Dish {
+export interface ICart {
     _id: string,
     dId: string,
     nameDish: string,
@@ -13,5 +12,6 @@ export interface Dish {
     status: boolean,
     featured: boolean,
     quantity: number,
-    // isConfirmed:boolean
+
+
 }

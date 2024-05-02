@@ -32,8 +32,6 @@ import { ReservationEffects } from './ngrx/effects/reservation.effects';
 import { newReducer } from './ngrx/reducers/new.reducer';
 import { NewEffects } from './ngrx/effects/new.effects';
 
-
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),

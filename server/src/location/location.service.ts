@@ -22,6 +22,27 @@ export class LocationService {
     }
   }
 
+  async getByName(name: string) {
+    
+    try {
+      const location = await this.locationModel.findOne({ name: name }).exec();
+      if(location._id.toString.length > 0){
+        return location;
+      }
+      else{
+        return {
+          _id: '500'
+        }
+      }
+    }
+      catch(err) {  
+        return {
+          _id: '500'
+        }
+      }
+  }
+
+
   async findAll() {
     try {
       const locations = await this.locationModel.find()

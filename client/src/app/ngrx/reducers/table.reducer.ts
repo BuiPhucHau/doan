@@ -11,10 +11,10 @@ export const initialState: TableState = {
       tableList: [],
 
 
-      isGetByLocationLoading: false,
-      isGetByLocationSuccess: false,
-      getByLocationErrMess: '',
-      getTableByLocationId: []
+      isGetByLocationIdLoading: false,
+      isGetByLocationIdSuccess: false,
+      getByLocationIdErrMess: '',
+      tablesTakenByGetByLocationId: []
     
 };
 
@@ -50,31 +50,33 @@ export const tableReducer = createReducer(
       };
     }),
 
-    on(TableActions.getByLocation, (state, action) => {
+
+    ////////////////////////////GET TABLE BY LOCATION ID /////////////////////////
+    on(TableActions.getByLocationId, (state, action) => {
       return {
         ...state,
         isGetByLocationLoading: true,
         isGetByLocationSuccess: false,
-        getByLocationErrMess: '',
+        getByLocationIdErrMess: '',
       };
     }),
 
-    on(TableActions.getByLocationSuccess, (state, action) => {
+    on(TableActions.getByLocationIdSuccess, (state, action) => {
       return {
         ...state,
-        getTableByLocationId: action.tableList,
+        getTableByIdLocationId: action.tableList,
         isGetByLocationLoading: false,
         isGetByLocationSuccess: true,
-        tableList: action.tableList,
+        tablesTakenByGetByLocationId: action.tableList,
       };
     }),
 
-    on(TableActions.getByLocationFailure, (state, action) => {
+    on(TableActions.getByLocationIdFailure, (state, action) => {
       return {
         ...state,
-        isGetByLocationLoading: false,
-        isGetByLocationSuccess: false,
-        getByLocationErrMess: action.getByLocationErrMess,
+        isGetByLocationIdLoading: false,
+        isGetByLocationIdSuccess: false,
+        getByLocationIdErrMess: action.getByLocationIdErrMess,
       };
     }),
 

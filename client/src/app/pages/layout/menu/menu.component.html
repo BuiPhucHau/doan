@@ -22,7 +22,7 @@
   
   <div class="menu">
     <div class="grid_dish" *ngFor="let dish of filteredDishes">
-      <div class="dish" (click)="showDetail(dish.dId)" >
+      <div class="dish" >
         <div class="dish_img">
           <img class="image_featured" *ngFor="let img of dish.image.urls" [src]="img" alt="">
         </div>
@@ -31,6 +31,8 @@
           <div class="dish_price">
             <span>{{dish.price}}</span>
           </div>
+          <button class="btn" (click)="addtoCart(dish)">Add to cart</button>
+          <a (click)="showDetail(dish.dId)">Show detail</a>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ export interface Reservation {
      date: Date,
      time: string,
      tableId: Table,
-     uId: User,
+     // uId: User,
      phone: string,
      name: string,
 }

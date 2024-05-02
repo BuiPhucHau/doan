@@ -5,4 +5,5 @@ export interface DishState {
     isGetSuccess: boolean;
     getErrMess: string;
     dishList: Dish[];
+    selectedDishes: Dish[];
 }

@@ -17,6 +17,9 @@ export class Table {
   @Prop({ required: true })
   status: boolean;
 
+  @Prop({ required: true })
+  setdishes: boolean;
+
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Reservation',
@@ -25,11 +28,13 @@ export class Table {
   reservationId?: string;
 
   @Prop ({
-    // type: mongoose.Schema.Types.ObjectId,
-    // ref: 'Location',
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Location',
     required: true,
   })
   locationId: string;
+
+
 }
 
 export const TableSchema = SchemaFactory.createForClass(Table);

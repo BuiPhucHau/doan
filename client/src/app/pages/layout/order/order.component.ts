@@ -3,6 +3,7 @@ import { TaigaModule } from '../../../shared/taiga.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DishState } from '../../../ngrx/state/dish.state';
@@ -17,12 +18,13 @@ import { Dish } from '../../../models/dish.model';
 import { Observable, Subscription } from 'rxjs';
 import { Category } from '../../../models/category.model';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-
+import { DishService } from '../../../service/dish/dish.service';
+import { ActivatedRoute } from '@angular/router';
+import { CartService } from '../../../service/cart/cart.service';
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [TaigaModule,FontAwesomeModule, ReactiveFormsModule, CommonModule],
+  imports: [TaigaModule,FontAwesomeModule, ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.less',
 })
@@ -41,11 +43,15 @@ export class OrderComponent {
   dishList: Dish[] = [];
   categories: Category[] = [];
   dishes: Dish = <Dish>{};
+  // selectDishOrder: any;
 
   readonly control = new FormControl('', Validators.minLength(12));
   subscriptions: Subscription[] = [];
 
   constructor(private router: Router,
+    private cartService: CartService,
+    private dishService: DishService,
+    private route: ActivatedRoute,
     private store: Store<{
       dish: DishState;
       auth: AuthState;
@@ -53,6 +59,7 @@ export class OrderComponent {
       category: categoryState;
     }>,
   ) {
+   
     this.store.dispatch(DishActions.get({}));
     this.store.dispatch(CategoryActions.get());
     this.subscriptions.push(
@@ -70,15 +77,40 @@ export class OrderComponent {
         }
       }),
     );
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation && navigation.extras.state) {
-      const dishes = navigation.extras.state['dish']; 
-      if (dishes) {
-        this.dishList = dishes;
-    }
+    // const dishId = this.route.snapshot.paramMap.get('dId');
+    // if (dishId) {
+    //   this.dishService.getDishById(dishId).subscribe((dish: any) => {
+    //     this.selectDishOrder = dish;
+    //   });
+    // }
   }
+  items = this.cartService.getSelectedDishes();
+  totalAmount()
+  {
+    let total = 0;
+    this.items.forEach((item) => {
+      total += item.price * item.quantity;
+    });
+    return total;
+  }
+  totalQuantity()
+  {
+    let totalQuantity = 0;
+    this.items.forEach((item) => {
+      totalQuantity += item.quantity;
+    });
+    return totalQuantity;
+  }  
+  clearCart(): void {
+    this.cartService.clearCart();
+    this.items = this.cartService.getSelectedDishes();
+  }
+  removeFromCart(dId: string): void {
+    this.cartService.removeFromCart(dId);
+    this.items = this.cartService.getSelectedDishes();
+  }
+  
 
-  }
   ngOnInit() {
     this.store.dispatch(DishActions.get({}));
     this.store.dispatch(CategoryActions.get());
@@ -102,5 +134,11 @@ export class OrderComponent {
       subscription.unsubscribe();
 
     });
+  }
+  goBack() {
+    this.router.navigate(['base/menu']);
+  }
+  pay() {
+    this.router.navigate(['base/payments']);
   }
 }
