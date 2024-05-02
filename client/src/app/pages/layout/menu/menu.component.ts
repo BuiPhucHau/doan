@@ -15,6 +15,7 @@ import { Dish } from '../../../models/dish.model';
 import { Category } from '../../../models/category.model';
 import { Observable, Subscription } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CartService } from '../../../service/cart/cart.service';
 @Component({
   selector: 'app-menu',
   standalone: true,
@@ -58,6 +59,7 @@ export class MenuComponent {
 
   ;
   constructor(private router: Router,
+    private cartService: CartService,
     private store: Store<{
       dish: DishState;
       auth: AuthState;
@@ -122,6 +124,11 @@ export class MenuComponent {
   showDetail(dId: string) {
     this.router.navigate(['base/menu/dish-detail',dId]);
     console.log(dId);
+  }
+  addtoCart(dishCart : Dish): void {
+    this.cartService.addToCart(dishCart);
+    console.log(this.cartService.getSelectedDishes());
+    this.router.navigate(['/base/order']);
   }
   ngOnDestroy() {
   this.subscriptions.forEach((subscription) => {
