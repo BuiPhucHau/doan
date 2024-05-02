@@ -11,12 +11,23 @@
       <!-- [(ngModel)]="locationValue" (ngModelChange)="locationValueChange()"  -->
 
       <div class="search_location">
-        <tui-combo-box tuiTextfieldSize="s" class="b-form" [(ngModel)]="locationValue"
-          (ngModelChange)="onLocationChange()" [tuiTextfieldCleaner]="true">
-          Select your branch
-          <input tuiTextfield (input)="locationValue" />
-          <tui-data-list-wrapper *tuiDataList [items]="locationList"></tui-data-list-wrapper>
-        </tui-combo-box>
+        <div *ngIf="item !== null">
+          <tui-combo-box tuiTextfieldSize="s" class="b-form" [(ngModel)]="item.name"
+            (ngModelChange)="onItemNameChange()" [tuiTextfieldCleaner]="true">
+            Select your branch
+            <input tuiTextfield (input)="item.name" />
+            <tui-data-list-wrapper *tuiDataList [items]="locationList"></tui-data-list-wrapper>
+          </tui-combo-box>
+        </div>
+        <div *ngIf="item === null">
+          <tui-combo-box tuiTextfieldSize="s" class="b-form" [(ngModel)]="locationValue"
+            (ngModelChange)="onLocationChange()" [tuiTextfieldCleaner]="true">
+            Select your branch
+            <input tuiTextfield (input)="locationValue" />
+            <tui-data-list-wrapper *tuiDataList [items]="locationList"></tui-data-list-wrapper>
+          </tui-combo-box>
+        </div>
+
       </div>
 
       <div class="filter">

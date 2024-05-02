@@ -50,14 +50,16 @@ export class DetailComponent implements OnDestroy {
          }
        }),
      );
-     const loId = this.route.snapshot.paramMap.get('locationId');
-     if (loId) {
-       this.locationService.getLocationById(loId).subscribe((location: any) => {
-         this.selectedLocation = location;
-       });
-     }
+    //  const loId = this.route.snapshot.paramMap.get('locationId');
+    //  if (loId) {
+    //    this.locationService.getLocationById(loId).subscribe((location: any) => {
+    //      this.selectedLocation = location;
+    //    });
+    //  }
 
   }
+  item = this.locationService.getLocationDetail();
+
    ngOnDestroy(): void {
     this.subcriptions.forEach((sub) => sub.unsubscribe());
   }
@@ -67,9 +69,9 @@ export class DetailComponent implements OnDestroy {
   Back(): void {
     this.router.navigate(['/base/location']);
   }
-  tablebooking() {
-    console.log(this.selectedLocation);
-    this.router.navigate(['base/booking', { locationId: this.selectedLocation.id }]);
+  tablebooking(location: Location): void {
+    this.locationService.addToLocationDetail(location);
+    this.router.navigate(['base/booking']);
   }
 }
 

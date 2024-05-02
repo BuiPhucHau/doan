@@ -6,7 +6,7 @@
         <div class="p1" *ngFor="let location of locationList">
             <h3>{{location.name}}</h3>
             <img class="image" *ngFor="let img of location.image.urls" [src]="img" alt="">
-            <button class="Detail"(click)="detail(location.locationId)"> View Detail</button>
+            <button class="Detail"(click)="detail(location)"> View Detail</button>
         </div>
        
     </div>
