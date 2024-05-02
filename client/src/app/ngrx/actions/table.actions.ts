@@ -15,6 +15,21 @@ export const getFailure = createAction(
     props<{ getErrMess: any }>()
 );
 
+export const getByLocationId = createAction(
+    '[Table] get by location ',
+    props<{ locationId: string }>()
+);
+
+export const getByLocationIdSuccess = createAction(
+    '[Table] get by location success',
+    props<{ tableList: Table[] }>()
+);
+
+export const getByLocationIdFailure = createAction(
+    '[Table] get by location failure',
+    props<{ getByLocationIdErrMess: any }>()
+);
+
 // export const add = createAction(
 //     '[Table] add',
 //     props<{ newTable: any }>()

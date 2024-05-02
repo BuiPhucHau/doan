@@ -10,20 +10,25 @@
             page.name }}</button>
     </section>
 
-
     <div class="login" *ngIf="userForm.value.uid">
-        <img style="width: 40px;
-            height: 40px;
+        <img style="width: 35px;
+            height: 35px;
             border-radius: 50%;" src={{userForm.value.avatar}} alt="">
-        <p style="font-size: 14px; margin-right: 2rem; margin-left: 1rem;">{{userForm.value.name}}</p>
+        <p style="font-size: 14px; margin-right: 1rem; margin-left: 1rem;">{{userForm.value.name}}</p>
         <div class="profile_menu">
-            <p (click)="logout()">Logout</p>
+            <span (click)="logout()" class="material-symbols-outlined">
+                logout
+                </span>
         </div>
     </div>
 
     <div class="login" *ngIf="!userForm.value.uid" (click)="login()">
-        <p>Login</p>
+        <span class="material-symbols-outlined">
+            account_circle
+            </span>
     </div>
+    
+    
 
 </div>
 

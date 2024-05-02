@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { TaigaModule } from '../../../shared/taiga.module';
 import { ShareModule } from '../../../shared/shared.module';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -15,11 +15,9 @@ import { LocationState } from '../../../ngrx/state/location.state';
 import * as LocationActions from '../../../ngrx/actions/location.actions';
 import * as ReservationActions from '../../../ngrx/actions/reservation.actions';
 import { generateReservationId } from '../../../../environments/environments';
-import { User } from '@angular/fire/auth';
-import { AuthState } from '../../../ngrx/state/auth.state';
-import { UserState } from '../../../ngrx/state/user.state';
 import { ReservationState } from '../../../ngrx/state/reservation.state';
-import { Reservation } from '../../../models/reservation.model';
+import { TuiAlertService } from '@taiga-ui/core';
+import { set } from '@angular/fire/database';
 
 @Component({
   selector: 'app-booking',
@@ -28,30 +26,39 @@ import { Reservation } from '../../../models/reservation.model';
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss',
 })
-export class BookingComponent implements OnDestroy {
-
-
-  ////////////// Location
+export class BookingComponent implements OnInit, OnDestroy {
+  /// Location
   location$ = this.store.select('location', 'locationList');
   locationList: readonly string[] = [];
+  tables: readonly string[] = [];
 
-  ////////////// Table
+  /// Table
   table$ = this.store.select('table', 'tableList');
   tableList: Table[] = [];
   filteredTables: Table[] = [];
 
+  tablesTakenByLocationId$ = this.store.select(
+    'table',
+    'tablesTakenByGetByLocationId'
+  );
+  tableToRender: Table[] = [];
 
-  ////////////// Reservation
+  /// Reservation
   isCreateReservation$ = this.store.select('reservation', 'reservation');
-
 
   subscriptions: Subscription[] = [];
 
   readonly control = new FormControl('', Validators.minLength(12));
-  readonly wrongUrl =
-    'https://i.pinimg.com/originals/6c/02/af/6c02af8fd72ff6f43cb0234e5e6e3c90.gif';
-  // 'https:cdn-icons-png.flaticon.com/512/4726/4726492.png';
+
+  readonly havenotbook =
+    'https://mir-s3-cdn-cf.behance.net/project_modules/hd/49b9fb71435435.5bc589814d44f.gif';
+  readonly havebooked =
+    'https://cdn3.iconfinder.com/data/icons/popular-badges/48/ryan-27-512.png';
+
   readonly currentDate = new Date();
+
+  // Tắt tự động dropdown của input Time
+  activateDropdown = false;
 
   // Lấy timestamp hiện tại
   timestamp = Date.now();
@@ -63,37 +70,44 @@ export class BookingComponent implements OnDestroy {
   month = this.date.getMonth();
   year = this.date.getFullYear();
 
+  time = tuiCreateTimePeriods(18, 23, [0, 30]);
 
   bookingTable = new FormGroup({
     tableId: new FormControl('', Validators.required),
-    numberofPeople: new FormControl('', Validators.required),
-    // DateStart: new FormControl(new TuiDay(this.year, this.month, this.day)),
-    // DateEnd: new FormControl(new TuiDay(this.year, this.month, this.day)),
     date: new FormControl(new TuiDay(this.year, this.month, this.day)),
-    time: new FormControl(tuiCreateTimePeriods(18, 23, [0, 30])),
+    time: new FormControl(
+      { value: this.time, disabled: true },
+      Validators.required
+    ),
+    numberofPeople: new FormControl('', Validators.required),
+    setdishes: new FormControl(false, Validators.required),
     name: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
   });
-  
 
   persons = [
     { seats: 'All', isActive: true },
     { seats: '2 Person', isActive: false },
     { seats: '4 Person', isActive: false },
     { seats: '6 Person', isActive: false },
+    { seats: '8 Person', isActive: false },
   ];
 
   toggleActive(person: any) {
     person.isActive = !person.isActive;
   }
 
+  tableNumberOptions = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
+  taxNumberOptions = ['1', '2', '3', '4', '5', '6', '7', '8'];
 
-  time = tuiCreateTimePeriods(18, 23, [0, 30]);
+  exampleForm = new FormGroup({
+    exampleControl: new FormControl(''),
+  });
 
-  tableNumberOptions = ['1', '2', '3', '4', '5', '6'];
-
-  taxNumberOptions = ['1', '2', '3', '4', '5', '6'];
+  open1 = false;
+  open2 = false;
+  open3 = false;
 
   constructor(
     private router: Router,
@@ -101,34 +115,55 @@ export class BookingComponent implements OnDestroy {
       table: TableState;
       location: LocationState;
       reservation: ReservationState;
-    }>
+    }>,
+    @Inject(TuiAlertService)
+    private readonly alerts: TuiAlertService
   ) {
-
-    /////////////////////////// Table
+    /// Table
     this.store.dispatch(TableActions.get());
-
+    this.store.dispatch(LocationActions.get());
 
     this.subscriptions.push(
+      /// Table
       this.table$.subscribe((tableList) => {
         if (tableList.length > 0) {
           console.log(tableList);
           this.tableList = tableList;
-          this.filterTable('All');
+          // this.onLocationChange();
+          // this.filterTable('All');
         }
       }),
 
-    );
-
-    //////////////////////////// Location
-    this.store.dispatch(LocationActions.get());
-
-    this.subscriptions.push(
+      /// Location
       this.location$.subscribe((locations) => {
         if (locations.length > 0) {
           this.locationList = locations.map((location) => location.name);
         }
+      }),
+
+      /// get Table by Location
+      this.tablesTakenByLocationId$.subscribe((tables) => {
+        if (tables.length > 0) {
+          console.log('Get tables by location:', tables);
+          this.tableToRender = tables;
+          this.filteredTables = [...this.tableToRender];
+        } else {
+          console.log('No tables received for the location');
+          this.alerts
+            .open('Please select a branch  !!!', { status: 'info' })
+            .subscribe();
+        }
       })
     );
+  }
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.activateDropdown = true;
+      const timeControl = this.bookingTable.get('time');
+      if (timeControl) {
+        timeControl.enable();
+      }
+    }, 100);
   }
 
   ngOnDestroy(): void {
@@ -136,57 +171,89 @@ export class BookingComponent implements OnDestroy {
       subscription.unsubscribe();
     });
   }
+
+  setDishes_showDialog(): void {
+    this.open1 = true;
+  }
+  createBookingTable_showDialog(): void {
+    this.open2 = true;
+  }
+
+  createBookingTable(): void {
+    this.open3 = true;
+    const addbookingTable: any = {
+      reservationId: generateReservationId(),
+      tableId: this.bookingTable.value.tableId ?? '',
+      date: this.bookingTable.value.date ?? new Date(),
+      time: this.bookingTable.value.time?.toString() ?? '',
+      numberofPeople: this.bookingTable.value.numberofPeople ?? '',
+      setdishes: this.bookingTable.value.setdishes ?? false,
+      name: this.bookingTable.value.name ?? '',
+      phone: this.bookingTable.value.phone ?? '',
+      status: true,
+    };
+    console.log('Đặt bàn thành công', addbookingTable);
+
+    this.store.dispatch(
+      ReservationActions.createReservation({ reservation: addbookingTable })
+    );
+
+    this.alerts.open('Booking table success.').subscribe();
+  }
+
+  /// Location
   locationValue: any;
   onLocationChange() {
     console.log('Branch is selected: ', this.locationValue);
-    if (this.locationValue != null) {
-      // this.store.dispatch(TableActions.get({ locationId: this.locationValue }));
-    } else {
-      this.store.dispatch(TableActions.get());
+    if (this.locationValue != null && this.locationValue !== '') {
+      this.store.dispatch(
+        TableActions.getByLocationId({ locationId: this.locationValue })
+      );
+    } 
+    else {
+      console.log('No location selected');
     }
   }
 
+  /// Filter Table
   filterTable(seats: string): void {
     this.persons.forEach((p) => (p.isActive = p.seats === seats));
     if (seats === 'All') {
-      this.filteredTables = [...this.tableList];
+      this.filteredTables = [...this.tableToRender];
     } else {
-      const seatsNumber = parseInt(seats.split(' ')[0], 10); // extract the number
-      this.filteredTables = this.tableList.filter(
+      const seatsNumber = parseInt(seats.split(' ')[0], 10);
+      this.filteredTables = this.tableToRender.filter(
         (table) => table.seats === seatsNumber
       );
     }
     console.log('Filtered Tables:', this.filteredTables);
   }
 
-  createBookingTable() {
-    const addbookingTabke: any = {
-        reservationId: generateReservationId(),
-        numberofPeople: this.bookingTable.value.numberofPeople??"",
-        tableId: this.bookingTable.value.tableId??"",
-        date: this.bookingTable.value.date??new Date(),
-        time: (this.bookingTable.value.time??tuiCreateTimePeriods(18, 23, [0, 30])).toString(),
-        name: this.bookingTable.value.name??"",
-        phone: this.bookingTable.value.phone??"",
-        status: true,
-      };
-      console.log(addbookingTabke);
-
-      this.store.dispatch(ReservationActions.createReservation({reservation: addbookingTabke}));
-  }
-
+  /// Lấy id table khi selected
   selectTable(tableId: string): void {
-    const selectedTable = this.tableList.find((table) => table.tableId === tableId);
-    if (selectedTable) {
-      // Lấy được bàn từ tableList dựa trên tableId
-      console.log('Selected Table:', selectedTable);
-      // Điều gì đó khác ở đây nếu bạn muốn thực hiện sau khi lấy được bàn
-      this.bookingTable.patchValue({
-        tableId: selectedTable.tableId
-      });
-    } else {
-      console.error('Table not found:', tableId);
+    const selectedTable = this.tableList.find(
+      (table) => table.tableId === tableId
+    );
+    if (!selectedTable) {
+      this.alerts
+        .open('Table not found, please select a valid table.', {
+          status: 'error',
+        })
+        .subscribe();
+      return;
     }
-  }
+    if (selectedTable.status === true) {
+      this.alerts
+        .open('This table is already booked, please select another table.', {
+          status: 'warning',
+        })
+        .subscribe();
+      return;
+    }
 
+    console.log('Selected Table:', selectedTable);
+    this.bookingTable.patchValue({
+      tableId: selectedTable.tableId,
+    });
+  }
 }

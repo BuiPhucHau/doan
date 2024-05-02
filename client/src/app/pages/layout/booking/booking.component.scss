@@ -75,6 +75,7 @@
             flex-direction: column;
             justify-content: center;
             margin-left: 1.5rem;
+
         }
     }
 }
@@ -110,6 +111,16 @@
         align-items: center;
         margin: 1.5rem;
     }
+    .checkbox {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        // align-items: center;
+        margin: 1.5rem;
+    }
+    .label-checkbox {
+        margin-right: 1rem;
+    }
 
     .input-client {
         margin: 1rem;
@@ -122,12 +133,12 @@
 }
 
 
-
-.t-image ng-star-inserted {
-    width: 50% !important;
-    height: 50% !important;
-    object-fit: cover;
-}
+// .t-image {
+//     width: 50% !important;
+//     height: 50% !important;
+//     object-fit: cover;
+//     cursor: pointer !important;
+// }
 
 .avatar {
     box-shadow: var(--tui-shadow);
@@ -135,7 +146,7 @@
     border: 1px solid;
     height: 150px !important;
     width: 150px !important;
-
+    cursor: pointer !important;
     &:hover {
         box-shadow: var(--tui-shadow-hover);
     }
@@ -148,23 +159,27 @@
     display: flex;justify-content: space-between;
     align-items: center;
     flex-direction: row;
-}
-.btn_save {
-    margin: 1rem;
-    display: flex;
-    justify-content: flex-end;
+    .btn_save {
+        margin: 1rem;
+        display: flex;
+        justify-content: flex-end;
+    
+    }
+    
+    .save {
+        display: flex;
+        justify-content: center;
+        font-size: 14px !important;
+        border-radius: 5px;
+        width: 60px !important;
+        height: 35px !important;
+        color: white !important;
+        font-weight: 400 !important;
+        background-color: var(--tui-primary);
+    
+    }
 
-}
-
-.save {
-    display: flex;
-    justify-content: center;
-    font-size: 14px !important;
-    border-radius: 5px;
-    width: 60px !important;
-    height: 35px !important;
-    color: white !important;
-    font-weight: 400 !important;
-    background-color: var(--tui-primary);
-
+    .hi {
+        border-radius: 100px;
+    }
 }

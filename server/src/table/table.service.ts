@@ -4,6 +4,7 @@ import { UpdateTableDto } from './dto/update-table.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Table } from './entities/table.entity';
 import { Model } from 'mongoose';
+import { log } from 'console';
 
 @Injectable()
 export class TableService {
@@ -42,6 +43,26 @@ export class TableService {
   } catch (error) {
     throw new HttpException(error.message, error.status);
   }
+ }
+
+ async getByName(name: string) {
+  try {
+    log('name', name)
+    const table = await this.tableModel.find({ name: name }).exec();
+    return table;
+  } catch (error) {
+    throw new HttpException(error.message, error.status);
+  }
+ }
+
+ async getByLocation(id: string) {
+    try {
+      log('id', id)
+      const tables = await this.tableModel.find({ locationId: id }).exec();
+      return tables;
+    } catch (error) {
+      return []
+    }
  }
 
  async update(id: string, updateTableDto: UpdateTableDto): Promise<Table> {

@@ -25,4 +25,22 @@ export class TableEffects {
         )
         )
     );  
+
+    getTableByLocationId$ = createEffect(() =>
+        this.action$.pipe(
+          ofType(TableActions.getByLocationId),
+          exhaustMap((action) => 
+            this.tableService.getByLocation(action.locationId).pipe(
+                map((tables)=>{
+                    // console.log('tables', tables)
+                    return TableActions.getByLocationIdSuccess({tableList: tables})
+                }),
+                catchError((error)=>{
+                    return of(TableActions.getByLocationIdFailure({ getByLocationIdErrMess: error}))
+                })
+            )
+        )
+
+    )
+) 
 }

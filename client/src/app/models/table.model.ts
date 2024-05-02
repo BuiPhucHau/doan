@@ -1,5 +1,5 @@
 import { Location } from './location.model';
-
+import { Storage } from './storage.model';
 export interface Table {
      tableId: string,
      tableName: string,
@@ -7,4 +7,5 @@ export interface Table {
      status: boolean,
      locationId: Location,
      reservationId?: string,
+     avatarUrl?: Storage;
 }

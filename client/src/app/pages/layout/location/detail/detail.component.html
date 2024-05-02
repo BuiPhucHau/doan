@@ -17,7 +17,14 @@
                     <h2 class="address">Address: {{ selectedLocation.address }}</h2>
                 </div>
                 <div *ngIf="!selectedLocation" class="detail">Location not found.</div>
+                <div class="btn_booking">
+                    <button (click)="tablebooking()" appearance="whiteblock-active" tuiButton type="custom"
+                        class="table_booking">
+                        TABLE BOOKING
+                    </button>
+                </div>
             </div>
+            
         </div>
     </div>
 </div>

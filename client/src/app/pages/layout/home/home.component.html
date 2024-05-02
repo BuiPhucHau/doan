@@ -44,14 +44,17 @@
 
 </div>
 
-<div class="rectangle_3"  >
-    <div *ngFor="let dish of dishList">
-        <div class="dish_featured" *ngIf="dish.featured">
-            <img class="image_featured" *ngFor="let img of dish.image.urls" [src]="img" alt="">
+<section id="slideshow">
+    <div class="entire-content">
+        <div class="content-carrousel">
+            <ng-container *ngFor="let dish of dishList">
+                <figure class="shadow" *ngIf="dish.featured" >
+                    <img [src]="dish.image.urls" alt="{{ dish.image }}">
+                </figure>
+            </ng-container>
         </div>
     </div>
-</div>
-
+</section>
 
 <div class="rectangle_4">
     <div class="happy">
@@ -63,8 +66,6 @@
             culinary team is always striving to create new and unique dishes, providing you with diverse dining
             experiences </p>
     </div>
-
-
 </div>
 
 <div class="foot">

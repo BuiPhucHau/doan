@@ -79,11 +79,18 @@ export const LAYOUT_ROUTES: Routes = [
 
         },
         {
+
           path: 'base/payments',
           loadChildren: () =>
             import ('./payments/payments.routes').then((m) => m.PAYMENTS_ROUTERS),
         },
         
+
+          path: 'base/contact',
+          loadChildren: () =>
+            import('./contact/contact.routes').then((m) => m.CONTACT_ROUTERS),
+        }
+
     ]
   },
 ];

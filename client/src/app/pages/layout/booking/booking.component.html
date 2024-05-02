@@ -28,31 +28,85 @@
     </div>
 
     <div class="tables">
-      <div  (click)="selectTable(table.tableId)" class="table" *ngFor="let table of filteredTables">
-        <tui-avatar class="hi" fallback="tuiIconUserLarge" new class="tui-space_left-3 avatar"
-          [avatarUrl]="wrongUrl"></tui-avatar>
-        <p  class="table-number">{{ table.tableName}}</p>
+      <div (click)="selectTable(table.tableId)" class="table" *ngFor="let table of filteredTables">
+        <tui-avatar class="t-image" fallback="tuiIconUserLarge" new class="tui-space_left-3 avatar"
+          [avatarUrl]="table.status ? havebooked : havenotbook"></tui-avatar>
+        <p class="table-number">{{ table.tableName }}</p>
       </div>
     </div>
+
   </div>
+
 
   <div class="container-detail_table">
     <div class="detail_save">
       <p style="font-size: 14px; font-weight: bold; margin: 1rem;">Reservation Details</p>
+
       <div class="btn_save">
-        <button class="save" appearance="custom" tuiButton type="button" (click)="createBookingTable()">Save</button>
+        <button class="save" appearance="custom" tuiButton tuiHintDirection="top" type="button"
+          (click)="setDishes_showDialog()">Save</button>
       </div>
+
+      <!-- Dialog - Lưu món -->
+      <ng-template let-observer [tuiDialogOptions]="{label: 'Do you want ', size: 's'}"
+        [(tuiDialog)]="open1">
+        <form [formGroup]="exampleForm" (ngSubmit)="observer.complete()">
+          <p>set 1</p>
+          <p>
+            <button tuiButton type="submit" (click)="createBookingTable_showDialog()">
+              Yes
+            </button>
+            <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+              (click)="createBookingTable_showDialog()">
+              No
+            </button>
+          </p>
+        </form>
+      </ng-template>
+
+      <!-- Dialog - Đặt cọc -->
+      <ng-template let-observer [tuiDialogOptions]="{label: 'Notification', size: 's'}" [(tuiDialog)]="open2">
+        <form [formGroup]="exampleForm" (ngSubmit)="observer.complete()">
+          <p>We apologize for our restaurant's regulations. We cannot guarantee the customer's ability to sit without a
+            sewer account. If customers want to be sure to reserve this table, they must order a box.
+          </p>
+          <tui-input formControlName="exampleControl">
+            200.000 VND
+          </tui-input>
+
+          <p>
+            <button tuiButton type="submit" (click)="createBookingTable()">
+              Deposit
+            </button>
+            <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+              (click)="createBookingTable()">
+              No
+            </button>
+          </p>
+        </form>
+      </ng-template>
+
+      <!-- Dialog - Đặt bàn thành công -->
+      <ng-template let-observer [tuiDialogOptions]="{label: 'Thanks for your reservation!', size: 's'}"
+        [(tuiDialog)]="open3">
+        <form [formGroup]="exampleForm" (ngSubmit)="observer.complete()">
+          <p>Your seat has been confirmed and please arrive on time.</p>
+          <p>
+            <button tuiButton type="submit">
+              Done
+            </button>
+          </p>
+        </form>
+      </ng-template>
+
+
+
     </div>
 
     <form [formGroup]="bookingTable">
       <div class="input-reservation">
         <label class="label-reservation">Table Number</label>
-        <!-- <tui-select class="input" tuiTextfieldSize="m" formControlName="tableNumber">
-          0
-          <input placeholder="Select table" tuiTextfield />
-          <tui-data-list-wrapper *tuiDataList [items]="tableNumberOptions"></tui-data-list-wrapper>
-        </tui-select> -->
-        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="tableId" [tuiTextfieldCleaner]="true">
+        <tui-input tuiTextfieldSize="m" class="input" formControlName="tableId" [tuiTextfieldCleaner]="true">
           Table
           <input tuiTextfield type="text" />
         </tui-input>
@@ -67,19 +121,23 @@
       <!-- Reservation Time -->
       <div class="input-reservation">
         <label class="label-reservation">Reservation Time</label>
-        <tui-input-time formControlName="time" [items]="time" class="input"
-          tuiTextfieldSize="m">Time</tui-input-time>
+        <tui-input-time formControlName="time" [items]="time" class="input" tuiTextfieldSize="m"
+          [readOnly]="!activateDropdown" [tuiTextfieldCleaner]="true">Time</tui-input-time>
       </div>
 
       <!-- Pax Number -->
       <div class="input-reservation">
         <label class="label-reservation">Pax Number</label>
         <tui-select class="input" tuiTextfieldSize="m" formControlName="numberofPeople">
-          0
-          <input placeholder="Select number" tuiTextfield />
+          People
           <tui-data-list-wrapper *tuiDataList [items]="taxNumberOptions"></tui-data-list-wrapper>
         </tui-select>
       </div>
+
+      <!-- <div class="checkbox">
+        <label class="label-checkbox">Đặt món</label>
+        <tui-checkbox formControlName="setdishes" class="tui-space_bottom-3"></tui-checkbox>
+      </div> -->
 
       <div class="line"></div>
       <p style="font-size: 14px; margin: 1rem; font-weight: bold;">Client Details</p>
@@ -97,13 +155,13 @@
       <!-- Phone Number -->
       <div class="input-client">
         <label class="label-client">Phone Number</label>
-        <tui-input-phone tuiTextfieldSize="m" class="b-form" formControlName="phone" [tuiTextfieldCleaner]="true">
+        <tui-input-phone countryCode="+84" tuiTextfieldSize="m" class="b-form" formControlName="phone"
+          [tuiTextfieldCleaner]="true">
           Phone
           <input tuiTextfield type="text" />
         </tui-input-phone>
       </div>
     </form>
     <!-- Table Number -->
-
   </div>
 </div>
