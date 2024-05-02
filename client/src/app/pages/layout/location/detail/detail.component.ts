@@ -71,3 +71,4 @@ export class DetailComponent implements OnDestroy {
     this.router.navigate(['base/booking']);
   }
 }
+
