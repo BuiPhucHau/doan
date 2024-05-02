@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  
+
 }
 
 .top {
@@ -19,7 +19,7 @@
         height: 100%;
         width: 20%;
         display: flex;
-    
+
         align-items: center;
         text-align: center;
     }
@@ -32,15 +32,17 @@
         align-items: center;
         text-align: center;
         cursor: pointer;
+
         .name_dish.active {
             border-bottom: 2px solid rgb(209, 209, 209);
             border-radius: 2px;
-            
+
         }
 
     }
 }
-hr{
+
+hr {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 70%;
@@ -49,51 +51,60 @@ hr{
     border-radius: 5px;
 
 }
-.menu{
+
+.menu {
     width: 70%;
     height: 90%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 20px;
-.grid_dish {
-    width: 200px;
-    height: 300px;
-    display: flex;
-    .dish {
-        width: 100%;
-        height: 100%;
+
+    .grid_dish {
+        width: 200px;
+        height: 325px;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid rgb(209, 209, 209);
-        border-radius: 10px;
 
-        .dish_img {
-            width: 150px;
-            height: 200px;
-            object-fit: fill;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-
-            .image_featured {
-                width: 150px;
-                height: 150px;
-                object-fit: fill;
-            }
-        }
-
-        .dish_info {
+        .dish {
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            text-align: center;
-            width: 100%;
-            height: 30%;
-        }
-    }
+            align-items: center;
+            border: 1px solid rgb(209, 209, 209);
+            border-radius: 10px;
 
-}
+            .dish_img {
+                width: 150px;
+                height: 200px;
+                object-fit: fill;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+
+                .image_featured {
+                    width: 150px;
+                    height: 150px;
+                    object-fit: fill;
+                }
+            }
+
+            .dish_info {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                width: 150px;
+                height: 200px; 
+                h3{
+                    width: 150px;
+                    height: 40px;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+    }
 }

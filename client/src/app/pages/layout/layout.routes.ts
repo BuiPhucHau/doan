@@ -78,6 +78,11 @@ export const LAYOUT_ROUTES: Routes = [
             import('../layout/menu/dishdetail/dishdetail.routes').then((m) => m.DISHDETAIL_ROUTERS),  
 
         },
+        {
+          path: 'base/payments',
+          loadChildren: () =>
+            import ('./payments/payments.routes').then((m) => m.PAYMENTS_ROUTERS),
+        },
         
     ]
   },

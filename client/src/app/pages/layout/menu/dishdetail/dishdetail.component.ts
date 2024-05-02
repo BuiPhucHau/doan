@@ -12,6 +12,7 @@ import { ShareModule } from '../../../../shared/shared.module';
 import { TaigaModule } from '../../../../shared/taiga.module';
 import { get } from '../../../../ngrx/actions/location.actions';
 import { DishService } from '../../../../service/dish/dish.service';
+import { CartService } from '../../../../service/cart/cart.service';
 
 @Component({
   selector: 'app-dishdetail',
@@ -32,6 +33,7 @@ export class DishdetailComponent implements OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private dishService: DishService,
+    private cartService: CartService,
     private store: Store<{
       dish: DishState;
       category: categoryState;
@@ -80,12 +82,12 @@ export class DishdetailComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.subcriptions.forEach((sub) => sub.unsubscribe());
   }
+  addtoCart(dishCart : Dish): void {
+    this.cartService.addToCart(dishCart);
+    console.log(this.cartService.getSelectedDishes());
+    this.router.navigate(['/base/order']);
+  }
   goBack(): void {
     this.router.navigate(['/base/menu']);
   }
-  addtoCart(dishOrder: Dish): void {
-    this.store.dispatch(DishActions.addtoCart({ dish: dishOrder }));
-    this.router.navigate(['/base/order'], { state: { dish: dishOrder } });
-  }
-
 }

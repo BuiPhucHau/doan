@@ -8,6 +8,7 @@ export const initialState: DishState = {
   isGetSuccess: false,
   getErrMess: '',
   dishList: [],
+  selectedDishes: [],
 
 };
 
