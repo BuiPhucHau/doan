@@ -121,9 +121,9 @@ export class MenuComponent {
     this.filteredDishes = this.dishList.filter((dish) => dish.category.nameCategory === nameCategory);
   }
   }
-  showDetail(dId: string) {
-    this.router.navigate(['base/menu/dish-detail',dId]);
-    console.log(dId);
+  showDetail(dishCart : Dish) {
+    this.cartService.addToDetail(dishCart);
+    this.router.navigate(['base/menu/dish-detail']);
   }
   addtoCart(dishCart : Dish): void {
     this.cartService.addToCart(dishCart);

@@ -57,9 +57,10 @@ export class DishdetailComponent implements OnDestroy {
     );
   }
   ngOnInit() {
+    this.item = this.cartService.getItemDetail();
     this.store.dispatch(DishActions.get({}));
     this.store.dispatch(CategoryActions.get());
-  
+
     this.subcriptions.push(
       this.dish$.subscribe((dishList) => {
         if (dishList.length > 0) {
@@ -72,20 +73,24 @@ export class DishdetailComponent implements OnDestroy {
         }
       }),
     );
-    const dishId = this.route.snapshot.paramMap.get('dId');
-    if (dishId) {
-      this.dishService.getDishById(dishId).subscribe((dish: any) => {
-        this.selectDish = dish;
-      });
-    }
+    // const dishId = this.route.snapshot.paramMap.get('dId');
+    // if (dishId) {
+    //   this.dishService.getDishById(dishId).subscribe((dish: any) => {
+    //     this.selectDish = dish;
+    //   });
+    // }
   }
+  
+  item = this.cartService.getItemDetail();
+
   ngOnDestroy(): void {
     this.subcriptions.forEach((sub) => sub.unsubscribe());
   }
-  addtoCart(dishCart : Dish): void {
+  addtoCart(dishCart: Dish): void {
     this.cartService.addToCart(dishCart);
     console.log(this.cartService.getSelectedDishes());
     this.router.navigate(['/base/order']);
+
   }
   goBack(): void {
     this.router.navigate(['/base/menu']);

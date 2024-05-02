@@ -5,8 +5,4 @@ export const DISHDETAIL_ROUTERS: Routes = [
         path: '',
         component: DishdetailComponent
     },
-    { 
-        path: ':dId',
-        component: DishdetailComponent
-    },
 ]
