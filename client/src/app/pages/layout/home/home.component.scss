@@ -170,42 +170,42 @@
 
 }
 
-.foot {
-    width: 100%;
-    height: 350px;
-    background-color: var(--tui-background);
-    padding: 40px 400px 40px 400px;
-    display: flex;
-    flex-direction: row;
+// .foot {
+//     width: 100%;
+//     height: 350px;
+//     background-color: var(--tui-background);
+//     padding: 40px 400px 40px 400px;
+//     display: flex;
+//     flex-direction: row;
 
 
 
-    .title_foot {
-        color: white;
-        font-size: 20px;
-        font-weight: 600;
-        margin-bottom: 2rem;
-    }
+//     .title_foot {
+//         color: white;
+//         font-size: 20px;
+//         font-weight: 600;
+//         margin-bottom: 2rem;
+//     }
 
-    .bridge_foot {
-        color: white;
-        font-size: 16px;
+//     .bridge_foot {
+//         color: white;
+//         font-size: 16px;
 
-    }
+//     }
 
-    .pages_foot {
-        color: white;
-        font-size: 16px;
+//     .pages_foot {
+//         color: white;
+//         font-size: 16px;
 
-        margin-bottom: 2rem;
-    }
+//         margin-bottom: 2rem;
+//     }
 
-    .opening_foot {
-        color: white;
-        font-size: 16px;
+//     .opening_foot {
+//         color: white;
+//         font-size: 16px;
 
-    }
-}
+//     }
+// }
 
 
 
@@ -225,16 +225,6 @@ html, body {
 	box-sizing: border-box;
 }
 
-.slideshow-title {
-	font-family: 'Allerta Stencil';
-	font-size: 62px;
-	color: #fff;
-	margin: 0 auto;
-	text-align: center;
-	margin-top: 25%;
-	letter-spacing: 3px;
-	font-weight: 300;
-}
 
 .sub-heading {
 	padding-top: 50px;
@@ -259,7 +249,7 @@ html, body {
 }
 .entire-content {
 	margin: auto;
-	width: 190px;
+	width: 200px;
 	perspective: 1000px;
 	position: relative;
 	padding-top: 80px;
@@ -311,7 +301,7 @@ html, body {
 
 .shadow {
     position: absolute;
-    box-shadow: 0px 0px 5px 0px #000;
+    box-shadow: 0px 0px 6px 0px #000;
     border-radius: 0.5px;
 }
 
@@ -334,3 +324,182 @@ html, body {
 		transform: rotateY(360deg);
 	}
 }
+
+
+
+footer {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 50px 100px;
+  background: #111;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+footer .container .noi-dung {
+  margin-right: 30px;
+}
+
+footer .container .noi-dung.about {
+  width: 30%;
+  ;
+}
+
+footer .container .noi-dung.about h2 {
+  position: relative;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+footer .container .noi-dung.about h2:before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: #f00;
+}
+
+footer .container .noi-dung.about p {
+  color: #999;
+}
+
+.social-icon {
+  margin-top: 20px;
+  display: flex;
+}
+
+.social-icon li {
+  list-style: none;
+}
+
+.social-icon li  {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.social-icon li:hover {
+  background: rgb(18, 135, 237);
+}
+
+.social-icon li  {
+  color: #fff;
+  
+  margin: 5px;
+}
+
+.links h2 {
+  position: relative;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.links h2 {
+  position: relative;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 15px;
+  
+}
+
+.links h2::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: #f00;
+}
+
+.links {
+  position: relative;
+  width: 10%;
+}
+
+.links ul li {
+  list-style: none;
+}
+
+.links ul li a {
+  color: #999;
+  text-decoration: none;
+  margin-bottom: 10px;
+  display: inline-block;
+  font-size: large;
+}
+
+.links ul li a:hover {
+  color: #fff;
+}
+
+.contact h2 {
+  position: relative;
+  color: #fff;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.contact h2::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: #f00;
+}
+
+.contact {
+  width: calc(35% - 60px);
+  margin-right: 0 !important;
+}
+
+.contact .info {
+  position: relative;
+}
+
+.contact .info li {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+
+.contact .info li span {
+  color: #999;
+}
+
+.contact .info li a {
+  color: #999;
+  text-decoration: none;
+}
+
+.links li{
+  color: #999;
+}
+.links li:hover{
+  color: white;
+}
+
+
+

@@ -141,4 +141,7 @@ export class OrderComponent {
   pay() {
     this.router.navigate(['base/payments']);
   }
+  order() {
+    this.router.navigate(['base/order']);
+  }
 }

@@ -411,7 +411,7 @@ footer .container .noi-dung.about p {
   list-style: none;
 }
 
-.social-icon li a {
+.social-icon li  {
   display: inline-block;
   width: 40px;
   height: 40px;
@@ -521,7 +521,12 @@ footer .container .noi-dung.about p {
   text-decoration: none;
 }
 
-
+.links li{
+  color: #999;
+}
+.links li:hover{
+  color: white;
+}
 
 
 

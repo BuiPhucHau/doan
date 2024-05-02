@@ -67,11 +67,29 @@ export class ContactComponent implements OnDestroy {
 
  
 
-  goBack(): void {
-    this.router.navigate(['/base/location']);
-  }
+ 
   tablebooking() {
     this.router.navigate(['base/booking']);
   }
+
+home() {
+    this.router.navigate(['base/home']);
+  }
+  goBack() {
+    this.router.navigate(['base/menu']);
+  }
+  Back(): void {
+    this.router.navigate(['/base/location']);
+  }
+  new() {
+    this.router.navigate(['base/new']);
+  }
+  order() {
+    this.router.navigate(['base/order']);
+  }
+  contact() {
+    this.router.navigate(['base/contact']);
+  }
+ 
 }
 

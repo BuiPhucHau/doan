@@ -118,12 +118,11 @@ selectednew: any;
     this.currentIndex = index;
     this.transformStyle = `translateX(-${100 * this.currentIndex}%)`;
   }
+  new() {
+    this.router.navigate(['base/new']);
+  }
 }
-  
-  // goback(newId :string ){
-  //   this.router.navigate(['base/new/', newId]);
-  //   console.log(newId);
-  // }
+
 
 
 
