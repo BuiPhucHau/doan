@@ -56,12 +56,7 @@ export class DetailComponent implements OnDestroy {
          this.selectedLocation = location;
        });
      }
-    //  this.route.params.subscribe(params => {
-    //   const locationId = params['locationId'];
-    //   if (locationId) {
-    //     this.selectedLocation = this.locationList.find(location => location.locationId === locationId);
-    //   }
-    // });
+
   }
    ngOnDestroy(): void {
     this.subcriptions.forEach((sub) => sub.unsubscribe());
