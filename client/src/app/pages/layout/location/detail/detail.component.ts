@@ -69,7 +69,7 @@ export class DetailComponent implements OnDestroy {
 
  
 
-  goBack(): void {
+  Back(): void {
     this.router.navigate(['/base/location']);
   }
   tablebooking() {

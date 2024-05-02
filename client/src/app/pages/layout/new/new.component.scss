@@ -43,17 +43,6 @@ body {
   right: 0;
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-
-  z-index: 999;
-  cursor: pointer;
-  background: transparent;
-
-}
 
 .container {
   width: 100%;
@@ -82,14 +71,30 @@ h1 {
 }
 
 .carousel-track {
+  min-width: 400%;
   display: flex;
-  flex-wrap: nowrap;
-
-  transition: transform 0.3s ease-in-out;
+  animation: scroll 30s linear infinite;
 }
 
+/* Dừng animation khi hover vào carousel */
+.carousel-container:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%); /* Điều chỉnh giá trị này phù hợp với tổng chiều dài của các card */
+  }
+}
+
+
+
+
 .card {
-  flex: 0 0 50%;
+  flex: 0 0 0;
 
   box-sizing: border-box;
   
@@ -166,7 +171,7 @@ h1 {
   }
 
   .news {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .title {
@@ -175,8 +180,9 @@ h1 {
   }
 
   .text {
-    height: 70px;
+    height: 100px;
     margin: 0;
+   
   }
 
   input[type='checkbox'] {
@@ -236,13 +242,6 @@ h1 {
     outline: none;
   }
 
-  // .prev {y
-  //   left: 10px;
-  // }
-
-  // .next {
-  //   right: 10px;
-  // }
   .content {
     background-color: $white;
     box-shadow: 0 5px 30px 10px rgba($black, 0.3);
