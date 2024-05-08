@@ -83,6 +83,7 @@
       setdishes: new FormControl(false, Validators.required),
       name: new FormControl('', Validators.required),
       phone: new FormControl('', Validators.required),
+     
     });
 
     persons = [
@@ -201,16 +202,12 @@
         status: true,
       };
       console.log('Đặt bàn thành công', addbookingTable);
-
       this.store.dispatch(
         ReservationActions.createReservation({ reservation: addbookingTable })
       );
-
       this.alerts.open('Booking table success.').subscribe();
-
         // Lưu vị trí hiện tại vào session storage trước khi tải lại
         sessionStorage.setItem('selectedLocation', this.locationValue);
-
         // Tải lại trang
         window.location.reload();
     }

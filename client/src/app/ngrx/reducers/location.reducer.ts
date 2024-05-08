@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { LocationState } from "../state/location.state";
 import * as LocationActions from "../actions/location.actions";
-
+import { Location } from "../../models/location.model";
 
 export const initialState: LocationState = {
 
@@ -10,6 +10,10 @@ export const initialState: LocationState = {
   getErrMess: '',
   locationList: [],
 
+  isCreateLocationLoading: false,
+  isCreateLocationSuccess: false,
+  createErrMess: '',
+  location: <Location>{},
 };
 
 
@@ -50,6 +54,33 @@ export const locationReducer = createReducer(
       isGetSuccess: false,
       getErrMess: action.getErrMess,
     };
-  })
+  }),
+
+  //////////////////////////////////// CREATE location //////////////////////////
+  on(LocationActions.createLocation, (state, action) => {
+    return {
+      ...state,
+      isCreateLocationLoading: true,
+      isCreateLocationSuccess: false,
+      createErrMess: "",
+    };
+  }),
+  on(LocationActions.createLocationSuccess, (state, action) => {
+    return {
+      ...state,
+      location: action.location,
+      isCreateLocationLoading: false,
+      isCreateLocationSuccess: true,
+      createErrMess: "",
+    };
+  }),
+  on(LocationActions.createLocationFailure, (state, action) => {
+    return {
+      ...state,
+      isCreateLocationLoading: false,
+      isCreateLocationSuccess: false,
+      createErrMess: action.errorMessage,
+    };
+  }),
 
 );

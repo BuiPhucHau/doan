@@ -56,13 +56,14 @@ export const LAYOUT_ROUTES: Routes = [
           import('./location/detail/detail.routes').then(
             (m) => m.DETAIL_ROUTES
           ),
-      },{
-        path: 'base/booking/locationId',
-        loadChildren: () =>
-          import('./booking/booking.routes').then(
-            (m) => m.BOOKING_ROUTERS
-          ),
       },
+      // {
+      //   path: 'base/booking/locationId',
+      //   loadChildren: () =>
+      //     import('./booking/booking.routes').then(
+      //       (m) => m.BOOKING_ROUTERS
+      //     ),
+      // },
       {
         path: 'base/new',
         loadChildren: () =>

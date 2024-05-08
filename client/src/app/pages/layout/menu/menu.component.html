@@ -1,28 +1,40 @@
 <div class="container">
+  <div class="container-search">
+    <tui-input class="input-search" formControlName="testValue" tuiTextfieldSize="m" [tuiTextfieldCleaner]="true"
+      [tuiTextfieldLabelOutside]="true">
+      Search
+      <!-- <input tuiTextfield type="email" /> -->
+    </tui-input>
+  </div>
+
+
+
+
+
   <div class="top">
-    <div class="select_price" >
+    <div class="select_price">
       <tui-select tuiTextfieldSize="m" [formControl]="selectedDish">
         Select Price
         <input placeholder="Select branch" tuiTextfield />
         <tui-data-list-wrapper *tuiDataList [items]="branch"></tui-data-list-wrapper>
       </tui-select>
     </div>
-    <div class="select_dish"  >
+    <div class="select_dish">
       <div *ngFor="let namedish of namedishs">
         <span class="name_dish" [ngClass]="{'active': namedish.isActice}" (click)="filterDishes(namedish.nameCategory)">
           {{namedish.nameCategory}}
         </span>
       </div>
-      
+
       <!-- <span class="name_dish" (click)="filterDishes('Main dishes')">Main Dish</span>
       <span class="name_dish" (click)="filterDishes('Desserts')">Dessert</span> -->
     </div>
   </div>
   <hr>
-  
+
   <div class="menu">
     <div class="grid_dish" *ngFor="let dish of filteredDishes">
-      <div class="dish" >
+      <div class="dish">
         <div class="dish_img">
           <img class="image_featured" *ngFor="let img of dish.image.urls" [src]="img" alt="">
         </div>
