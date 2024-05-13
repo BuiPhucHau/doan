@@ -1,0 +1,53 @@
+
+<div class="container">
+    <div class="container-main">
+        <form [formGroup]="newLocation">
+            <div class="input-location">
+                <label class="label-client">Mã</label>
+                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="locationId"
+                    [tuiTextfieldCleaner]="true">
+                    Mã
+                    <input tuiTextfield type="text" />
+                </tui-input>
+            </div>
+            <div class="input-location">
+                <label class="label-client">Name</label>
+                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="name" [tuiTextfieldCleaner]="true">
+                    name
+                    <input tuiTextfield type="text" />
+                </tui-input>
+            </div>
+            <div class="input-location">
+                <label class="label-client">địa chỉ</label>
+                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="address" [tuiTextfieldCleaner]="true">
+                    address
+                    <input tuiTextfield type="text" />
+                </tui-input>
+            </div>
+            <div class="input-location">
+                <label class="label-client">Phone</label>
+                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="phone" [tuiTextfieldCleaner]="true">
+                    number
+                    <input tuiTextfield type="text" />
+                </tui-input>
+            </div>
+
+            <!-- upload -->
+            <div class="palte">
+                <h2>Hình ảnh</h2>
+                <input type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)" #fileInput
+                    formControlName="image" />
+                <!-- <i class="fa-solid fa-cloud-arrow-up" style="cursor: pointer;" ></i> -->
+                <button (click)="fileInput.click()">Upload</button>
+                <div class="img-file" *ngIf="file">
+                    <img [src]="selectedImage" alt="Selected Image" style="width: 100px;height: 100px;" />
+                </div>
+            </div>
+            <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+                (click)="createLocation()">
+                Create
+            </button>
+
+        </form>
+    </div>
+</div>
