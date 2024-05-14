@@ -63,7 +63,21 @@ export const LAYOUT_ROUTES: Routes = [
           import('./booking/booking.routes').then(
             (m) => m.BOOKING_ROUTERS
           ),
+        },
+        {
+        path: 'base/location/detail/locationId',
+        loadChildren: () =>
+          import('./location/detail/detail.routes').then(
+            (m) => m.DETAIL_ROUTES
+          ),
       },
+      // {
+      //   path: 'base/booking/locationId',
+      //   loadChildren: () =>
+      //     import('./booking/booking.routes').then(
+      //       (m) => m.BOOKING_ROUTERS
+      //     ),
+      // },
       {
         path: 'base/new',
         loadChildren: () =>

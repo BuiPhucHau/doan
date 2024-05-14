@@ -19,7 +19,6 @@
     .container-main {
         width: 100%;
         height: 80%;
-        background-color: antiquewhite;
         display: flex;
         justify-content: center;
         .main {
@@ -29,8 +28,20 @@
         }
 
         .input-location {
-            height: 150px;
+            height: auto;
             width: 200px;
         }
     }
+
+        .palte {
+            width: 200px;
+            height: 100px;
+            overflow: auto;
+
+            .palte_box {
+                display: block;
+                width: 100%;
+            }
+        }
+    
 }

@@ -2,14 +2,8 @@
   <div class="container-table">
     <h2 style="margin-left: 1rem; margin-top: 1rem;">Table Reservation</h2>
     <div class="container-filter">
-      <!-- <div class="address">
-        <select class="branch" name="branch">
-          <option *ngFor="let location of locationList" [value]="location.locationId">{{location.name}}</option>
-        </select>
-      </div> -->
 
-      <!-- [(ngModel)]="locationValue" (ngModelChange)="locationValueChange()"  -->
-
+      <!-- Select location -->
       <div class="search_location">
         <div *ngIf="item !== null">
           <tui-combo-box tuiTextfieldSize="s" class="b-form" [(ngModel)]="item.name"
@@ -30,6 +24,7 @@
 
       </div>
 
+      <!-- Filter -->
       <div class="filter">
         <button *ngFor="let person of persons" tuiButton size="s" type="button" appearance="custom" class="filter-table"
           [ngClass]="{ 'active': person.isActive }" (click)="filterTable(person.seats)">
@@ -38,6 +33,7 @@
       </div>
     </div>
 
+    <!-- TableList -->
     <div class="tables">
       <div (click)="selectTable(table.tableId)" class="table" *ngFor="let table of filteredTables">
         <tui-avatar class="t-image" fallback="tuiIconUserLarge" new class="tui-space_left-3 avatar"
@@ -82,7 +78,7 @@
             sewer account. If customers want to be sure to reserve this table, they must order a box.
           </p>
           <tui-input formControlName="exampleControl">
-            200.000 VND
+            100.000 VND
           </tui-input>
 
           <p>
@@ -136,8 +132,7 @@
       <!-- Pax Number -->
       <div class="input-reservation">
         <label class="label-reservation">Pax Number</label>
-        <tui-select class="input" tuiTextfieldSize="m" formControlName="numberofPeople">
-          People
+        <tui-select class="input" tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true" formControlName="numberofPeople">
           <tui-data-list-wrapper *tuiDataList [items]="taxNumberOptions"></tui-data-list-wrapper>
         </tui-select>
       </div>
