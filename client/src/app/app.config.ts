@@ -31,6 +31,8 @@ import { reservationReducer } from './ngrx/reducers/reservation.reducer';
 import { ReservationEffects } from './ngrx/effects/reservation.effects';
 import { newReducer } from './ngrx/reducers/new.reducer';
 import { NewEffects } from './ngrx/effects/new.effects';
+import { storageReducer } from './ngrx/reducers/storage.reducer';
+import { StorageEffects } from './ngrx/effects/storage.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -54,8 +56,9 @@ export const appConfig: ApplicationConfig = {
     provideState ({name: 'table', reducer: tableReducer}),
     provideState ({name: 'reservation', reducer: reservationReducer}),
     provideState ({name: 'new', reducer: newReducer}),
+    provideState({name: 'storage', reducer: storageReducer}),
 
-    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects, CategoryEffects, TableEffects, ReservationEffects, NewEffects]),
+    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects, CategoryEffects, TableEffects, ReservationEffects, NewEffects, StorageEffects]),
 
 
     

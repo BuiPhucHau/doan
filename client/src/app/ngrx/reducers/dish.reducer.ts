@@ -10,6 +10,14 @@ export const initialState: DishState = {
   dishList: [],
   selectedDishes: [],
 
+  isCreateDishLoading: false,
+  isCreateDishSuccess: false,
+  createErrMess: '',
+  dish: <Dish>{},
+
+  isAddSuccess: false,
+  isAddLoading: false,
+  addErrMess: '',
 };
 
 export const dishReducer = createReducer(
@@ -43,7 +51,44 @@ export const dishReducer = createReducer(
       isGetSuccess: false,
       getErrMess: action.getErrMess,
     };
-  })
+  }),
+
+  /////////////CREATE
+  on(DishActions.createDish, (state, action) => {
+    console.log('create dish reducer');
+    return {
+      ...state,
+      isCreateDishLoading: true,
+      isCreateDishSuccess: false,
+      createErrMess: '',
+    };
+  }),
+  on(DishActions.createDishSuccess, (state, action) => {
+    console.log('create dish success reducer');
+    return {
+      ...state,
+      isCreateDishLoading: false,
+      isCreateDishSuccess: true,
+      dish: action.dish,
+      createErrMess: "",
+    };
+  }),
+  on(DishActions.createDishFailure, (state, action) => {
+    return {
+      ...state,
+      isCreateDishLoading: false,
+      isCreateDishSuccess: false,
+      createErrMess: action.errorMessage,
+    };
+  }),
+  on(DishActions.resetIsAddSuccess, (state, action) => {
+    let newSate: DishState = {
+      ...state,
+      isAddSuccess: false,
+      isAddLoading: false,
+    };
+    return newSate;
+  }),
 
 );
 

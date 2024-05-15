@@ -24,19 +24,23 @@ export const getFailure = createAction(
     props<{ getErrMess: any }>()
 );
 
-// export const add = createAction(
-//   '[Dish] add',
-//   props<{ newDish: any }>()
-// );
+//create Dish
+export const createDish = createAction(
+    '[Dish] create',
+    props<{ dish: any }>()
+);
+export const createDishSuccess = createAction(
+    '[Dish] create success',
+    props<{ dish: Dish }>()
+);
+export const createDishFailure = createAction(
+    '[Dish] create fail',
+    props<{ errorMessage: any }>()
+);
+export const resetIsAddSuccess = createAction(
+  '[Dish] reset is add success',
+);
 
-// export const addSuccess = createAction(
-//     '[Dish] add success',
-// );
-
-// export const addFailure = createAction(
-//   '[Dish] add failure',
-//   props<{ addErrMess: any }>()
-// );
 
 // export const remove = createAction(
 //   '[Dish] delete',

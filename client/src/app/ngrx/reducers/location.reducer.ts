@@ -14,6 +14,10 @@ export const initialState: LocationState = {
   isCreateLocationSuccess: false,
   createErrMess: '',
   location: <Location>{},
+
+  isAddSuccess: false,
+  isAddLoading: false,
+  addErrMess: '',
 };
 
 
@@ -82,5 +86,12 @@ export const locationReducer = createReducer(
       createErrMess: action.errorMessage,
     };
   }),
-
+  on(LocationActions.resetIsAddSuccess, (state, action) => {
+    let newSate: LocationState = {
+      ...state,
+      isAddSuccess: false,
+      isAddLoading: false,
+    };
+    return newSate;
+  })
 );

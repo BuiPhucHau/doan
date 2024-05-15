@@ -13,4 +13,8 @@ export interface LocationState {
     isCreateLocationSuccess: boolean,
     createErrMess: string,
     location: Location,
+
+    isAddLoading: boolean;
+    isAddSuccess: boolean;
+    addErrMess: string;
 }

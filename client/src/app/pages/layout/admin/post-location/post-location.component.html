@@ -1,7 +1,7 @@
 
 <div class="container">
     <div class="container-main">
-        <form [formGroup]="newLocation">
+        <form [formGroup]="addLocationForm">
             <div class="input-location">
                 <label class="label-client">Mã</label>
                 <tui-input tuiTextfieldSize="m" class="b-form" formControlName="locationId"
@@ -37,7 +37,7 @@
                 <h2>Hình ảnh</h2>
                 <input type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)" #fileInput
                     formControlName="image" />
-                <!-- <i class="fa-solid fa-cloud-arrow-up" style="cursor: pointer;" ></i> -->
+
                 <button (click)="fileInput.click()">Upload</button>
                 <div class="img-file" *ngIf="file">
                     <img [src]="selectedImage" alt="Selected Image" style="width: 100px;height: 100px;" />

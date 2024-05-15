@@ -6,4 +6,14 @@ export interface DishState {
     getErrMess: string;
     dishList: Dish[];
     selectedDishes: Dish[];
+
+    ///////////////CREATE
+    isCreateDishLoading: boolean,
+    isCreateDishSuccess: boolean,
+    createErrMess: string,
+    dish: Dish,
+
+    isAddLoading: boolean;
+    isAddSuccess: boolean;
+    addErrMess: string;
 }

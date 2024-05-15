@@ -1,16 +1,17 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LocationState } from '../../../../ngrx/state/location.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-// import * as LocationAction from '../../../ngrx/actions/location.actions';
+import * as LocationAction from '../../../../ngrx/actions/location.actions';
 import * as LocationActions from '../../../../ngrx/actions/location.actions';
 
 import * as StorageAction from '../../../../ngrx/actions/storage.actions';
 import { StorageState } from '../../../../ngrx/state/storage.state';
 import { ShareModule } from '../../../../shared/shared.module';
 import { TaigaModule } from '../../../../shared/taiga.module';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -20,15 +21,18 @@ import { TaigaModule } from '../../../../shared/taiga.module';
   templateUrl: './post-location.component.html',
   styleUrl: './post-location.component.scss',
 })
-export class PostLocationComponent {
+export class PostLocationComponent implements OnDestroy, OnInit {
 
-  isCreateLocation$ = this.store.select('location', 'location');
+  isCreateLocation$ = this.store.select('location', 'isAddSuccess');
+
   fileName: string = '';
   createImageSuccess$ = this.store.select('storage', 'isCreateSuccess');
 
   selectedImage: string | ArrayBuffer | null = null;
 
-  newLocation = new FormGroup({
+  // subscriptions: Subscription[] = [];
+  
+  addLocationForm = new FormGroup({
     locationId: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
@@ -36,7 +40,13 @@ export class PostLocationComponent {
     image: new FormControl('', Validators.required),
   });
 
-
+  addLocationData: any = {
+    locationId: '',
+    name: '',
+    phone: '',
+    address: '',
+    image: '',
+  }
 
   constructor(
     private router: Router,
@@ -45,38 +55,53 @@ export class PostLocationComponent {
       storage: StorageState;
     }>
   ) {
-    // this.createImageSuccess$.subscribe((val) => {
-    //   console.log(val);
-    //   if (val) {
-    //     console.log(val);
-    //     this.store.dispatch(
-    //       StorageAction.get({
-    //         fileName: this.fileName,
-    //       })
-    //     );
-    //   }
-    // });
-    // this.store.select('storage').subscribe((val) => {
-    //   if (val.isGetSuccess) {
-    //     // this.newLocation.image = val.storage._id;
-    //     this.store.dispatch(LocationAction.createLocation({ location: this.newLocation }));
-    //   }
-    // });
-    // this.isCreateLocation$.subscribe ((val) => {
-    //   if (val) {
-    //     console.log(val);
-    //     alert('Tạo location thành công');
-    //   }
-    // });
+    this.createImageSuccess$.subscribe((val) => {
+      console.log(val);
+      if (val) {
+        console.log(val);
+        this.store.dispatch(
+          StorageAction.get({
+            fileName: this.fileName,
+          })
+        );
+      }
+    });
+
+    this.store.select('storage').subscribe((val) => {
+      if (val?.isGetSuccess) {
+        this.addLocationData.image = val.storage?._id;
+        this.store.dispatch(LocationAction.createLocation({ location: this.addLocationData }));
+      }
+    });
+
+    this.isCreateLocation$.subscribe ((val) => {
+      if (val) {
+        console.log(val);
+        alert('Tạo location thành công');
+        this.addLocationData = {
+          locationId: '',
+          name: '',
+          phone: '',
+          address: '',
+          image: '',
+        };
+        this.store.dispatch(LocationAction.resetIsAddSuccess());
+      }
+    });
+  }
+  
+  ngOnInit(): void {
+  }
+  ngOnDestroy(): void {
   }
 
-  formDate: FormData =  new FormData();
+  formData: FormData =  new FormData();
   file: any;
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-    this.formDate.append('image', file, file.name);
+    this.formData.append('image', file, file.name);
     this.file = file;
 
     const reader = new FileReader();
@@ -88,15 +113,19 @@ export class PostLocationComponent {
   }
 
   createLocation() {
-    const newLocation: any = {
-      locationId: this.newLocation.value.locationId ?? '',
-      name: this.newLocation.value.name ?? '',
-      phone: this.newLocation.value.phone ?? '',
-      address: this.newLocation.value.address ?? '',
-    };
-    console.log('Thêm location thành công', newLocation);
+    this.addLocationData = {
+      locationId: this.addLocationForm.value.locationId,
+      name: this.addLocationForm.value.name,
+      phone: this.addLocationForm.value.phone,
+      address: this.addLocationForm.value.address,
+      // image: this.addLocationForm.value.image,
+     };
+    console.log('Thêm location thành công', this.addLocationData);
 
-    this.fileName = this.newLocation.value.locationId + '_' + this.newLocation.value.name;
+    this.fileName = this.addLocationForm.value.locationId + '_' + this.addLocationForm.value.name;
+
+    console.log(this.file);
+    
     this.store.dispatch(
       StorageAction.create({ file: this.file, fileName: this.fileName })
     );
