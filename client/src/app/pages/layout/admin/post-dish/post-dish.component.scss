@@ -12,11 +12,20 @@
         .input-dish {
             height: auto;
             width: 500px;
+
+            .upload {
+                margin: 2rem;
+            }
+            .category {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                padding: 5px;
+                border: solid rgb(187, 187, 187) 0.1px;
+                border-radius: 5px;
+            }
         }
+
     }
 
-        .upload {
-            margin: 2rem;
-        }
-    
 }

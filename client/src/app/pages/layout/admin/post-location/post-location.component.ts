@@ -30,7 +30,7 @@ export class PostLocationComponent implements OnDestroy, OnInit {
 
   selectedImage: string | ArrayBuffer | null = null;
 
-  // subscriptions: Subscription[] = [];
+  subscriptions: Subscription[] = [];
   
   addLocationForm = new FormGroup({
     locationId: new FormControl('', Validators.required),
@@ -55,44 +55,50 @@ export class PostLocationComponent implements OnDestroy, OnInit {
       storage: StorageState;
     }>
   ) {
-    this.createImageSuccess$.subscribe((val) => {
-      console.log(val);
-      if (val) {
-        console.log(val);
-        this.store.dispatch(
-          StorageAction.get({
-            fileName: this.fileName,
-          })
-        );
-      }
-    });
 
-    this.store.select('storage').subscribe((val) => {
-      if (val?.isGetSuccess) {
-        this.addLocationData.image = val.storage?._id;
-        this.store.dispatch(LocationAction.createLocation({ location: this.addLocationData }));
-      }
-    });
-
-    this.isCreateLocation$.subscribe ((val) => {
-      if (val) {
+    this.subscriptions.push(
+      this.createImageSuccess$.subscribe((val) => {
         console.log(val);
-        alert('Tạo location thành công');
-        this.addLocationData = {
-          locationId: '',
-          name: '',
-          phone: '',
-          address: '',
-          image: '',
-        };
-        this.store.dispatch(LocationAction.resetIsAddSuccess());
-      }
-    });
+        if (val) {
+          console.log(val);
+          this.store.dispatch(
+            StorageAction.get({
+              fileName: this.fileName,
+            })
+          );
+        }
+      }),
+  
+      this.store.select('storage').subscribe((val) => {
+        if (val?.isGetSuccess) {
+          this.addLocationData.image = val.storage?._id;
+          this.store.dispatch(LocationAction.createLocation({ location: this.addLocationData }));
+        }
+      }),
+  
+      this.isCreateLocation$.subscribe ((val) => {
+        if (val) {
+          console.log(val);
+          alert('Tạo location thành công');
+          this.addLocationData = {
+            locationId: '',
+            name: '',
+            phone: '',
+            address: '',
+            image: '',
+          };
+          this.store.dispatch(LocationAction.resetIsAddSuccess());
+        }
+      })
+    );
   }
   
   ngOnInit(): void {
   }
   ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
   formData: FormData =  new FormData();
