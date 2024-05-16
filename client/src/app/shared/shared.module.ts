@@ -17,6 +17,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from '../../environments/environments'; // Sửa đổi đường dẫn
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -25,6 +26,6 @@ import { environment } from '../../environments/environments'; // Sửa đổi �
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  exports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
+  exports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, MatSelectModule],
 })
 export class ShareModule {}

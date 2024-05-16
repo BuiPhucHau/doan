@@ -7,7 +7,10 @@ import { StorageState } from '../../../../ngrx/state/storage.state';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import * as StorageAction from '../../../../ngrx/actions/storage.actions';
+import * as CategoryAction from '../../../../ngrx/actions/category.actions'
 import * as DishAction from '../../../../ngrx/actions/dish.actions';
+import { Category } from '../../../../models/category.model';
+import { categoryState } from '../../../../ngrx/state/category.state';
 @Component({
   selector: 'app-post-dish',
   standalone: true,
@@ -18,36 +21,54 @@ import * as DishAction from '../../../../ngrx/actions/dish.actions';
 export class PostDishComponent {
   isCreateDish$ = this.store.select('dish', 'isAddSuccess');
 
+  categories = <Category[]>[];
+
   fileName: string = '';
   createImageSuccess$ = this.store.select('storage', 'isCreateSuccess');
 
   selectedImage: string | ArrayBuffer | null = null;
+  
 
   addDishForm = new FormGroup({
     dId: new FormControl('', Validators.required),
+    _id: new FormControl('', Validators.required),
     nameDish: new FormControl('', Validators.required),
     price: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
+    featured: new FormControl ('', Validators.required),
+    quantity: new FormControl ('', Validators.required),
+    status: new FormControl('', Validators.required),
     image: new FormControl('', Validators.required),
-    category: new FormControl('', Validators.required),
   });
 
   addDishData: any = {
     dishId: '',
-    name: '',
+    cId: '',
+    nameDish: '',
     price: '',
     description: '',
+    quantity : 0,
+    featured: false,
+    status: true,
     image: '',
-    category: '',
+    
   };
 
   constructor(
     private router: Router,
     private store: Store<{
       dish: DishState;
+      category: categoryState;
       storage: StorageState;
     }>
   ) {
+    this.store.dispatch(CategoryAction.get());
+    this.store.select('category', 'categories').subscribe((val) => {
+      if (val != null && val != undefined) {
+        this.categories = val;
+      }
+    });
+    
     this.createImageSuccess$.subscribe((val) => {
       console.log(val);
       if (val) {
@@ -99,22 +120,33 @@ export class PostDishComponent {
       this.selectedImage = reader.result;
     };
     console.log(this.file);
-  }
+  } 
 
   createDish() {
+
+    const selectedCategory = this.categories.find(category => category._id === this.addDishForm.value._id);
+    if (!selectedCategory) {
+      console.error('No category found ');
+      return; // Thoát khỏi hàm nếu không tìm thấy category
+    }
+
     this.addDishData
       = {
-        dishId: this.addDishForm.value.dId,
-        name: this.addDishForm.value.nameDish,
+        dId: this.addDishForm.value.dId,
+        category: selectedCategory,
+        nameDish: this.addDishForm.value.nameDish,
         price: this.addDishForm.value.price,
         description: this.addDishForm.value.description,
+        status: true,
+        featured: false,
+        quantity: parseInt(this.addDishForm.value.quantity || '0'),
         image: this.addDishForm.value.image,
-        category: this.addDishForm.value.category,
+        
       };
       console.log('Thêm dish thành công', this.addDishData);
       this.fileName = this.addDishForm.value.dId + '_' + this.addDishForm.value.nameDish;
       console.log(this.file);
-
+      
       this.store.dispatch(StorageAction.create({ file: this.file, fileName: this.fileName }));
     }
 }
