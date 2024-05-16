@@ -2,6 +2,9 @@
 <div class="container">
     <div class="container-main">
         <form [formGroup]="addLocationForm">
+           
+            <button class="btn-colorful">LOCATION</button>
+            <div class="card">
             <div class="input-location">
                 <label class="label-client">Mã</label>
                 <tui-input tuiTextfieldSize="m" class="b-form" formControlName="locationId"
@@ -31,23 +34,39 @@
                     <input tuiTextfield type="text" />
                 </tui-input>
             </div>
-
+        </div>
+        </form>
+        <div class="upload">
+        
             <!-- upload -->
-            <div class="palte">
-                <h2>Hình ảnh</h2>
+            
+            <div class="card">
+                <h2>Upload Image</h2>
+                <div class="drop_box">
+                    <header>
+                        <h4>Select File here</h4>
+                      </header>
+                      <p>Files Supported: PNG ,JPG</p>
                 <input type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)" #fileInput
                     formControlName="image" />
 
-                <button (click)="fileInput.click()">Upload</button>
+                <button class="btn" (click)="fileInput.click()">Choose File</button>
                 <div class="img-file" *ngIf="file">
                     <img [src]="selectedImage" alt="Selected Image" style="width: 100px;height: 100px;" />
                 </div>
             </div>
-            <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+            </div>
+      </div>   
+     
+            
+        
+    </div>
+    
+    <div class="add">
+        <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
                 (click)="createLocation()">
                 Create
             </button>
 
-        </form>
-    </div>
+      </div> 
 </div>
