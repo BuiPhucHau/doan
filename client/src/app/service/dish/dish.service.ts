@@ -16,6 +16,7 @@ export class DishService {
   }
 
   createDish(dish : any) { 
+    console.log(dish);
     return this.httpClient.post<Dish[] | any>('http://localhost:3000/dish/create', dish);
   }
 

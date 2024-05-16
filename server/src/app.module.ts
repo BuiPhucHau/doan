@@ -34,7 +34,8 @@ import { NewModule } from './new/new.module';
   OrderModule,
   OrderdetailModule,
   PaymentModule,
-  NewModule
+  NewModule,
+  
 ],
   controllers: [AppController],
   providers: [AppService],

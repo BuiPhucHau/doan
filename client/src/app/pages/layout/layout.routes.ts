@@ -1,4 +1,3 @@
-import { BookingComponent } from './booking/booking.component';
 import { LayoutComponent } from './layout.component';
 
 import { Routes } from '@angular/router';
@@ -115,7 +114,8 @@ export const LAYOUT_ROUTES: Routes = [
         path: 'base/contact',
         loadChildren: () =>
           import('./contact/contact.routes').then((m) => m.CONTACT_ROUTERS),
-      }
+      },
+
       
     ],
   },

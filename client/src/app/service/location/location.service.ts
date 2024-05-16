@@ -45,9 +45,9 @@ export class LocationService {
   getLocationById(locationId: string) {
     return this.httpClient.get<Location[] | any>(`http://localhost:3000/location/getByLocationId?locationId=${locationId}`);
   }
-  createLocation(location: Location) {
+  createLocation(location: any) {
     console.log(location);
-    return this.httpClient.post<Location>('http://localhost:3000/location/create', location);
+    return this.httpClient.post<Location[] | any>('http://localhost:3000/location/create', location);
   }
 
 }

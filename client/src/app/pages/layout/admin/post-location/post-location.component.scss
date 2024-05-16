@@ -1,0 +1,22 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .container-main {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        .input-location {
+            height: auto;
+            width: 500px;
+        }
+    }
+
+        .upload {
+            margin: 2rem;
+        }
+    
+}

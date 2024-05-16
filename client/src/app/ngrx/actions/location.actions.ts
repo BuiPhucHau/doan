@@ -33,3 +33,7 @@ export const createLocationFailure = createAction(
     '[Location] create fail',
     props<{ errorMessage: any }>()
 );
+
+export const resetIsAddSuccess = createAction(
+    '[Location] reset is add success',
+);
