@@ -1,4 +1,3 @@
-
 <div class="container">
     <div class="container-main">
         <form [formGroup]="addDishForm">
@@ -8,8 +7,7 @@
             <div class="card">
             <div class="input-dish">
                 <label class="label-client">Mã</label>
-                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="dId"
-                    [tuiTextfieldCleaner]="true">
+                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="dId" [tuiTextfieldCleaner]="true">
                     Mã
                     <input tuiTextfield type="text" />
                 </tui-input>
@@ -23,22 +21,45 @@
             </div>
             <div class="input-dish">
                 <label class="label-client">Description</label>
-                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="description" [tuiTextfieldCleaner]="true">
+                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="description"
+                    [tuiTextfieldCleaner]="true">
                     description
                     <input tuiTextfield type="text" />
                 </tui-input>
             </div>
+          
             <div class="input-dish">
                 <label class="label-client">Category</label>
-                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="category" [tuiTextfieldCleaner]="true">
-                    category
+                    <select class="category">
+                        <option *ngFor="let category of categories" [value]="category._id">
+                            {{ category.nameCategory }}
+                        </option>
+                    </select>
+            </div>
+
+            <div class="input-dish">
+                <label class="label-client">Price</label>
+                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="price" [tuiTextfieldCleaner]="true">
+                    price
                     <input tuiTextfield type="text" />
                 </tui-input>
             </div>
+
                    
         </div>
         </form>
         <div class="upload">
+
+            <div class="input-dish">
+                <label class="label-client">Quantity</label>
+                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="quantity" [tuiTextfieldCleaner]="true">
+                    quantity
+                    <input tuiTextfield type="text" />
+                </tui-input>
+            </div>
+
+
+
             <!-- upload -->
         <div class="card">
             <h2>Upload Image</h2>
@@ -54,9 +75,17 @@
             <div class="img-file" *ngIf="file">
                 <img [src]="selectedImage" alt="Selected Image" style="width: 100px;height: 100px;" />
             </div>
+
         </div>
        
     </div>
+
+            <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit" (click)="createDish()">
+                Create
+            </button>
+            
+        </form>
+
     </div>
 </div>
     <div class="add">
