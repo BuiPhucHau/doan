@@ -12,6 +12,4 @@ export interface ICart {
     status: boolean,
     featured: boolean,
     quantity: number,
-
-
 }

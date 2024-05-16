@@ -1,4 +1,32 @@
 <div class="container">
+  <div class="payment">
+    <table id="cart" class="table table-bordered" *ngIf="items.length>0">
+      <tr>
+        <th class="into_money">ID Order</th>
+        <th class="product">Total Quantity </th>
+        <th class="quantity">Total Price </th>
+      </tr>
+      <tr>
+        <td class="into_money_td">
+          <span class="money">{{orderid}}</span>
+        </td>
+        <td class="product_info">
+          <div class="thumb_cart">
+            <th class="total_content" colspan="2">{{ totalQuantity() }} </th>
+          </div>
+        </td>
+        <td class="quantity_td">
+          <div class="thumb_cart">
+            <th class="total_content" colspan="2">{{ totalAmount().toLocaleString("vn-de")}} VND </th>
+          </div>
+        </td>
+      
+      </tr>
+      <tr>
+      </tr>
+    </table>
+
+  </div>
     <div class="info">
         <form action="">
             <div class="form-group">
@@ -17,18 +45,12 @@
                 <label for="email">Email</label>
                 <input type="text" class="form-control" id="email" name="email">
               </div>
-              <div class="form-group">
-                <label for="payments">Payments</label>
-              </div>
-            
           </form>
     </div>
-    <div class="order">
-    </div>
-    <div class="payments">
-        <button type="submit" class="btn-primary"> Pay Momo</button>
-        <button type="submit" class="btn-primary"> Pay COD</button>
-        <button type="submit" class="btn-primary"> Pay Vnpay</button>
-        <button type="submit" class="btn-primary"> Payment confirmation </button>
+    <div class="btn_payments">
+        <button type="submit" class="btn btn-warning w-100"> Pay Momo</button>
+        <button type="submit" class="btn btn-warning w-100"> Pay COD</button>
+        <button type="submit" class="btn btn-warning w-100"> Pay Vnpay</button>
+        <button type="submit" class="btn btn-warning w-100"> Payment confirmation </button>
     </div>
 </div>
