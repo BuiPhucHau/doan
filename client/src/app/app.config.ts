@@ -37,6 +37,7 @@ import { orderReducer } from './ngrx/reducers/order.reducer';
 import { OrderEffects } from './ngrx/effects/order.effects';
 import { PaymentImageEffects } from './ngrx/effects/paymentimage.effects';
 import { paymentImageReducer } from './ngrx/reducers/paymentimage.reducer';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -69,6 +70,6 @@ export const appConfig: ApplicationConfig = {
 
     
 
-    provideHttpClient(),
+    provideHttpClient(), provideAnimationsAsync(),
   ],
 };
