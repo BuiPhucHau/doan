@@ -127,7 +127,7 @@ export class PostDishComponent {
     const selectedCategory = this.categories.find(category => category._id === this.addDishForm.value._id);
     if (!selectedCategory) {
       console.error('No category found ');
-      return; // Thoát khỏi hàm nếu không tìm thấy category
+      return;
     }
 
     this.addDishData
