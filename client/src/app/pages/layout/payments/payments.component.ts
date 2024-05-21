@@ -9,23 +9,36 @@ import { CartService } from '../../../service/cart/cart.service';
 import { DishService } from '../../../service/dish/dish.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-
+import { FormControl, FormGroup, FormsModule,Validators } from '@angular/forms';
+import * as OrderActions from '../../../ngrx/actions/order.actions';
+import { OrderState } from '../../../ngrx/state/order.state';
+import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-payments',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,ReactiveFormsModule],
   templateUrl: './payments.component.html',
   styleUrl: './payments.component.scss'
 })
 export class PaymentsComponent {
-    orderid: number = 0;
+  currentDate = new Date().toISOString().slice(0, 10);
+
+  isCreateOrder$ = this.store.select('order', 'order');
+
+  addOrderForm = new FormGroup({
+      orderId: new FormControl('', Validators.required),
+      orderName: new FormControl('', Validators.required),
+      orderPhone: new FormControl('', Validators.required),
+      orderAddress: new FormControl('', Validators.required),
+      orderEmail: new FormControl('', Validators.required),
+      orderDate: new FormControl(this.currentDate, Validators.required),
+    });
   constructor(private router: Router,
     private cartService: CartService,
     private dishService: DishService,
     private route: ActivatedRoute,
     private store: Store<{
+      order: OrderState;
       dish: DishState;
       auth: AuthState;
       user: UserState;
@@ -36,11 +49,6 @@ export class PaymentsComponent {
 
   }
   items = this.cartService.getSelectedDishes();
-
-  ngOnInit(): void {
-    this.orderid = this.generateRandomOrderId(); // Gọi hàm generateRandomOrderId() ở đây để tạo Order ID khi component được khởi tạo
-  }
-
   totalAmount()
   {
     let total = 0;
@@ -58,7 +66,23 @@ export class PaymentsComponent {
     return totalQuantity;
   }  
 
-  private generateRandomOrderId(): number {
+  generateRandomOrderId(): number {
     return Math.floor(Math.random() * 9999) + 1;
+  }
+  createOrder(): void {
+    const addOrderForm: any = {
+      orderId: this.generateRandomOrderId(),
+      orderName: this.addOrderForm.value.orderName ?? '',
+      orderPhone:this.addOrderForm.value.orderPhone ?? '',
+      orderAddress:this.addOrderForm.value.orderAddress ?? '',
+      orderEmail:this.addOrderForm.value.orderEmail ?? '',
+      orderDate:this.addOrderForm.value.orderDate ?? new Date(),
+    };
+    console.log('Thanh toan thanh cong', addOrderForm);
+    this.store.dispatch(
+      OrderActions.createOrder({ order: addOrderForm })
+    );
+
+    this.router.navigate(['base/payments/payment-momo']);
   }
 }

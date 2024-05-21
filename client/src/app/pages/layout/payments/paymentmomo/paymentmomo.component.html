@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="payment">
+        <table id="order" class="table table-bordered" *ngIf="items.length>0">
+          <tr>
+            <th class="id_order">ID Order</th>
+            <th class="total_quantity">Total Quantity </th>
+            <th class="total_price">Total Price </th>
+          </tr>
+          <tr>
+            <td class="order">
+              <div class="thumb_cart" >
+                <th *ngFor="let order of orderList" class="total_content" colspan="2">{{order.orderId}}</th>
+              </div>
+            </td>
+            <td class="tt_quantity">
+              <div class="thumb_cart">
+                <th class="total_content" colspan="2">{{ totalQuantity() }} </th>
+              </div>
+            </td>
+            <td class="tt_price">
+              <div class="thumb_cart">
+                <th class="total_content" colspan="2">{{ totalAmount().toLocaleString("vn-de")}} VND </th>
+              </div>
+            </td>
+          </tr>
+          <tr>
+          </tr>
+        </table>
+      </div>
+      <div class="qr_code" *ngFor="let i of orderList">
+        <p>ádfáedgsẻgsẻghsrhẻhedrfthaẻthảhaẻgaẻg</p>
+      </div>
+</div>

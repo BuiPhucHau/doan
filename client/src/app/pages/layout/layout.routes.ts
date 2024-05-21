@@ -115,8 +115,13 @@ export const LAYOUT_ROUTES: Routes = [
         loadChildren: () =>
           import('./contact/contact.routes').then((m) => m.CONTACT_ROUTERS),
       },
-
-      
+      {
+        path: 'base/payments/payment-momo',
+        loadChildren: () =>
+          import('./payments/paymentmomo/paymentmomo.routes').then(
+            (m) => m.PAYMENTMOMO_ROUTERS
+          ),
+      },
     ],
   },
 ];

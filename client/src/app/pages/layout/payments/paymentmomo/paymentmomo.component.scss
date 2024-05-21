@@ -1,0 +1,90 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    //justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.payment {
+    width: 70%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+table {
+    width: 70%;
+    height: 50px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th.total_price {
+    width: 50%;
+    height: 20px;
+    color: #161414;
+    border: 1px solid #dee2e6;
+    padding: 8px;
+}
+
+th.id_order {
+    width: 10%;
+    height: 20px;
+    color: #161414;
+    border: 1px solid #dee2e6;
+    padding: 8px;
+}
+
+th.total_quantity {
+    width: 20%;
+    height: 20px;
+    color: #161414;
+    border: 1px solid #dee2e6;
+    padding: 8px;
+}
+
+td.tt_price {
+    width: 50%;
+    height: 20px;
+    border: 1px solid #dee2e6;
+    padding: 8px;
+}
+
+td.order {
+    width: 10%;
+    height: 20px;
+    border: 1px solid #dee2e6;
+    padding: 8px;
+}
+
+td.tt_quantity {
+    width: 20%;
+    height: 20px;
+    border: 1px solid #dee2e6;
+    padding: 8px;
+}
+
+.thumb_cart {
+    width: 100%;
+    height: 50px;
+    display: flex;
+
+    align-items: center;
+}
+
+.total {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+
+    th.total_content {
+        font-size: 15px;
+        font-weight: bold;
+
+    }
+}

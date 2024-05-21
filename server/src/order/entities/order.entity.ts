@@ -6,26 +6,17 @@ export type OrderDocument = HydratedDocument<Order>;
 @Schema({timestamps: true})
 export class Order {
     @Prop({required: true, unique: true})
-    oId: string;
-    
-    @Prop({
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    })
-    uid: string;
-    
-    @Prop()
-    dishList: Dish[];
-    
+    orderId: number;
+    @Prop({required: true})
+    orderName: string;
+    @Prop({required: true})
+    orderPhone: string;
+    @Prop({required: true})
+    orderAddress: string;
+    @Prop({required: true})
+    orderEmail: string;
     @Prop({required: true})
     orderDate: Date;
-    
-    @Prop({required: true})
-    total: number;
-    
-    @Prop({required: true})
-    status: string;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
