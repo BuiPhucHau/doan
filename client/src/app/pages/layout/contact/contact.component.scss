@@ -320,7 +320,39 @@ body {
 
 }
 
-
+.tech-title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 25px;
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+.tech-text {
+  margin-bottom: 1px;
+}
+.tech-line-grey {
+  width: 460px;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.tech-internet-line-white {   
+  height: 7px;
+  background: #FFFFFF;
+  border-radius: 10px;
+}
+.tech-social-line-white {   
+  height: 7px;
+  background: #FFFFFF;
+  border-radius: 10px;
+}
+.tech-shopping-line-white {   
+  height: 7px;
+  background: #FFFFFF;
+  border-radius: 10px;
+}
 .address-title {
   font-style: normal;
   font-weight: 600;
@@ -329,7 +361,15 @@ body {
   margin: 20px;
 
 }
-
+.tech-line-grey {
+  width: 350px;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  margin-right: 0;
+  padding-right: 0;
+  margin-bottom: 10px;
+}
 
 .needs {
   padding: 20px;
@@ -528,5 +568,14 @@ footer .container .noi-dung.about p {
   color: white;
 }
 
+.payment-icon {
+  width: 50px;  
+  height: auto; // Đảm bảo tỷ lệ của icon được giữ nguyên
+  margin: 5px;  // Khoảng cách giữa các icon
+  cursor: pointer; // Con trỏ chuột biến thành dạng pointer khi di chuột qua
+}
 
+.payment-icon:hover {
+  opacity: 0.8; // Hiệu ứng khi di chuột qua
+}
 

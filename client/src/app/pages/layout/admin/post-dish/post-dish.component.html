@@ -1,6 +1,10 @@
 <div class="container">
     <div class="container-main">
         <form [formGroup]="addDishForm">
+            <button class="btn-colorful">DISH ___
+
+            </button>
+            <div class="card">
             <div class="input-dish">
                 <label class="label-client">Mã</label>
                 <tui-input tuiTextfieldSize="m" class="b-form" formControlName="dId" [tuiTextfieldCleaner]="true">
@@ -40,6 +44,12 @@
                     <input tuiTextfield type="text" />
                 </tui-input>
             </div>
+
+                   
+        </div>
+        </form>
+        <div class="upload">
+
             <div class="input-dish">
                 <label class="label-client">Quantity</label>
                 <tui-input tuiTextfieldSize="m" class="b-form" formControlName="quantity" [tuiTextfieldCleaner]="true">
@@ -49,22 +59,39 @@
             </div>
 
 
-            <!-- upload -->
-            <div class="palte">
-                <h2>Hình ảnh</h2>
-                <input type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)" #fileInput
-                    formControlName="image" />
 
-                <button (click)="fileInput.click()">Upload</button>
-                <div class="img-file" *ngIf="file">
-                    <img [src]="selectedImage" alt="Selected Image" style="width: 100px;height: 100px;" />
-                </div>
+            <!-- upload -->
+        <div class="card">
+            <h2>Upload Image</h2>
+            <div class="drop_box">
+                <header>
+                    <h4>Select File here</h4>
+                  </header>
+                  <p>Files Supported: PNG ,JPG</p>
+            <input type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)" #fileInput
+                formControlName="image" />
+
+            <button class="btn" (click)="fileInput.click()">Choose File</button>
+            <div class="img-file" *ngIf="file">
+                <img [src]="selectedImage" alt="Selected Image" style="width: 100px;height: 100px;" />
             </div>
+
+        </div>
+       
+    </div>
+
             <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit" (click)="createDish()">
                 Create
             </button>
             
-
         </form>
+
     </div>
+</div>
+    <div class="add">
+    <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+    (click)="createDish()">
+    Create
+</button>
+</div>
 </div>
