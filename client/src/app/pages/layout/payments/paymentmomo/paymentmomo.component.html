@@ -27,7 +27,37 @@
           </tr>
         </table>
       </div>
-      <div class="qr_code" *ngFor="let i of orderList">
-        <p>ádfáedgsẻgsẻghsrhẻhedrfthaẻthảhaẻgaẻg</p>
+      <div class="item" *ngIf="items.length > 0" >
+        <table id="cart" class="table table-bordered" *ngIf="items.length>0">
+          <tr>
+            <th class="product">Food's name</th>
+            <th class="quantity">Quantity</th>
+          </tr>
+          <tr *ngFor="let item of items">
+            <td class="product_info">
+              <div class="thumb_cart">
+                <img class="image" [src]="item.image.urls" alt="image" width="100" height="100">
+                <span class="nameDish">{{ item.nameDish |uppercase }}</span>
+                <span class="price">{{(item.price).toLocaleString("vn-de")}} VND</span>
+              </div>
+            </td>
+            <td class="quantity_td">
+              <span id="quantity">{{item.quantity}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="qr_code"  >
+          <div >
+            <h2> 
+              You can scan this QR code to pay with Momo
+            </h2>
+          </div>
+          <div *ngFor="let paymentimage of paymentImageList" >
+            <div *ngIf="paymentimage.paymentImageId === 'payment_1'">
+              <img  [src]="paymentimage.paymentImage.urls" alt="{{paymentimage.paymentImage.urls}}" width="200" height="200">
+            </div>
+           
+          </div>
       </div>
 </div>

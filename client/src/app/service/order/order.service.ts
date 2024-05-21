@@ -12,7 +12,7 @@ export class OrderService {
   constructor(private httpClient: HttpClient ) { }
   orderItem: Order = {} as Order;
 
-  ddToOrderDetail(orderDetai: Order): void {
+  addToOrderDetail(orderDetai: Order): void {
     this.orderItem = {
       orderId: orderDetai.orderId,
       orderName: orderDetai.orderName,

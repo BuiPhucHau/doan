@@ -15,6 +15,7 @@ import { OrderModule } from './order/order.module';
 import { OrderdetailModule } from './orderdetail/orderdetail.module';
 import { PaymentModule } from './payment/payment.module';
 import { NewModule } from './new/new.module';
+import { PaymentImageModule } from './payment_image/payment_image.module';
 
 
 
@@ -35,6 +36,7 @@ import { NewModule } from './new/new.module';
   OrderdetailModule,
   PaymentModule,
   NewModule,
+  PaymentImageModule,
   
 ],
   controllers: [AppController],

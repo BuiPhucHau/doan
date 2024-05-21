@@ -15,11 +15,15 @@ import * as OrderActions from '../../../../ngrx/actions/order.actions';
 import { OrderState } from '../../../../ngrx/state/order.state';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Order } from '../../../../models/order.model';
-
+import { PaymentImage } from '../../../../models/paymentimage.model';
+import * as PaymentImageActions from '../../../../ngrx/actions/paymentimage.actions';
+import { PaymentimageService } from '../../../../service/paymentimage/paymentimage.service';
+import { PaymentImageState } from '../../../../ngrx/state/paymentimage.state';
+import { ShareModule } from '../../../../shared/shared.module';
 @Component({
   selector: 'app-paymentmomo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule,ShareModule],
   templateUrl: './paymentmomo.component.html',
   styleUrl: './paymentmomo.component.scss'
 })
@@ -27,19 +31,24 @@ export class PaymentmomoComponent {
   subscriptions: Subscription[] = [];
   orderList: Order[] = [];
   order$ = this.store.select('order', 'orderList');
+  
+  paymentImageList: PaymentImage[] = [];
+  paymentimage$ = this.store.select('paymentimage', 'paymentImageList');
+
+
   constructor(private router: Router,
     private cartService: CartService,
-    private dishService: DishService,
-    private route: ActivatedRoute,
     private store: Store<{
       order: OrderState;
       dish: DishState;
       auth: AuthState;
       user: UserState;
       category: categoryState;
+      paymentimage: PaymentImageState;
     }>,
   ) {
     this.store.dispatch(OrderActions.get());
+    this.store.dispatch(PaymentImageActions.get());
     this.subscriptions.push( 
       this.order$.subscribe((orderList) => {  
         if (orderList.length > 0) {
@@ -48,6 +57,18 @@ export class PaymentmomoComponent {
         }
       })
     );
+    this.subscriptions.push(
+      this.paymentimage$.subscribe((paymentImageList) => {
+        try {
+          if (paymentImageList.length > 0) {
+            console.log('paymentImageList', paymentImageList);
+            this.paymentImageList = paymentImageList;
+          }
+        } catch (error) {
+          console.log('error', error);
+        }
+      }
+    ));
   }
 ngOnInit(){
   this.store.dispatch(OrderActions.get());
@@ -59,8 +80,22 @@ ngOnInit(){
       }
     })
   );
+  this.store.dispatch(PaymentImageActions.get());
+  this.subscriptions.push(
+    this.paymentimage$.subscribe((paymentImageList) => {
+      try {
+        if (paymentImageList.length > 0) {
+          console.log('paymentImageList', paymentImageList);
+          this.paymentImageList = paymentImageList;
+        }
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
+  ));
 }
   items = this.cartService.getSelectedDishes();
+
   totalAmount()
   {
     let total = 0;

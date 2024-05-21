@@ -35,6 +35,8 @@ import { storageReducer } from './ngrx/reducers/storage.reducer';
 import { StorageEffects } from './ngrx/effects/storage.effects';
 import { orderReducer } from './ngrx/reducers/order.reducer';
 import { OrderEffects } from './ngrx/effects/order.effects';
+import { PaymentImageEffects } from './ngrx/effects/paymentimage.effects';
+import { paymentImageReducer } from './ngrx/reducers/paymentimage.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -60,8 +62,9 @@ export const appConfig: ApplicationConfig = {
     provideState ({name: 'new', reducer: newReducer}),
     provideState({name: 'storage', reducer: storageReducer}),
     provideState({name: 'order', reducer: orderReducer}),
+    provideState({name: 'paymentimage', reducer: paymentImageReducer}),
 
-    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects, CategoryEffects, TableEffects, ReservationEffects, NewEffects, StorageEffects,OrderEffects]),
+    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects, CategoryEffects, TableEffects, ReservationEffects, NewEffects, StorageEffects,OrderEffects, PaymentImageEffects]),
 
 
     
