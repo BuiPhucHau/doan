@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { get } from '../../../ngrx/actions/location.actions';
 import { Location } from '../../../models/location.model';
 import * as LocationActions from '../../../ngrx/actions/location.actions';
+import { LocationService } from '../../../service/location/location.service';
 
 @Component({
   selector: 'app-location',
@@ -26,8 +27,10 @@ export class LocationComponent implements OnDestroy {
 
  constructor(
   private router: Router,
+  private locationService: LocationService,
   private store: Store<{
     location: LocationState;
+    
   }>
  ){
    this.store.dispatch(get());
@@ -62,9 +65,9 @@ export class LocationComponent implements OnDestroy {
   }
 
   
-  detail(locationId :string ){
-    this.router.navigate(['base/location/detail/', locationId]);
-    console.log(locationId);
+  detail(locaDetail : Location ){
+    this.locationService.addToLocationDetail(locaDetail);
+    this.router.navigate(['base/location/detail/']);
   }
 
 

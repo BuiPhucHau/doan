@@ -18,7 +18,7 @@
   import { ReservationState } from '../../../ngrx/state/reservation.state';
   import { TuiAlertService } from '@taiga-ui/core';
   import { set } from '@angular/fire/database';
-
+  import { LocationService } from '../../../service/location/location.service';
   @Component({
     selector: 'app-booking',
     standalone: true,
@@ -36,6 +36,7 @@
     table$ = this.store.select('table', 'tableList');
     tableList: Table[] = [];
     filteredTables: Table[] = [];
+
 
     tablesTakenByLocationId$ = this.store.select(
       'table',
@@ -113,6 +114,7 @@
     constructor(
       private router: Router,
       private route: ActivatedRoute,
+      private locationService: LocationService,
       private store: Store<{
         table: TableState;
         location: LocationState;
@@ -158,6 +160,7 @@
         })
       );
     }
+    item = this.locationService.getLocationDetail();
     ngOnInit(): void {
       const savedLocation = sessionStorage.getItem('selectedLocation');
       if (savedLocation) {
@@ -216,7 +219,8 @@
     locationValue: any;
     onLocationChange() {
       console.log('Branch is selected: ', this.locationValue);
-      if (this.locationValue != null && this.locationValue !== '') {
+     if (this.locationValue != null && this.locationValue !== '') {
+          console.log('Location selected: ', this.locationValue);
         this.store.dispatch(
           TableActions.getByLocationId({ locationId: this.locationValue })
         );
@@ -225,7 +229,18 @@
         console.log('No location selected');
       }
     }
-
+    onItemNameChange() {
+      console.log('Branch is selected: ', this.item.name);
+      if (this.item.name != null && this.item.name !== '') {
+           console.log('Location selected: ', this.item.name);
+         this.store.dispatch(
+           TableActions.getByLocationId({ locationId: this.item.name })
+         );
+       } 
+       else {
+         console.log('No location selected');
+       }
+    }
     /// Filter Table
     filterTable(seats: string): void {
       this.persons.forEach((p) => (p.isActive = p.seats === seats));

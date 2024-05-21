@@ -5,12 +5,12 @@ import { Dish } from 'src/dish/entities/dish.entity';
 export class CreateOrderDto {
     constructor
     (
-        public oId: string,
-        public uid: string,
-        public dishList:Dish[],
+        public orderId: number,
+        public orderName: string,
+        public orderPhone: string,
+        public orderAddress: string,
+        public orderEmail: string,
         public orderDate: Date,
-        public total: number,
-        public status: string,
     )
     {}
 }

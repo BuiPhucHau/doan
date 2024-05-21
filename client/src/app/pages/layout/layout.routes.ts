@@ -49,7 +49,21 @@ export const LAYOUT_ROUTES: Routes = [
             (m) => m.DETAIL_ROUTES
           ),
       },
+      // {
+      //   path: 'base/location/detail/locationId',
+      //   loadChildren: () =>
+      //     import('./location/detail/detail.routes').then(
+      //       (m) => m.DETAIL_ROUTES
+      //     ),
+      // },
       {
+        path: 'base/booking/locationId',
+        loadChildren: () =>
+          import('./booking/booking.routes').then(
+            (m) => m.BOOKING_ROUTERS
+          ),
+        },
+        {
         path: 'base/location/detail/locationId',
         loadChildren: () =>
           import('./location/detail/detail.routes').then(
@@ -101,8 +115,13 @@ export const LAYOUT_ROUTES: Routes = [
         loadChildren: () =>
           import('./contact/contact.routes').then((m) => m.CONTACT_ROUTERS),
       },
-
-      
+      {
+        path: 'base/payments/payment-momo',
+        loadChildren: () =>
+          import('./payments/paymentmomo/paymentmomo.routes').then(
+            (m) => m.PAYMENTMOMO_ROUTERS
+          ),
+      },
     ],
   },
 ];
