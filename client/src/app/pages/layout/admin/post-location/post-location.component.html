@@ -1,71 +1,73 @@
-
 <div class="container">
     <div class="container-main">
-        <form [formGroup]="addLocationForm">
-           <button class="btn-colorful">LOCATION_</button>
-            <div class="card">
-            <div class="input-location">
-                <label class="label-client">Mã</label>
-                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="locationId"
-                    [tuiTextfieldCleaner]="true">
-                    Mã
-                    <input tuiTextfield type="text" />
-                </tui-input>
-            </div>
-            <div class="input-location">
-                <label class="label-client">Name</label>
-                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="name" [tuiTextfieldCleaner]="true">
-                    name
-                    <input tuiTextfield type="text" />
-                </tui-input>
-            </div>
-            <div class="input-location">
-                <label class="label-client">địa chỉ</label>
-                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="address" [tuiTextfieldCleaner]="true">
-                    address
-                    <input tuiTextfield type="text" />
-                </tui-input>
-            </div>
-            <div class="input-location">
-                <label class="label-client">Phone</label>
-                <tui-input tuiTextfieldSize="m" class="b-form" formControlName="phone" [tuiTextfieldCleaner]="true">
-                    number
-                    <input tuiTextfield type="text" />
-                </tui-input>
-            </div>
-        </div>
-        </form>
-        <div class="upload">
-        
-            <!-- upload -->
-            
-            <div class="card">
-                <h2>Upload Image</h2>
-                <div class="drop_box">
-                    <header>
-                        <h4>Select File here</h4>
-                      </header>
-                      <p>Files Supported: PNG ,JPG</p>
-                <input type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)" #fileInput
-                    formControlName="image" />
 
-                <button class="btn" (click)="fileInput.click()">Choose File</button>
-                <div class="img-file" *ngIf="file">
-                    <img [src]="selectedImage" alt="Selected Image" style="width: 100px;height: 100px;" />
+        <form [formGroup]="addLocationForm">
+            <div class="container-location-detail">
+                <div class="card">
+                    <h2>Location Detail</h2>
+                    <div class="input-location">
+                        <label class="label-client">Location Code</label>
+                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="locationId"
+                            [tuiTextfieldCleaner]="true">
+                            Enter Code
+                            <input tuiTextfield type="text" />
+                        </tui-input>
+                    </div>
+                    <div class="input-location">
+                        <label class="label-client">Location Name</label>
+                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="name"
+                            [tuiTextfieldCleaner]="true">
+                            Enter Location Name
+                            <input tuiTextfield type="text" />
+                        </tui-input>
+                    </div>
+                    <div class="input-location">
+                        <label class="label-client">Address</label>
+                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="address"
+                            [tuiTextfieldCleaner]="true">
+                            Enter Address
+                            <input tuiTextfield type="text" />
+                        </tui-input>
+                    </div>
+                    <div class="input-location">
+                        <label class="label-client">Phone Number</label>
+                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="phone"
+                            [tuiTextfieldCleaner]="true">
+                            Enter phone number
+                            <input tuiTextfield type="text" />
+                        </tui-input>
+                    </div>
+                </div>
+
+                <div class="upload">
+                    <!-- upload -->
+                    <div class="card">
+                        <h2>Upload Image</h2>
+                        <div class="drop_box">
+                            <header>
+                                <h4>Select File here</h4>
+                            </header>
+                            <p>Files Supported: PNG ,JPG</p>
+                            <input type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)"
+                                #fileInput formControlName="image" />
+
+                            <button class="btn" (click)="fileInput.click()">Choose File</button>
+                            <div class="img-file" *ngIf="file">
+                                <img [src]="selectedImage" alt="Selected Image" style="width: 100px;height: 100px;" />
+                            </div>
+                        </div>
+                        <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+                            (click)="createLocation()">
+                            Create
+                        </button>
+                    </div>
+
                 </div>
             </div>
-            </div>
-      </div>   
-     
-            
-       
-    </div>
-    
-    <div class="add">
-        <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
-                (click)="createLocation()">
-                Create
-            </button>
 
-      </div> 
+        </form>
+
+
+    </div>
+
 </div>
