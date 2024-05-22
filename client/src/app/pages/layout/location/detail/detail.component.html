@@ -1,24 +1,23 @@
 <div class="container">
-    <div *ngIf="selectedLocation" class="title">
-        <h1 class="text">{{ selectedLocation.name }}</h1>
+    <div  class="title">
+        <h1 class="text">{{ item.name }}</h1>
     </div>
     <div class="location_detail">
         <div class="location_image">
-            <div id="image" *ngFor="let location of locationList">
-              <img class="image_featured" *ngIf="selectedLocation.locationId === location.locationId" [src]="location.image.urls" alt="">
+            <div id="image" >
+              <img class="image_featured"  [src]="item.image.urls" alt="">
             </div>
           </div>
         <div class="container_detail">
             <div class="detail">
-                <div *ngIf="selectedLocation">
+                <div>
                     <h2 class="Access"> Access</h2>
                     <!-- <h2 class="Name"> {{ selectedLocation.name }}</h2> -->
-                    <h2 class="phone">Phone: {{ selectedLocation.phone }}</h2>
-                    <h2 class="address">Address: {{ selectedLocation.address }}</h2>
+                    <h2 class="phone">Phone: {{ item.phone }}</h2>
+                    <h2 class="address">Address: {{ item.address }}</h2>
                 </div>
-                <div *ngIf="!selectedLocation" class="detail">Location not found.</div>
                 <div class="btn_booking">
-                    <button (click)="tablebooking()" appearance="whiteblock-active" tuiButton type="custom"
+                    <button (click)="tablebooking(item)" appearance="whiteblock-active" tuiButton type="custom"
                         class="table_booking">
                         TABLE BOOKING
                     </button>

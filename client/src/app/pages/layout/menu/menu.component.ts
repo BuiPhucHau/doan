@@ -133,7 +133,6 @@ export class MenuComponent {
   ngOnDestroy() {
   this.subscriptions.forEach((subscription) => {
     subscription.unsubscribe();
-
   });
 }
 

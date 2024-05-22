@@ -7,8 +7,4 @@ export const PAYMENTS_ROUTERS: Routes = [
         path: '',
         component: PaymentsComponent
     },
-    {
-        path: ':dId',
-        component: PaymentsComponent
-    },
 ]
