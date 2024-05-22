@@ -8,11 +8,12 @@ import { UserState } from "./ngrx/state/user.state";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { MatDialogModule } from '@angular/material/dialog';
 library.add(fas);
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,FontAwesomeModule, TuiRootModule, TuiDialogModule, TuiAlertModule],
+  imports: [RouterOutlet,FontAwesomeModule, TuiRootModule,MatDialogModule, TuiDialogModule, TuiAlertModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
     providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}]

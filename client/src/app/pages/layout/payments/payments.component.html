@@ -31,8 +31,9 @@
     </form>
   </div>
   <div class="btn_payments">
-    <button type="submit" class="btn btn-warning w-100" (click)="createOrder()"> Pay Momo</button>
-    <button type="submit" class="btn btn-warning w-100" (click)="createOrder()"> Pay COD</button>
-    <button type="submit" class="btn btn-warning w-100" (click)="createOrder()"> Pay Online Banking</button>
+    <button type="submit" class="btn btn-warning w-100" (click)="goToPaymentMomo()"> Pay Momo</button>
+    <button type="submit" class="btn btn-warning w-100" (click)="goToPaymentCOD()"> Pay COD</button>
+    <button type="submit" class="btn btn-warning w-100" (click)="goToPaymentBanking()"> Pay Online Banking</button>
+    <button type="submit" class="btn btn-warning w-100" (click)="goBackOrder()"> Back to your order </button>
   </div>
 </div>

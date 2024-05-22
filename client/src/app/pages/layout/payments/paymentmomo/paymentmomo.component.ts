@@ -6,20 +6,19 @@ import { categoryState } from '../../../../ngrx/state/category.state';
 import { AuthState } from '../../../../ngrx/state/auth.state';
 import { UserState } from '../../../../ngrx/state/user.state';
 import { CartService } from '../../../../service/cart/cart.service';
-import { DishService } from '../../../../service/dish/dish.service';
-import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { FormControl, FormGroup, FormsModule,Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import * as OrderActions from '../../../../ngrx/actions/order.actions';
 import { OrderState } from '../../../../ngrx/state/order.state';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Order } from '../../../../models/order.model';
 import { PaymentImage } from '../../../../models/paymentimage.model';
 import * as PaymentImageActions from '../../../../ngrx/actions/paymentimage.actions';
-import { PaymentimageService } from '../../../../service/paymentimage/paymentimage.service';
 import { PaymentImageState } from '../../../../ngrx/state/paymentimage.state';
 import { ShareModule } from '../../../../shared/shared.module';
+import { MatDialog } from '@angular/material/dialog';
+import { PaymentSuccessDialogComponent } from '../payment-success-dialog/payment-success-dialog.component';
 @Component({
   selector: 'app-paymentmomo',
   standalone: true,
@@ -38,6 +37,7 @@ export class PaymentmomoComponent {
 
   constructor(private router: Router,
     private cartService: CartService,
+    private dialog: MatDialog,
     private store: Store<{
       order: OrderState;
       dish: DishState;
@@ -112,5 +112,25 @@ ngOnInit(){
     });
     return totalQuantity;
   }  
+  remoteAllCart()
+  {
+    this.cartService.clearCart();
+  }
+  checkOut()
+  {
+    const dialogRef = this.dialog.open(PaymentSuccessDialogComponent);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['base/home']);
+      this.remoteAllCart();
+    });
+  }
+  goBackPayment()
+  {
+    this.router.navigate(['base/payments']);
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
 
 }

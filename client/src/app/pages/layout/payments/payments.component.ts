@@ -69,6 +69,9 @@ export class PaymentsComponent {
   generateRandomOrderId(): number {
     return Math.floor(Math.random() * 9999) + 1;
   }
+  goBackOrder(){
+    this.router.navigate(['base/order']);
+  }
   createOrder(): void {
     const addOrderForm: any = {
       orderId: this.generateRandomOrderId(),
@@ -82,7 +85,18 @@ export class PaymentsComponent {
     this.store.dispatch(
       OrderActions.createOrder({ order: addOrderForm })
     );
-
+  }
+  goToPaymentMomo(){
+    this.createOrder();
     this.router.navigate(['base/payments/payment-momo']);
   }
+  goToPaymentBanking(){
+    this.createOrder();
+    this.router.navigate(['base/payments/payment-banking']);
+  }
+  goToPaymentCOD(){
+    this.createOrder();
+    this.router.navigate(['base/payments/payment-cod']);
+  }
+
 }
