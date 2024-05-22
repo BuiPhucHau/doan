@@ -23,4 +23,10 @@ export interface LocationState {
     isRemoveSuccess: boolean;
     removeErrMess: string;
     locationId: string;
+    
+    //////////////UPDATE
+    isUpdateLoading: boolean;
+    isUpdateSuccess: boolean;
+    updateErrMess: string;
+    
 }

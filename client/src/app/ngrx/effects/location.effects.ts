@@ -69,4 +69,21 @@ export class LocationEffects {
       )
     )
   );
+  updateLocation$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(LocationActions.updateLocation),
+      exhaustMap((action) =>
+        this.locationService.updateLocation(action.location).pipe(
+          map(() => {
+            console.log('API call success');
+            return LocationActions.updateLocationSuccess();
+          }),
+          catchError((err) => {
+            console.log('API call error', err);
+            return of(LocationActions.removeLocationFailure({ removeErrMess: err }))
+          })
+        )
+      )
+    )
+  );
 }

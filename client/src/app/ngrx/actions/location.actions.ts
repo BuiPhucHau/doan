@@ -51,3 +51,16 @@ export const removeLocationFailure = createAction(
     '[Location] delete fail',
     props<{ removeErrMess: any }>()
 );
+
+//action Location
+export const updateLocation = createAction(
+    '[Location] update',
+    props<{ location: any }>()
+);
+export const updateLocationSuccess = createAction(
+    '[Location] update success',
+);
+export const updateLocationFailure = createAction(
+    '[Location] update fail',
+    props<{ updateMessage: any }>()
+);

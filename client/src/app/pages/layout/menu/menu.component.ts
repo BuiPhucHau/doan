@@ -36,36 +36,31 @@ export class MenuComponent {
   dishList: Dish[] = [];
   categories: Category[] = [];
   subscriptions: Subscription[] = [];
-  //testValue = new FormControl();
+  searchValue: string = '';
   filteredDishes: any[] = [];
-  selectDish : any;
+  selectDish: any;
   selectedDish: FormControl = new FormControl();
-  branch = [
-    'Food can be taken home',
-    'Food cannot be taken home',
-
-  ];
+  branch = ['Food can be taken home', 'Food cannot be taken home'];
 
   namedishs = [
-    { nameCategory : 'All', isActice : true},
-    { nameCategory : 'Appetizer', isActice : false},
-    { nameCategory : 'Main dishes', isActice : false},
-    { nameCategory : 'Desserts', isActice : false},
+    { nameCategory: 'All', isActice: true },
+    { nameCategory: 'Appetizer', isActice: false },
+    { nameCategory: 'Main dishes', isActice: false },
+    { nameCategory: 'Desserts', isActice: false },
   ];
-  toggleActive(namedish : any)
-  {
+  toggleActive(namedish: any) {
     namedish.isActice = !namedish.isActice;
   }
 
-  ;
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private cartService: CartService,
     private store: Store<{
       dish: DishState;
       auth: AuthState;
       user: UserState;
       category: categoryState;
-    }>,
+    }>
   ) {
     this.store.dispatch(DishActions.get({}));
     this.store.dispatch(CategoryActions.get());
@@ -73,22 +68,19 @@ export class MenuComponent {
       this.dish$.subscribe((dishList) => {
         if (dishList.length > 0) {
           console.log(dishList);
-          this.dishList = dishList
+          this.dishList = dishList;
         }
-
       }),
       this.category$.subscribe((categories) => {
         if (categories && categories.length > 0) {
           console.log(categories);
           this.categories = categories;
         }
-      }),
-
+      })
     );
-
   }
 
-  ngOnInit() : void {
+  ngOnInit(): void {
     this.store.dispatch(DishActions.get({}));
     this.subscriptions.push(
       this.dish$.subscribe((dishList) => {
@@ -97,43 +89,69 @@ export class MenuComponent {
           this.dishList = dishList;
           this.filterDishes('All');
         }
-      }
-      ),
+      }),
       this.category$.subscribe((categories) => {
         if (categories && categories.length > 0) {
           console.log(categories);
           this.categories = categories;
         }
-
       }),
       this.selectedDish.valueChanges.subscribe((value: string) => {
         this.filterDishes(value);
-      }),
+      })
     );
   }
 
+  selectNamedish(nameCategory: string): void {
+    this.namedishs.forEach(
+      (p) => (p.isActice = p.nameCategory === nameCategory)
+    );
+    // Lọc danh sách món ăn dựa trên namedish và giá trị tìm kiếm
+    if (nameCategory === 'All') {
+      this.filteredDishes = [...this.dishList];
+    } else {
+      this.filteredDishes = this.dishList.filter((dish) => {
+        return (
+          dish.category.nameCategory === nameCategory &&
+          dish.nameDish.toLowerCase().includes(this.searchValue.toLowerCase())
+        );
+      });
+    }
+  }
+
   filterDishes(nameCategory: string): void {
-    this.namedishs.forEach((p) => (p.isActice = p.nameCategory === nameCategory));
-    if(nameCategory === 'All') {
-    this.filteredDishes = [...this.dishList];
+    this.namedishs.forEach(
+      (p) => (p.isActice = p.nameCategory === nameCategory)
+    );
+    if (nameCategory === 'All') {
+      this.filteredDishes = [...this.dishList];
+    } else {
+      this.filteredDishes = this.dishList.filter(
+        (dish) => dish.category.nameCategory === nameCategory
+      );
+    }
+    this.filteredDishes = this.dishList.filter((dish) => {
+      return dish.nameDish
+        .toLowerCase()
+        .includes(this.searchValue.toLowerCase());
+    });
   }
-  else {
-    this.filteredDishes = this.dishList.filter((dish) => dish.category.nameCategory === nameCategory);
+  onSearchChange(): void {
+    this.selectNamedish('All');
+    this.filterDishes('All');
   }
-  }
-  showDetail(dishCart : Dish) {
+  showDetail(dishCart: Dish) {
     this.cartService.addToDetail(dishCart);
     this.router.navigate(['base/menu/dish-detail']);
   }
-  addtoCart(dishCart : Dish): void {
+  addtoCart(dishCart: Dish): void {
     this.cartService.addToCart(dishCart);
     console.log(this.cartService.getSelectedDishes());
     this.router.navigate(['/base/order']);
   }
   ngOnDestroy() {
-  this.subscriptions.forEach((subscription) => {
-    subscription.unsubscribe();
-  });
-}
-
+    this.subscriptions.forEach((subscription) => {
+      subscription.unsubscribe();
+    });
+  }
 }

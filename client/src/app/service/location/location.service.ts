@@ -46,13 +46,17 @@ export class LocationService {
     return this.httpClient.get<Location[] | any>(`http://localhost:3000/location/getByLocationId?locationId=${locationId}`);
   }
   createLocation(location: any) {
-    console.log(location);
     return this.httpClient.post<Location[] | any>('http://localhost:3000/location/create', location);
   }
 
   removeLocation(locationId: string) {
     console.log(locationId);
     return this.httpClient.delete(`http://localhost:3000/location/delete?id=${locationId}`);
+  }
+
+  updateLocation(location: any) {
+    console.log(location);
+    return this.httpClient.put<Location[] | any>(`http://localhost:3000/location/update?id=${location.locationId}`, location);
   }
 
 }

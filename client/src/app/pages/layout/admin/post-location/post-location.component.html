@@ -47,6 +47,11 @@
                             <header>
                                 <h4>Select File here</h4>
                             </header>
+                            <tui-input tuiTextfieldSize="m" class="b-form" formControlName="image"
+                            [tuiTextfieldCleaner]="true">
+                            Image
+                            <input tuiTextfield type="text" />
+                        </tui-input>
                             <p>Files Supported: PNG ,JPG</p>
                             <input type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)"
                                 #fileInput formControlName="image" />
@@ -60,7 +65,10 @@
                             (click)="createLocation()">
                             Create
                         </button>
-
+                        <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+                            (click)="onUpdateLocation()">
+                            Update
+                        </button>
 
                     </div>
 
@@ -90,7 +98,8 @@
                                         style="width: 80px;height: 80px;" /></td>
                                 <td>
                                     <div class="btn_edit_remove">
-                                        <button class="btn_remove">Edit</button>
+                                        <button class="btn_remove" (click)="updateLocation(location.locationId)">Edit</button>
+
                                         <button class="btn_remove" (click)="removeLocation(location.locationId)">Remove</button>
                                     </div>
                                 </td>
@@ -100,7 +109,54 @@
                 </div>
             </div>
 
+            <!-- <ng-template let-observer [tuiDialogOptions]="{label: 'Edit', size: 'l'}" [(tuiDialog)]="detail">
+                <form [formGroup]="addLocationForm" (ngSubmit)="observer.complete()">
+                    <div class="input-location">
+                        <label class="label-client">Code</label>
+                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="locationId"
+                            [tuiTextfieldCleaner]="true">
+                            Enter Code
+                            <input tuiTextfield type="text" />
+                        </tui-input>
+                    </div>
+                    <div class="input-location">
+                        <label class="label-client">Name</label>
+                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="name"
+                            [tuiTextfieldCleaner]="true">
+                            Enter Location Name
+                            <input tuiTextfield type="text" />
+                        </tui-input>
+                    </div>
+                    <div class="input-location">
+                        <label class="label-client">Address</label>
+                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="address"
+                            [tuiTextfieldCleaner]="true">
+                            Enter Address
+                            <input tuiTextfield type="text" />
+                        </tui-input>
+                    </div>
+                    <div class="input-location">
+                        <label class="label-client">Phone Number</label>
+                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="phone"
+                            [tuiTextfieldCleaner]="true">
+                            Enter phone number
+                            <input tuiTextfield type="text" />
+                        </tui-input>
+                    </div>
 
+
+
+                  <p>
+                    <button tuiButton type="submit" >
+                      Update
+                    </button>
+                    <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+                      >
+                      Cancle
+                    </button>
+                  </p>
+                </form>
+              </ng-template> -->
 
         </form>
 

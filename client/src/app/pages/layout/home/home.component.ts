@@ -46,12 +46,9 @@ export class HomeComponent implements OnDestroy{
         if (dishList.length>0) { 
           console.log(dishList);
           this.dishList = dishList
-        }
-        
+        } 
     }),
   );
-    
-    
   }
 
   ngOnInit() {
