@@ -9,6 +9,10 @@
   <div class="info">
     <form [formGroup]="addOrderForm">
       <div class="form-group">
+        <label for="name">Table</label>
+        <input type="text" class="form-control" formControlName="orderName">
+      </div>
+      <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" formControlName="orderName">
       </div>

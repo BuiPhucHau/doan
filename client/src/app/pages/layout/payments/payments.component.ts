@@ -13,6 +13,8 @@ import { FormControl, FormGroup, FormsModule,Validators } from '@angular/forms';
 import * as OrderActions from '../../../ngrx/actions/order.actions';
 import { OrderState } from '../../../ngrx/state/order.state';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TableService } from '../../../service/table/table.service';
+import { Table } from '../../../models/table.model';
 @Component({
   selector: 'app-payments',
   standalone: true,
@@ -25,7 +27,10 @@ export class PaymentsComponent {
 
   isCreateOrder$ = this.store.select('order', 'order');
 
+  tableItems: Table = <Table>{};
+  isTable = false;
   addOrderForm = new FormGroup({
+      tableId: new FormControl('', Validators.required),
       orderId: new FormControl('', Validators.required),
       orderName: new FormControl('', Validators.required),
       orderPhone: new FormControl('', Validators.required),
@@ -37,6 +42,7 @@ export class PaymentsComponent {
     private cartService: CartService,
     private dishService: DishService,
     private route: ActivatedRoute,
+    private tableService: TableService,
     private store: Store<{
       order: OrderState;
       dish: DishState;
@@ -45,9 +51,18 @@ export class PaymentsComponent {
       category: categoryState;
     }>,
   ) {
-    
-
+    // onTableStateChange(this.store, (state) => {
+    //   if(state.tableList.length > 0)
+    //     {
+    //       this.tableItems = {
+    //         tableId: state.tableId,
+    //       }
+    //     }
+    //   this.tableItems = state.tableList;
+    // });
   }
+
+  tableitems = this.tableService.getItemTable();
   items = this.cartService.getSelectedDishes();
   totalAmount()
   {
