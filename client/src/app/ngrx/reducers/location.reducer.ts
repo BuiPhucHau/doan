@@ -18,6 +18,11 @@ export const initialState: LocationState = {
   isAddSuccess: false,
   isAddLoading: false,
   addErrMess: '',
+
+  isRemoveLoading: false,
+  isRemoveSuccess: false,
+  removeErrMess: '',
+  locationId: '',
 };
 
 
@@ -87,6 +92,7 @@ export const locationReducer = createReducer(
       createErrMess: action.errorMessage,
     };
   }),
+  //////////////////////////////////// RESET location //////////////////////////
   on(LocationActions.resetIsAddSuccess, (state, action) => {
     let newSate: LocationState = {
       ...state,
@@ -94,5 +100,36 @@ export const locationReducer = createReducer(
       isAddLoading: false,
     };
     return newSate;
-  })
+  }),
+  //////////////////////////////////// DELETE location //////////////////////////
+  on(LocationActions.removeLocation, (state, action) => {
+    console.log('Reducer remove:', action.locationId);
+    let newSate : LocationState = {
+      ...state,
+      isRemoveLoading: true,
+      isRemoveSuccess: false,
+      removeErrMess: '',
+    };
+    return newSate;
+  }),
+  on(LocationActions.removeLocationSuccess, (state, action) => {
+    console.log('Reducer remove success:', action.locationId);
+    let newSate : LocationState = {
+      ...state,
+      isRemoveLoading: false,
+      isRemoveSuccess: true,
+      removeErrMess: '',
+      locationId: action.locationId,
+    };
+    return newSate;
+  }),
+  on(LocationActions.removeLocationFailure, (state, action) => {
+    let newSate : LocationState ={
+      ...state,
+      isRemoveLoading: false,
+      isRemoveSuccess: false,
+      removeErrMess: action.removeErrMess,
+    };
+    return newSate;
+  }),
 );

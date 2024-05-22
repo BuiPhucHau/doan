@@ -21,4 +21,9 @@ export class LocationService {
     return this.httpClient.post<Location[] | any>('http://localhost:3000/location/create', location);
   }
 
+  removeLocation(locationId: string) {
+    console.log(locationId);
+    return this.httpClient.delete(`http://localhost:3000/location/delete?id=${locationId}`);
+  }
+
 }

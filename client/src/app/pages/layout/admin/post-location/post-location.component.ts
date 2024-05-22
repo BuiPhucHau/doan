@@ -6,7 +6,7 @@ import { LocationState } from '../../../../ngrx/state/location.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as LocationAction from '../../../../ngrx/actions/location.actions';
 import * as LocationActions from '../../../../ngrx/actions/location.actions';
-
+import { Location } from '../../../../models/location.model';
 import * as StorageAction from '../../../../ngrx/actions/storage.actions';
 import { StorageState } from '../../../../ngrx/state/storage.state';
 import { ShareModule } from '../../../../shared/shared.module';
@@ -22,14 +22,19 @@ import { Subscription } from 'rxjs';
   styleUrl: './post-location.component.scss',
 })
 export class PostLocationComponent implements OnDestroy, OnInit {
+  locationList : Location [] = [];
+
+  location$ = this.store.select('location', 'locationList');
 
   isCreateLocation$ = this.store.select('location', 'isAddSuccess');
 
-  fileName: string = '';
   createImageSuccess$ = this.store.select('storage', 'isCreateSuccess');
 
-  selectedImage: string | ArrayBuffer | null = null;
+  removeLocation$ = this.store.select('location', 'isRemoveSuccess');
 
+  selectedImage: string | ArrayBuffer | null = null;
+  fileName: string = '';
+  
   subscriptions: Subscription[] = [];
   
   addLocationForm = new FormGroup({
@@ -55,8 +60,19 @@ export class PostLocationComponent implements OnDestroy, OnInit {
       storage: StorageState;
     }>
   ) {
-
+    this.store.dispatch(LocationActions.get());
     this.subscriptions.push(
+      this.location$.subscribe((locationList) => {
+        if(locationList.length > 0){
+          console.log(locationList);
+          this.locationList = locationList;
+        }
+      }),
+      this.store.select('location').subscribe((val) => {
+        if (val != null && val != undefined) {
+          this.locationList = val.locationList;
+        }
+      }),
       this.createImageSuccess$.subscribe((val) => {
         console.log(val);
         if (val) {
@@ -89,11 +105,18 @@ export class PostLocationComponent implements OnDestroy, OnInit {
           };
           this.store.dispatch(LocationAction.resetIsAddSuccess());
         }
-      })
+      }),
+      this.removeLocation$.subscribe((val) => {
+        if (val) {
+          alert('Xóa location thành công');
+          this.store.dispatch(LocationAction.get());
+        }
+      }),
     );
   }
   
   ngOnInit(): void {
+    
   }
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => {
@@ -136,5 +159,13 @@ export class PostLocationComponent implements OnDestroy, OnInit {
       StorageAction.create({ file: this.file, fileName: this.fileName })
     );
   }
+
+  removeLocation(locationId: string) {
+    const confirmDelete = confirm("Are you sure you want to delete this location?");
+    if (confirmDelete) {
+      this.store.dispatch(LocationAction.removeLocation({ locationId }));
+    }
+  }
+  
 
 }

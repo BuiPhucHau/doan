@@ -50,4 +50,23 @@ export class LocationEffects {
       )
     )
   );
+  removeLocation$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(LocationActions.removeLocation),
+      exhaustMap((action) =>
+        this.locationService.removeLocation(action.locationId).pipe(
+          map(() => {
+            console.log('API call success',action.locationId);
+            return LocationActions.removeLocationSuccess({
+              locationId: action.locationId,
+            });
+          }),
+          catchError((err) => {
+            console.log('API call error', err);
+            return of(LocationActions.removeLocationFailure({ removeErrMess: err }))
+          })
+        )
+      )
+    )
+  );
 }
