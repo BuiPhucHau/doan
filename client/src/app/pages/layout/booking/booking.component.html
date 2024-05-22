@@ -35,7 +35,7 @@
 
     <!-- TableList -->
     <div class="tables">
-      <div (click)="selectTable(table.tableId)" class="table" *ngFor="let table of filteredTables">
+      <div (click)="selectTable(table.tableId, table)" class="table" *ngFor="let table of filteredTables">
         <tui-avatar class="t-image" fallback="tuiIconUserLarge" new class="tui-space_left-3 avatar"
           [avatarUrl]="table.status ? havebooked : havenotbook"></tui-avatar>
         <p class="table-number">{{ table.tableName }}</p>

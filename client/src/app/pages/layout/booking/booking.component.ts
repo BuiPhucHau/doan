@@ -19,6 +19,7 @@
   import { TuiAlertService } from '@taiga-ui/core';
   import { set } from '@angular/fire/database';
   import { LocationService } from '../../../service/location/location.service';
+  import { TableService } from '../../../service/table/table.service';
   @Component({
     selector: 'app-booking',
     standalone: true,
@@ -115,10 +116,11 @@
       private router: Router,
       private route: ActivatedRoute,
       private locationService: LocationService,
+      private tableService: TableService,
       private store: Store<{
         table: TableState;
         location: LocationState;
-        reservation: ReservationState;
+        reservation: ReservationState
       }>,
       @Inject(TuiAlertService)
       private readonly alerts: TuiAlertService
@@ -256,7 +258,7 @@
     }
 
     /// Lấy id table khi selected
-    selectTable(tableId: string): void {
+    selectTable(tableId: string, tableCart: Table): void {
       const selectedTable = this.tableList.find(
         (table) => table.tableId === tableId
       );
@@ -269,12 +271,8 @@
         return;
       }
       if (selectedTable.status === true) {
-        this.alerts
-          .open('This table is already booked, please select another table.', {
-            status: 'warning',
-          })
-          .subscribe();
-        return;
+          this.tableService.addToTableToCart(tableCart)
+          this.router.navigate(['base/menu']);
       }
 
       console.log('Selected Table:', selectedTable);
