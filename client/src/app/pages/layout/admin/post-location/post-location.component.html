@@ -44,10 +44,7 @@
                     <div class="card">
                         <h2>Upload Image</h2>
                         <div class="drop_box">
-                            <header>
-                                <h4>Select File here</h4>
-                            </header>
-                            <tui-input tuiTextfieldSize="m" class="b-form" formControlName="image"
+                            <tui-input style="width: 300px; margin-bottom: 1rem;" tuiTextfieldSize="m" class="b-form" formControlName="image"
                             [tuiTextfieldCleaner]="true">
                             Image
                             <input tuiTextfield type="text" />
@@ -58,10 +55,11 @@
 
                             <button class="btn" (click)="fileInput.click()">Choose File</button>
                             <div class="img-file" *ngIf="file">
-                                <img [src]="selectedImage" alt="Selected Image" style="width: 100px;height: 100px;" />
+                                <img [src]="selectedImage" alt="Selected Image" style="width: 120px;height: 120px; margin-top: 1rem;" />
                             </div>
                         </div>
-                        <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+                        <div class="btn-create-update">
+                            <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
                             (click)="createLocation()">
                             Create
                         </button>
@@ -69,6 +67,8 @@
                             (click)="onUpdateLocation()">
                             Update
                         </button>
+                        </div>
+                        
 
                     </div>
 

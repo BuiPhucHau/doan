@@ -34,12 +34,13 @@
     </div>
 
     <!-- TableList -->
-    <div class="tables">
-      <div (click)="selectTable(table.tableId, table)" class="table" *ngFor="let table of filteredTables">
+    <div class="tables" *ngFor="let item of reservationList">
+     <div (click)="selectTable(table.tableId, item)" class="table" *ngFor="let table of filteredTables">
         <tui-avatar class="t-image" fallback="tuiIconUserLarge" new class="tui-space_left-3 avatar"
           [avatarUrl]="table.status ? havebooked : havenotbook"></tui-avatar>
         <p class="table-number">{{ table.tableName }}</p>
-      </div>
+     </div>
+      
     </div>
 
   </div>
@@ -94,17 +95,15 @@
       </ng-template>
 
       <!-- Dialog - Đặt bàn thành công -->
-      <ng-template let-observer [tuiDialogOptions]="{label: 'Thanks for your reservation!', size: 's'}"
-        [(tuiDialog)]="open3">
-        <form [formGroup]="exampleForm" (ngSubmit)="observer.complete()">
-          <p>Your seat has been confirmed and please arrive on time.</p>
-          <p>
-            <button tuiButton type="submit">
-              Done
-            </button>
-          </p>
-        </form>
-      </ng-template>
+<ng-template let-observer [tuiDialogOptions]="{label: 'Thanks for your reservation!', size: 's'}" [(tuiDialog)]="open3">
+  <form [formGroup]="exampleForm">
+    <p>Your seat has been confirmed and please arrive on time.</p>
+    <p>
+      <button tuiButton type="button" (click)="done()">Done</button>
+    </p>
+  </form>
+</ng-template>
+
     </div>
 
     <form [formGroup]="bookingTable">

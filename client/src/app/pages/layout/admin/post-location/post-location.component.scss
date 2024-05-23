@@ -92,7 +92,7 @@ rgba(0, 0, 0, 0.45);
     border-radius: 10px;
     border: 0.1px solid rgb(245, 245, 245);
     width: 500px;
-    height: 400px;
+    height: auto;
     background-color: #ffffff;
     padding: 10px 30px 40px;
   }
@@ -111,12 +111,12 @@ rgba(0, 0, 0, 0.45);
     padding: 10px 30px 40px;
   }
   
-  .drop_box {
+  .drop_box {height: 350px;
     margin: 10px 0;
     padding: 30px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content:center;
     flex-direction: column;
     border: 3px dotted #a3a3a3;
     border-radius: 5px;
@@ -211,4 +211,8 @@ rgba(0, 0, 0, 0.45);
       margin: 5px;
     }
   }
-  
+  .btn-create-update {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
