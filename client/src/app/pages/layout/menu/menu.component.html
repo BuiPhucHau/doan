@@ -32,7 +32,7 @@
         <div class="dish_info">
           <h3>{{dish.nameDish}}</h3>
           <div class="dish_price">
-            <span>{{dish.price}}</span>
+            <span>{{dish.price.toLocaleString("vn-de")}}</span>
           </div>
           <button class="btn btn-warning w-100" (click)="addtoCart(dish)">Add to cart</button>
           <a (click)="showDetail(dish)">Show detail</a>

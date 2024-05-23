@@ -157,6 +157,7 @@ onSortOrderChange(event: Event): void {
     this.sortDishesByPrice();
   }
 }
+
   onSearchChange(): void {
     this.selectNamedish('All');
     this.filterDishes('All');
