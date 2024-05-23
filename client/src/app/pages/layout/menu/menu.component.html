@@ -1,9 +1,8 @@
 <div class="container">
   <div class="container-search">
-    <tui-input class="input-search" formControlName="testValue" tuiTextfieldSize="m" [tuiTextfieldCleaner]="true"
-      [tuiTextfieldLabelOutside]="true">
+    <tui-input class="input-search" [(ngModel)]="searchValue" (input)="onSearchChange()"
+      tuiTextfieldSize="m" [tuiTextfieldCleaner]="true" [tuiTextfieldLabelOutside]="true">
       Search
-      <!-- <input tuiTextfield type="email" /> -->
     </tui-input>
   </div>
 
@@ -21,13 +20,10 @@
     </div>
     <div class="select_dish">
       <div *ngFor="let namedish of namedishs">
-        <span class="name_dish" [ngClass]="{'active': namedish.isActice}" (click)="filterDishes(namedish.nameCategory)">
+        <span class="name_dish" [ngClass]="{'active': namedish.isActice}" (click)="selectNamedish(namedish.nameCategory)">
           {{namedish.nameCategory}}
         </span>
       </div>
-
-      <!-- <span class="name_dish" (click)="filterDishes('Main dishes')">Main Dish</span>
-      <span class="name_dish" (click)="filterDishes('Desserts')">Dessert</span> -->
     </div>
   </div>
   <hr>

@@ -10,14 +10,20 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
+  locationActive: boolean = false;
+  dishActive: boolean = false;
   constructor(
     private router: Router,
   ) {
   }
   onLocation() {
+    this.locationActive = true;
+    this.dishActive = false;
     this.router.navigate(['base/admin/post-location']);
   }
   onDish() {
+    this.locationActive = false;
+    this.dishActive = true;
     this.router.navigate(['base/admin/post-dish']);
   }
 }

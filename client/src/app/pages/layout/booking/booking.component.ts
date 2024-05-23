@@ -19,6 +19,9 @@
   import { TuiAlertService } from '@taiga-ui/core';
   import { set } from '@angular/fire/database';
   import { LocationService } from '../../../service/location/location.service';
+  import { TableService } from '../../../service/table/table.service';
+import { ReservationService } from '../../../service/reservation/reservation.service';
+import { Reservation } from '../../../models/reservation.model';
   @Component({
     selector: 'app-booking',
     standalone: true,
@@ -34,6 +37,10 @@
 
     /// Table
     table$ = this.store.select('table', 'tableList');
+    reservation$ = this.store.select('reservation', 'reservationList');
+
+    reservationList: Reservation[] = [];
+
     tableList: Table[] = [];
     filteredTables: Table[] = [];
 
@@ -115,16 +122,19 @@
       private router: Router,
       private route: ActivatedRoute,
       private locationService: LocationService,
+      private tableService: TableService,
+      private reservationService: ReservationService,
       private store: Store<{
         table: TableState;
         location: LocationState;
-        reservation: ReservationState;
+        reservation: ReservationState
       }>,
       @Inject(TuiAlertService)
       private readonly alerts: TuiAlertService
     ) {
       /// Table
       this.store.dispatch(TableActions.get());
+      this.store.dispatch(ReservationActions.get());
       this.store.dispatch(LocationActions.get());
 
       this.subscriptions.push(
@@ -135,6 +145,12 @@
             this.tableList = tableList;
             // this.onLocationChange();
             // this.filterTable('All');
+          }
+        }),
+        this.reservation$.subscribe((reservationList) => {
+          if (reservationList.length > 0) {
+            console.log('Get reservation:', reservationList);
+            this.reservationList = reservationList;
           }
         }),
 
@@ -212,9 +228,11 @@
         // Lưu vị trí hiện tại vào session storage trước khi tải lại
         sessionStorage.setItem('selectedLocation', this.locationValue);
         // Tải lại trang
-        window.location.reload();
+        
     }
-
+    done() {
+      window.location.reload();
+    }
     /// Location
     locationValue: any;
     onLocationChange() {
@@ -244,19 +262,28 @@
     /// Filter Table
     filterTable(seats: string): void {
       this.persons.forEach((p) => (p.isActive = p.seats === seats));
+      
       if (seats === 'All') {
         this.filteredTables = [...this.tableToRender];
+        this.bookingTable.patchValue({
+          numberofPeople: ''
+        });
       } else {
         const seatsNumber = parseInt(seats.split(' ')[0], 10);
         this.filteredTables = this.tableToRender.filter(
           (table) => table.seats === seatsNumber
         );
+        
+        this.bookingTable.patchValue({
+          numberofPeople: seatsNumber.toString()
+        });
       }
+      
       console.log('Filtered Tables:', this.filteredTables);
     }
 
     /// Lấy id table khi selected
-    selectTable(tableId: string): void {
+    selectTable(tableId: string, tableCart: Reservation): void {
       const selectedTable = this.tableList.find(
         (table) => table.tableId === tableId
       );
@@ -269,12 +296,8 @@
         return;
       }
       if (selectedTable.status === true) {
-        this.alerts
-          .open('This table is already booked, please select another table.', {
-            status: 'warning',
-          })
-          .subscribe();
-        return;
+          this.reservationService.addToTableToCart(tableCart)
+          this.router.navigate(['base/menu']);
       }
 
       console.log('Selected Table:', selectedTable);

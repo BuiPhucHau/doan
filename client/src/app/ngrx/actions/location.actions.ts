@@ -37,3 +37,30 @@ export const createLocationFailure = createAction(
 export const resetIsAddSuccess = createAction(
     '[Location] reset is add success',
 );
+
+//delete Location
+export const removeLocation = createAction(
+    '[Location] delete',
+    props<{ locationId: string }>()
+);
+export const removeLocationSuccess = createAction(
+    '[Location] delete success',
+    props<{ locationId: string  }>()
+);
+export const removeLocationFailure = createAction(
+    '[Location] delete fail',
+    props<{ removeErrMess: any }>()
+);
+
+//action Location
+export const updateLocation = createAction(
+    '[Location] update',
+    props<{ location: any }>()
+);
+export const updateLocationSuccess = createAction(
+    '[Location] update success',
+);
+export const updateLocationFailure = createAction(
+    '[Location] update fail',
+    props<{ updateMessage: any }>()
+);

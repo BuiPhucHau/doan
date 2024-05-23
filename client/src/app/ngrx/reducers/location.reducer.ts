@@ -18,6 +18,15 @@ export const initialState: LocationState = {
   isAddSuccess: false,
   isAddLoading: false,
   addErrMess: '',
+
+  isRemoveLoading: false,
+  isRemoveSuccess: false,
+  removeErrMess: '',
+  locationId: '',
+
+  isUpdateLoading: false,
+  isUpdateSuccess: false,
+  updateErrMess: '',
 };
 
 
@@ -87,6 +96,7 @@ export const locationReducer = createReducer(
       createErrMess: action.errorMessage,
     };
   }),
+  //////////////////////////////////// RESET location //////////////////////////
   on(LocationActions.resetIsAddSuccess, (state, action) => {
     let newSate: LocationState = {
       ...state,
@@ -94,5 +104,65 @@ export const locationReducer = createReducer(
       isAddLoading: false,
     };
     return newSate;
-  })
+  }),
+  //////////////////////////////////// DELETE location //////////////////////////
+  on(LocationActions.removeLocation, (state, action) => {
+    console.log('Reducer remove:', action.locationId);
+    let newSate : LocationState = {
+      ...state,
+      isRemoveLoading: true,
+      isRemoveSuccess: false,
+      removeErrMess: '',
+    };
+    return newSate;
+  }),
+  on(LocationActions.removeLocationSuccess, (state, action) => {
+    console.log('Reducer remove success:', action.locationId);
+    let newSate : LocationState = {
+      ...state,
+      isRemoveLoading: false,
+      isRemoveSuccess: true,
+      removeErrMess: '',
+      locationId: action.locationId,
+    };
+    return newSate;
+  }),
+  on(LocationActions.removeLocationFailure, (state, action) => {
+    let newSate : LocationState ={
+      ...state,
+      isRemoveLoading: false,
+      isRemoveSuccess: false,
+      removeErrMess: action.removeErrMess,
+    };
+    return newSate;
+  }),
+  //////////////////////////////////// UPDATE location //////////////////////////
+  on(LocationActions.updateLocation, (state, action) => {
+    let newState: LocationState = {
+      ...state,
+      isUpdateLoading: true,
+      isUpdateSuccess: false,
+      updateErrMess: '',
+    };
+    return newState;
+  }),
+  on(LocationActions.updateLocationSuccess, (state, action) => {
+    console.log('Reducer update success')
+    let newState: LocationState = {
+      ...state,
+      isUpdateLoading: false,
+      isUpdateSuccess: true,
+      updateErrMess: '',
+    };
+    return newState;
+  }),
+  on(LocationActions.updateLocationFailure, (state, action) => {
+    let newState: LocationState = {
+      ...state,
+      isUpdateLoading: false,
+      isUpdateSuccess: false,
+      updateErrMess: action.updateMessage,
+    };
+    return newState;
+  }),
 );

@@ -21,6 +21,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DishService } from '../../../service/dish/dish.service';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../service/cart/cart.service';
+import { TableService } from '../../../service/table/table.service';
+import { ReservationService } from '../../../service/reservation/reservation.service';
 @Component({
   selector: 'app-order',
   standalone: true,
@@ -51,6 +53,8 @@ export class OrderComponent {
   constructor(private router: Router,
     private cartService: CartService,
     private dishService: DishService,
+    private tableService: TableService,
+    private reservationService: ReservationService,
     private route: ActivatedRoute,
     private store: Store<{
       dish: DishState;
@@ -84,6 +88,8 @@ export class OrderComponent {
     //   });
     // }
   }
+  itemsTable= this.reservationService.getItemTable();
+  
   items = this.cartService.getSelectedDishes();
   totalAmount()
   {

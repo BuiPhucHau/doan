@@ -6,7 +6,7 @@ import { LocationState } from '../../../../ngrx/state/location.state';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as LocationAction from '../../../../ngrx/actions/location.actions';
 import * as LocationActions from '../../../../ngrx/actions/location.actions';
-
+import { Location } from '../../../../models/location.model';
 import * as StorageAction from '../../../../ngrx/actions/storage.actions';
 import { StorageState } from '../../../../ngrx/state/storage.state';
 import { ShareModule } from '../../../../shared/shared.module';
@@ -22,13 +22,23 @@ import { Subscription } from 'rxjs';
   styleUrl: './post-location.component.scss',
 })
 export class PostLocationComponent implements OnDestroy, OnInit {
+  locationList : Location [] = [];
+
+  location$ = this.store.select('location', 'locationList');
 
   isCreateLocation$ = this.store.select('location', 'isAddSuccess');
 
-  fileName: string = '';
   createImageSuccess$ = this.store.select('storage', 'isCreateSuccess');
 
+  removeLocation$ = this.store.select('location', 'isRemoveSuccess');
+
+  updateLocation$ = this.store.select('location', 'isUpdateSuccess');
+
   selectedImage: string | ArrayBuffer | null = null;
+  fileName: string = '';
+  
+  currentLocation: Location | null = null;
+  isUpdateClicked: boolean = false;
 
   subscriptions: Subscription[] = [];
   
@@ -48,6 +58,10 @@ export class PostLocationComponent implements OnDestroy, OnInit {
     image: '',
   }
 
+  detail = false;
+  exampleForm = new FormGroup({
+    exampleControl: new FormControl(''),
+  });
   constructor(
     private router: Router,
     private store: Store<{
@@ -55,8 +69,19 @@ export class PostLocationComponent implements OnDestroy, OnInit {
       storage: StorageState;
     }>
   ) {
-
+    this.store.dispatch(LocationActions.get());
     this.subscriptions.push(
+      this.location$.subscribe((locationList) => {
+        if(locationList.length > 0){
+          console.log(locationList);
+          this.locationList = locationList;
+        }
+      }),
+      this.store.select('location').subscribe((val) => {
+        if (val != null && val != undefined) {
+          this.locationList = val.locationList;
+        }
+      }),
       this.createImageSuccess$.subscribe((val) => {
         console.log(val);
         if (val) {
@@ -87,13 +112,37 @@ export class PostLocationComponent implements OnDestroy, OnInit {
             address: '',
             image: '',
           };
-          this.store.dispatch(LocationAction.resetIsAddSuccess());
+          this.addLocationForm.reset();
+
+          // this.store.dispatch(LocationAction.resetIsAddSuccess());
+          this.store.dispatch(LocationAction.get());
         }
-      })
+      }),
+      this.removeLocation$.subscribe((val) => {
+        if (val) {
+          alert('Xóa location thành công');
+          this.store.dispatch(LocationAction.get());
+        }
+      }),
+      this.updateLocation$.subscribe ((val) => {
+        if (val) {
+          alert('Cập nhật location thành công');
+          this.addLocationData = {
+            locationId: '',
+            name: '',
+            phone: '',
+            address: '',
+            image: '',
+          };
+          this.addLocationForm.reset();
+          this.store.dispatch(LocationAction.get());
+        }
+      }),
     );
   }
   
   ngOnInit(): void {
+    
   }
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => {
@@ -137,4 +186,61 @@ export class PostLocationComponent implements OnDestroy, OnInit {
     );
   }
 
+  removeLocation(locationId: string) {
+    const confirmDelete = confirm("Are you sure you want to delete this location?");
+    if (confirmDelete) {
+      this.store.dispatch(LocationAction.removeLocation({ locationId }));
+    }
+  }
+  
+  updateLocation(locationId: string): void {
+    this.isUpdateClicked = true;
+    this.currentLocation = this.locationList.find(location => location.locationId === locationId) || null;
+    if (this.currentLocation) {
+      this.addLocationForm.setValue({
+        locationId: this.currentLocation.locationId,
+        name: this.currentLocation.name,
+        phone: this.currentLocation.phone,
+        address: this.currentLocation.address,
+        image: this.currentLocation.image._id.toString()
+      });
+    }
+  }
+
+  
+  onUpdateLocation(): void {
+    this.isUpdateClicked = true;
+    const locationData = {
+      locationId: this.addLocationForm.value.locationId,
+      name: this.addLocationForm.value.name,
+      phone: this.addLocationForm.value.phone,
+      address: this.addLocationForm.value.address,
+      image: this.addLocationForm.value.image,
+    };
+    //Nếu edit được click
+    if (this.isUpdateClicked) {
+      this.store.dispatch(LocationAction.updateLocation({ location: locationData }));
+    }
+
+    // Nếu có file mới được chọn
+    if (this.file) {
+      this.fileName = this.addLocationForm.value.locationId + '_' + this.addLocationForm.value.name;
+      this.store.dispatch(
+        StorageAction.create({ file: this.file, fileName: this.fileName })
+      );
+
+      this.store.select('storage').subscribe((val) => {
+        if (val?.isCreateSuccess) {
+          const newImageId = val.storage?._id;
+          this.addLocationForm.patchValue({
+            image: newImageId
+          });
+          locationData.image = newImageId;
+          this.store.dispatch(LocationAction.updateLocation({ location: locationData }));
+        }
+      });
+    } else {
+      this.store.dispatch(LocationAction.updateLocation({ location: locationData }));
+    }
+  }
 }

@@ -17,4 +17,16 @@ export interface LocationState {
     isAddLoading: boolean;
     isAddSuccess: boolean;
     addErrMess: string;
+
+    ///////////////DELETE
+    isRemoveLoading: boolean;
+    isRemoveSuccess: boolean;
+    removeErrMess: string;
+    locationId: string;
+    
+    //////////////UPDATE
+    isUpdateLoading: boolean;
+    isUpdateSuccess: boolean;
+    updateErrMess: string;
+    
 }

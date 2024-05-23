@@ -19,6 +19,7 @@ import { PaymentImageState } from '../../../../ngrx/state/paymentimage.state';
 import { ShareModule } from '../../../../shared/shared.module';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentSuccessDialogComponent } from '../payment-success-dialog/payment-success-dialog.component';
+import { ReservationService } from '../../../../service/reservation/reservation.service';
 @Component({
   selector: 'app-paymentmomo',
   standalone: true,
@@ -38,6 +39,7 @@ export class PaymentmomoComponent {
   constructor(private router: Router,
     private cartService: CartService,
     private dialog: MatDialog,
+    private reservationService: ReservationService,
     private store: Store<{
       order: OrderState;
       dish: DishState;
@@ -94,8 +96,9 @@ ngOnInit(){
     }
   ));
 }
-  items = this.cartService.getSelectedDishes();
 
+  items = this.cartService.getSelectedDishes();
+  tableitems = this.reservationService.getItemTable();
   totalAmount()
   {
     let total = 0;
@@ -115,6 +118,7 @@ ngOnInit(){
   remoteAllCart()
   {
     this.cartService.clearCart();
+    this.reservationService.clearCart();
   }
   checkOut()
   {

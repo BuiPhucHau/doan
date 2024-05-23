@@ -83,6 +83,7 @@ export class CartService {
     this.items = [];
     localStorage.removeItem(this.cartKey);
   }
+  
   private saveDetailToLocalStorage(): void {
     localStorage.setItem(this.cartKey, JSON.stringify(this.item));
     console.log("luu thanh cong");

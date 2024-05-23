@@ -6,15 +6,20 @@
     </div>
 
   </div>
-  <div class="info">
+  <div class="info" >
+    <div  class="form-group" *ngFor="let item of tableitems">
+      <label for="name">Table</label>
+      <input type="text" class="form-control"  placeholder="{{item.tableId}}" disabled>
+    </div>
     <form [formGroup]="addOrderForm">
-      <div class="form-group">
+      
+      <div class="form-group" *ngFor="let item of tableitems">
         <label for="name">Name</label>
-        <input type="text" class="form-control" formControlName="orderName">
+        <input type="text" class="form-control" formControlName="orderName" placeholder="{{item.name}}" >
       </div>
-      <div class="form-group">
+      <div class="form-group" *ngFor="let item of tableitems">
         <label for="phone">Phone</label>
-        <input type="text" class="form-control" formControlName="orderPhone">
+        <input type="text" class="form-control" formControlName="orderPhone" placeholder="{{item.phone}}">
       </div>
       <div class="form-group">
         <label for="address">Address</label>
