@@ -159,7 +159,7 @@ onSortOrderChange(event: Event): void {
 }
 
 
-  }
+  
 
   onSearchChange(): void {
     this.selectNamedish('All');
