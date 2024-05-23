@@ -42,6 +42,9 @@ export class MenuComponent {
   selectDish: any;
   selectedDish: FormControl = new FormControl();
 
+  branch = ['Food can be taken home', 'Food cannot be taken home'];
+
+
   sortOrder: 'asc' | 'desc' = 'asc'; // Mặc định là sắp xếp từ thấp đến cao
   namedishs = [
     { nameCategory: 'All', isActice: true },
@@ -136,6 +139,7 @@ export class MenuComponent {
         .toLowerCase()
         .includes(this.searchValue.toLowerCase());
     });
+
   this.sortDishesByPrice();
 }
 sortDishesByPrice(): void {
@@ -153,6 +157,9 @@ onSortOrderChange(event: Event): void {
     this.sortDishesByPrice();
   }
 }
+
+
+  }
 
   onSearchChange(): void {
     this.selectNamedish('All');

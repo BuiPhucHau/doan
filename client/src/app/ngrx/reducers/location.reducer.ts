@@ -138,6 +138,8 @@ export const locationReducer = createReducer(
   }),
   //////////////////////////////////// UPDATE location //////////////////////////
   on(LocationActions.updateLocation, (state, action) => {
+    console.log(action.location);
+    
     let newState: LocationState = {
       ...state,
       isUpdateLoading: true,
