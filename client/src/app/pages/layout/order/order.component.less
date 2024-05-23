@@ -6,6 +6,30 @@
     //justify-content: center;
     align-items: center;
 }
+.title{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .h3{
+
+        margin-top: 20px;
+        margin-bottom: 50px;
+        font: 1.5em sans-serif;
+        font-weight: bold;
+    }
+    .material-symbols-outlined{
+        font-size: 150px;
+        color: #0d0d0c;
+    
+    }.alert{
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+
+}
 .item{
     width: 70%;
     height: 100%;
@@ -16,16 +40,10 @@
 
     .h3{
         margin-top: 20px;
-        margin-bottom: 200px;
+        margin-bottom: 50px;
         font: 1.5em sans-serif;
         font-weight: bold;
     }
-    .material-symbols-outlined{
-        font-size: 150px;
-        color: #0d0d0c;
-    
-    }
-
 }
 .order{
     width: 70%;
@@ -33,6 +51,7 @@
     display: flex;
     justify-content: center;
     .h3{
+        display: flex;
         margin-top: 20px;
         margin-bottom: 50px;
         font: 1.5em sans-serif;
@@ -40,7 +59,7 @@
     }
 }
 .alert {
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     font-size: 15px;
 
 }
@@ -53,7 +72,7 @@ table {
 }
 
 th.product {
-    width: 50%;
+    width: 65%;
     height: 40px;
     color: #161414;
     border: 1px solid #dee2e6;
@@ -69,7 +88,7 @@ th.quantity {
 }
 
 th.into_money {
-    width: 20%;
+    width: 15%;
     height: 40px;
     color: #161414;
     border: 1px solid #dee2e6;
@@ -85,42 +104,52 @@ th.delele {
 }
 
 td.product_info {
-    width: 50%;
+    width: 70%;
     height: 150px;
     border: 1px solid #dee2e6;
     padding: 8px;
-
     .image {
         width: 125px;
         height: 100px;
-        margin: 0px 15px 0px 0px;
+        margin: 0px 15px 0px 15px;
     }
     .nameDish{
         font-size: 15px;
-        margin: 0px 15px 0px 0px;
+        margin: 0px 15px 0px 15px;
         font-weight: bold;
 
     }
     .price{
+        margin: 0px 10px 0px 50px;
         font-size: 15px;
         font-weight: bold;
-        
+    }
+}
+td.quantity_td {
+    width: 100px;
+    height: 175px;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    input{
+        width: 70px;
+        height: 30px;
+        border: 1px solid rgb(209, 209, 209);
+        border-radius: 5px;
+
     }
 }
 
-td.quantity_td {
-
-    width: 10%;
-    height: 150px;
-    border: 1px solid #dee2e6;
-    padding: 8px;
-}
-
 td.into_money_td {
-    width: 20%;
+    width: 15%;
     height: 150px;
     border: 1px solid #dee2e6;
     padding: 8px;
+    span{
+    margin-left: 5px;
+    }
+
 }
 
 td.btn_delete_td {

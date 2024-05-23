@@ -19,7 +19,7 @@ import { PaymentImageState } from '../../../../ngrx/state/paymentimage.state';
 import { ShareModule } from '../../../../shared/shared.module';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentSuccessDialogComponent } from '../payment-success-dialog/payment-success-dialog.component';
-
+import { OrderService } from '../../../../service/order/order.service';
 
 @Component({
   selector: 'app-paymentbanking',
@@ -40,6 +40,7 @@ export class PaymentbankingComponent {
   constructor(private router: Router,
     private cartService: CartService,
     private dialog: MatDialog,
+    private orderService: OrderService,
     private store: Store<{
       order: OrderState;
       dish: DishState;
@@ -49,6 +50,7 @@ export class PaymentbankingComponent {
       paymentimage: PaymentImageState;
     }>,
   ) {
+    this.orderItem = this.orderService.getOrderDetail();
     this.store.dispatch(OrderActions.get());
     this.store.dispatch(PaymentImageActions.get());
     this.subscriptions.push( 
@@ -73,6 +75,7 @@ export class PaymentbankingComponent {
     ));
   }
 ngOnInit(){
+  this.orderItem = this.orderService.getOrderDetail();
   this.store.dispatch(OrderActions.get());
   this.subscriptions.push( 
     this.order$.subscribe((orderList) => {  
@@ -97,7 +100,7 @@ ngOnInit(){
   ));
 }
   items = this.cartService.getSelectedDishes();
-
+  orderItem = this.orderService.getOrderDetail();
   totalAmount()
   {
     let total = 0;

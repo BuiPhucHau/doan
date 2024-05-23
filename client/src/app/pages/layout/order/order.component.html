@@ -4,7 +4,7 @@
     <span class="material-symbols-outlined">
       shopping_cart
       </span>
-    <div class="alert alert-warning text-center p-5 h2">
+    <div class="alert">
       You have not selected any products yet
     </div>
   </div>
@@ -14,7 +14,7 @@
       <tr>
         <th class="product">Food's name and Price </th>
         <th class="quantity">Quantity</th>
-        <th class="into_money">Into money </th>
+        <th class="into_money">Into money</th>
         <th class="delele"> Delete</th>
       </tr>
       <tr *ngFor="let item of items">
@@ -26,7 +26,7 @@
           </div>
         </td>
         <td class="quantity_td">
-          <input [(ngModel)]="item.quantity" min="1" type="number" class="form-control">
+          <input class="quantity_input" [(ngModel)]="item.quantity" min="1" type="number" class="form-control">
         </td>
         <td class="into_money_td">
           <span class="money">{{(item.price*item.quantity).toLocaleString("vn-de") }} VND</span>

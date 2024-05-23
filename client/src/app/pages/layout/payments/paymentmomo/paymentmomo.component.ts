@@ -20,6 +20,7 @@ import { ShareModule } from '../../../../shared/shared.module';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentSuccessDialogComponent } from '../payment-success-dialog/payment-success-dialog.component';
 import { ReservationService } from '../../../../service/reservation/reservation.service';
+import { OrderService } from '../../../../service/order/order.service';
 @Component({
   selector: 'app-paymentmomo',
   standalone: true,
@@ -40,6 +41,7 @@ export class PaymentmomoComponent {
     private cartService: CartService,
     private dialog: MatDialog,
     private reservationService: ReservationService,
+    private orderService: OrderService,
     private store: Store<{
       order: OrderState;
       dish: DishState;
@@ -73,6 +75,7 @@ export class PaymentmomoComponent {
     ));
   }
 ngOnInit(){
+  this.orderItem = this.orderService.getOrderDetail();
   this.store.dispatch(OrderActions.get());
   this.subscriptions.push( 
     this.order$.subscribe((orderList) => {  
@@ -96,7 +99,7 @@ ngOnInit(){
     }
   ));
 }
-
+  orderItem = this.orderService.getOrderDetail();
   items = this.cartService.getSelectedDishes();
   tableitems = this.reservationService.getItemTable();
   totalAmount()
@@ -119,6 +122,7 @@ ngOnInit(){
   {
     this.cartService.clearCart();
     this.reservationService.clearCart();
+
   }
   checkOut()
   {
