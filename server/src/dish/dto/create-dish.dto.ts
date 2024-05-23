@@ -13,7 +13,8 @@ export class CreateDishDto {
         public status: boolean,
         // public isConfirmed: boolean
         public featured: boolean,
-        public quantity: number
+        public quantity: number,
+        public bringBack: boolean,
     ) 
     {}
 }

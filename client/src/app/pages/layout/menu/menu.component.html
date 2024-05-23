@@ -12,11 +12,11 @@
 
   <div class="top">
     <div class="select_price">
-      <tui-select tuiTextfieldSize="m" [formControl]="selectedDish">
-        Select Price
-        <input placeholder="Select branch" tuiTextfield />
-        <tui-data-list-wrapper *tuiDataList [items]="branch"></tui-data-list-wrapper>
-      </tui-select>
+      <select class="sl_price" (change)="onSortOrderChange($event)">
+        <option value="" disabled selected >Sort by price</option>
+        <option value="desc">High to low</option>
+        <option value="asc">Low to high</option>
+      </select>
     </div>
     <div class="select_dish">
       <div *ngFor="let namedish of namedishs">
@@ -39,7 +39,7 @@
           <div class="dish_price">
             <span>{{dish.price}}</span>
           </div>
-          <button class="btn" (click)="addtoCart(dish)">Add to cart</button>
+          <button class="btn btn-warning w-100" (click)="addtoCart(dish)">Add to cart</button>
           <a (click)="showDetail(dish)">Show detail</a>
         </div>
       </div>

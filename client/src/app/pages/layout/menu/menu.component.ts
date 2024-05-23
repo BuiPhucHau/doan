@@ -16,10 +16,11 @@ import { Category } from '../../../models/category.model';
 import { Observable, Subscription } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CartService } from '../../../service/cart/cart.service';
+import { TuiSelectModule } from '@taiga-ui/kit';
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [TaigaModule, ShareModule],
+  imports: [TaigaModule, ShareModule,TuiSelectModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
 })
@@ -40,15 +41,25 @@ export class MenuComponent {
   filteredDishes: any[] = [];
   selectDish: any;
   selectedDish: FormControl = new FormControl();
+<<<<<<< HEAD
+=======
   branch = ['Food can be taken home', 'Food cannot be taken home'];
+>>>>>>> 9cf84e7c759af8785a6bdf9cfe92d5c72dbc1220
 
+  sortOrder: 'asc' | 'desc' = 'asc'; // Mặc định là sắp xếp từ thấp đến cao
   namedishs = [
     { nameCategory: 'All', isActice: true },
     { nameCategory: 'Appetizer', isActice: false },
     { nameCategory: 'Main dishes', isActice: false },
     { nameCategory: 'Desserts', isActice: false },
   ];
+<<<<<<< HEAD
+
+  toggleActive(namedish : any)
+  {
+=======
   toggleActive(namedish: any) {
+>>>>>>> 9cf84e7c759af8785a6bdf9cfe92d5c72dbc1220
     namedish.isActice = !namedish.isActice;
   }
 
@@ -136,11 +147,41 @@ export class MenuComponent {
         .includes(this.searchValue.toLowerCase());
     });
   }
+<<<<<<< HEAD
+  else if (nameCategory === 'Appetizer') {
+    this.filteredDishes = this.dishList.filter((dish) => dish.category.nameCategory === nameCategory);
+  }
+  else if (nameCategory === 'Main dishes') {
+    this.filteredDishes = this.dishList.filter((dish) => dish.category.nameCategory === nameCategory);
+  }
+  else if (nameCategory === 'Desserts') {
+    this.filteredDishes = this.dishList.filter((dish) => dish.category.nameCategory === nameCategory);
+  }
+  this.sortDishesByPrice();
+}
+sortDishesByPrice(): void {
+  if (this.sortOrder === 'asc') {
+    this.filteredDishes.sort((a, b) => a.price - b.price); // Sắp xếp từ thấp đến cao
+  } else {
+    this.filteredDishes.sort((a, b) => b.price - a.price); // Sắp xếp từ cao đến thấp
+  }
+}
+
+onSortOrderChange(event: Event): void {
+  const value = (event.target as HTMLSelectElement).value;
+  if (value) {
+    this.sortOrder = value as 'asc' | 'desc';
+    this.sortDishesByPrice();
+  }
+}
+  showDetail(dishCart : Dish) {
+=======
   onSearchChange(): void {
     this.selectNamedish('All');
     this.filterDishes('All');
   }
   showDetail(dishCart: Dish) {
+>>>>>>> 9cf84e7c759af8785a6bdf9cfe92d5c72dbc1220
     this.cartService.addToDetail(dishCart);
     this.router.navigate(['base/menu/dish-detail']);
   }
