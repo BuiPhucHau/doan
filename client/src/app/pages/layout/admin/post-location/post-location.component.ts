@@ -41,6 +41,11 @@ export class PostLocationComponent implements OnDestroy, OnInit {
   isUpdateClicked: boolean = false;
 
   subscriptions: Subscription[] = [];
+
+  isChangeFile: boolean = false;
+  locationDataToUpdate: any = {};
+  isUpdateLocation: boolean = false;
+  fileNameToUpdate: string = '';
   
   addLocationForm = new FormGroup({
     locationId: new FormControl('', Validators.required),
@@ -96,8 +101,15 @@ export class PostLocationComponent implements OnDestroy, OnInit {
   
       this.store.select('storage').subscribe((val) => {
         if (val?.isGetSuccess) {
-          this.addLocationData.image = val.storage?._id;
-          this.store.dispatch(LocationAction.createLocation({ location: this.addLocationData }));
+          console.log(val);
+          if(this.isUpdateLocation){
+          this.locationDataToUpdate.image = val.storage?._id;
+          console.log(this.locationDataToUpdate);
+          
+          this.store.dispatch(LocationAction.updateLocation({ location: this.locationDataToUpdate }));
+          }else
+          {this.addLocationData.image = val.storage?._id;
+          this.store.dispatch(LocationAction.createLocation({ location: this.addLocationData }));}
         }
       }),
   
@@ -136,8 +148,26 @@ export class PostLocationComponent implements OnDestroy, OnInit {
           };
           this.addLocationForm.reset();
           this.store.dispatch(LocationAction.get());
+          this.isUpdateLocation = false;
         }
       }),
+      // this.store.select('storage').subscribe((val) => {
+      //   if (val?.isCreateSuccess&&this.isUpdateLocation) {
+      //     console.log(val);
+      //     this.store.dispatch(
+      //       StorageAction.get({
+      //         fileName: this.fileNameToUpdate,
+      //       })
+      //     );
+          
+      //     const newImageId = val.storage?._id;
+      //     this.addLocationForm.patchValue({
+      //       image: newImageId
+      //     });
+      //     this.locationDataToUpdate.image = newImageId;
+      //     this.store.dispatch(LocationAction.updateLocation({ location: this.locationDataToUpdate }));
+      //   }
+      // }),
     );
   }
   
@@ -164,6 +194,7 @@ export class PostLocationComponent implements OnDestroy, OnInit {
     reader.onload = () => {
       this.selectedImage = reader.result;
     };
+    this.isChangeFile = true;
     console.log(this.file);
   }
 
@@ -209,7 +240,6 @@ export class PostLocationComponent implements OnDestroy, OnInit {
 
   
   onUpdateLocation(): void {
-    this.isUpdateClicked = true;
     const locationData = {
       locationId: this.addLocationForm.value.locationId,
       name: this.addLocationForm.value.name,
@@ -217,30 +247,23 @@ export class PostLocationComponent implements OnDestroy, OnInit {
       address: this.addLocationForm.value.address,
       image: this.addLocationForm.value.image,
     };
+    this.locationDataToUpdate = locationData;
     //Nếu edit được click
-    if (this.isUpdateClicked) {
+    if (!this.isChangeFile) {
+      console.log("no change file");
+      
       this.store.dispatch(LocationAction.updateLocation({ location: locationData }));
-    }
-
-    // Nếu có file mới được chọn
-    if (this.file) {
+    }else{
       this.fileName = this.addLocationForm.value.locationId + '_' + this.addLocationForm.value.name;
       this.store.dispatch(
         StorageAction.create({ file: this.file, fileName: this.fileName })
       );
-
-      this.store.select('storage').subscribe((val) => {
-        if (val?.isCreateSuccess) {
-          const newImageId = val.storage?._id;
-          this.addLocationForm.patchValue({
-            image: newImageId
-          });
-          locationData.image = newImageId;
-          this.store.dispatch(LocationAction.updateLocation({ location: locationData }));
-        }
-      });
-    } else {
-      this.store.dispatch(LocationAction.updateLocation({ location: locationData }));
+      this.fileNameToUpdate = this.fileName;
+      this.isUpdateLocation = true;
+      console.log("change file");
+      
     }
+
+    // Nếu có file mới được chọn
   }
 }
