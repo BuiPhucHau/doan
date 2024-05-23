@@ -35,6 +35,8 @@ export class Dish {
 
     @Prop({required: true})
     quantity: number;
+    @Prop({required: true})
+    bringBack: boolean;
 }
 
 export const DishSchema = SchemaFactory.createForClass(Dish);
