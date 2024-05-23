@@ -1,6 +1,6 @@
 
-import { User } from "./user.model";
 export interface IOrder {
+    reservationId: string;
     orderId: number,
     orderName: string;
     orderPhone: string;

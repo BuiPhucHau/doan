@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs';
 import { OrderService } from '../../../service/order/order.service';
 import * as TableActions from '../../../ngrx/actions/table.actions';
 import { ReservationService } from '../../../service/reservation/reservation.service';
+import { Reservation } from '../../../models/reservation.model';
 @Component({
   selector: 'app-payments',
   standalone: true,
@@ -35,11 +36,14 @@ export class PaymentsComponent {
   orderList: Order[] = [];
 
   tableItems: Table = <Table>{};
-  isTable = false;
+  isTable: boolean = false;
+
+  currentReservation: Reservation | null = null;
 
   subscriptions: Subscription[] = [];
   
   addOrderForm = new FormGroup({
+      reservationId: new FormControl('', Validators.required),
       orderId: new FormControl('', Validators.required),
       orderName: new FormControl('', Validators.required),
       orderPhone: new FormControl('', Validators.required),
@@ -77,13 +81,38 @@ export class PaymentsComponent {
   ngOnInit(): void {
     this.store.dispatch(OrderActions.get());
     this.subscriptions.push(
-     this.order$.subscribe((orderList) => {
-       if(orderList){
-         console.log(orderList);
-         this.orderList = orderList;
-       }
-     })
+      this.order$.subscribe((orderList) => {
+        if (orderList) {
+          console.log(orderList);
+          this.orderList = orderList;
+        }
+      })
     );
+    this.tableitems = this.reservationService.getItemTable();
+    this.tableitems.forEach(item => {
+      if (item.reservationId) {
+        this.isTable = true; 
+        this.currentReservation = item; // Gán item vào currentReservation
+      }
+    });
+
+    if (this.currentReservation) {
+      this.addOrderForm.patchValue({
+        reservationId: this.currentReservation.reservationId,
+        orderName: this.currentReservation.name,
+        orderPhone: this.currentReservation.phone
+      });
+      this.resetCurrentReservation();
+    }
+  }
+
+  resetCurrentReservation(): void {
+    this.currentReservation = null;
+    this.addOrderForm.patchValue({
+      reservationId: '',
+      orderName: '',
+      orderPhone: ''
+    });
   }
   tableitems = this.reservationService.getItemTable();
   items = this.cartService.getSelectedDishes();
@@ -112,19 +141,19 @@ export class PaymentsComponent {
   }
   createOrder(): void {
     const addOrderForm: any = {
+      reservationId: this.addOrderForm.value.reservationId ?? '',
       orderId: this.generateRandomOrderId(),
       orderName: this.addOrderForm.value.orderName ?? '',
-      orderPhone:this.addOrderForm.value.orderPhone ?? '',
-      orderAddress:this.addOrderForm.value.orderAddress ?? '',
-      orderEmail:this.addOrderForm.value.orderEmail ?? '',
-      orderDate:this.addOrderForm.value.orderDate ?? new Date(),
+      orderPhone: this.addOrderForm.value.orderPhone ?? '',
+      orderAddress: this.addOrderForm.value.orderAddress ?? '',
+      orderEmail: this.addOrderForm.value.orderEmail ?? '',
+      orderDate: this.addOrderForm.value.orderDate ?? new Date(),
     };
     console.log('Thanh toan thanh cong', addOrderForm);
     this.store.dispatch(
       OrderActions.createOrder({ order: addOrderForm })
     );
     this.orderService.addToOrderDetail(addOrderForm);
-    
   }
   goToPaymentMomo(){
     this.createOrder();

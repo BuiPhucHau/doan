@@ -15,6 +15,7 @@ export class OrderService {
 
   addToOrderDetail(orderDetai: IOrder): void {
     this.orderItem = {
+      reservationId: orderDetai.reservationId,
       orderId: orderDetai.orderId,
       orderName: orderDetai.orderName,
       orderPhone: orderDetai.orderPhone,

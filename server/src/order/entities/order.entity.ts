@@ -5,6 +5,8 @@ import { CreateDishDto } from 'src/dish/dto/create-dish.dto';
 export type OrderDocument = HydratedDocument<Order>;
 @Schema({timestamps: true})
 export class Order {
+    @Prop()
+    reservationId: string;
     @Prop({required: true, unique: true})
     orderId: number;
     @Prop({required: true})

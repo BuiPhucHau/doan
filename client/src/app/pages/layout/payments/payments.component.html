@@ -4,41 +4,68 @@
       <span id="content_1">YOUR PAYMENT</span>
       <span id="content_2">Please enter your information and select your preferred payment method.</span>
     </div>
-
   </div>
-  <div class="info" >
-    <!-- <div  class="form-group">
-      <label for="name">Table</label>
-      <input type="text" class="form-control"  >
-    </div> -->
-    <form [formGroup]="addOrderForm">
-      
-      <div class="form-group" >
-        <label for="name">Name</label>
-        <input type="text" class="form-control" formControlName="orderName" >
-      </div>
-      <div class="form-group" >
-        <label for="phone">Phone</label>
-        <input type="text" class="form-control" formControlName="orderPhone" >
+
+  <div class="info" *ngIf="isTable">
+    <div *ngFor="let item of tableitems">
+      <div class="form-group">
+        <label for="reservationId">Table</label>
+        <input type="text" class="form-control" placeholder="{{item.tableId}}" readonly>
       </div>
       <div class="form-group">
-        <label for="address">Address</label>
+        <label for="name">Name</label>
+        <input type="text" class="form-control" placeholder="{{item.name}}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" class="form-control" placeholder="{{item.phone}}" readonly>
+      </div>
+      <form [formGroup]="addOrderForm">
+        <div class="form-group">
+          <label for="orderEmail">Email</label>
+          <input type="text" class="form-control" formControlName="orderEmail">
+        </div>
+        <div class="form-group">
+          <label for="orderAddress">Address</label>
+          <input type="text" class="form-control" formControlName="orderAddress">
+        </div>
+      </form>
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="text" class="form-control" placeholder="{{item.date}}" readonly>
+      </div>
+    </div>
+  </div>
+
+  <div class="info" *ngIf="!isTable">
+    <form [formGroup]="addOrderForm">
+      <div class="form-group">
+        <label for="orderName">Name</label>
+        <input type="text" class="form-control" formControlName="orderName">
+      </div>
+      <div class="form-group">
+        <label for="orderPhone">Phone</label>
+        <input type="text" class="form-control" formControlName="orderPhone">
+      </div>
+      <div class="form-group">
+        <label for="orderAddress">Address</label>
         <input type="text" class="form-control" formControlName="orderAddress">
       </div>
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="orderEmail">Email</label>
         <input type="text" class="form-control" formControlName="orderEmail">
       </div>
       <div class="form-group">
-        <label for="email">Date</label>
+        <label for="orderDate">Date</label>
         <input type="date" class="form-control" formControlName="orderDate">
       </div>
     </form>
   </div>
+
   <div class="btn_payments">
-    <button type="submit" class="btn btn-warning w-100" (click)="goToPaymentMomo()"> Pay Momo</button>
-    <button type="submit" class="btn btn-warning w-100" (click)="goToPaymentCOD()"> Pay COD</button>
-    <button type="submit" class="btn btn-warning w-100" (click)="goToPaymentBanking()"> Pay Online Banking</button>
-    <button type="submit" class="btn btn-warning w-100" (click)="goBackOrder()"> Back to your order </button>
+    <button type="submit" class="btn btn-warning w-100" (click)="goToPaymentMomo()">Pay Momo</button>
+    <button type="submit" class="btn btn-warning w-100" (click)="goToPaymentCOD()">Pay COD</button>
+    <button type="submit" class="btn btn-warning w-100" (click)="goToPaymentBanking()">Pay Online Banking</button>
+    <button type="submit" class="btn btn-warning w-100" (click)="goBackOrder()">Back to your order</button>
   </div>
 </div>
