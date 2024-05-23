@@ -16,66 +16,6 @@
     margin-top: 40px;
 }
 
-.qr_code {
-    width: 70%;
-    height: 30%;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .title_Qr {
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    .image_qr {
-        width: 400px;
-        height: 400px;
-    }
-
-    .check_out {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 20px;
-
-        span {
-            margin-top: 20px;
-            font-size: 20px;
-        }
-
-        .from-input-total {
-            margin-top: 20px;
-            width: 200px;
-            height: 40px;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 16px;
-            .input-container {
-                position: relative;
-                display: inline-block;
-              }
-              
-              .from-input-total {
-                padding-right: 40px; /* Điều chỉnh giá trị này cho phù hợp với kích thước của "VNĐ" */
-                box-sizing: border-box;
-              }
-              
-              .currency-suffix {
-                position: absolute;
-                right: 10px; /* Điều chỉnh giá trị này để căn chỉnh "VNĐ" với input */
-                top: 50%;
-                transform: translateY(-50%);
-                pointer-events: none; /* Đảm bảo rằng span không cản trở việc nhập liệu */
-              }
-        }
-
-    }
-
-}
-
 table {
     width: 70%;
     height: 50px;
@@ -135,10 +75,68 @@ th.total_content {
     font-weight: bold;
     text-align: center;
 }
+.qr_code {
+    width: 70%;
+    height: 30%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
+    .title_Qr {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .image_qr {
+        width: 400px;
+        height: 400px;
+    }
+
+    .check_out {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+
+        span {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+
+        .from-input-total {
+            margin-top: 20px;
+            width: 200px;
+            height: 40px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 16px;
+            .input-container {
+                position: relative;
+                display: inline-block;
+              }
+              
+              .from-input-total {
+                padding-right: 40px; /* Điều chỉnh giá trị này cho phù hợp với kích thước của "VNĐ" */
+                box-sizing: border-box;
+              }
+              
+              .currency-suffix {
+                position: absolute;
+                right: 10px; /* Điều chỉnh giá trị này để căn chỉnh "VNĐ" với input */
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none; /* Đảm bảo rằng span không cản trở việc nhập liệu */
+              }
+        }
+
+    }
+
+}
 .item {
     width: 70%;
-    height: 50%;
+    height: fit-content;
     display: flex;
     //justify-content: center;
     flex-direction: column;

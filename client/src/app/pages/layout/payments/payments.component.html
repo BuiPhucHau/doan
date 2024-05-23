@@ -7,19 +7,19 @@
 
   </div>
   <div class="info" >
-    <div  class="form-group" *ngFor="let item of tableitems">
+    <!-- <div  class="form-group">
       <label for="name">Table</label>
-      <input type="text" class="form-control"  placeholder="{{item.tableId}}" disabled>
-    </div>
+      <input type="text" class="form-control"  >
+    </div> -->
     <form [formGroup]="addOrderForm">
       
-      <div class="form-group" *ngFor="let item of tableitems">
+      <div class="form-group" >
         <label for="name">Name</label>
-        <input type="text" class="form-control" formControlName="orderName" placeholder="{{item.name}}" >
+        <input type="text" class="form-control" formControlName="orderName" >
       </div>
-      <div class="form-group" *ngFor="let item of tableitems">
+      <div class="form-group" >
         <label for="phone">Phone</label>
-        <input type="text" class="form-control" formControlName="orderPhone" placeholder="{{item.phone}}">
+        <input type="text" class="form-control" formControlName="orderPhone" >
       </div>
       <div class="form-group">
         <label for="address">Address</label>

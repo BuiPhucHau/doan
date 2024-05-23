@@ -15,8 +15,10 @@ import { OrderState } from '../../../ngrx/state/order.state';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableService } from '../../../service/table/table.service';
 import { Table } from '../../../models/table.model';
+import { Order } from '../../../models/order.model';
 import { TableState } from '../../../ngrx/state/table.state';
 import { Subscription } from 'rxjs';
+import { OrderService } from '../../../service/order/order.service';
 import * as TableActions from '../../../ngrx/actions/table.actions';
 import { ReservationService } from '../../../service/reservation/reservation.service';
 @Component({
@@ -29,7 +31,8 @@ import { ReservationService } from '../../../service/reservation/reservation.ser
 export class PaymentsComponent {
   currentDate = new Date().toISOString().slice(0, 10);
 
-  isCreateOrder$ = this.store.select('order', 'order');
+  order$ = this.store.select('order', 'orderList');
+  orderList: Order[] = [];
 
   tableItems: Table = <Table>{};
   isTable = false;
@@ -48,6 +51,7 @@ export class PaymentsComponent {
     private cartService: CartService,
     private dishService: DishService,
     private route: ActivatedRoute,
+    private orderService: OrderService,
     private tableService: TableService,
     private reservationService: ReservationService,
     private store: Store<{
@@ -59,8 +63,28 @@ export class PaymentsComponent {
       table: TableState;
     }>,
   ) {
-  }
+   this.store.dispatch(OrderActions.get());
+   this.subscriptions.push(
+    this.order$.subscribe((orderList) => {
+      if(orderList){
+        console.log(orderList);
+        this.orderList = orderList;
+      }
+    })
+   );
 
+  }
+  ngOnInit(): void {
+    this.store.dispatch(OrderActions.get());
+    this.subscriptions.push(
+     this.order$.subscribe((orderList) => {
+       if(orderList){
+         console.log(orderList);
+         this.orderList = orderList;
+       }
+     })
+    );
+  }
   tableitems = this.reservationService.getItemTable();
   items = this.cartService.getSelectedDishes();
   totalAmount()
@@ -99,6 +123,8 @@ export class PaymentsComponent {
     this.store.dispatch(
       OrderActions.createOrder({ order: addOrderForm })
     );
+    this.orderService.addToOrderDetail(addOrderForm);
+    
   }
   goToPaymentMomo(){
     this.createOrder();
