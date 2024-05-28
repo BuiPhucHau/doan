@@ -121,16 +121,15 @@ ngOnInit(){
   remoteAllCart()
   {
     this.cartService.clearCart();
-    this.reservationService.clearCart();
-
+    this.reservationService.clearItemTable();
   }
   checkOut()
   {
     const dialogRef = this.dialog.open(PaymentSuccessDialogComponent);
 
     dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['base/home']);
       this.remoteAllCart();
+      this.router.navigate(['base/home']);
     });
   }
   goBackPayment()

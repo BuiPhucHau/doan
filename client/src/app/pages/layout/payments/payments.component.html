@@ -6,19 +6,19 @@
     </div>
   </div>
 
-  <div class="info" *ngIf="isTable">
-    <div *ngFor="let item of tableitems">
+  <div class="info" *ngIf="tableitems != null">
+    <div>
       <div class="form-group">
         <label for="reservationId">Table</label>
-        <input type="text" class="form-control" placeholder="{{item.tableId}}" readonly>
+        <input type="text" class="form-control" placeholder="{{tableitems.tableId}}" readonly>
       </div>
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" placeholder="{{item.name}}" readonly>
+        <input type="text" class="form-control" placeholder="{{tableitems.name}}" readonly>
       </div>
       <div class="form-group">
         <label for="phone">Phone</label>
-        <input type="text" class="form-control" placeholder="{{item.phone}}" readonly>
+        <input type="text" class="form-control" placeholder="{{tableitems.phone}}" readonly>
       </div>
       <form [formGroup]="addOrderForm">
         <div class="form-group">
@@ -32,12 +32,12 @@
       </form>
       <div class="form-group">
         <label for="date">Date</label>
-        <input type="text" class="form-control" placeholder="{{item.date}}" readonly>
+        <input type="text" class="form-control" placeholder="{{tableitems.date}}" readonly>
       </div>
     </div>
   </div>
 
-  <div class="info" *ngIf="!isTable">
+  <div class="info" *ngIf="tableitems == null">
     <form [formGroup]="addOrderForm">
       <div class="form-group">
         <label for="orderName">Name</label>

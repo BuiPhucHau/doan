@@ -89,6 +89,9 @@ export class PaymentsComponent {
       })
     );
     this.tableitems = this.reservationService.getItemTable();
+    
+    this.currentReservation = this.tableitems;
+    
     this.tableitems.forEach(item => {
       if (item.reservationId) {
         this.isTable = true; 
@@ -104,7 +107,6 @@ export class PaymentsComponent {
       });
     }
   }
-
   tableitems = this.reservationService.getItemTable();
   items = this.cartService.getSelectedDishes();
   totalAmount()
