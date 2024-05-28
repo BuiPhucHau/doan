@@ -44,6 +44,7 @@ import { Reservation } from '../../../models/reservation.model';
     tableList: Table[] = [];
     filteredTables: Table[] = [];
 
+    isCurrentReservation : boolean = false;
 
     tablesTakenByLocationId$ = this.store.select(
       'table',
@@ -299,10 +300,31 @@ import { Reservation } from '../../../models/reservation.model';
           this.reservationService.addToTableToCart(tableCart)
           this.router.navigate(['base/menu']);
       }
-
       console.log('Selected Table:', selectedTable);
       this.bookingTable.patchValue({
         tableId: selectedTable.tableId,
       });
     }
+  
+  selectTableNoReservation(tableId: string): void {
+    const selectedTable = this.tableList.find(
+      (table) => table.tableId === tableId
+    );
+    if (!selectedTable) {
+      this.alerts
+        .open('Table not found, please select a valid table.', {
+          status: 'error',
+        })
+        .subscribe();
+      return;
+    }
+    if (selectedTable.status === true) {
+        this.router.navigate(['base/menu']);
+    }
+
+    console.log('selectTableNoReservation:', selectedTable);
+    this.bookingTable.patchValue({
+      tableId: selectedTable.tableId,
+    });
   }
+}

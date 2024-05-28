@@ -89,12 +89,9 @@ export class PaymentsComponent {
       })
     );
     this.tableitems = this.reservationService.getItemTable();
-    this.tableitems.forEach(item => {
-      if (item.reservationId) {
-        this.isTable = true; 
-        this.currentReservation = item; // Gán item vào currentReservation
-      }
-    });
+
+    this.currentReservation = this.tableitems;
+    
 
     if (this.currentReservation) {
       this.addOrderForm.patchValue({
@@ -107,12 +104,7 @@ export class PaymentsComponent {
   }
 
   resetCurrentReservation(): void {
-    this.currentReservation = null;
-    this.addOrderForm.patchValue({
-      reservationId: '',
-      orderName: '',
-      orderPhone: ''
-    });
+    this.reservationService.clearItemTable
   }
   tableitems = this.reservationService.getItemTable();
   items = this.cartService.getSelectedDishes();

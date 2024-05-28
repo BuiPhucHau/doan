@@ -21,17 +21,18 @@
             display: flex;
             width: 200px;
             margin: 1rem;
+
             .branch {
                 border-radius: 10px;
                 height: 40px;
                 width: 175px;
-                    border-color: rgb(208, 208, 208);
-                    border-width: 1px;
-                    border-style: solid;
-            
+                border-color: rgb(208, 208, 208);
+                border-width: 1px;
+                border-style: solid;
+
             }
         }
-    
+
         .filter {
             display: flex;
             flex-direction: row;
@@ -42,16 +43,17 @@
                 margin-left: 1rem;
                 margin-bottom: 1rem;
                 border-radius: 10px;
-                border:1px solid rgb(209, 209, 209); /* Set default background color */
-              }
-              
-              .filter-table.active {
+                border: 1px solid rgb(209, 209, 209);
+                /* Set default background color */
+            }
+
+            .filter-table.active {
                 border: 2px solid var(--tui-primary);
 
-              }
+            }
         }
     }
-    
+
     .search_location {
         margin-top: 1rem;
         margin-bottom: 1rem;
@@ -59,8 +61,7 @@
         width: 250px;
     }
 
-    .tables {
-        width: auto;
+    .table_list {
         height: 80%;
         margin: auto;
         display: flex;
@@ -70,15 +71,26 @@
         overflow-y: scroll;
         display: grid;
         text-align: center;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 0fr));
-        .table {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-left: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
+        .tables {
+            // text-align: center;
+            // justify-content: center;
+            // align-items: center;
+            display: grid;
+            text-align: center;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 0fr));
+
+            .table {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-left: 1.5rem;
+
+            }
         }
     }
+
 }
 
 .line {
@@ -112,6 +124,7 @@
         align-items: center;
         margin: 1.5rem;
     }
+
     .checkbox {
         display: flex;
         flex-direction: row;
@@ -119,6 +132,7 @@
         // align-items: center;
         margin: 1.5rem;
     }
+
     .label-checkbox {
         margin-right: 1rem;
     }
@@ -148,6 +162,7 @@
     height: 150px !important;
     width: 150px !important;
     cursor: pointer !important;
+
     &:hover {
         box-shadow: var(--tui-shadow-hover);
     }
@@ -156,17 +171,20 @@
 .input {
     width: 150px !important;
 }
-.detail_save{
-    display: flex;justify-content: space-between;
+
+.detail_save {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     flex-direction: row;
+
     .btn_save {
         margin: 1rem;
         display: flex;
         justify-content: flex-end;
-    
+
     }
-    
+
     .save {
         display: flex;
         justify-content: center;
@@ -177,7 +195,7 @@
         color: white !important;
         font-weight: 400 !important;
         background-color: var(--tui-primary);
-    
+
     }
 
     .hi {
