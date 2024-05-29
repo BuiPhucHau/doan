@@ -1,6 +1,6 @@
 
 export interface IOrder {
-    reservationId: string;
+    tableId: string;
     orderId: number,
     orderName: string;
     orderPhone: string;

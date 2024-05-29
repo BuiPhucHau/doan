@@ -6,7 +6,7 @@ export interface Reservation {
      numberofPeople: number,
      date: Date,
      time: string,
-     tableId: Table,
+     tableId: string,
      phone: string,
      name: string,
 }

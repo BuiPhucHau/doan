@@ -88,7 +88,7 @@ export class OrderComponent {
     //   });
     // }
   }
-  itemsTable= this.reservationService.getItemTable();
+  // itemsTable= this.reservationService.getItemTable();
   
   items = this.cartService.getSelectedDishes();
   totalAmount()

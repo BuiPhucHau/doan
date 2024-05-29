@@ -13,30 +13,30 @@ export class ReservationService {
   constructor(private httpClient: HttpClient) { }
 
   // items: ITable[] = [];
-  item: ITable = {} as ITable;
+//   item: ITable = {} as ITable;
 
-  addToTableToCart(toTable: Reservation): void {
-    this.item = {
-      reservationId: toTable.reservationId,
-      numberofPeople: toTable.numberofPeople,
-      date: toTable.date,
-      time: toTable.time,
-      tableId: toTable.tableId,
-      phone: toTable.phone,
-      name: toTable.name,
-    }
-    this.saveCartToLocalStorage();
-  }
+//   addToTableToCart(toTable: Reservation): void {
+//     this.item = {
+//       reservationId: toTable.reservationId,
+//       numberofPeople: toTable.numberofPeople,
+//       date: toTable.date,
+//       time: toTable.time,
+//       tableId: toTable.tableId,
+//       phone: toTable.phone,
+//       name: toTable.name,
+//     }
+//     this.saveCartToLocalStorage();
+//   }
 
-getItemTable() {
-  this.loadTableToCartFromLocalStorage();
-  console.log("get du lieu thanh công");
-  console.log(this.item);
-  return this.item;
-}
-clearItemTable() {
-  this.item = {} as ITable;
-}
+// getItemTable() {
+//   this.loadTableToCartFromLocalStorage();
+//   console.log("get du lieu thanh công");
+//   console.log(this.item);
+//   return this.item;
+// }
+// clearItemTable() {
+//   this.item = {} as ITable;
+// }
 getReservation() {
   return this.httpClient.get<Reservation[] | any>('http://localhost:3000/reservation/get-all');
 }
@@ -50,17 +50,17 @@ updateReservation(reservationId: string) {
   return this.httpClient.put<Reservation[] | any>(`http://localhost:3000/reservation/update/${reservationId}`, reservationId);
 }
 
-  private saveCartToLocalStorage(): void {
-  localStorage.setItem(this.tableKey, JSON.stringify(this.item));
-  console.log(this.item);
-  console.log("luu thanh cong");
-}
+//   private saveCartToLocalStorage(): void {
+//   localStorage.setItem(this.tableKey, JSON.stringify(this.item));
+//   console.log(this.item);
+//   console.log("luu thanh cong");
+// }
 
-  private loadTableToCartFromLocalStorage(): void {
-  const storedItems = localStorage.getItem(this.tableKey);
-  if(storedItems) {
-    this.item = JSON.parse(storedItems);
-  }
-    console.log("get tableId thanh cong");
-}
+//   private loadTableToCartFromLocalStorage(): void {
+//   const storedItems = localStorage.getItem(this.tableKey);
+//   if(storedItems) {
+//     this.item = JSON.parse(storedItems);
+//   }
+//     console.log("get tableId thanh cong");
+// }
 }

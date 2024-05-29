@@ -24,7 +24,7 @@ export class TableEffects {
             )
         )
         )
-    );  
+    ); 
 
     getTableByLocationId$ = createEffect(() =>
         this.action$.pipe(

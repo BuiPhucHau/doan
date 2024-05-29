@@ -101,7 +101,7 @@ ngOnInit(){
 }
   orderItem = this.orderService.getOrderDetail();
   items = this.cartService.getSelectedDishes();
-  tableitems = this.reservationService.getItemTable();
+  // tableitems = this.reservationService.getItemTable();
   totalAmount()
   {
     let total = 0;
@@ -121,7 +121,7 @@ ngOnInit(){
   remoteAllCart()
   {
     this.cartService.clearCart();
-    this.reservationService.clearItemTable();
+    // this.reservationService.clearItemTable();
   }
   checkOut()
   {
@@ -139,5 +139,5 @@ ngOnInit(){
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
-
+  
 }

@@ -297,8 +297,13 @@ import { Reservation } from '../../../models/reservation.model';
         return;
       }
       if (selectedTable.status === true) {
-          this.reservationService.addToTableToCart(tableCart)
-          this.router.navigate(['base/menu']);
+          // this.reservationService.addToTableToCart(tableCart)
+          this.alerts
+          .open('Table is reservationted, please select a valid table.', {
+            status: 'error',
+          })
+          .subscribe();
+        return;
       }
       console.log('Selected Table:', selectedTable);
       this.bookingTable.patchValue({
@@ -319,7 +324,12 @@ import { Reservation } from '../../../models/reservation.model';
       return;
     }
     if (selectedTable.status === true) {
-        this.router.navigate(['base/menu']);
+      this.alerts
+      .open('Table is reservationted, please select a valid table.', {
+        status: 'error',
+      })
+      .subscribe();
+    return;
     }
 
     console.log('selectTableNoReservation:', selectedTable);
