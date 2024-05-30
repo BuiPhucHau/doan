@@ -67,3 +67,23 @@ export const updateFailure = createAction(
     props<{ updateErrMess: any }>()
 );
 
+export const checkoutTable = createAction(
+    '[Reservation] Checkout',
+    props<{ tableId: string }>()
+  );
+  
+  export const updateTableStatus = createAction(
+    '[Table] Update Status',
+    props<{ tableId: string, status: boolean }>()
+  );
+  
+  export const updateTableStatusSuccess = createAction(
+    '[Table] Update Status Success',
+    props<{ table: Table }>()
+  );
+  
+  export const updateTableStatusFailure = createAction(
+    '[Table] Update Status Failure',
+    props<{ error: any }>()
+  );
+

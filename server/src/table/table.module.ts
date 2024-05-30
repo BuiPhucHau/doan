@@ -13,6 +13,8 @@ imports: [
       { name: 'Table', schema: TableSchema },
       { name: 'Reservation', schema: ReservationSchema },
       { name: 'Location', schema: LocationSchema },
+      
+      
     ]),
 
     forwardRef(() => LocationModule),

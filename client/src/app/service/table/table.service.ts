@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Table } from '../../models/table.model';
 import { ITable } from '../../models/itable.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,17 @@ export class TableService {
 
   updateTable (tableId: string) {
     return this.httpClient.put<Table[] | any>(`http://localhost:3000/table/update/${tableId}`, tableId);
+  }
+
+  updateStatusAll(ids: string[], status: boolean) {
+    return this.httpClient.put<Table[] | any>(
+      `http://localhost:3000/table/allstatus?status=${status}`,
+      {ids}
+    );
+  }
+
+  updateTableStatus(tableId: string): Observable<Table> {
+    return this.httpClient.put<Table>(`http://localhost:3000/table/checkout/${tableId}`, { status: false });
   }
 
 

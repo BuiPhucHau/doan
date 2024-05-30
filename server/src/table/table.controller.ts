@@ -4,6 +4,7 @@ import { CreateTableDto } from './dto/create-table.dto';
 import { UpdateTableDto } from './dto/update-table.dto';
 import { log } from 'console';
 import { LocationService } from 'src/location/location.service';
+import { Table } from './entities/table.entity';
 
 @Controller('table')
 export class TableController {
@@ -65,6 +66,20 @@ export class TableController {
       throw error;
     }
   }
+
+  @Put('checkout/:tableId')
+  async checkoutTable(
+    @Param('tableId') tableId: string,
+    @Body('status') status: boolean,
+  ): Promise<Table> {
+    try {
+      const updatedTable = await this.tableService.updateStatus(tableId, status);
+      return updatedTable;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
   @Delete('delete')
   async remove(@Query('id') id: string) {

@@ -78,6 +78,20 @@ export class TableService {
   }
 }
 
+async updateStatus(id: string, status: boolean): Promise<Table> {
+  try {
+    const updatedTable = await this.tableModel.findOneAndUpdate(
+      { tableId: id },
+      { status: status },
+      { new: true },
+    );
+    return updatedTable;
+  } catch (err) {
+    throw new HttpException(err.message, err.status);
+  }
+}
+
+
   async remove(id: string) {
     try {
       const deletedTable = await this.tableModel.findOneAndDelete({ tableId: id });
