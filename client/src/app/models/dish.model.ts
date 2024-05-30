@@ -14,4 +14,5 @@ export interface Dish {
     featured: boolean,
     quantity: number,
     // isConfirmed:boolean
+    bringBack: boolean,
 }

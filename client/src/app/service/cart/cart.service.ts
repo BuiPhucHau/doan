@@ -29,7 +29,8 @@ export class CartService {
       category: dCart.category,
       status: dCart.status,
       featured: dCart.featured,
-      quantity: 1
+      quantity: 1,
+      bringBack: dCart.bringBack,
     }
     this.saveDetailToLocalStorage();
   }
@@ -50,7 +51,8 @@ export class CartService {
         category: dCart.category,
         status: dCart.status,
         featured: dCart.featured,
-        quantity: 1
+        quantity: 1,
+        bringBack: dCart.bringBack,
       }
       this.items.push(c);
     }
@@ -81,6 +83,7 @@ export class CartService {
     this.items = [];
     localStorage.removeItem(this.cartKey);
   }
+  
   private saveDetailToLocalStorage(): void {
     localStorage.setItem(this.cartKey, JSON.stringify(this.item));
     console.log("luu thanh cong");

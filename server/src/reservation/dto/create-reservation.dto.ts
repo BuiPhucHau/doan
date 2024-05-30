@@ -8,7 +8,6 @@ export class CreateReservationDto {
         public uId: string,
         public phone: string,
         public name: string,
-        public setdishes: boolean,
         public status: boolean
     ) {
 

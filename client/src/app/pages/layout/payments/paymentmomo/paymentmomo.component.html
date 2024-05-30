@@ -9,7 +9,7 @@
       <tr>
         <td class="order">
           <div class="thumb_cart">
-        <th *ngFor="let order of orderList" class="total_content" colspan="2">{{order.orderId}}</th>
+        <th class="total_content" colspan="2">{{orderItem.orderId}}</th>
   </div>
   </td>
   <td class="tt_quantity">
@@ -22,8 +22,6 @@
 <th class="total_content" colspan="2">{{ totalAmount().toLocaleString("vn-de")}} VND </th>
 </div>
 </td>
-</tr>
-<tr>
 </tr>
 </table>
 </div>
@@ -74,8 +72,9 @@
     <button class="btn btn-warning w-100" (click)="checkOut()">
       Payment confirmation
     </button>
-  <button class="btn btn-warning w-100" (click)="goBackPayment()">
-    Back to your payment
-  </button>
+    <button class="btn btn-warning w-100" (click)="goBackPayment()">
+      Back to your payment
+    </button>
+  </div>
 </div>
 </div>

@@ -1,10 +1,10 @@
 <div class="container">
-    <div class="dish" (click)="onDish()">
+    <div class="dish" (click)="onDish()" [class.active]="dishActive">
         <h1>
             Dish
         </h1>
     </div>
-    <div class="location" (click)="onLocation()">
+    <div class="location" (click)="onLocation()" [class.active]="locationActive">
         <h1>
             Location
         </h1>

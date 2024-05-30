@@ -1,12 +1,13 @@
 import { Location } from './location.model';
 import { Storage } from './storage.model';
+import { Table } from './table.model';
 
 export interface ITable {
-    tableId: string,
-    tableName: string,
-    seats: number,
-    status: boolean,
-    locationId: Location,
-    reservationId?: string,
-    avatarUrl?: Storage;
+    reservationId: string,
+    numberofPeople: number,
+    date: Date,
+    time: string,
+    tableId: Table,
+    phone: string,
+    name: string,
 }

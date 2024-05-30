@@ -25,4 +25,15 @@
         align-items: center;
         cursor: pointer;
     }
+    .location.active {
+        border-width: 2px;
+        border-color: #000000;
+        border-top: none;
+    }
+    .dish.active {
+        border-width: 2px;
+        border-color: #000;
+        border-top: none;
+    }
+
 }

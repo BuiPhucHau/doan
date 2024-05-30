@@ -34,17 +34,28 @@
     </div>
 
     <!-- TableList -->
-    <div class="tables">
-      <div (click)="selectTable(table.tableId, table)" class="table" *ngFor="let table of filteredTables">
-        <tui-avatar class="t-image" fallback="tuiIconUserLarge" new class="tui-space_left-3 avatar"
-          [avatarUrl]="table.status ? havebooked : havenotbook"></tui-avatar>
-        <p class="table-number">{{ table.tableName }}</p>
+    <div class="table_list">
+      <div *ngIf="reservationList.length > 0">
+        <div class="tables" *ngFor="let item of reservationList">
+          <div (click)="selectTable(table.tableId, item)" class="table" *ngFor="let table of filteredTables">
+            <tui-avatar class="t-image" fallback="tuiIconUserLarge" new class="tui-space_left-3 avatar"
+              [avatarUrl]="table.status ? havebooked : havenotbook"></tui-avatar>
+            <p class="table-number">{{ table.tableName }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="reservationList.length === 0">
+        <div class="tables">
+          <div (click)="selectTableNoReservation(table.tableId)" class="table" *ngFor="let table of filteredTables">
+            <tui-avatar class="t-image" fallback="tuiIconUserLarge" new class="tui-space_left-3 avatar"
+              [avatarUrl]="table.status ? havebooked : havenotbook"></tui-avatar>
+            <p class="table-number">{{ table.tableName }}</p>
+          </div>
+        </div>
       </div>
     </div>
-
   </div>
-
-
   <div class="container-detail_table">
     <div class="detail_save">
       <p style="font-size: 14px; font-weight: bold; margin: 1rem;">Reservation Details</p>
@@ -56,25 +67,26 @@
 
       <!-- Dialog - Lưu món -->
       <!-- <ng-template let-observer [tuiDialogOptions]="{label: 'Do you want to prepare the dish in advance? ', size: 's'}"
-        [(tuiDialog)]="open1">
-        <form [formGroup]="exampleForm" (ngSubmit)="observer.complete()">
-          <p>set 1</p>
-          <p>
-            <button tuiButton type="submit" (click)="createBookingTable_showDialog()">
-              Yes
-            </button>
-            <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
-              (click)="createBookingTable_showDialog()">
-              No
-            </button>
-          </p>
-        </form>
-      </ng-template> -->
+      [(tuiDialog)]="open1">
+      <form [formGroup]="exampleForm" (ngSubmit)="observer.complete()">
+        <p>set 1</p>
+        <p>
+          <button tuiButton type="submit" (click)="createBookingTable_showDialog()">
+            Yes
+          </button>
+          <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+            (click)="createBookingTable_showDialog()">
+            No
+          </button>
+        </p>
+      </form>
+    </ng-template> -->
 
       <!-- Dialog - Đặt cọc -->
       <ng-template let-observer [tuiDialogOptions]="{label: 'Notification', size: 's'}" [(tuiDialog)]="open2">
         <form [formGroup]="exampleForm" (ngSubmit)="observer.complete()">
-          <p>We apologize for our restaurant's regulations. We cannot guarantee the customer's ability to sit without a
+          <p>We apologize for our restaurant's regulations. We cannot guarantee the customer's ability to sit without
+            a
             sewer account. If customers want to be sure to reserve this table, they must order a box.
           </p>
           <tui-input formControlName="exampleControl">
@@ -96,15 +108,14 @@
       <!-- Dialog - Đặt bàn thành công -->
       <ng-template let-observer [tuiDialogOptions]="{label: 'Thanks for your reservation!', size: 's'}"
         [(tuiDialog)]="open3">
-        <form [formGroup]="exampleForm" (ngSubmit)="observer.complete()">
+        <form [formGroup]="exampleForm">
           <p>Your seat has been confirmed and please arrive on time.</p>
           <p>
-            <button tuiButton type="submit">
-              Done
-            </button>
+            <button tuiButton type="button" (click)="done()">Done</button>
           </p>
         </form>
       </ng-template>
+
     </div>
 
     <form [formGroup]="bookingTable">
@@ -132,15 +143,16 @@
       <!-- Pax Number -->
       <div class="input-reservation">
         <label class="label-reservation">Pax Number</label>
-        <tui-select class="input" tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true" formControlName="numberofPeople">
+        <tui-select class="input" tuiTextfieldSize="m" [tuiTextfieldLabelOutside]="true"
+          formControlName="numberofPeople">
           <tui-data-list-wrapper *tuiDataList [items]="taxNumberOptions"></tui-data-list-wrapper>
         </tui-select>
       </div>
 
       <!-- <div class="checkbox">
-        <label class="label-checkbox">Đặt món</label>
-        <tui-checkbox formControlName="setdishes" class="tui-space_bottom-3"></tui-checkbox>
-      </div> -->
+      <label class="label-checkbox">Đặt món</label>
+      <tui-checkbox formControlName="setdishes" class="tui-space_bottom-3"></tui-checkbox>
+    </div> -->
 
       <div class="line"></div>
       <p style="font-size: 14px; margin: 1rem; font-weight: bold;">Client Details</p>

@@ -3,10 +3,147 @@
     height: 100%;
     display: flex;
     //justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-}
+    .container_payment {
+        width: 40%;
+        height: 100%;
+    }
+    // .container_list {
+    //     width: 50%;
+    //     height: 100%;
 
+    //     .table_list {
+    //         height: 80%;
+    //         margin: auto;
+    //         display: flex;
+    //         text-align: center;
+    //         justify-content: center;
+    //         align-items: center;
+    //         overflow-y: scroll;
+    //         display: grid;
+    //         text-align: center;
+    //         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    
+    //         .tables {
+    //             // text-align: center;
+    //             // justify-content: center;
+    //             // align-items: center;
+    //             display: grid;
+    //             text-align: center;
+    //             grid-template-columns: repeat(auto-fit, minmax(200px, 0fr));
+    
+    //             .table {
+    //                 display: flex;
+    //                 flex-direction: column;
+    //                 justify-content: center;
+    //                 margin-left: 1.5rem;
+    
+    //             }
+    //         }
+    //     }
+    // }
+
+    .container_list{
+        width: 60%;
+        height: 100%;
+        border-left: 0.5px solid rgb(180, 180, 180);
+        border-right: 0.5px solid rgb(180, 180, 180);
+    
+        .container-filter {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+    
+            .address {
+                display: flex;
+                width: 200px;
+                margin: 1rem;
+    
+                .branch {
+                    border-radius: 10px;
+                    height: 40px;
+                    width: 175px;
+                    border-color: rgb(208, 208, 208);
+                    border-width: 1px;
+                    border-style: solid;
+    
+                }
+            }
+    
+            .filter {
+                display: flex;
+                flex-direction: row;
+    
+                .filter-table {
+                    display: flex;
+                    flex-direction: row;
+                    margin-left: 1rem;
+                    margin-bottom: 1rem;
+                    border-radius: 10px;
+                    border: 1px solid rgb(209, 209, 209);
+                    /* Set default background color */
+                }
+    
+                .filter-table.active {
+                    border: 2px solid var(--tui-primary);
+    
+                }
+            }
+         
+        }
+    
+        .search_location {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            margin-left: 1rem;
+            width: 250px;
+        }
+    
+        .table_list {
+            height: 80%;
+            margin: auto;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            overflow-y: scroll;
+            display: grid;
+            text-align: center;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    
+            .tables {
+                // text-align: center;
+                // justify-content: center;
+                // align-items: center;
+                display: grid;
+                text-align: center;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 0fr));
+    
+                .table {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    margin-left: 1.5rem;
+    
+                }
+            }
+        }
+    
+    }
+}
+.avatar {
+    box-shadow: var(--tui-shadow);
+    background: transparent;
+    border: 1px solid;
+    height: 150px !important;
+    width: 150px !important;
+    cursor: pointer !important;
+
+    &:hover {
+        box-shadow: var(--tui-shadow-hover);
+    }
+}
 .title {
     width: 70%;
     height: 10%;

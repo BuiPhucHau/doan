@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IOrder } from '../../models/iorder.model';
 import { Order } from '../../models/order.model';
 
 @Injectable({
@@ -10,10 +11,11 @@ export class OrderService {
 
 
   constructor(private httpClient: HttpClient ) { }
-  orderItem: Order = {} as Order;
+  orderItem: IOrder = {} as IOrder;
 
-  addToOrderDetail(orderDetai: Order): void {
+  addToOrderDetail(orderDetai: IOrder): void {
     this.orderItem = {
+      tableId: orderDetai.tableId,
       orderId: orderDetai.orderId,
       orderName: orderDetai.orderName,
       orderPhone: orderDetai.orderPhone,
@@ -39,6 +41,11 @@ export class OrderService {
     }
     console.log("get thanh cong");
   }
+  clearCart() {
+    this.orderItem = {} as IOrder;
+    localStorage.removeItem(this.orderKey);
+  }
+  
   getOrder() {
     return this.httpClient.get<Order[] | any>('http://localhost:3000/order/get-all');
   }

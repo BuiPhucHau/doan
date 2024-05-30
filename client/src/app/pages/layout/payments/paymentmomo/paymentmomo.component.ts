@@ -19,6 +19,8 @@ import { PaymentImageState } from '../../../../ngrx/state/paymentimage.state';
 import { ShareModule } from '../../../../shared/shared.module';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentSuccessDialogComponent } from '../payment-success-dialog/payment-success-dialog.component';
+import { ReservationService } from '../../../../service/reservation/reservation.service';
+import { OrderService } from '../../../../service/order/order.service';
 @Component({
   selector: 'app-paymentmomo',
   standalone: true,
@@ -38,6 +40,8 @@ export class PaymentmomoComponent {
   constructor(private router: Router,
     private cartService: CartService,
     private dialog: MatDialog,
+    private reservationService: ReservationService,
+    private orderService: OrderService,
     private store: Store<{
       order: OrderState;
       dish: DishState;
@@ -71,6 +75,7 @@ export class PaymentmomoComponent {
     ));
   }
 ngOnInit(){
+  this.orderItem = this.orderService.getOrderDetail();
   this.store.dispatch(OrderActions.get());
   this.subscriptions.push( 
     this.order$.subscribe((orderList) => {  
@@ -94,8 +99,9 @@ ngOnInit(){
     }
   ));
 }
+  orderItem = this.orderService.getOrderDetail();
   items = this.cartService.getSelectedDishes();
-
+  // tableitems = this.reservationService.getItemTable();
   totalAmount()
   {
     let total = 0;
@@ -115,14 +121,15 @@ ngOnInit(){
   remoteAllCart()
   {
     this.cartService.clearCart();
+    // this.reservationService.clearItemTable();
   }
   checkOut()
   {
     const dialogRef = this.dialog.open(PaymentSuccessDialogComponent);
 
     dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['base/home']);
       this.remoteAllCart();
+      this.router.navigate(['base/home']);
     });
   }
   goBackPayment()
@@ -132,5 +139,5 @@ ngOnInit(){
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
-
+  
 }

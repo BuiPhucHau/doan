@@ -29,9 +29,6 @@ export class Reservation {
     @Prop({required: true})
     phone: string;
 
-    @Prop({required: true})
-    setdishes: boolean;
-
     @Prop({ required: true })
     status: boolean;
 }
