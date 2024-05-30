@@ -5,7 +5,8 @@ import { Reservation } from 'src/reservation/entities/reservation.entity';
 
 export class CreateOrderDto {
     constructor
-    (
+    (   
+        public reservationId: string,
         public tableId: string,
         public orderId: number,
         public orderName: string,

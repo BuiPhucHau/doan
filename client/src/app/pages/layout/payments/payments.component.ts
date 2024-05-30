@@ -34,6 +34,7 @@ import * as LocationActions from '../../../ngrx/actions/location.actions';
 import { TuiAlertService } from '@taiga-ui/core';
 import * as ReservationActions from '../../../ngrx/actions/reservation.actions';
 import { ReservationState } from '../../../ngrx/state/reservation.state';
+import { TuiDay } from '@taiga-ui/cdk';
 @Component({
   selector: 'app-payments',
   standalone: true,
@@ -84,15 +85,27 @@ export class PaymentsComponent {
       { seats: '6 Person', isActive: false },
       { seats: '8 Person', isActive: false },
     ];
+// Lấy timestamp hiện tại
+timestamp = Date.now();
+// Khởi tạo Date object từ timestamp
+date = new Date(this.timestamp);
+
+// Lấy ngày, tháng, năm từ Date object
+day = this.date.getDate();
+month = this.date.getMonth();
+year = this.date.getFullYear();
+
+isReservationIdReadOnly = false;
 
   addOrderForm = new FormGroup({
+    reservationId: new FormControl(''),
     tableId: new FormControl(''), 
     orderId: new FormControl('', Validators.required),
     orderName: new FormControl('', Validators.required),
     orderPhone: new FormControl('', Validators.required),
-    orderAddress: new FormControl('', Validators.required),
-    orderEmail: new FormControl('', Validators.required),
-    orderDate: new FormControl(this.currentDate, Validators.required),
+    orderAddress: new FormControl({ value: '', disabled: false }, Validators.required),
+    orderEmail: new FormControl({ value: '', disabled: false }, Validators.required),
+    orderDate: new FormControl(new TuiDay(this.year, this.month, this.day)),
   });
   constructor(
     private router: Router,
@@ -235,6 +248,7 @@ export class PaymentsComponent {
   }
   createOrder(): void {
     const addOrderForm: any = {
+      reservationId: this.addOrderForm.value.reservationId ?? '',
       tableId: this.addOrderForm.value.tableId ?? '',
       orderId: this.generateRandomOrderId(),
       orderName: this.addOrderForm.value.orderName ?? '',
@@ -243,7 +257,7 @@ export class PaymentsComponent {
       orderEmail: this.addOrderForm.value.orderEmail ?? '',
       orderDate: this.addOrderForm.value.orderDate ?? new Date(),
     };
-    console.log('Thanh toan thanh cong', addOrderForm);
+    console.log('Create Order Bill success', addOrderForm);
     this.store.dispatch(OrderActions.createOrder({ order: addOrderForm }));
     this.orderService.addToOrderDetail(addOrderForm);
   }
@@ -273,10 +287,14 @@ export class PaymentsComponent {
      if (selectedReservation !== null) {
       console.log('Selected Table:', selectedReservation);
         this.addOrderForm.patchValue({
+          reservationId: selectedReservation?.reservationId.toString(),
           tableId: selectedReservation?.tableId.toString(),
           orderName: selectedReservation?.name,
           orderPhone: selectedReservation?.phone,
+          orderEmail: ' ',
+          orderAddress: ' ',
         });
+       
      }
      if (selectedReservation === null) { 
       this.alerts

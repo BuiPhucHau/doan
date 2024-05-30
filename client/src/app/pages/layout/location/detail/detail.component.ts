@@ -70,7 +70,7 @@ export class DetailComponent implements OnDestroy {
     this.router.navigate(['/base/location']);
   }
   tablebooking(location: Location): void {
-    this.locationService.addToLocationDetail(location);
+    // this.locationService.addToLocationDetail(location);
     this.router.navigate(['base/booking']);
   }
 }

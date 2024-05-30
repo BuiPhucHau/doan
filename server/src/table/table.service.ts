@@ -82,7 +82,7 @@ async updateStatus(id: string, status: boolean): Promise<Table> {
   try {
     const updatedTable = await this.tableModel.findOneAndUpdate(
       { tableId: id },
-      { status: status },
+      { status: status, reservationId: null },
       { new: true },
     );
     return updatedTable;

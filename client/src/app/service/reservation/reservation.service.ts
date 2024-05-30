@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Reservation } from '../../models/reservation.model';
 import { ITable } from '../../models/itable.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,10 @@ createReservation(reservation: Reservation) {
 
 updateReservation(reservationId: string) {
   return this.httpClient.put<Reservation[] | any>(`http://localhost:3000/reservation/update/${reservationId}`, reservationId);
+}
+
+removeReservation(reservationId: string): Observable<any> {
+  return this.httpClient.delete(`http://localhost:3000/reservation/delete?id=${reservationId}`);
 }
 
 //   private saveCartToLocalStorage(): void {

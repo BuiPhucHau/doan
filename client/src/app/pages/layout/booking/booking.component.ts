@@ -248,18 +248,18 @@ import { Reservation } from '../../../models/reservation.model';
         console.log('No location selected');
       }
     }
-    onItemNameChange() {
-      console.log('Branch is selected: ', this.item.name);
-      if (this.item.name != null && this.item.name !== '') {
-           console.log('Location selected: ', this.item.name);
-         this.store.dispatch(
-           TableActions.getByLocationId({ locationId: this.item.name })
-         );
-       } 
-       else {
-         console.log('No location selected');
-       }
-    }
+    // onItemNameChange() {
+    //   console.log('Branch is selected: ', this.item.name);
+    //   if (this.item.name != null && this.item.name !== '') {
+    //        console.log('Location selected: ', this.item.name);
+    //      this.store.dispatch(
+    //        TableActions.getByLocationId({ locationId: this.item.name })
+    //      );
+    //    } 
+    //    else {
+    //      console.log('No location selected');
+    //    }
+    // }
     /// Filter Table
     filterTable(seats: string): void {
       this.persons.forEach((p) => (p.isActive = p.seats === seats));

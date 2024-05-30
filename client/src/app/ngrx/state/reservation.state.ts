@@ -12,4 +12,9 @@ export interface ReservationState {
   isCreateReservationSuccess: boolean,
   createErrMess: string,
   reservation: Reservation,
+
+  ///////////////REMOVE
+  isRemoveReservationLoading: boolean,
+  isRemoveReservationSuccess: boolean,
+  removeErrMess: string,
 }

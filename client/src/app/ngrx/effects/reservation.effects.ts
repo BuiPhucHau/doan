@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as ReservationActions from '../actions/reservation.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ReservationService } from '../../service/reservation/reservation.service';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, exhaustMap, map, mergeMap, of } from 'rxjs';
 @Injectable()
 export class ReservationEffects {
   constructor(
@@ -48,6 +48,18 @@ export class ReservationEffects {
               })
             )
           )
+        )
+      )
+    )
+  );
+
+  removeReservation$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(ReservationActions.removeReservation),
+      mergeMap(action =>
+        this.reservationService.removeReservation(action.reservationId).pipe(
+          map(() => ReservationActions.removeReservationSuccess({ reservationId: action.reservationId })),
+          catchError(error => of(ReservationActions.removeReservationFailure({ error })))
         )
       )
     )

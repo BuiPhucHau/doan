@@ -15,6 +15,7 @@ export class OrderService {
 
   addToOrderDetail(orderDetai: IOrder): void {
     this.orderItem = {
+      reservationId: orderDetai.reservationId,
       tableId: orderDetai.tableId,
       orderId: orderDetai.orderId,
       orderName: orderDetai.orderName,
@@ -39,7 +40,7 @@ export class OrderService {
     if (storedItems) {
       this.orderItem = JSON.parse(storedItems);
     }
-    console.log("get thanh cong");
+    console.log("get order thanh cong");
   }
   clearCart() {
     this.orderItem = {} as IOrder;

@@ -13,6 +13,10 @@ export const initialState: ReservationState = {
   isCreateReservationSuccess: false,
   createErrMess: '',
   reservation:<Reservation>{},
+
+  isRemoveReservationLoading: false,
+  isRemoveReservationSuccess: false,
+  removeErrMess: '',
 };
 
 //////////////////////////// GET reservation //////////////////////////
@@ -71,6 +75,33 @@ export const reservationReducer = createReducer(
       isCreateReservationLoading: false,
       isCreateReservationSuccess: false,
       createErrMess:action.createErrMess,
+    };
+  }),
+
+  //////////////////////////// REMOVE reservation //////////////////////////
+  on(ReservationActions.removeReservation,(state) =>
+  {
+    return {
+      ...state,
+      isRemoveReservationLoading: true,
+      isRemoveReservationSuccess: false,
+      removeErrMess: '',
+    };
+  }),
+  on(ReservationActions.removeReservationSuccess, (state, { reservationId })=> {
+    return {
+      ...state,
+      isRemoveReservationLoading: false,
+      isRemoveReservationSuccess: true,
+      reservationList: state.reservationList.filter(reservation => reservation.reservationId !== reservationId)
+    };
+  }),
+  on(ReservationActions.removeReservationFailure, (state, {error}) => {
+    return {
+      ...state,
+      isRemoveReservationLoading: false,
+      isRemoveReservationSuccess: false,
+      removeErrMess: error,
     };
   })
 );

@@ -4,13 +4,13 @@
     <div class="wrapper">
         <form action="#">
             <h2>LOGIN</h2>
-            <div [formGroup]="accountForm">
+            <div [formGroup]="accountForm" (ngSubmit)="loginWithAccount()">
                 <div class="input-field">
-                    <input type="text" required>
+                    <input type="text" formControlName="email" required>
                     <label> Enter your email</label>
                 </div>
                 <div class="input-field">
-                    <input type="text" required>
+                    <input type="text" formControlName="password" required>
                     <label> Enter your password</label>
                 </div>
             </div>

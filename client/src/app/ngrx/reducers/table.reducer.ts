@@ -93,7 +93,9 @@ export const tableReducer = createReducer(
       ...state,
       isCheckoutLoading: false,
       isCheckoutSuccess: true,
-      tableList: state.tableList.map(t => t.tableId === table.tableId ? table : t),
+      tableList: state.tableList.map(t =>
+        t.tableId === table.tableId ? { ...t, reservationId: '' } : t
+      ),
       checkoutErrMess: ''
     })),
     on(TableActions.updateTableStatusFailure, (state, { error }) => ({

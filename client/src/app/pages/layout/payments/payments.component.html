@@ -10,28 +10,72 @@
     <div class="info">
       <form [formGroup]="addOrderForm">
         <div class="form-group">
-          <label for="orderName">Table</label>
-          <input type="text" class="form-control" formControlName="tableId">
+          <label class="label-client">Reservation</label>
+          <tui-input tuiTextfieldSize="m" class="form-control" formControlName="reservationId"
+            [tuiTextfieldCleaner]="true" [readOnly]="true">
+            Reservation Id
+            <input tuiTextfield type="text" />
+          </tui-input>
+        </div>
+        <!-- <div class="form-group">
+          <label for="orderName">Reservation</label>
+          <input type="text" class="form-control" formControlName="reservationId">
+        </div> -->
+        <div class="form-group">
+          <label class="label-client">Table</label>
+          <tui-input tuiTextfieldSize="m" class="form-control" formControlName="tableId"
+            [tuiTextfieldCleaner]="true" [readOnly]="true">
+            Table Id
+            <input tuiTextfield type="text" />
+          </tui-input>
+          <!-- <label for="orderName">Table</label>
+          <input type="text" class="form-control" formControlName="tableId"> -->
         </div>
         <div class="form-group">
-          <label for="orderName">Name</label>
-          <input type="text" class="form-control" formControlName="orderName">
+          <label class="label-client">Name</label>
+          <tui-input tuiTextfieldSize="m" class="form-control" formControlName="orderName"
+            [tuiTextfieldCleaner]="true">
+            Enter name
+            <input tuiTextfield type="text" />
+          </tui-input>
+          <!-- <label for="orderName">Name</label>
+          <input type="text" class="form-control" formControlName="orderName"> -->
         </div>
         <div class="form-group">
-          <label for="orderPhone">Phone</label>
-          <input type="text" class="form-control" formControlName="orderPhone">
+          <label class="label-client">Phone</label>
+          <tui-input tuiTextfieldSize="m" class="form-control" formControlName="orderPhone"
+            [tuiTextfieldCleaner]="true">
+            Enter phone number
+            <input tuiTextfield type="text" />
+          </tui-input>
+          <!-- <label for="orderPhone">Phone</label>
+          <input type="text" class="form-control" formControlName="orderPhone"> -->
         </div>
         <div class="form-group">
-          <label for="orderAddress">Address</label>
-          <input type="text" class="form-control" formControlName="orderAddress">
+          <label class="label-client">Address</label>
+          <tui-input tuiTextfieldSize="m" class="form-control" formControlName="orderAddress"
+            [tuiTextfieldCleaner]="true" >
+            Enter address
+            <input tuiTextfield type="text" />
+          </tui-input>
+          <!-- <label for="orderAddress">Address</label>
+          <input type="text" class="form-control" formControlName="orderAddress"> -->
         </div>
         <div class="form-group">
-          <label for="orderEmail">Email</label>
-          <input type="text" class="form-control" formControlName="orderEmail">
+          <label class="label-client">Email</label>
+          <tui-input tuiTextfieldSize="m" class="form-control" formControlName="orderEmail"
+            [tuiTextfieldCleaner]="true">
+            Enter email
+            <input tuiTextfield type="text" />
+          </tui-input>
+          <!-- <label for="orderEmail">Email</label>
+          <input type="text" class="form-control" formControlName="orderEmail"> -->
         </div>
         <div class="form-group">
-          <label for="orderDate">Date</label>
-          <input type="date" class="form-control" formControlName="orderDate">
+          <label class="label-client">Date</label>
+        <tui-input-date class="form-control" tuiTextfieldSize="m" formControlName="orderDate">Date</tui-input-date>
+          <!-- <label for="orderDate">Date</label>
+          <input type="date" class="form-control" formControlName="orderDate"> -->
         </div>
       </form>
     </div>
@@ -49,12 +93,12 @@
 
       <!-- Select location -->
       <div class="search_location">
-          <tui-combo-box tuiTextfieldSize="s" class="b-form" [(ngModel)]="locationValue"
-            (ngModelChange)="onLocationChange()" [tuiTextfieldCleaner]="true">
-            Select your branch
-            <input tuiTextfield (input)="locationValue" />
-            <tui-data-list-wrapper *tuiDataList [items]="locationList"></tui-data-list-wrapper>
-          </tui-combo-box>
+        <tui-combo-box tuiTextfieldSize="s" class="b-form" [(ngModel)]="locationValue"
+          (ngModelChange)="onLocationChange()" [tuiTextfieldCleaner]="true">
+          Select your branch
+          <input tuiTextfield (input)="locationValue" />
+          <tui-data-list-wrapper *tuiDataList [items]="locationList"></tui-data-list-wrapper>
+        </tui-combo-box>
       </div>
 
       <!-- Filter -->

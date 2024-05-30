@@ -30,4 +30,17 @@ export const createReservationFailure = createAction(
     props<{ createErrMess: any }>()
 );
 
-// export const
+export const removeReservation = createAction(
+  '[Reservation] Delete Reservation',
+  props<{ reservationId: string }>()
+);
+
+export const removeReservationSuccess = createAction(
+  '[Reservation] Delete Reservation Success',
+  props<{ reservationId: string }>()
+);
+
+export const removeReservationFailure = createAction(
+  '[Reservation] Delete Reservation Failure',
+  props<{ error: any }>()
+);

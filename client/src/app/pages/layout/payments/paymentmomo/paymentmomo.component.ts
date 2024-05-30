@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DishState } from '../../../../ngrx/state/dish.state';
 import { categoryState } from '../../../../ngrx/state/category.state';
@@ -22,6 +22,7 @@ import { PaymentSuccessDialogComponent } from '../payment-success-dialog/payment
 import { ReservationService } from '../../../../service/reservation/reservation.service';
 import { OrderService } from '../../../../service/order/order.service';
 import * as TableActions from '../../../../ngrx/actions/table.actions';
+import * as ReservationActions from '../../../../ngrx/actions/reservation.actions'
 @Component({
   selector: 'app-paymentmomo',
   standalone: true,
@@ -99,6 +100,7 @@ export class PaymentmomoComponent {
         }
       })
     );
+
   }
   orderItem = this.orderService.getOrderDetail();
   items = this.cartService.getSelectedDishes();
@@ -122,19 +124,22 @@ export class PaymentmomoComponent {
     this.cartService.clearCart();
     // this.reservationService.clearItemTable();
   }
+
   checkOut() {
     const tableId = this.orderItem.tableId;
+    const reservationId = this.orderItem.reservationId;
 
-    if (tableId) {
+    if (reservationId) {
+      this.store.dispatch(ReservationActions.removeReservation({ reservationId }));
+    }
+    if (tableId) {    
       this.store.dispatch(TableActions.checkoutTable({ tableId }));
     }
     const dialogRef = this.dialog.open(PaymentSuccessDialogComponent);
-
     dialogRef.afterClosed().subscribe(() => {
       this.remoteAllCart();
       this.router.navigate(['base/home']);
     });
-    
   }
   goBackPayment() {
     this.router.navigate(['base/payments']);

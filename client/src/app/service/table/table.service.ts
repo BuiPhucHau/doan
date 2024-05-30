@@ -71,7 +71,7 @@ export class TableService {
   }
 
   updateTableStatus(tableId: string): Observable<Table> {
-    return this.httpClient.put<Table>(`http://localhost:3000/table/checkout/${tableId}`, { status: false });
+    return this.httpClient.put<Table>(`http://localhost:3000/table/checkout/${tableId}`, { status: false, reservationId: null });
   }
   
   // updateStatusAll(ids: string[], status: boolean) {

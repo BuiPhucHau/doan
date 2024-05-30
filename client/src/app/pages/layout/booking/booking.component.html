@@ -5,15 +5,15 @@
 
       <!-- Select location -->
       <div class="search_location">
-        <div *ngIf="item !== null">
+        <!-- <div *ngIf="item !== null">
           <tui-combo-box tuiTextfieldSize="s" class="b-form" [(ngModel)]="item.name"
             (ngModelChange)="onItemNameChange()" [tuiTextfieldCleaner]="true">
             Select your branch
             <input tuiTextfield (input)="item.name" />
             <tui-data-list-wrapper *tuiDataList [items]="locationList"></tui-data-list-wrapper>
           </tui-combo-box>
-        </div>
-        <div *ngIf="item === null">
+        </div> -->
+        <div>
           <tui-combo-box tuiTextfieldSize="s" class="b-form" [(ngModel)]="locationValue"
             (ngModelChange)="onLocationChange()" [tuiTextfieldCleaner]="true">
             Select your branch
@@ -120,8 +120,8 @@
 
     <form [formGroup]="bookingTable">
       <div class="input-reservation">
-        <label class="label-reservation">Table Number</label>
-        <tui-input tuiTextfieldSize="m" class="input" formControlName="tableId" [tuiTextfieldCleaner]="true">
+        <label class="label-reservation">Table Name</label>
+        <tui-input tuiTextfieldSize="m" class="input" formControlName="tableId" [tuiTextfieldCleaner]="true" [readOnly]="true">
           Table
           <input tuiTextfield type="text" />
         </tui-input>

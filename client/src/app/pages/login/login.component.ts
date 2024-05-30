@@ -29,6 +29,16 @@ export class LoginComponent {
   userFirebase$ = this.store.select('auth', 'userFirebase');
   isGetSuccessUser = false;
 
+  accountForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
+
+  accountData = {
+    email: '',
+    password: '',
+  };
+
   constructor(
     private router: Router,
     private auth: Auth,
@@ -56,12 +66,12 @@ export class LoginComponent {
         if (this.accountData.password != '' && this.accountData.email != '') {
           console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
           if (user.password == this.accountData.password) {
-            const userAsJsoBth = JSON.stringify(user);
-            sessionStorage.setItem('user', userAsJsoBth);
+            const userAsJson = JSON.stringify(user);
+            sessionStorage.setItem('user', userAsJson);
             console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
             this.router.navigate(['/base/home']);
             this.isGetSuccessUser = false;
-            console.log('login w account');
+            console.log('login with account');
             this.accountData = {
               email: '',
               password: '',
@@ -69,34 +79,21 @@ export class LoginComponent {
           }
         } else {
           if (this.isLoginWithGoogle && this.userFirebase.email == user.email) {
-
             console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
             const userAsJsonGG = JSON.stringify(user);
             sessionStorage.setItem('user', userAsJsonGG);
             console.log(sessionStorage);
             this.router.navigate(['/base/home']);
-            console.log('login w gg');
+            console.log('login with Google');
             this.isGetSuccessUser = false;
           }
         }
-      } else if (this.isGetSuccessUser && user.email == "404 user not found"&& this.isLoginWithGoogle) {
-
+      } else if (this.isGetSuccessUser && user.email == "404 user not found" && this.isLoginWithGoogle) {
         console.log(this.userFirebase);
         this.router.navigate(['/register']);
-
       }
     });
   }
-
-  accountForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-  });
-
-  accountData = {
-    email: '',
-    password: '',
-  };
 
   loginWithAccount() {
     this.accountData = {
@@ -113,7 +110,6 @@ export class LoginComponent {
     this.isLoginWithGoogle = true;
     this.store.dispatch(AuthActions.login());
   }
-
 
   registerclick() {
     this.isLoginWithGoogle = false;
