@@ -21,23 +21,24 @@ import { MatDialog } from '@angular/material/dialog';
 import { PaymentSuccessDialogComponent } from '../payment-success-dialog/payment-success-dialog.component';
 import { ReservationService } from '../../../../service/reservation/reservation.service';
 import { OrderService } from '../../../../service/order/order.service';
+import * as TableActions from '../../../../ngrx/actions/table.actions';
 @Component({
   selector: 'app-paymentmomo',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,ShareModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ShareModule],
   templateUrl: './paymentmomo.component.html',
-  styleUrl: './paymentmomo.component.scss'
+  styleUrl: './paymentmomo.component.scss',
 })
 export class PaymentmomoComponent {
   subscriptions: Subscription[] = [];
   orderList: Order[] = [];
   order$ = this.store.select('order', 'orderList');
-  
+
   paymentImageList: PaymentImage[] = [];
   paymentimage$ = this.store.select('paymentimage', 'paymentImageList');
 
-
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private cartService: CartService,
     private dialog: MatDialog,
     private reservationService: ReservationService,
@@ -49,12 +50,12 @@ export class PaymentmomoComponent {
       user: UserState;
       category: categoryState;
       paymentimage: PaymentImageState;
-    }>,
+    }>
   ) {
     this.store.dispatch(OrderActions.get());
     this.store.dispatch(PaymentImageActions.get());
-    this.subscriptions.push( 
-      this.order$.subscribe((orderList) => {  
+    this.subscriptions.push(
+      this.order$.subscribe((orderList) => {
         if (orderList.length > 0) {
           console.log('orderList', orderList);
           this.orderList = orderList;
@@ -71,73 +72,74 @@ export class PaymentmomoComponent {
         } catch (error) {
           console.log('error', error);
         }
-      }
-    ));
+      })
+    );
   }
-ngOnInit(){
-  this.orderItem = this.orderService.getOrderDetail();
-  this.store.dispatch(OrderActions.get());
-  this.subscriptions.push( 
-    this.order$.subscribe((orderList) => {  
-      if (orderList.length > 0) {
-        console.log('orderList', orderList);
-        this.orderList = orderList;
-      }
-    })
-  );
-  this.store.dispatch(PaymentImageActions.get());
-  this.subscriptions.push(
-    this.paymentimage$.subscribe((paymentImageList) => {
-      try {
-        if (paymentImageList.length > 0) {
-          console.log('paymentImageList', paymentImageList);
-          this.paymentImageList = paymentImageList;
+  ngOnInit() {
+    this.orderItem = this.orderService.getOrderDetail();
+    this.store.dispatch(OrderActions.get());
+    this.subscriptions.push(
+      this.order$.subscribe((orderList) => {
+        if (orderList.length > 0) {
+          console.log('orderList', orderList);
+          this.orderList = orderList;
         }
-      } catch (error) {
-        console.log('error', error);
-      }
-    }
-  ));
-}
+      })
+    );
+    this.store.dispatch(PaymentImageActions.get());
+    this.subscriptions.push(
+      this.paymentimage$.subscribe((paymentImageList) => {
+        try {
+          if (paymentImageList.length > 0) {
+            console.log('paymentImageList', paymentImageList);
+            this.paymentImageList = paymentImageList;
+          }
+        } catch (error) {
+          console.log('error', error);
+        }
+      })
+    );
+  }
   orderItem = this.orderService.getOrderDetail();
   items = this.cartService.getSelectedDishes();
   // tableitems = this.reservationService.getItemTable();
-  totalAmount()
-  {
+
+  totalAmount() {
     let total = 0;
     this.items.forEach((item) => {
       total += item.price * item.quantity;
     });
     return total;
   }
-  totalQuantity()
-  {
+  totalQuantity() {
     let totalQuantity = 0;
     this.items.forEach((item) => {
       totalQuantity += item.quantity;
     });
     return totalQuantity;
-  }  
-  remoteAllCart()
-  {
+  }
+  remoteAllCart() {
     this.cartService.clearCart();
     // this.reservationService.clearItemTable();
   }
-  checkOut()
-  {
+  checkOut() {
+    const tableId = this.orderItem.tableId;
+
+    if (tableId) {
+      this.store.dispatch(TableActions.checkoutTable({ tableId }));
+    }
     const dialogRef = this.dialog.open(PaymentSuccessDialogComponent);
 
     dialogRef.afterClosed().subscribe(() => {
       this.remoteAllCart();
       this.router.navigate(['base/home']);
     });
+    
   }
-  goBackPayment()
-  {
+  goBackPayment() {
     this.router.navigate(['base/payments']);
   }
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
-  
 }

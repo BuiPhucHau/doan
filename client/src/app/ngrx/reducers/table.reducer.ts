@@ -14,8 +14,11 @@ export const initialState: TableState = {
       isGetByLocationIdLoading: false,
       isGetByLocationIdSuccess: false,
       getByLocationIdErrMess: '',
-      tablesTakenByGetByLocationId: []
+      tablesTakenByGetByLocationId: [],
     
+      isCheckoutLoading: false,
+      isCheckoutSuccess: false,
+      checkoutErrMess: ''
 };
 
 export const tableReducer = createReducer(
@@ -79,6 +82,26 @@ export const tableReducer = createReducer(
         getByLocationIdErrMess: action.getByLocationIdErrMess,
       };
     }),
+
+    on(TableActions.updateTableStatus, (state) => ({
+      ...state,
+      isCheckoutLoading: true,
+      isCheckoutSuccess: false,
+      checkoutErrMess: ''
+    })),
+    on(TableActions.updateTableStatusSuccess, (state, { table }) => ({
+      ...state,
+      isCheckoutLoading: false,
+      isCheckoutSuccess: true,
+      tableList: state.tableList.map(t => t.tableId === table.tableId ? table : t),
+      checkoutErrMess: ''
+    })),
+    on(TableActions.updateTableStatusFailure, (state, { error }) => ({
+      ...state,
+      isCheckoutLoading: false,
+      isCheckoutSuccess: false,
+      checkoutErrMess: error.message
+    })),
 
     // on(TableActions.update, (state, action) => {
     //   return {

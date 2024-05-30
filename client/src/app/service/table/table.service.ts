@@ -70,16 +70,18 @@ export class TableService {
     return this.httpClient.put<Table[] | any>(`http://localhost:3000/table/update/${tableId}`, tableId);
   }
 
-  updateStatusAll(ids: string[], status: boolean) {
-    return this.httpClient.put<Table[] | any>(
-      `http://localhost:3000/table/allstatus?status=${status}`,
-      {ids}
-    );
-  }
-
   updateTableStatus(tableId: string): Observable<Table> {
     return this.httpClient.put<Table>(`http://localhost:3000/table/checkout/${tableId}`, { status: false });
   }
+  
+  // updateStatusAll(ids: string[], status: boolean) {
+  //   return this.httpClient.put<Table[] | any>(
+  //     `http://localhost:3000/table/allstatus?status=${status}`,
+  //     {ids}
+  //   );
+  // }
+
+ 
 
 
   // private saveCartToLocalStorage(): void {

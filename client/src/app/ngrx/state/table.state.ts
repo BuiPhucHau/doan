@@ -11,5 +11,7 @@ export interface TableState {
     getByLocationIdErrMess: string;
     tablesTakenByGetByLocationId: Table[];
     
-
+    isCheckoutLoading: boolean;
+    isCheckoutSuccess: boolean;
+    checkoutErrMess: string;
 }
