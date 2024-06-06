@@ -18,7 +18,7 @@ import * as PaymentImageActions from '../../../../ngrx/actions/paymentimage.acti
 import { PaymentImageState } from '../../../../ngrx/state/paymentimage.state';
 import { ShareModule } from '../../../../shared/shared.module';
 import { MatDialog } from '@angular/material/dialog';
-import { PaymentSuccessDialogComponent } from '../payment-success-dialog/payment-success-dialog.component';
+
 import { OrderService } from '../../../../service/order/order.service';
 
 @Component({
@@ -123,12 +123,7 @@ ngOnInit(){
   }
   checkOut()
   {
-    const dialogRef = this.dialog.open(PaymentSuccessDialogComponent);
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['base/home']);
       this.remoteAllCart();
-    });
   }
   goBackPayment()
   {

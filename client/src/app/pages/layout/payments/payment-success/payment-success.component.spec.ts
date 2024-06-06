@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PaymentSuccessDialogComponent } from './payment-success-dialog.component';
+import { PaymentSuccessComponent } from './payment-success.component';
 
 describe('PaymentSuccessDialogComponent', () => {
-  let component: PaymentSuccessDialogComponent;
-  let fixture: ComponentFixture<PaymentSuccessDialogComponent>;
+  let component: PaymentSuccessComponent;
+  let fixture: ComponentFixture<PaymentSuccessComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PaymentSuccessDialogComponent]
+      imports: [PaymentSuccessComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PaymentSuccessDialogComponent);
+    fixture = TestBed.createComponent(PaymentSuccessComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

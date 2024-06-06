@@ -38,7 +38,10 @@ import { OrderEffects } from './ngrx/effects/order.effects';
 import { PaymentImageEffects } from './ngrx/effects/paymentimage.effects';
 import { paymentImageReducer } from './ngrx/reducers/paymentimage.reducer';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { paymentMomoReducer } from './ngrx/reducers/paymentmomo.reducer';
+import { PaymentMomoEffects } from './ngrx/effects/paymentmomo.effects';
+import { billReducer } from './ngrx/reducers/bill.reducer';
+import { BillEffects } from './ngrx/effects/bill.effects';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
@@ -64,8 +67,10 @@ export const appConfig: ApplicationConfig = {
     provideState({name: 'storage', reducer: storageReducer}),
     provideState({name: 'order', reducer: orderReducer}),
     provideState({name: 'paymentimage', reducer: paymentImageReducer}),
+    provideState({name: 'bill', reducer: billReducer}),
+    provideState({name: 'paymentmomo', reducer: paymentMomoReducer}),
 
-    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects, CategoryEffects, TableEffects, ReservationEffects, NewEffects, StorageEffects,OrderEffects, PaymentImageEffects]),
+    provideEffects([AuthEffects, UserEffects, DishEffects, LocationEffects, CategoryEffects, TableEffects, ReservationEffects, NewEffects, StorageEffects,OrderEffects, PaymentImageEffects, BillEffects, PaymentMomoEffects]),
 
 
     

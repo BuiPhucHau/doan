@@ -123,6 +123,13 @@ export const LAYOUT_ROUTES: Routes = [
           ),
       },
       {
+        path: 'base/payments/payment-success',
+        loadChildren: () =>
+          import('./payments/payment-success/paymentmomo-success.routes').then(
+            (m) => m.PAYMENT_SUCCESS_ROUTERS
+          ),
+      },
+      {
         path: 'base/payments/payment-banking',
         loadChildren: () =>
           import('./payments/paymentbanking/paymentbanking.routes').then(
