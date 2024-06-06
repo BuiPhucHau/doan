@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DishState } from '../../../../ngrx/state/dish.state';
@@ -18,7 +18,9 @@ import * as PaymentImageActions from '../../../../ngrx/actions/paymentimage.acti
 import { PaymentImageState } from '../../../../ngrx/state/paymentimage.state';
 import { ShareModule } from '../../../../shared/shared.module';
 import { MatDialog } from '@angular/material/dialog';
-import { PaymentSuccessDialogComponent } from '../payment-success-dialog/payment-success-dialog.component';
+import { PaymentMomoService } from '../../../../service/paymentmomo/paymentmomo.service';
+import { PaymentMomoState } from '../../../../ngrx/state/paymentmomo.state';
+import * as PaymentMomoActions from '../../../../ngrx/actions/paymentmomo.actions';
 import { ReservationService } from '../../../../service/reservation/reservation.service';
 import { OrderService } from '../../../../service/order/order.service';
 import * as TableActions from '../../../../ngrx/actions/table.actions';
@@ -30,7 +32,7 @@ import * as ReservationActions from '../../../../ngrx/actions/reservation.action
   templateUrl: './paymentmomo.component.html',
   styleUrl: './paymentmomo.component.scss',
 })
-export class PaymentmomoComponent {
+export class PaymentmomoComponent  implements OnDestroy {
   subscriptions: Subscription[] = [];
   orderList: Order[] = [];
   order$ = this.store.select('order', 'orderList');
@@ -38,12 +40,14 @@ export class PaymentmomoComponent {
   paymentImageList: PaymentImage[] = [];
   paymentimage$ = this.store.select('paymentimage', 'paymentImageList');
 
+  paymentAtPayment$ = this.store.select('paymentmomo', 'paymentCreatedAtConfirmPayment');
   constructor(
     private router: Router,
     private cartService: CartService,
     private dialog: MatDialog,
     private reservationService: ReservationService,
     private orderService: OrderService,
+    private paymentMomoService: PaymentMomoService,
     private store: Store<{
       order: OrderState;
       dish: DishState;
@@ -51,6 +55,7 @@ export class PaymentmomoComponent {
       user: UserState;
       category: categoryState;
       paymentimage: PaymentImageState;
+      paymentmomo: PaymentMomoState;
     }>
   ) {
     this.store.dispatch(OrderActions.get());
@@ -61,9 +66,7 @@ export class PaymentmomoComponent {
           console.log('orderList', orderList);
           this.orderList = orderList;
         }
-      })
-    );
-    this.subscriptions.push(
+      }),
       this.paymentimage$.subscribe((paymentImageList) => {
         try {
           if (paymentImageList.length > 0) {
@@ -73,11 +76,18 @@ export class PaymentmomoComponent {
         } catch (error) {
           console.log('error', error);
         }
+      }),
+      this.paymentAtPayment$.subscribe(paymentmomo => {
+        if (paymentmomo.status) {
+          console.log('paymentmomo: ', paymentmomo);
+          window.location.href = paymentmomo.data.shortLink;
+        }
       })
     );
   }
   ngOnInit() {
     this.orderItem = this.orderService.getOrderDetail();
+    this.store.dispatch(PaymentImageActions.get());
     this.store.dispatch(OrderActions.get());
     this.subscriptions.push(
       this.order$.subscribe((orderList) => {
@@ -85,10 +95,7 @@ export class PaymentmomoComponent {
           console.log('orderList', orderList);
           this.orderList = orderList;
         }
-      })
-    );
-    this.store.dispatch(PaymentImageActions.get());
-    this.subscriptions.push(
+      }),
       this.paymentimage$.subscribe((paymentImageList) => {
         try {
           if (paymentImageList.length > 0) {
@@ -97,6 +104,12 @@ export class PaymentmomoComponent {
           }
         } catch (error) {
           console.log('error', error);
+        }
+      }),
+      this.paymentAtPayment$.subscribe(paymentmomo => {
+        if (paymentmomo.status) {
+          console.log('paymentmomo: ', paymentmomo);
+          window.location.href = paymentmomo.data.shortLink;
         }
       })
     );
@@ -105,7 +118,28 @@ export class PaymentmomoComponent {
   orderItem = this.orderService.getOrderDetail();
   items = this.cartService.getSelectedDishes();
   // tableitems = this.reservationService.getItemTable();
-
+  paymentmomo() {
+    const tableId = this.orderItem.tableId;
+    const bill = {
+      BillId: this.generateRandomOrderId(),
+      dishList: this.items,
+      TableId: tableId,
+      OrderId: this.orderItem.orderId,
+      Total: this.totalAmount(),
+      QuantityTotal: this.totalQuantity(),
+      DatePayment: new Date(),
+    }
+    console.log('bill', bill);
+    this.store.dispatch(PaymentMomoActions.createAtConfirmPayment({ bill: bill }));
+    const reservationId = this.orderItem.reservationId;
+    if (reservationId) {
+      this.store.dispatch(ReservationActions.removeReservation({ reservationId }));
+    }
+    if (tableId) {
+      this.store.dispatch(TableActions.checkoutTable({ tableId }));
+    }
+      this.remoteAllCart();
+}
   totalAmount() {
     let total = 0;
     this.items.forEach((item) => {
@@ -124,22 +158,8 @@ export class PaymentmomoComponent {
     this.cartService.clearCart();
     // this.reservationService.clearItemTable();
   }
-
-  checkOut() {
-    const tableId = this.orderItem.tableId;
-    const reservationId = this.orderItem.reservationId;
-
-    if (reservationId) {
-      this.store.dispatch(ReservationActions.removeReservation({ reservationId }));
-    }
-    if (tableId) {    
-      this.store.dispatch(TableActions.checkoutTable({ tableId }));
-    }
-    const dialogRef = this.dialog.open(PaymentSuccessDialogComponent);
-    dialogRef.afterClosed().subscribe(() => {
-      this.remoteAllCart();
-      this.router.navigate(['base/home']);
-    });
+  generateRandomOrderId(): number {
+    return Math.floor(Math.random() * 9999) + 1;
   }
   goBackPayment() {
     this.router.navigate(['base/payments']);

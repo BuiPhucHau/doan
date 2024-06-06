@@ -12,10 +12,12 @@ import { ReservationModule } from './reservation/reservation.module';
 import { TableModule } from './table/table.module';
 import { LocationModule } from './location/location.module';
 import { OrderModule } from './order/order.module';
-import { OrderdetailModule } from './orderdetail/orderdetail.module';
-import { PaymentModule } from './payment/payment.module';
+
 import { NewModule } from './new/new.module';
 import { PaymentImageModule } from './payment_image/payment_image.module';
+
+import { BillModule } from './bill/bill.module';
+import { PaymentMomoModule } from './paymentmomo/paymentmomo.module';
 
 
 
@@ -33,10 +35,10 @@ import { PaymentImageModule } from './payment_image/payment_image.module';
   TableModule,
   LocationModule,
   OrderModule,
-  OrderdetailModule,
-  PaymentModule,
   NewModule,
   PaymentImageModule,
+  BillModule,
+  PaymentMomoModule,
   
 ],
   controllers: [AppController],
