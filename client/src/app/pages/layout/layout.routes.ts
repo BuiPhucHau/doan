@@ -129,20 +129,6 @@ export const LAYOUT_ROUTES: Routes = [
             (m) => m.PAYMENT_SUCCESS_ROUTERS
           ),
       },
-      {
-        path: 'base/payments/payment-banking',
-        loadChildren: () =>
-          import('./payments/paymentbanking/paymentbanking.routes').then(
-            (m) => m.PAYMENTBANKING_ROUTERS
-          ),
-      },
-      {
-        path: 'base/payments/payment-cod',
-        loadChildren: () =>
-          import('./payments/paymentcod/paymentcod.routes').then(
-            (m) => m.PAYMENTCOD_ROUTERS
-          ),
-      },
     ],
   },
 ];

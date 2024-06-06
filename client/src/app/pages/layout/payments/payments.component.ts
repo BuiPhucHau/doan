@@ -309,12 +309,4 @@ isReservationIdReadOnly = false;
     this.createOrder();
     this.router.navigate(['base/payments/payment-momo']);
   }
-  goToPaymentBanking() {
-    this.createOrder();
-    this.router.navigate(['base/payments/payment-banking']);
-  }
-  goToPaymentCOD() {
-    this.createOrder();
-    this.router.navigate(['base/payments/payment-cod']);
-  }
 }
