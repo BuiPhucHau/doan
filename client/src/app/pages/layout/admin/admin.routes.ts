@@ -25,6 +25,13 @@ export const ADMIN_ROUTERS: Routes = [
             (m) => m.POSTLOCATION_ROUTES
           ),
       },
+      {
+        path: 'statistical',
+        loadChildren: () =>
+          import('./statistical/statistical.routes').then(
+            (m) => m.STATISTICAL_ROUTES
+          ),
+      },
     ],
   },
 ];

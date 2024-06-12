@@ -27,9 +27,9 @@ export class PaymentMomoController {
     try {
       log(createBillDto);
       const bill = await this.billService.create(createBillDto);
-      if (bill._id) {
-        const table = await this.tableService.updateStatus(createBillDto.TableId, false);
-        log(table)
+      if(bill._id) {
+        this.tableService.updateStatus(bill.TableId, false);
+        res.redirect('http://localhost:4200/base/payments/payment-success');
       }
     }
     catch (err) {
