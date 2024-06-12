@@ -3,10 +3,10 @@ import mongoose, { HydratedDocument } from "mongoose";
 
 export type BillDocument = HydratedDocument<Bill>;
 
-@Schema({timestamps: true})
+@Schema({ timestamps: true })
 export class Bill {
 
-    @Prop({required: true, unique: true})
+    @Prop({ required: true, unique: true })
     BillId: string;
 
     // @Prop({
@@ -14,22 +14,22 @@ export class Bill {
     //     ref: 'Voucher'
     // })
     // Voucher: string;
-    @Prop({required: true})
+    @Prop()
     dishList: [];
-    @Prop({required: true})
+    @Prop()
     TableId: string;
-    @Prop({required: true})
+    @Prop()
     OrderId: string;
-    @Prop({required: true})
+    @Prop()
     Total: number;
 
     // @Prop({required: true})
     // Discount: number;
 
-    @Prop({required: true})
+    @Prop()
     QuantityTotal: number;
 
-    @Prop({required: true})
+    @Prop()
     DatePayment: Date;
 }
 
