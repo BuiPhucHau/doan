@@ -4,6 +4,7 @@ export interface Bill {
     BillId: string,
     dishList : [],
     Total: number,
+    GrandTotal: number,
     QuantityTotal: number,
     TableId: string,
     OrderId: string,

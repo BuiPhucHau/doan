@@ -1,0 +1,74 @@
+<div class="container">
+
+    <div class="title">
+        Thống kê doanh thu món ăn
+    </div>
+
+    <div class="box">
+        <div class="header_box">
+            <div style="font-size: larger;" class="total">
+                Tổng tiền: 1000000$
+            </div>
+            <div class="chart_box">
+                <div class="choose">
+                    <tui-tabs [(activeItemIndex)]="activeItemIndexOfChoose">
+                        <button tuiTab >
+                            Ngày
+                        </button>
+                        <button tuiTab > 
+                            Tháng
+                        </button>
+                        <button tuiTab >
+                            Năm
+                        </button>
+                    </tui-tabs>
+                </div>
+            </div>
+            <div class="date">
+                <form [formGroup]="data">
+                    <!-- <div class="input">
+                        <tui-input-date
+                            class="b-form"
+                            formControlName="date"
+                            tuiTextfieldSize="m"
+                            [tuiTextfieldCleaner]="true"
+                            *ngIf="isGetByDate"
+                        >
+                            Choose a date
+                        </tui-input-date>
+
+                        <tui-input-month
+                            class="b-form"
+                            formControlName="month"
+                            tuiTextfieldSize="m"
+                            [tuiTextfieldCleaner]="true"
+                            *ngIf="isGetByMonth"
+                        >
+                            Choose a month
+                            <input
+                                placeholder="Not September please"
+                                tuiTextfield
+                            />
+                        </tui-input-month>
+
+                        <tui-input-year
+                            class="b-form"
+                            formControlName="year"
+                            tuiTextfieldSize="m"
+                            [tuiTextfieldCleaner]="true"
+                            *ngIf="isGetByYear"
+                        >
+                            Choose a year
+                            <input
+                                placeholder="Not 2022 please"
+                                tuiTextfield
+                            />
+                        </tui-input-year>
+
+                    </div> -->
+                </form>
+            </div>
+        </div>
+      
+    </div>
+</div>

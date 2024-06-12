@@ -28,12 +28,14 @@ export class StatisticalComponent {
   token: string = '';
   billsCurrent: Bill[] = [];
   labelsY: string[]= [];
+
   totalOfQuantity: number[] = [];
   totalOfMoney: number[] = [];
   percentOfGrandTotals: number[] = [];
   isGetByMonthSuccess: boolean = false;
   isGetByYearSuccess: boolean = false;
   isGetByDateSuccess: boolean = false;
+  statisticalDataOfDish: any[] = [];
   isGetByMonth: boolean = false;
   isGetByYear: boolean = true;
   isGetByDate: boolean = false;
@@ -56,5 +58,64 @@ export class StatisticalComponent {
     private router: Router,
     private readonly alerts: TuiAlertService,
 
-  ){}
+  ){
+    this.store.dispatch(BillActions.getByYearAtStatistical({year: new Date().getFullYear()}));
+    this.data.get('date')?.valueChanges.subscribe(value => {
+      if (value) {
+        let {day,month,year} = this.data.get('date')?.value ?? {day:0,month:0,year:0};
+      console.log('Date:', day,month,year);
+      this.store.dispatch(BillActions.getByDateAtStatistical({date: `${year}-0${month+1}-${day}`}));
+      }
+    }),
+    this.data.get('month')?.valueChanges.subscribe(value => {
+      if (value) {
+          let {month,year} = this.data.get('month')?.value ?? {month:0,year:0};
+          console.log('Month:', month,year);
+          this.store.dispatch(BillActions.getByMonthAtStatistical({month: month+1, year: year}));
+      }
+    }),
+    this.data.get('year')?.valueChanges.subscribe(value => {
+      if (value) {
+        let year = this.data.get('year')?.value;
+      console.log('Year:', year);
+      this.store.dispatch(BillActions.getByYearAtStatistical({year: year??2024}));
+      }
+    }),
+    this.subscriptions.push(
+      this.isGetByMonthSuccess$.subscribe((isGetByMonthSuccess) => {
+        this.isGetByMonthSuccess = isGetByMonthSuccess;
+      }),
+      this.isGetByYearSuccess$.subscribe((isGetByYearSuccess) => {
+        this.isGetByYearSuccess = isGetByYearSuccess;
+      }),
+      this.isGetByDateSuccess$.subscribe((isGetByDateSuccess) => {
+        this.isGetByDateSuccess = isGetByDateSuccess;
+      }),
+
+      this.billsTakenByYear$.subscribe((bills) => {
+        if(bills.length) {
+          // this.clearDataCareer();
+          // this.clearDataOfField();
+          bills.forEach((bill) => {
+            this.billsCurrent = bills;
+            let statisticalItemOfDish = this.statisticalDataOfDish.find((item) => item.dishId === bill.dishList);
+            if(statisticalItemOfDish){
+              statisticalItemOfDish.GrandTotal += bill.GrandTotal;
+            }
+          })
+        }
+      })
+    );
+
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  data = new FormGroup({
+    date: new FormControl(null),
+    month: new FormControl(null),
+    year: new FormControl(this.currentYear)
+  });
 }

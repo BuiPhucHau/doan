@@ -26,4 +26,7 @@ export class HeaderComponent {
     this.dishActive = true;
     this.router.navigate(['base/admin/post-dish']);
   }
+  onStatistical() {
+    this.router.navigate(['base/admin/statistical']);
+  }
 }

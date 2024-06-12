@@ -5,7 +5,8 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
+    margin: 0;
+    padding: 0;
     .dish {
         width: 50%;
         height: 120px;
@@ -35,5 +36,6 @@
         border-color: #000;
         border-top: none;
     }
+    
 
 }
