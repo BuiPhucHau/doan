@@ -9,8 +9,6 @@ export interface ICart {
     price: number,
     image: Storage,
     category: Category,
-    status: boolean,
     featured: boolean,
     quantity: number,
-    bringBack: boolean,
 }

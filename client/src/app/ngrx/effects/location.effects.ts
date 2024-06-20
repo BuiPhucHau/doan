@@ -11,6 +11,7 @@ export class LocationEffects {
     private action$: Actions
   ) {}
 
+  //Get
   getLocation$ = createEffect(() =>
     this.action$.pipe(
       ofType(LocationActions.get),
@@ -32,6 +33,8 @@ export class LocationEffects {
       )
     )
   );
+
+  //Create
   createLocation$ = createEffect(() =>
     this.action$.pipe(
       ofType(LocationActions.createLocation),
@@ -50,25 +53,8 @@ export class LocationEffects {
       )
     )
   );
-  removeLocation$ = createEffect(() =>
-    this.action$.pipe(
-      ofType(LocationActions.removeLocation),
-      exhaustMap((action) =>
-        this.locationService.removeLocation(action.locationId).pipe(
-          map(() => {
-            console.log('API call success',action.locationId);
-            return LocationActions.removeLocationSuccess({
-              locationId: action.locationId,
-            });
-          }),
-          catchError((err) => {
-            console.log('API call error', err);
-            return of(LocationActions.removeLocationFailure({ removeErrMess: err }))
-          })
-        )
-      )
-    )
-  );
+
+  //Update
   updateLocation$ = createEffect(() =>
     this.action$.pipe(
       ofType(LocationActions.updateLocation),
@@ -80,7 +66,32 @@ export class LocationEffects {
           }),
           catchError((err) => {
             console.log('API call error', err);
-            return of(LocationActions.removeLocationFailure({ removeErrMess: err }))
+            return of(
+              LocationActions.removeLocationFailure({ removeErrMess: err })
+            );
+          })
+        )
+      )
+    )
+  );
+
+  //Delete
+  removeLocation$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(LocationActions.removeLocation),
+      exhaustMap((action) =>
+        this.locationService.removeLocation(action.locationId).pipe(
+          map(() => {
+            console.log('API call success', action.locationId);
+            return LocationActions.removeLocationSuccess({
+              locationId: action.locationId,
+            });
+          }),
+          catchError((err) => {
+            console.log('API call error', err);
+            return of(
+              LocationActions.removeLocationFailure({ removeErrMess: err })
+            );
           })
         )
       )

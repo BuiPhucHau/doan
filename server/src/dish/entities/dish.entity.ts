@@ -17,7 +17,6 @@ export class Dish {
     @Prop({required: true})
     description: string;
 
-    
     @Prop({required: true})
     category: Category;
 
@@ -28,15 +27,10 @@ export class Dish {
     image: string;
 
     @Prop({required: true})
-    status: boolean;
-
-    @Prop({required: true})
     featured: boolean;
 
     @Prop({required: true})
     quantity: number;
-    @Prop({required: true})
-    bringBack: boolean;
 }
 
 export const DishSchema = SchemaFactory.createForClass(Dish);

@@ -51,34 +51,6 @@ export class DishController {
             throw error;
         }
     }
-
-    @Put('status')
-    async updateStatus(@Body() updateStatusDto: UpdateStatusDto, @Query('status') status: boolean) {
-        try {
-            const { ids } = updateStatusDto;
-        
-            const updateDishes = await Promise.all(
-              ids.map(async (id) => {
-                const updatedCar = await this.dishService.updateStatus(id, status);
-                return updatedCar;
-              })
-            );
-            return updateDishes;
-          } catch (err) {
-            throw err;
-          }
-        }
-
-    // @Put('isComfirmed')
-    // async updateIsComfirmed(@Query('id') id: string, @Body() isConfirmed: any) {
-    //     try {
-    //         const updatedDish = await this.dishService.updateIsConfirmed(id, isConfirmed.status);
-    //         await this.categoryService.increase(updatedDish.cId);
-    //         return  updatedDish;
-    //     } catch (error) {
-    //         throw error;
-    //     }
-    // }
     
     @Delete('delete')
     async remove(@Query('id') id: string) {

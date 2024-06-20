@@ -4,29 +4,33 @@ import * as LocationActions from "../actions/location.actions";
 import { Location } from "../../models/location.model";
 
 export const initialState: LocationState = {
-
+  //get
   isGetLoading: false,
   isGetSuccess: false,
   getErrMess: '',
   locationList: [],
 
+  //create
   isCreateLocationLoading: false,
   isCreateLocationSuccess: false,
   createErrMess: '',
   location: <Location>{},
 
+  //add
   isAddSuccess: false,
   isAddLoading: false,
   addErrMess: '',
+  
+  //update
+  isUpdateLoading: false,
+  isUpdateSuccess: false,
+  updateErrMess: '',
 
+  //delete
   isRemoveLoading: false,
   isRemoveSuccess: false,
   removeErrMess: '',
   locationId: '',
-
-  isUpdateLoading: false,
-  isUpdateSuccess: false,
-  updateErrMess: '',
 };
 
 
@@ -105,6 +109,37 @@ export const locationReducer = createReducer(
     };
     return newSate;
   }),
+    //////////////////////////////////// UPDATE location //////////////////////////
+    on(LocationActions.updateLocation, (state, action) => {
+      console.log(action.location);
+      
+      let newState: LocationState = {
+        ...state,
+        isUpdateLoading: true,
+        isUpdateSuccess: false,
+        updateErrMess: '',
+      };
+      return newState;
+    }),
+    on(LocationActions.updateLocationSuccess, (state, action) => {
+      console.log('Reducer update success')
+      let newState: LocationState = {
+        ...state,
+        isUpdateLoading: false,
+        isUpdateSuccess: true,
+        updateErrMess: '',
+      };
+      return newState;
+    }),
+    on(LocationActions.updateLocationFailure, (state, action) => {
+      let newState: LocationState = {
+        ...state,
+        isUpdateLoading: false,
+        isUpdateSuccess: false,
+        updateErrMess: action.updateMessage,
+      };
+      return newState;
+    }),
   //////////////////////////////////// DELETE location //////////////////////////
   on(LocationActions.removeLocation, (state, action) => {
     console.log('Reducer remove:', action.locationId);
@@ -136,35 +171,5 @@ export const locationReducer = createReducer(
     };
     return newSate;
   }),
-  //////////////////////////////////// UPDATE location //////////////////////////
-  on(LocationActions.updateLocation, (state, action) => {
-    console.log(action.location);
-    
-    let newState: LocationState = {
-      ...state,
-      isUpdateLoading: true,
-      isUpdateSuccess: false,
-      updateErrMess: '',
-    };
-    return newState;
-  }),
-  on(LocationActions.updateLocationSuccess, (state, action) => {
-    console.log('Reducer update success')
-    let newState: LocationState = {
-      ...state,
-      isUpdateLoading: false,
-      isUpdateSuccess: true,
-      updateErrMess: '',
-    };
-    return newState;
-  }),
-  on(LocationActions.updateLocationFailure, (state, action) => {
-    let newState: LocationState = {
-      ...state,
-      isUpdateLoading: false,
-      isUpdateSuccess: false,
-      updateErrMess: action.updateMessage,
-    };
-    return newState;
-  }),
+
 );

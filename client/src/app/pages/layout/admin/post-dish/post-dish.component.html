@@ -3,10 +3,11 @@
         <form [formGroup]="addDishForm">
             <div class="container-dish-detail">
                 <div class="card">
-                    <h2>Dish Detail</h2>
+                    <h2>Create Dish</h2>
                     <div class="input-dish">
                         <label class="label-client">Dish Code</label>
-                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="dId" [tuiTextfieldCleaner]="true">
+                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="dId"
+                            [tuiTextfieldCleaner]="true">
                             Enter Code
                             <input tuiTextfield type="text" />
                         </tui-input>
@@ -27,7 +28,7 @@
                             <input tuiTextfield type="text" />
                         </tui-input>
                     </div>
-    
+
                     <div class="input-dish">
                         <label class="label-client">Category</label>
                         <select class="category" formControlName="_id">
@@ -36,7 +37,7 @@
                             </option>
                         </select>
                     </div>
-    
+
                     <div class="input-dish">
                         <label class="label-client">Quantity</label>
                         <tui-input tuiTextfieldSize="m" class="b-form" formControlName="quantity"
@@ -45,37 +46,101 @@
                             <input tuiTextfield type="text" />
                         </tui-input>
                     </div>
-    
+
                     <div class="input-dish">
                         <label class="label-client">Price</label>
-                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="price" [tuiTextfieldCleaner]="true">
-                            Enter Price 
+                        <tui-input tuiTextfieldSize="m" class="b-form" formControlName="price"
+                            [tuiTextfieldCleaner]="true">
+                            Enter Price
                             <input tuiTextfield type="text" />
                         </tui-input>
                     </div>
-    
-    
+
+
                 </div>
                 <div class="upload">
-                    <h2>Upload Image</h2>
-                    <div class="drop_box">
-                        <header>
-                            <h4>Select File here</h4>
-                        </header>
-                        <p>Files Supported: PNG, JPG</p>
-                        <input type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)" #fileInput formControlName="image" />
-                        
-                        <div class="img-file" *ngIf="file">
-                            <img class="img" [src]="selectedImage" alt="Selected Image" />
+                    <div class="card">
+                        <h2>Upload Image</h2>
+                        <div class="drop_box">
+                            <tui-input style="width: 300px; margin-bottom: 1rem;" tuiTextfieldSize="m" class="b-form"
+                                formControlName="image" [tuiTextfieldCleaner]="true">
+                                Image
+                                <input tuiTextfield type="text" />
+                            </tui-input>
+                            <p>Files Supported: PNG ,JPG</p>
+                            <input type="file" accept="image/*" style="display: none" (change)="onFileSelected($event)"
+                                #fileInput formControlName="image" />
+
+                            <button class="btn" (click)="fileInput.click()">Choose File</button>
+                            <div class="img-file" *ngIf="file">
+                                <img [src]="selectedImage" alt="Selected Image"
+                                    style="width: 120px;height: 120px; margin-top: 1rem;" />
+                            </div>
                         </div>
-                        
-                        <button class="btn" (click)="fileInput.click()">Choose File</button>
+                        <div class="btn-create-update">
+                            <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+                                (click)="createDish()">
+                                Create
+                            </button>
+                            <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit"
+                                (click)="onUpdateDish()">
+                                Update
+                            </button>
+                        </div>
                     </div>
-                    <button appearance="secondary" style="margin-left: 1rem;" tuiButton type="submit" (click)="createDish()">
-                        Create
-                    </button>
                 </div>
-                
-                
             </div>
-           
+            <div class="container-remove">
+                <div class="card-list">
+                    <h2>Dish List</h2>
+                    <table class="dish-table">
+                        <thead>
+                            <tr>
+                                <th>Dish Code</th>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let dish of dishList">
+                                <td>
+                                    {{ dish.dId }}
+                                </td>
+                                <td>
+                                    {{ dish.nameDish }}
+                                </td>
+                                <td>
+                                    {{ dish.description }}
+                                </td>
+                                <td>
+                                    {{ dish.category.nameCategory }}
+                                </td>
+                                <td>
+                                    {{ dish.quantity }}
+                                </td>
+                                <td>
+                                    {{ dish.price }}
+                                </td>
+                                <td><img [src]="dish.image.urls" alt="Dish Image" style="width: 80px;height: 80px;" />
+                                </td>
+                                <td>
+                                    <div class="btn_edit_remove">
+                                        <button class="btn_remove"
+                                            (click)="updateDish(dish.dId)">Edit</button>
+
+                                        <button class="btn_remove"
+                                            (click)="removeDish(dish.dId)">Remove</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

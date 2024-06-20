@@ -23,7 +23,6 @@ export class LocationService {
   }
 
   async getByName(name: string) {
-    
     try {
       const location = await this.locationModel.findOne({ name: name }).exec();
       if(location._id.toString.length > 0){
@@ -41,7 +40,6 @@ export class LocationService {
         }
       }
   }
-
 
   async findAll() {
     try {

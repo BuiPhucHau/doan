@@ -10,11 +10,8 @@ export class CreateDishDto {
         public price: number,
         public image: string,
         public category: Category,
-        public status: boolean,
-        // public isConfirmed: boolean
         public featured: boolean,
         public quantity: number,
-        public bringBack: boolean,
     ) 
     {}
 }

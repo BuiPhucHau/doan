@@ -28,12 +28,12 @@ export class PostLocationComponent implements OnDestroy, OnInit {
 
   isCreateLocation$ = this.store.select('location', 'isAddSuccess');
 
-  createImageSuccess$ = this.store.select('storage', 'isCreateSuccess');
-
   removeLocation$ = this.store.select('location', 'isRemoveSuccess');
 
   updateLocation$ = this.store.select('location', 'isUpdateSuccess');
 
+  createImageSuccess$ = this.store.select('storage', 'isCreateSuccess');
+  
   selectedImage: string | ArrayBuffer | null = null;
   fileName: string = '';
   
@@ -125,8 +125,6 @@ export class PostLocationComponent implements OnDestroy, OnInit {
             image: '',
           };
           this.addLocationForm.reset();
-
-          // this.store.dispatch(LocationAction.resetIsAddSuccess());
           this.store.dispatch(LocationAction.get());
         }
       }),
@@ -151,29 +149,12 @@ export class PostLocationComponent implements OnDestroy, OnInit {
           this.isUpdateLocation = false;
         }
       }),
-      // this.store.select('storage').subscribe((val) => {
-      //   if (val?.isCreateSuccess&&this.isUpdateLocation) {
-      //     console.log(val);
-      //     this.store.dispatch(
-      //       StorageAction.get({
-      //         fileName: this.fileNameToUpdate,
-      //       })
-      //     );
-          
-      //     const newImageId = val.storage?._id;
-      //     this.addLocationForm.patchValue({
-      //       image: newImageId
-      //     });
-      //     this.locationDataToUpdate.image = newImageId;
-      //     this.store.dispatch(LocationAction.updateLocation({ location: this.locationDataToUpdate }));
-      //   }
-      // }),
     );
   }
   
-  ngOnInit(): void {
-    
+  ngOnInit(): void { 
   }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();
@@ -263,7 +244,5 @@ export class PostLocationComponent implements OnDestroy, OnInit {
       console.log("change file");
       
     }
-
-    // Nếu có file mới được chọn
   }
 }

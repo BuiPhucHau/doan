@@ -10,9 +10,6 @@ export interface Dish {
     price: number,
     image: Storage,
     category: Category,
-    status: boolean,
     featured: boolean,
     quantity: number,
-    // isConfirmed:boolean
-    bringBack: boolean,
 }

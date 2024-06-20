@@ -27,10 +27,8 @@ export class CartService {
       price: dCart.price,
       image: dCart.image,
       category: dCart.category,
-      status: dCart.status,
       featured: dCart.featured,
       quantity: 1,
-      bringBack: dCart.bringBack,
     }
     this.saveDetailToLocalStorage();
   }
@@ -49,10 +47,8 @@ export class CartService {
         price: dCart.price,
         image: dCart.image,
         category: dCart.category,
-        status: dCart.status,
         featured: dCart.featured,
         quantity: 1,
-        bringBack: dCart.bringBack,
       }
       this.items.push(c);
     }
