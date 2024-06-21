@@ -9,6 +9,7 @@ export interface PaymentMomo {
         message: string;
         resultCode: number;
         payUrl: string;
-        shortLink: string;
+        deeplink: string;
+        qrCodeUrl: string;
     };
     }

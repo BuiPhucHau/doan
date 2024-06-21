@@ -63,7 +63,7 @@ export class PaymentmomoComponent  implements OnDestroy {
       this.paymentAtPayment$.subscribe(paymentmomo => {
         if (paymentmomo.status) {
           console.log('paymentmomo: ', paymentmomo);
-          window.location.href = paymentmomo.data.shortLink;
+          window.location.href = paymentmomo.data.payUrl;
         }
       })
     );
@@ -81,7 +81,7 @@ export class PaymentmomoComponent  implements OnDestroy {
       this.paymentAtPayment$.subscribe(paymentmomo => {
         if (paymentmomo.status) {
           console.log('paymentmomo: ', paymentmomo);
-          window.location.href = paymentmomo.data.shortLink;
+          window.location.href = paymentmomo.data.payUrl;
         }
       })
     );
