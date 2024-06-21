@@ -14,7 +14,6 @@ import { LocationModule } from './location/location.module';
 import { OrderModule } from './order/order.module';
 
 import { NewModule } from './new/new.module';
-import { PaymentImageModule } from './payment_image/payment_image.module';
 
 import { BillModule } from './bill/bill.module';
 import { PaymentMomoModule } from './paymentmomo/paymentmomo.module';
@@ -36,7 +35,6 @@ import { PaymentMomoModule } from './paymentmomo/paymentmomo.module';
   LocationModule,
   OrderModule,
   NewModule,
-  PaymentImageModule,
   BillModule,
   PaymentMomoModule,
   
