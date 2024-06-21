@@ -51,6 +51,7 @@ export class MenuComponent {
     { nameCategory: 'Appetizer', isActice: false },
     { nameCategory: 'Main dishes', isActice: false },
     { nameCategory: 'Desserts', isActice: false },
+    { nameCategory: 'Drink', isActice: false },
   ];
   toggleActive(namedish: any) {
     namedish.isActice = !namedish.isActice;
