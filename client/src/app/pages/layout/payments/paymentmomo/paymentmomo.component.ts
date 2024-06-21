@@ -13,9 +13,6 @@ import * as OrderActions from '../../../../ngrx/actions/order.actions';
 import { OrderState } from '../../../../ngrx/state/order.state';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Order } from '../../../../models/order.model';
-import { PaymentImage } from '../../../../models/paymentimage.model';
-import * as PaymentImageActions from '../../../../ngrx/actions/paymentimage.actions';
-import { PaymentImageState } from '../../../../ngrx/state/paymentimage.state';
 import { ShareModule } from '../../../../shared/shared.module';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentMomoService } from '../../../../service/paymentmomo/paymentmomo.service';
@@ -37,8 +34,6 @@ export class PaymentmomoComponent  implements OnDestroy {
   orderList: Order[] = [];
   order$ = this.store.select('order', 'orderList');
 
-  paymentImageList: PaymentImage[] = [];
-  paymentimage$ = this.store.select('paymentimage', 'paymentImageList');
 
   paymentAtPayment$ = this.store.select('paymentmomo', 'paymentCreatedAtConfirmPayment');
   constructor(
@@ -54,27 +49,15 @@ export class PaymentmomoComponent  implements OnDestroy {
       auth: AuthState;
       user: UserState;
       category: categoryState;
-      paymentimage: PaymentImageState;
       paymentmomo: PaymentMomoState;
     }>
   ) {
     this.store.dispatch(OrderActions.get());
-    this.store.dispatch(PaymentImageActions.get());
     this.subscriptions.push(
       this.order$.subscribe((orderList) => {
         if (orderList.length > 0) {
           console.log('orderList', orderList);
           this.orderList = orderList;
-        }
-      }),
-      this.paymentimage$.subscribe((paymentImageList) => {
-        try {
-          if (paymentImageList.length > 0) {
-            console.log('paymentImageList', paymentImageList);
-            this.paymentImageList = paymentImageList;
-          }
-        } catch (error) {
-          console.log('error', error);
         }
       }),
       this.paymentAtPayment$.subscribe(paymentmomo => {
@@ -87,23 +70,12 @@ export class PaymentmomoComponent  implements OnDestroy {
   }
   ngOnInit() {
     this.orderItem = this.orderService.getOrderDetail();
-    this.store.dispatch(PaymentImageActions.get());
     this.store.dispatch(OrderActions.get());
     this.subscriptions.push(
       this.order$.subscribe((orderList) => {
         if (orderList.length > 0) {
           console.log('orderList', orderList);
           this.orderList = orderList;
-        }
-      }),
-      this.paymentimage$.subscribe((paymentImageList) => {
-        try {
-          if (paymentImageList.length > 0) {
-            console.log('paymentImageList', paymentImageList);
-            this.paymentImageList = paymentImageList;
-          }
-        } catch (error) {
-          console.log('error', error);
         }
       }),
       this.paymentAtPayment$.subscribe(paymentmomo => {
