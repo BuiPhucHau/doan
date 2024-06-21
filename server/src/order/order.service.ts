@@ -3,7 +3,6 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
 import {Dish} from 'src/dish/entities/dish.entity';
-import {Orderdetail} from 'src/orderdetail/entities/orderdetail.entity';
 import {Model} from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { HttpException } from '@nestjs/common';
@@ -13,7 +12,7 @@ export class OrderService {
   constructor(
     @InjectModel(Order.name) private readonly orderModel: Model<Order>,
     @InjectModel(Dish.name) private readonly dishModel: Model<Dish>,
-    @InjectModel(Orderdetail.name) private readonly orderdetailModel: Model<Orderdetail>,
+  
   ){}
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {

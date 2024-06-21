@@ -15,11 +15,6 @@ export const createUserSuccess = createAction('[User] create user success', prop
 
 export const createUserFailure = createAction('[User] create user failure', props<{ error: any }>());
 
-export const storedUser = createAction(
-    '[User] Stored User',
-    (user: User) => ({ user })
-  )
-  
-  export const resetUser = createAction(
-    '[User] Reset User'
-  );
+export const storedUser = createAction('[User] Stored User', (user: User) => ({ user }));
+
+export const resetUser = createAction('[User] Reset User');

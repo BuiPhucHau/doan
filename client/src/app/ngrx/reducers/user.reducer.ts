@@ -102,7 +102,6 @@ export const userReducer = createReducer(
       isCreateSussess: false,
       isCreateLoading: false,
       createErrMess: '',
-
     }
   })
 );

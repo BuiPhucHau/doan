@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
 import { OrderService } from './order.service';
-import { OrderdetailService } from 'src/orderdetail/orderdetail.service';
 import { DishService} from 'src/dish/dish.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
