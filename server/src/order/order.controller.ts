@@ -11,7 +11,7 @@ export class OrderController {
     // private readonly orderdetailService: OrderdetailService,
     // private readonly dishService: DishService,
     ) {}
-
+// post create a new order
   @Post('create')
   async create(@Body() createOrderDto: CreateOrderDto) {
     try {
@@ -21,7 +21,7 @@ export class OrderController {
       throw error;
     }
   }
-
+// get all orders
   @Get('get-all')
   async findAll() {
     try {
@@ -31,7 +31,7 @@ export class OrderController {
       throw error;
     }
   }
-
+// get order by id
   @Get('getbyOrderId')
   async findOne(@Query('id') id: string,uid: string) {
     try {
@@ -41,7 +41,7 @@ export class OrderController {
       throw error;
     }
   }
-
+// put update order
   @Put('update')
   async update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
     try {
@@ -51,7 +51,7 @@ export class OrderController {
       throw error;
     }
   }
-
+// delete order
   @Delete('delete')
   async remove(@Param('id') id: string) {
     try {

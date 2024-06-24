@@ -12,7 +12,7 @@ export class LocationService {
     @InjectModel(Location.name) private readonly locationModel: Model<Location>,
     @InjectModel(Storage.name) private readonly storageModel: Model<Storage>,
   ) {}
-
+// create a new location
   async create(createLocationDto: CreateLocationDto) {
     try {
       const createdLocation = new this.locationModel(createLocationDto);
@@ -21,7 +21,7 @@ export class LocationService {
       throw new HttpException(err.message, err.status);
     }
   }
-
+// get location by name
   async getByName(name: string) {
     try {
       const location = await this.locationModel.findOne({ name: name }).exec();
@@ -40,7 +40,7 @@ export class LocationService {
         }
       }
   }
-
+// get all locations
   async findAll() {
     try {
       const locations = await this.locationModel.find()
@@ -52,7 +52,7 @@ export class LocationService {
     }
   }
 
-
+// get location by id
   async findOne(locationId: string) {
     try{
       const location = await this.locationModel.findOne({locationId: locationId})
@@ -62,7 +62,7 @@ export class LocationService {
       throw new HttpException(err.message, err.status);
     }
   }
-
+// update location
   async update(id: string, updateLocationDto: UpdateLocationDto) {
     try{
       const updatedLocation = await this.locationModel.findOneAndUpdate(
@@ -76,7 +76,7 @@ export class LocationService {
     throw new HttpException(err.message, err.status);
   }
 }
-
+// delete location
   async remove(id: string) {
     try{
       const deletedLocation = await this.locationModel.findOneAndDelete({locationId: id});

@@ -8,11 +8,11 @@ import { User } from '../../models/user.model';
 export class UserService {
 
   constructor(private httpClient: HttpClient) { }
-
+  // Get user by email
   getUserByEmail(email: string) {
     return this.httpClient.get<User>(`http://localhost:3000/user/${email}`);
   }
-
+  //create user
   createUser(newUser: any) {
     newUser = {
       uid: newUser.uid,

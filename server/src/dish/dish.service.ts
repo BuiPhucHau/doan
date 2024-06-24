@@ -14,7 +14,7 @@ export class DishService {
     @InjectModel(Category.name) private readonly categoryModel: Model<Category>,
     @InjectModel(Storage.name) private readonly storageModel: Model<Storage>,
   ) {}
-
+// create a new dish
   async create(createDishDto: CreateDishDto): Promise<Dish> {
     try {
       const createdDish = new this.dishModel(createDishDto);
@@ -23,7 +23,7 @@ export class DishService {
       throw new HttpException(err.message, err.status);
     }
   }
-
+// get all dishes
   async findAll() {
     try {
       const dishes = await this.dishModel
@@ -35,7 +35,7 @@ export class DishService {
       throw new HttpException(err.message, err.status);
     }
   }
-
+// get image by objectId
   async findByObjectId(objectId: string) {
     try {
       const dishes = await this.dishModel
@@ -48,7 +48,7 @@ export class DishService {
       throw new HttpException(err.message, err.status);
     }
   }
-
+// get dish by id
   async findOne(dId: string) {
     try {
       const dish = await this.dishModel.findOne({ dId: dId });
@@ -57,7 +57,7 @@ export class DishService {
       throw new HttpException(err.message, err.status);
     }
   }
-
+// update dish
   async update(id: string, updateDishDto: UpdateDishDto) {
     try {
       const updatedDish = await this.dishModel.findOneAndUpdate(
@@ -70,7 +70,7 @@ export class DishService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+//delete dish
   async remove(id: string) {
     try {
       const deletedDish = await this.dishModel.findOneAndDelete({ dId: id });

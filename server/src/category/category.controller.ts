@@ -6,7 +6,7 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 @Controller('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
-
+// create a new category
   @Post('create')
   async create(@Body() createCategoryDto: CreateCategoryDto) {
     try {
@@ -16,7 +16,7 @@ export class CategoryController {
       throw err;
     }
   }
-
+// get all categories
   @Get('get-all')
   async findAll() {
     try {
@@ -26,7 +26,7 @@ export class CategoryController {
       throw err;
     }
   }
-
+// get category by id
   @Get()
   async findOne(@Query('id') id: string) {
     try{
@@ -37,7 +37,7 @@ export class CategoryController {
       throw err;
     }
   }
-
+// update category
   @Put('update')
   async update(@Query('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     try{
@@ -48,7 +48,7 @@ export class CategoryController {
       throw err;
     }
   }
-
+// delete category
   @Delete('delete')
   async remove(@Query('id') id: string) {
     try{

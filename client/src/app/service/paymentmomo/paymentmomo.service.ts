@@ -9,7 +9,7 @@ import { PaymentMomo } from '../../models/paymentmomo.model';
 export class PaymentMomoService {
 
   constructor(private httpClient: HttpClient) {}
-
+//create payment
   createPayment(bill: any){
 
     return this.httpClient.post<PaymentMomo>('http://localhost:3000/paymentmomo/create',bill);

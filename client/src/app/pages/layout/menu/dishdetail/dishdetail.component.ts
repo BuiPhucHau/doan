@@ -22,6 +22,7 @@ import { CartService } from '../../../../service/cart/cart.service';
   styleUrl: './dishdetail.component.scss'
 })
 export class DishdetailComponent implements OnDestroy {
+  // properties
   dish$ = this.store.select('dish', 'dishList');
   category$ = this.store.select('category', 'categories');
   dishList: Dish[] = [];
@@ -39,6 +40,7 @@ export class DishdetailComponent implements OnDestroy {
       category: categoryState;
     }>
   ) {
+    //get dish and category 
     this.store.dispatch(DishActions.get({}));
     this.store.dispatch(CategoryActions.get());
     this.subcriptions.push(
@@ -80,18 +82,19 @@ export class DishdetailComponent implements OnDestroy {
     //   });
     // }
   }
-  
+
   item = this.cartService.getItemDetail();
 
   ngOnDestroy(): void {
     this.subcriptions.forEach((sub) => sub.unsubscribe());
   }
+  // add to cart 
   addtoCart(dishCart: Dish): void {
     this.cartService.addToCart(dishCart);
     console.log(this.cartService.getSelectedDishes());
     this.router.navigate(['/base/order']);
-
   }
+  // go back to menu
   goBack(): void {
     this.router.navigate(['/base/menu']);
   }

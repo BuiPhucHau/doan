@@ -11,7 +11,7 @@ export class TableService {
 
   // private tableKey = 'tableItems';
 
-  constructor(private httpClient : HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   // items: ITable[] = [];
   // item: ITable = {} as ITable;
@@ -19,7 +19,7 @@ export class TableService {
   // addToTableToCart(toTable: Table ): void {
   //   var index = this.items.findIndex(x => x.tableId === toTable.tableId);
   //   if (index >= 0) {
-      
+
   //   } else {
   //     var t: ITable;
   //     t = {
@@ -53,27 +53,27 @@ export class TableService {
   //   this.items = [];
   //   localStorage.removeItem(this.tableKey);
   // }
-
-  getTable () {
+  //get all table
+  getTable() {
     return this.httpClient.get<Table[] | any>('http://localhost:3000/table/get-all');
   }
-
-  getByLocation (name: string) {
+  //get table by tableId
+  getByLocation(name: string) {
     return this.httpClient.get<Table[] | any>(`http://localhost:3000/table/getByLocation?id=${name}`);
   }
-
+  //create table
   createTable(table: any) {
     return this.httpClient.post<Table[] | any>('http://localhost:3000/table/create', table);
   }
-
-  updateTable (tableId: string) {
+  //update table
+  updateTable(tableId: string) {
     return this.httpClient.put<Table[] | any>(`http://localhost:3000/table/update/${tableId}`, tableId);
   }
-
+  //update status table
   updateTableStatus(tableId: string): Observable<Table> {
     return this.httpClient.put<Table>(`http://localhost:3000/table/checkout/${tableId}`, { status: false, reservationId: null });
   }
-  
+
   // updateStatusAll(ids: string[], status: boolean) {
   //   return this.httpClient.put<Table[] | any>(
   //     `http://localhost:3000/table/allstatus?status=${status}`,
@@ -81,7 +81,7 @@ export class TableService {
   //   );
   // }
 
- 
+
 
 
   // private saveCartToLocalStorage(): void {

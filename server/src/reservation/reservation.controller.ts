@@ -16,7 +16,7 @@ import { UpdateReservationDto } from './dto/update-reservation.dto';
 @Controller('reservation')
 export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
-
+// post create a new reservation
   @Post('create')
   async create(@Body() createReservationDto: CreateReservationDto) {
     try {
@@ -28,7 +28,7 @@ export class ReservationController {
       throw error;
     }
   }
-
+// get all reservations
   @Get('get-all')
   async findAll() {
     try {
@@ -38,7 +38,7 @@ export class ReservationController {
       throw error;
     }
   }
-
+// put update reservation
   @Put('update')
   async update(@Query('id') id: string, @Body() updateReservationDto: UpdateReservationDto) {
     try {
@@ -49,7 +49,7 @@ export class ReservationController {
       throw err;
     }
   }
-
+// delete reservation
   @Delete('delete')
   async remove(@Query('id') id: string) {
     try {

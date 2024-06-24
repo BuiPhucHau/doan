@@ -8,6 +8,7 @@ import { Category } from '../../models/category.model';
 export class CategoryService {
 
   constructor(private httpClient: HttpClient) { }
+  // Get all categories
   getCategories() {
     return this.httpClient.get<Category[]>('http://localhost:3000/category/get-all');
   }

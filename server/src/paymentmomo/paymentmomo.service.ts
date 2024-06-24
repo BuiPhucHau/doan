@@ -7,7 +7,7 @@ const axios = require('axios');
 @Injectable()
 export class PaymentMomoService {
     constructor() { }
-
+ // create a new paymentmomo
     async createPaymentMomo(createBillDto: CreateBillDto): Promise<any> {
         //https://developers.momo.vn/#/docs/en/aiov2/?id=payment-method
         //parameters

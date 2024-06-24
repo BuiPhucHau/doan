@@ -13,6 +13,7 @@ export class PaymentSuccessComponent {
   constructor(
     private router: Router
   ) { }
+  // check out
   checkOut() {
     this.router.navigate(['base/home']);
   };

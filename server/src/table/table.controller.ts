@@ -11,7 +11,7 @@ export class TableController {
   constructor(private readonly tableService: TableService,
     private readonly locationService: LocationService,
   ) {}
-
+// post create a new table
   @Post('create')
   async create(@Body() createTableDto: CreateTableDto) {
     try {
@@ -21,7 +21,7 @@ export class TableController {
       throw error;
     }
   }
-
+// get all tables
   @Get('get-all')
   async findAll() {
     try {
@@ -31,7 +31,7 @@ export class TableController {
       throw error;
     }
   }
-
+// get table by name
   @Get('getByName')
     async getByName(@Query('name') name: string) {
       try {
@@ -42,7 +42,7 @@ export class TableController {
         return [error];
       }
     }
-
+// get table by locationId
   @Get('getByLocation')
   async getByLocationId(@Query('id') name: string) {
     try {
@@ -56,7 +56,7 @@ export class TableController {
       return []
     }
   }
-
+// update table
   @Put('update')
   async update(@Query('id') id: string, @Body() updateTableDto: UpdateTableDto) {
     try {
@@ -66,7 +66,7 @@ export class TableController {
       throw error;
     }
   }
-
+// put checkout table by tableId
   @Put('checkout/:tableId')
   async checkoutTable(
     @Param('tableId') tableId: string,
@@ -80,7 +80,7 @@ export class TableController {
     }
   }
 
-
+// remove table
   @Delete('delete')
   async remove(@Query('id') id: string) {
     try {

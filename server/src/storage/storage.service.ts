@@ -13,7 +13,7 @@ export class StorageService {
   constructor(
     @InjectModel(Storage.name) private storageModel: Model<Storage>,
   ) {}
-
+// upload files to firebase storage
   async uploadFiles(
     files: Express.Multer.File[],
     folderName: string,
@@ -58,7 +58,7 @@ export class StorageService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+// save file url to database
   async saveFileUrlToDatabase(
     createStorageDto: CreateStorageDto,
   ): Promise<Storage> {
@@ -69,7 +69,7 @@ export class StorageService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+// get files by folder name
   async getFilesByFolderName(folderName: string): Promise<Storage> {
     try {
       return await this.storageModel.findOne({ folderName }).exec();

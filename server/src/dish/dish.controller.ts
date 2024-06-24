@@ -11,7 +11,7 @@ export class DishController {
         private categoryService: CategoryService,
         private dishService: DishService,
     ) {}
-
+// post a new dish
     @Post('create')
     async create(@Body() createDishDto: CreateDishDto) {
         try {
@@ -21,7 +21,7 @@ export class DishController {
             throw error;
         }
     }
-
+// get all dishes
     @Get('get-all')
     async findAll() {
         try {
@@ -31,7 +31,7 @@ export class DishController {
             throw error;
         }
     }
-
+// get dish by id
     @Get('getbyDishId')
     async findOne(@Query('dId') dId: string ) {
         try {
@@ -41,7 +41,7 @@ export class DishController {
             throw error;
         }
     }
-
+// update dish
     @Put('update')
     async update(@Query('id') id: string, @Body() updateDishDto: UpdateDishDto) {
         try {
@@ -51,7 +51,7 @@ export class DishController {
             throw error;
         }
     }
-    
+// delete dish  
     @Delete('delete')
     async remove(@Query('id') id: string) {
         try {

@@ -52,6 +52,7 @@ export class PaymentmomoComponent  implements OnDestroy {
       paymentmomo: PaymentMomoState;
     }>
   ) {
+    // get all order 
     this.store.dispatch(OrderActions.get());
     this.subscriptions.push(
       this.order$.subscribe((orderList) => {
@@ -60,6 +61,7 @@ export class PaymentmomoComponent  implements OnDestroy {
           this.orderList = orderList;
         }
       }),
+      // get paymentmomo
       this.paymentAtPayment$.subscribe(paymentmomo => {
         if (paymentmomo.status) {
           console.log('paymentmomo: ', paymentmomo);
@@ -90,6 +92,7 @@ export class PaymentmomoComponent  implements OnDestroy {
   orderItem = this.orderService.getOrderDetail();
   items = this.cartService.getSelectedDishes();
   // tableitems = this.reservationService.getItemTable();
+  // go to paymentmomo and create bill
   paymentmomo() {
     const tableId = this.orderItem.tableId;
     const bill = {
@@ -112,6 +115,7 @@ export class PaymentmomoComponent  implements OnDestroy {
     }
       this.remoteAllCart();
 }
+// calculate the total amount
   totalAmount() {
     let total = 0;
     this.items.forEach((item) => {
@@ -119,6 +123,7 @@ export class PaymentmomoComponent  implements OnDestroy {
     });
     return total;
   }
+  // calculate the total quantity
   totalQuantity() {
     let totalQuantity = 0;
     this.items.forEach((item) => {
@@ -126,13 +131,16 @@ export class PaymentmomoComponent  implements OnDestroy {
     });
     return totalQuantity;
   }
+  // clear the cart
   remoteAllCart() {
     this.cartService.clearCart();
     // this.reservationService.clearItemTable();
   }
+  // random order id
   generateRandomOrderId(): number {
     return Math.floor(Math.random() * 9999) + 1;
   }
+  // go back to payment page
   goBackPayment() {
     this.router.navigate(['base/payments']);
   }

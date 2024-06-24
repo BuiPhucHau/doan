@@ -10,7 +10,7 @@ export class UserService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>
   ) {}
-
+// create a new user
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
       const newUser  = new this.userModel(createUserDto);
@@ -19,7 +19,7 @@ export class UserService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+// get all users
   async findAll() {
     try {
       const users = await this.userModel.find();
@@ -28,7 +28,7 @@ export class UserService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+// get user by id
   async findOne(id: string) {
     try {
       const user = await this.userModel.findOne({ uid: id }).exec();
@@ -37,7 +37,7 @@ export class UserService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+// get user by email
   async findByEmail(email: string) {
     try {
       const user = await this.userModel.findOne({ email: email }).exec();
@@ -59,7 +59,7 @@ export class UserService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+// update user
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     try {
       const updatedUser = await this.userModel
@@ -72,7 +72,7 @@ export class UserService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+// delete user
   async remove(id: string) {
     try{
       const deletedUser = await this.userModel.findOneAndDelete({uid: id});

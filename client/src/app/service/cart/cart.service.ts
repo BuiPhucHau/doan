@@ -17,7 +17,7 @@ export class CartService {
 
   items: ICart[] = [];
   item: ICart = {} as ICart;
-  
+  //add to cart from detail
   addToDetail(dCart: Dish): void {
     this.item = {
       _id: dCart._id,
@@ -32,7 +32,7 @@ export class CartService {
     }
     this.saveDetailToLocalStorage();
   }
-
+  //add to cart from menu
   addToCart(dCart: Dish): void {
     var index = this.items.findIndex(x => x.dId === dCart.dId);
     if (index >= 0) {
@@ -54,19 +54,19 @@ export class CartService {
     }
     this.saveCartToLocalStorage();
   }
-
+  //get dish detail
   getItemDetail() {
     this.loadDetailtFromLocalStorage();
     console.log(this.item);
     return this.item;
   }
-
+  //get dish from cart
   getSelectedDishes() {
     this.loadCartFromLocalStorage();
     console.log(this.items);
     return this.items;
   }
-
+  //remove dish from cart
   removeFromCart(dId: string): void {
     const index = this.items.findIndex(item => item.dId === dId);
     if (index !== -1) {
@@ -74,33 +74,35 @@ export class CartService {
       this.saveCartToLocalStorage();
     }
   }
-
+  //clear cart
   clearCart() {
     this.items = [];
     localStorage.removeItem(this.cartKey);
   }
-  
+  // save dish detail to local storage 
   private saveDetailToLocalStorage(): void {
     localStorage.setItem(this.cartKey, JSON.stringify(this.item));
-    console.log("luu thanh cong");
+    console.log("save sucsses");
   }
+  //save cart to local storage
   private saveCartToLocalStorage(): void {
     localStorage.setItem(this.cartKey, JSON.stringify(this.items));
     console.log(this.items);
   }
-
+  //load cart from local storage
   private loadCartFromLocalStorage(): void {
     const storedItems = localStorage.getItem(this.cartKey);
     if (storedItems) {
       this.items = JSON.parse(storedItems);
     }
   }
+  //load detail from local storage
   private loadDetailtFromLocalStorage(): void {
     const storedItems = localStorage.getItem(this.cartKey);
     if (storedItems) {
       this.item = JSON.parse(storedItems);
     }
-    console.log("get thanh cong");
+    console.log("get sucsses");
   }
 }
 
