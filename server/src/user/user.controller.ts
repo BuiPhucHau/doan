@@ -8,6 +8,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserController {
   constructor(private readonly userService: UserService,) {}
   // private readonly authService: AuthService
+  // post create a new user
   @Post('create')
   async create(@Body() createUserDto: CreateUserDto) {
     try {
@@ -17,7 +18,7 @@ export class UserController {
       throw error;
     }
   }
-
+// get all users
   @Get('get-all')
   async findAll() {
     try {
@@ -27,7 +28,7 @@ export class UserController {
       throw error;
     }
   }
-
+// get user by id
   @Get()
   async findOne(@Query('id') id: string) {
     try {
@@ -37,7 +38,7 @@ export class UserController {
       throw error;
     }
   }
-
+// get user by email
   @Get(':email')
   async findByEmail(@Param('email') email: string) {
     try {
@@ -47,7 +48,7 @@ export class UserController {
       throw error;
     }
   }
-
+// put update user
   @Put('update')
   async update(@Query('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     try {
@@ -57,7 +58,7 @@ export class UserController {
       throw  error;
     }
   }
-
+// delete user
   @Delete(':id')
   async remove(@Query('id') id: string) {
     try {

@@ -14,7 +14,7 @@ export class NewService {
        @InjectModel(Storage.name) private readonly storageModel: Model<Storage>,
   ) {}
 
-
+// create a new new
   async create(createNewDto: CreateNewDto) {
     try {
       const createdNew = new this.newModel(createNewDto);
@@ -23,7 +23,7 @@ export class NewService {
       throw new HttpException(err.message, err.status);
     }
   }
-
+// get all news
 async findAll() {
     try {
       const news = await this.newModel.find()
@@ -34,7 +34,7 @@ async findAll() {
       throw new HttpException(err.message, err.status);
     }
   }
-
+// get news by id
   async findOne(id: any) {
     try{
       const news = await this.newModel.findOne({newId: id}).exec();
@@ -44,7 +44,7 @@ async findAll() {
       throw new HttpException(err.message, err.status);
     }
   }
-
+// update new
   async update(id: string, updateNewDto: UpdateNewDto) {
     try{
       const updatedNew = await this.newModel.findOneAndUpdate(
@@ -59,7 +59,7 @@ async findAll() {
   }
 }
 
-
+// delete new
 async remove(id: string) {
   try{
     const deletedNew = await this.newModel.findOneAndDelete({newId: id});

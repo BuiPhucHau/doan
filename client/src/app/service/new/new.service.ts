@@ -7,7 +7,7 @@ import { New } from '../../models/new.model';
 })
 export class NewService {
   constructor(private httpClient: HttpClient) {}
-
+// Get all news
   getNew() {
     return this.httpClient.get<New[] | any>('http://localhost:3000/new/get-all');
   }

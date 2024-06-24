@@ -11,7 +11,7 @@ export class BillService {
   constructor(
     @InjectModel(Bill.name) private BillModel: Model<Bill>
   ){}
-
+ // create a new bill
   async create(createBillDto: CreateBillDto) {
     try{
       const newBill = new this.BillModel(createBillDto);
@@ -22,7 +22,7 @@ export class BillService {
     }
   }
 
-
+// get bill by month
   async getByMonth(month: number, year: number){
     try{
       let realMonth = parseInt(month.toString()) - 1;
@@ -38,7 +38,7 @@ export class BillService {
       return []
     }
   }
-
+// get bill by year
   async getByYear(year: number){
     try{
       let nextYear = parseInt(year.toString()) + 1;
@@ -54,7 +54,7 @@ export class BillService {
       return []
     }
   }
-
+// get bill by date
   async getByDate(date: Date){
     try{
       log(date)

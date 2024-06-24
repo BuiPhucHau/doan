@@ -14,7 +14,7 @@ export class OrderService {
     @InjectModel(Dish.name) private readonly dishModel: Model<Dish>,
   
   ){}
-
+// create a new order
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
     try {
       const createdOrder = new this.orderModel(createOrderDto);
@@ -23,7 +23,7 @@ export class OrderService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+// get all orders
   async findAll() {
     try {
       const orders = await this.orderModel.find()
@@ -34,7 +34,7 @@ export class OrderService {
       throw new HttpException(error.message, error.status);
     } 
   }
-
+// get order by id
   async findOne(id: string) {
     try {
       const order = await this.orderModel.findById(id)
@@ -45,7 +45,7 @@ export class OrderService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+// update order
   async update(id: string, updateOrderDto: UpdateOrderDto) {
    try {
       const updatedOrder = await this.orderModel.findByIdAndUpdate(id, updateOrderDto, {new: true});  
@@ -54,7 +54,7 @@ export class OrderService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+// delete order
   async remove(id: string) {
     try {
       const deletedOrder = await this.orderModel.findByIdAndDelete(id);

@@ -26,16 +26,16 @@ import { ReservationService } from '../../../service/reservation/reservation.ser
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [TaigaModule,FontAwesomeModule, ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [TaigaModule, FontAwesomeModule, ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.less',
 })
 export class OrderComponent {
   readonly testForm = new FormGroup({
     testValue: new FormControl(),
-    
-  });
 
+  });
+  // properties
   index = 0;
   userFirebase$ = this.store.select('auth', 'userFirebase');
   user$ = this.store.select('user', 'user');
@@ -63,7 +63,7 @@ export class OrderComponent {
       category: categoryState;
     }>,
   ) {
-   
+    //   get dish and category
     this.store.dispatch(DishActions.get({}));
     this.store.dispatch(CategoryActions.get());
     this.subscriptions.push(
@@ -89,34 +89,35 @@ export class OrderComponent {
     // }
   }
   // itemsTable= this.reservationService.getItemTable();
-  
+
   items = this.cartService.getSelectedDishes();
-  totalAmount()
-  {
+  // calculate the total amount
+  totalAmount() {
     let total = 0;
     this.items.forEach((item) => {
       total += item.price * item.quantity;
     });
     return total;
   }
-  totalQuantity()
-  {
+  // calculate the total quantity
+  totalQuantity() {
     let totalQuantity = 0;
     this.items.forEach((item) => {
       totalQuantity += item.quantity;
     });
     return totalQuantity;
-  }  
+  }
+  // clear the cart
   clearCart(): void {
     this.cartService.clearCart();
     this.items = this.cartService.getSelectedDishes();
   }
+  // remove a dish from the cart
   removeFromCart(dId: string): void {
     this.cartService.removeFromCart(dId);
     this.items = this.cartService.getSelectedDishes();
   }
-  
-
+  //get dish and category
   ngOnInit() {
     this.store.dispatch(DishActions.get({}));
     this.store.dispatch(CategoryActions.get());
@@ -141,12 +142,15 @@ export class OrderComponent {
 
     });
   }
+  // go back to menu page
   goBack() {
     this.router.navigate(['base/menu']);
   }
+  // go to payment page
   pay() {
     this.router.navigate(['base/payments']);
   }
+  // go to order page
   order() {
     this.router.navigate(['base/order']);
   }

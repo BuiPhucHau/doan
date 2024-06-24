@@ -14,10 +14,12 @@ export class PaymentMomoController {
     private readonly tableService: TableService
 
   ) { }
+  // post create a new paymentmomo
   @Post('create')
   async createPaymentMomo(@Body() createBillDto: CreateBillDto) {
     return this.paymentMomoService.createPaymentMomo(createBillDto);
   }
+  // post handle callback from momo payment
   @Post('callback')
   async handleCallback(@Body() body: any, @Res() res: Response): Promise<void> {
     // console.log('callback: ');

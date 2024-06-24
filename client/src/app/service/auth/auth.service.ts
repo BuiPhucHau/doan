@@ -9,7 +9,7 @@ import { from } from 'rxjs';
 export class AuthService {
 
   constructor(private auth : Auth) { }
-
+// Login with Google
   async loginWithGoogle() {
     let provider = new GoogleAuthProvider();
     try {
@@ -20,7 +20,7 @@ export class AuthService {
       console.log(error);
     }return null;
   }
-
+// Logout
   logout() {
     console.log('logout');
     return from(this.auth.signOut());

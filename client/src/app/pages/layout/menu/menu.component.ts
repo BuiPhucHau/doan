@@ -25,6 +25,7 @@ import { TuiSelectModule } from '@taiga-ui/kit';
   styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
+  // properties
   index = 0;
 
   userFirebase$ = this.store.select('auth', 'userFirebase');
@@ -53,6 +54,7 @@ export class MenuComponent {
     { nameCategory: 'Desserts', isActice: false },
     { nameCategory: 'Drink', isActice: false },
   ];
+  // methods
   toggleActive(namedish: any) {
     namedish.isActice = !namedish.isActice;
   }
@@ -67,6 +69,7 @@ export class MenuComponent {
       category: categoryState;
     }>
   ) {
+    // Get the list of dishes and categories of dishes
     this.store.dispatch(DishActions.get({}));
     this.store.dispatch(CategoryActions.get());
     this.subscriptions.push(
@@ -84,7 +87,7 @@ export class MenuComponent {
       })
     );
   }
-
+// Get the list of dishes and categories of dishes
   ngOnInit(): void {
     this.store.dispatch(DishActions.get({}));
     this.subscriptions.push(
@@ -106,7 +109,7 @@ export class MenuComponent {
       })
     );
   }
-
+// select by namedish 
   selectNamedish(nameCategory: string): void {
     this.namedishs.forEach(
       (p) => (p.isActice = p.nameCategory === nameCategory)
@@ -123,7 +126,7 @@ export class MenuComponent {
       });
     }
   }
-
+// filter dishes by nameCategory
   filterDishes(nameCategory: string): void {
     this.namedishs.forEach(
       (p) => (p.isActice = p.nameCategory === nameCategory)
@@ -143,6 +146,7 @@ export class MenuComponent {
 
   this.sortDishesByPrice();
 }
+// sort dishes by price
 sortDishesByPrice(): void {
   if (this.sortOrder === 'asc') {
     this.filteredDishes.sort((a, b) => a.price - b.price); // Sắp xếp từ thấp đến cao
@@ -150,7 +154,7 @@ sortDishesByPrice(): void {
     this.filteredDishes.sort((a, b) => b.price - a.price); // Sắp xếp từ cao đến thấp
   }
 }
-
+// onSortOrderChange function
 onSortOrderChange(event: Event): void {
   const value = (event.target as HTMLSelectElement).value;
   if (value) {
@@ -158,20 +162,23 @@ onSortOrderChange(event: Event): void {
     this.sortDishesByPrice();
   }
 }
-
+// onSearchChange function
   onSearchChange(): void {
     this.selectNamedish('All');
     this.filterDishes('All');
   }
+  // showDetail function
   showDetail(dishCart: Dish) {
     this.cartService.addToDetail(dishCart);
     this.router.navigate(['base/menu/dish-detail']);
   }
+  // addtoCart function
   addtoCart(dishCart: Dish): void {
     this.cartService.addToCart(dishCart);
     console.log(this.cartService.getSelectedDishes());
     this.router.navigate(['/base/order']);
   }
+  // ngOnDestroy function
   ngOnDestroy() {
     this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();

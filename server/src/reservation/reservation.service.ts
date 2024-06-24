@@ -15,8 +15,8 @@ export class ReservationService {
     @InjectModel(Table.name)
     private readonly tableModel: Model<Table>,
     @Inject(TableService) private readonly tableService: TableService,
-  ) {}
-
+  ) { }
+  // create a new reservation
   async create(
     createReservationDto: CreateReservationDto,
   ): Promise<Reservation> {
@@ -28,10 +28,10 @@ export class ReservationService {
       if (table.status === false) {
         // Tạo và lưu reservation
         const createReservation = new this.reservationModel(createReservationDto,);
-        
+
         // Lưu reservation
         const savedReservation = await createReservation.save();
-        
+
         // Cập nhật trạng thái bàn
         table.status = true;
         table.reservationId = createReservation._id.toString();
@@ -44,7 +44,7 @@ export class ReservationService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+  // get all reservations
   async findAll() {
     try {
       const reservations = await this.reservationModel.find();
@@ -53,7 +53,7 @@ export class ReservationService {
       throw new HttpException(err.message, err.status);
     }
   }
-
+  // update reservation
   async update(id: string, updateReservationDto: UpdateReservationDto) {
     try {
       const updatedReservation = await this.reservationModel.findOneAndUpdate(
@@ -66,28 +66,27 @@ export class ReservationService {
       throw new HttpException(error.message, error.status);
     }
   }
-
+  // update status of reservation
   async updateStatus(id: string) {
-    try{
+    try {
       const updatedReservation = await this.reservationModel.findByIdAndUpdate(
         id,
-        {status: false},
-        {new: true}
-        );
-        return updatedReservation;
+        { status: false },
+        { new: true }
+      );
+      return updatedReservation;
     }
-    catch(err){
+    catch (err) {
       throw new HttpException(err.message, err.status);
     }
   }
-
-
+  // delete reservation
   async remove(id: string) {
-    try{
-      const deletedReservation = await this.reservationModel.findOneAndDelete({reservationId: id});
+    try {
+      const deletedReservation = await this.reservationModel.findOneAndDelete({ reservationId: id });
       return deletedReservation;
     }
-    catch(err){
+    catch (err) {
       throw new HttpException(err.message, err.status);
     }
   }

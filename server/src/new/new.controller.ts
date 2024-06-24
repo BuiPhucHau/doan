@@ -6,7 +6,7 @@ import { UpdateNewDto } from './dto/update-new.dto';
 @Controller('new')
 export class NewController {
   constructor(private readonly newService: NewService) {}
-
+// post create a new new
   @Post('create')
   async create(@Body() CreateNewDto: CreateNewDto) {
     try {
@@ -16,7 +16,7 @@ export class NewController {
         throw err
     }
   }
-
+// get all news
   @Get('get-all')
   async findAll() {
     try {
@@ -26,7 +26,7 @@ export class NewController {
       throw err;
     }
   }
-
+// update new
   @Put('update')
   async update(@Query('id') id: string, @Body() updateNewDto: UpdateNewDto) {
     try{
@@ -37,7 +37,7 @@ export class NewController {
       throw err;
     }
   }
-
+// delete new
   @Delete('delete')
   async remove(@Query('id') id: string) {
     try{

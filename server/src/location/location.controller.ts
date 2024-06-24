@@ -6,7 +6,7 @@ import { UpdateLocationDto } from './dto/update-location.dto';
 @Controller('location')
 export class LocationController {
   constructor(private readonly locationService: LocationService) {}
-
+  // post create a new location
   @Post('create')
   async create(@Body() createLocationDto: CreateLocationDto) {
     try {
@@ -16,7 +16,7 @@ export class LocationController {
         throw err
     }
   }
-
+// get all locations
   @Get('get-all')
   async findAll() {
     try {
@@ -26,6 +26,7 @@ export class LocationController {
       throw err;
     }
   }
+// get location by id
   @Get('getByLocationId') 
   async findOne(@Query('locationId') locationId: string) {
     try {
@@ -35,6 +36,7 @@ export class LocationController {
       throw err;
     }
   }
+// update location
   @Put('update')
   async update(@Query('id') id: string, @Body() updateLocationDto: UpdateLocationDto) {
     try{
@@ -45,7 +47,7 @@ export class LocationController {
       throw err;
     }
   }
-
+// delete location
   @Delete('delete')
   async remove(@Query('id') id: string) {
     try{

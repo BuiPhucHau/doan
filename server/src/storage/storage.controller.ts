@@ -8,7 +8,7 @@ import { Storage } from './entities/storage.entity';
 @Controller('storage')
 export class StorageController {
   constructor(private readonly storageService: StorageService) {}
-
+// post create a new storage
  @Post('upload')
  @UseInterceptors(FilesInterceptor('files'))
   async uploadFiles(
@@ -37,7 +37,7 @@ export class StorageController {
     }
   }
 
-  
+  // get image by folder name
   @Get('image')
   async getFiles(@Query('folderName') folderName: string): Promise<Storage> {
     try {

@@ -7,7 +7,7 @@ import { Storage } from '../../models/storage.model';
 })
 export class StorageService {
   constructor(private httpClient: HttpClient) {}
-
+//create storage
   create(file: File, fileName: string) {
     const formData = new FormData();
     formData.append('files', file);
@@ -17,7 +17,7 @@ export class StorageService {
       formData,
     );
   }
-
+//get storage
   getStorage(fileName: string) {
     return this.httpClient.get<Storage>(
       `http://localhost:3000/storage/image?folderName=${fileName}`,
