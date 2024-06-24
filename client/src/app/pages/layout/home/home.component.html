@@ -1,8 +1,15 @@
+<!-- Rectangle 1: Background Image and Welcome Section -->
 <div class="rectangle_1">
+    <!-- Background Image -->
     <img src="../../../../assets/image/background.png" alt="background" class="background">
+    
+    <!-- Welcome Section -->
     <div class="welcome">
+        <!-- Welcome Text -->
         <p class="a">Welcome to </p>
         <p class="b">CURST GOURMET</p>
+        
+        <!-- Restaurant Text with each letter in a separate paragraph -->
         <div class="restaurant">
             <p class="c">R</p>
             <p class="c">E</p>
@@ -15,38 +22,48 @@
             <p class="c">N</p>
             <p class="c">T</p>
         </div>
+        
+        <!-- Table Booking Button -->
         <div class="btn_booking">
-            <button (click)="tablebooking()" appearance="whiteblock-active" tuiButton type="custom"
-                class="table_booking">
+            <button (click)="tablebooking()" appearance="whiteblock-active" tuiButton type="custom" class="table_booking">
                 TABLE BOOKING
             </button>
         </div>
-
     </div>
 </div>
+
+<!-- Rectangle 2: Icons Section -->
 <div class="rectangle_2">
+    <!-- Icon 1: Top Chefs -->
     <div class="icon_1">
         <img src="../../../../assets/image/1.png" class="icon">
         <p>TOP CHEFS</p>
     </div>
+    
+    <!-- Icon 2: Fresh Ingredients -->
     <div class="icon_2">
         <img src="../../../../assets/image/2.png" class="icon">
         <p>FRESH INGREDIENTS</p>
     </div>
+    
+    <!-- Icon 3: Attractive Flavors -->
     <div class="icon_3">
         <img src="../../../../assets/image/3.png" class="icon">
         <p>ATTRACTIVE FLAVORS</p>
     </div>
+    
+    <!-- Icon 4: Professional -->
     <div class="icon_3">
         <img src="../../../../assets/image/4.png" class="icon">
         <p>PROFESSIONAL</p>
     </div>
-
 </div>
 
+<!-- Slideshow Section -->
 <section id="slideshow">
     <div class="entire-content">
         <div class="content-carrousel">
+            <!-- Loop through dishList and display featured dishes -->
             <ng-container *ngFor="let dish of dishList">
                 <figure class="shadow" *ngIf="dish.featured">
                     <img [src]="dish.image.urls" alt="{{ dish.image }}">
@@ -56,119 +73,85 @@
     </div>
 </section>
 
+<!-- Rectangle 4: Happy Customers Section -->
 <div class="rectangle_4">
     <div class="happy">
         <h1>HAPPY CUSTOMERS</h1>
     </div>
     <div class="happy">
-        <p class="text_happy"> We hope you enjoyed the dish. We believe this dish has given you an unforgettable dining
-            experience. Dish is made with the freshest ingredients, ensuring quality and delicious taste. CurstGourmet's
-            culinary team is always striving to create new and unique dishes, providing you with diverse dining
-            experiences </p>
+        <p class="text_happy"> 
+            We hope you enjoyed the dish. We believe this dish has given you an unforgettable dining experience. Dish is made with the freshest ingredients, ensuring quality and delicious taste. CurstGourmet's culinary team is always striving to create new and unique dishes, providing you with diverse dining experiences.
+        </p>
     </div>
 </div>
 
-<!-- <div class="foot">
-    <div clas="bridge" style="margin-right: 5rem;">
-        <p class="title_foot">CurstGourmet</p>
-        <i class="fi fi-ts-land-layer-location"></i>
-        <p class="bridge_foot">CÔNG TY CỔ PHẦN CURSTGOURMET</p>
-        <p class="bridge_foot">Địa chỉ: 109 Lý Tự Trọng, Q.1, TP HCM</p>
-        <p class="bridge_foot">Mail: OfficeCG๑gmail.com</p>
-        <p class="bridge_foot">Hotline: 1900 1876</p>
-    </div>
-    <div class="pages" style="margin-right: 15rem;">
-        <p class="title_foot">Pages</p>
-        <p class="pages_foot">Home</p>
-        <p class="pages_foot">Menu</p>
-        <p class="pages_foot">Table Booking</p>
-        <p class="pages_foot">Delivery</p>
-    </div>
-    <div class="opening" style="margin-right: 5rem;">
-        <p class="title_foot">Opening hours</p>
-        <div style="margin-bottom: 2rem;">
-            <p class="opening_foot">Monday ~ Friday</p>
-            <p class="opening_foot">01:00pm - 08:00pm</p>
-        </div>
-        <div>
-            <p class="opening_foot">Saturday ~ Sunday</p>
-            <p class="opening_foot">01:00pm - 11:30pm</p>
-        </div>
-    </div>
-
-    <div class="social" style="margin-left: 5rem;">
-        <p class="title_foot">Social</p>
-
-    </div>
-</div> -->
-
+<!-- Link to Fontastic Icons CSS -->
 <link href="https://fontastic.s3.amazonaws.com/qXDGBpBG6AawYwtmYPpQBb/icons.css" rel="stylesheet">
+
+<!-- Footer Section -->
 <footer>
-	<div class="container">
-		<div class="noi-dung about">
-			<h2>ABOUT US</h2>
-			<p> The CURSTGOURMET, a symbol of luxury located in the heart of the city,
-				offers a true five-star dining experience. Featuring a diverse menu crafted by top chefs, 
-				attentive service, and a refined atmosphere, The Elegance promises an unforgettable evening for every guest.</p>
-			<ul class="social-icon">
-
-
-				<li>
-					<a href="https://www.facebook.com/CurstGourmet" target="_blank">
-						<tui-svg src="tuiIconFacebookLarge"></tui-svg>
-					</a>
-				</li>
-				
-				<li><tui-svg src="tuiIconTwitterLarge"></tui-svg></li>
-
-			</ul>
-		</div>
-		<div class="noi-dung links">
-			<h2>PAGE</h2>
-			<ul>
-				<li (click)="home()">Home</li>
+    <div class="container">
+        <!-- About Us Section -->
+        <div class="noi-dung about">
+            <h2>ABOUT US</h2>
+            <p>
+                The CURSTGOURMET, a symbol of luxury located in the heart of the city, offers a true five-star dining experience. Featuring a diverse menu crafted by top chefs, attentive service, and a refined atmosphere, The Elegance promises an unforgettable evening for every guest.
+            </p>
+            <!-- Social Icons -->
+            <ul class="social-icon">
+                <li>
+                    <a href="https://www.facebook.com/CurstGourmet" target="_blank">
+                        <tui-svg src="tuiIconFacebookLarge"></tui-svg>
+                    </a>
+                </li>    
+                <li><tui-svg src="tuiIconTwitterLarge"></tui-svg></li>
+            </ul>
+        </div>
+        
+        <!-- Links Section -->
+        <div class="noi-dung links">
+            <h2>PAGE</h2>
+            <ul>
+                <li (click)="home()">Home</li>
                 <li (click)="goBack()">Menu</li>
                 <li (click)="tablebooking()">Booking</li>
                 <li (click)="Back()">Location</li>
                 <li (click)="new()">News</li>
                 <li (click)="order()">Order</li>
                 <li (click)="contact()">Contact</li>
-			</ul>
-		</div>
-		<div class="noi-dung contact">
-			<h2>OPENING HOURS</h2>
-			<ul class="info">
-				<li>
-					<span><i class="fa fa-map-marker"></i></span>
-					<span>Monday ~ Friday: 01:00pm - 08:00pm</span>
-				</li>
-				<li>
-					<span><i class="fa fa-phone"></i></span>
-					<span>Saturday ~ Sunday: 01:00pm - 11:30pm</span>
-				</li>
-			</ul>
-			<h2>CONTACT US</h2>
-			<ul class="info">
-				<li>
-					<span><i class="fa fa-map-marker"></i></span>
-					<span>CÔNG TY CỔ PHẦN CURSTGOURMET</span>
-				</li>
-				<li>
-					<span><i class="fa fa-map-marker"></i></span>
-					<span> Address: 109 Lý Tự Trọng
-						Quận 1, Thành Phố Hồ Chí Minh
-						Việt Nam</span>
-				</li>
-				<li>
-					
-					<p><a href="#">Hotline: 1900 1876</a>
-						
-				</li>
-				<li>
-					
-					<p><a href="#">Mail: OfficeCG๑gmail</a></p>
-				</li>
-			</ul>
-		</div>
-	</div>
+            </ul>
+        </div>
+        
+        <!-- Contact Section -->
+        <div class="noi-dung contact">
+            <h2>OPENING HOURS</h2>
+            <ul class="info">
+                <li>
+                    <span><i class="fa fa-map-marker"></i></span>
+                    <span>Monday ~ Friday: 01:00pm - 08:00pm</span>
+                </li>
+                <li>
+                    <span><i class="fa fa-phone"></i></span>
+                    <span>Saturday ~ Sunday: 01:00pm - 11:30pm</span>
+                </li>
+            </ul>
+            <h2>CONTACT US</h2>
+            <ul class="info">
+                <li>
+                    <span><i class="fa fa-map-marker"></i></span>
+                    <span>CÔNG TY CỔ PHẦN CURSTGOURMET</span>
+                </li>
+                <li>
+                    <span><i class="fa fa-map-marker"></i></span>
+                    <span>Address: 109 Lý Tự Trọng, Quận 1, Thành Phố Hồ Chí Minh, Việt Nam</span>
+                </li>
+                <li>
+                    <p><a href="#">Hotline: 1900 1876</a></p>
+                </li>
+                <li>
+                    <p><a href="#">Mail: OfficeCG๑gmail</a></p>
+                </li>
+            </ul>
+        </div>
+    </div>
 </footer>

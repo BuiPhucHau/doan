@@ -1,7 +1,5 @@
-
-
 <div class="container">
-  <img src="../../../../assets/image/login.png" >
+  <img src="../../../../assets/image/login.png">
   <div class="wrapper">
     <form action="#">
       <h2>REGISTER</h2>
@@ -24,8 +22,8 @@
 
         <!-- //email -->
         <div class="input-field" *ngIf="this.isLoginWithGoogle==false">
-'          <input type="text" placeholder="Email" formControlName="email" required>
-'          <label>Email</label>
+          ' <input type="text" placeholder="Email" formControlName="email" required>
+          ' <label>Email</label>
         </div>
         <div class="input-field" *ngIf="this.isLoginWithGoogle==true">
           <input type="text" [placeholder]="userFirebase.email" formControlName="email" required>
@@ -38,17 +36,13 @@
         </div>
 
         <!-- address -->
-        <div class="input-field" >
+        <div class="input-field">
           <input type="text" formControlName="address" required>
           <label> Address</label>
         </div>
-
-
-
         <button type="submit" (click)="registerclick()"> Submit</button>
         <div class="register">
           <p> Have an account? <a (click)="loginclick()">Login here</a></p>
-
         </div>
       </div>
 

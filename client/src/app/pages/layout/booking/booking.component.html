@@ -5,14 +5,6 @@
 
       <!-- Select location -->
       <div class="search_location">
-        <!-- <div *ngIf="item !== null">
-          <tui-combo-box tuiTextfieldSize="s" class="b-form" [(ngModel)]="item.name"
-            (ngModelChange)="onItemNameChange()" [tuiTextfieldCleaner]="true">
-            Select your branch
-            <input tuiTextfield (input)="item.name" />
-            <tui-data-list-wrapper *tuiDataList [items]="locationList"></tui-data-list-wrapper>
-          </tui-combo-box>
-        </div> -->
         <div>
           <tui-combo-box tuiTextfieldSize="s" class="b-form" [(ngModel)]="locationValue"
             (ngModelChange)="onLocationChange()" [tuiTextfieldCleaner]="true">
@@ -92,7 +84,6 @@
           <tui-input formControlName="exampleControl">
             100.000 VND
           </tui-input>
-
           <p>
             <button tuiButton type="submit" (click)="createBookingTable()">
               Deposit
@@ -149,14 +140,9 @@
         </tui-select>
       </div>
 
-      <!-- <div class="checkbox">
-      <label class="label-checkbox">Đặt món</label>
-      <tui-checkbox formControlName="setdishes" class="tui-space_bottom-3"></tui-checkbox>
-    </div> -->
-
       <div class="line"></div>
       <p style="font-size: 14px; margin: 1rem; font-weight: bold;">Client Details</p>
-
+      
       <!-- Full Name -->
       <div class="input-client">
         <label class="label-client">Full Name</label>

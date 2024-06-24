@@ -21,10 +21,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
+  // Flag to indicate if login is with Google
   isLoginWithGoogle = false;
+
+  // Firebase user object
   userFirebase: UserFirebase = <UserFirebase>{};
+
+  // Observable for user state
   user$ = this.store.select('user', 'user');
 
+  // Registration form group with validation
   regisForm = new FormGroup({
     _id: new FormControl('', Validators.required),
     uid: new FormControl('', Validators.required),
@@ -47,6 +53,7 @@ export class RegisterComponent {
     private auth: Auth,
     private store: Store<{ auth: AuthState; user: UserState }>
   ) {
+    // Listen for authentication state changes
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.isLoginWithGoogle = true;
@@ -56,9 +63,12 @@ export class RegisterComponent {
           email: user.email || '',
           name: user.displayName || '',
         };
+        // Dispatch action to store Firebase user data
         this.store.dispatch(AuthActions.storageUserFirebase(this.userFirebase));
       }
     });
+
+    // Subscribe to user creation success state
     this.store.select('user', 'isCreateSussess').subscribe((state) => {
       if (state) {
         this.router.navigate(['/base/home']);
@@ -66,8 +76,9 @@ export class RegisterComponent {
     });
   }
 
+  // Method to handle registration click
   registerclick() {
-    if(this.isLoginWithGoogle) {
+    if (this.isLoginWithGoogle) {
       let regisData: User = {
         _id: '',
         uid: this.userFirebase.uid ?? '',
@@ -79,25 +90,27 @@ export class RegisterComponent {
         address: this.regisForm.value.address ?? '',
         role: 'user',
       };
-      this.store.dispatch(UserActions.createUser({user : regisData}));
+      // Dispatch action to create user with Google data
+      this.store.dispatch(UserActions.createUser({ user: regisData }));
       console.log(regisData);
-      }
-      else {
-        let regisData: User = {
-          _id: '',
-          uid: this.regisForm.value.name ?? '',
-          name: this.regisForm.value.name ?? '',
-          email: this.regisForm.value.email ?? '',
-          password: this.regisForm.value.password ?? '',
-          phone: this.regisForm.value.phone ?? '',
-          avatar: '',
-          address: this.regisForm.value.address ?? '',
-          role: 'user',
-        };
-        this.store.dispatch(UserActions.createUser({user : regisData}));
-        }
-      }
+    } else {
+      let regisData: User = {
+        _id: '',
+        uid: this.regisForm.value.name ?? '',
+        name: this.regisForm.value.name ?? '',
+        email: this.regisForm.value.email ?? '',
+        password: this.regisForm.value.password ?? '',
+        phone: this.regisForm.value.phone ?? '',
+        avatar: '',
+        address: this.regisForm.value.address ?? '',
+        role: 'user',
+      };
+      // Dispatch action to create user with form data
+      this.store.dispatch(UserActions.createUser({ user: regisData }));
+    }
+  }
 
+  // Method to handle login click
   loginclick() {
     this.router.navigate(['/login']);
   }

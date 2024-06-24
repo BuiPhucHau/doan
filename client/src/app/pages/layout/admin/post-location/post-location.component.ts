@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LocationState } from '../../../../ngrx/state/location.state';
@@ -13,40 +12,27 @@ import { ShareModule } from '../../../../shared/shared.module';
 import { TaigaModule } from '../../../../shared/taiga.module';
 import { Subscription } from 'rxjs';
 
-
 @Component({
   selector: 'app-post-location',
   standalone: true,
-  imports: [ShareModule, TaigaModule],
-  templateUrl: './post-location.component.html',
-  styleUrl: './post-location.component.scss',
+  imports: [ShareModule, TaigaModule], // Import shared and Taiga modules
+  templateUrl: './post-location.component.html', // Template URL
+  styleUrl: './post-location.component.scss', // Stylesheet URL
 })
 export class PostLocationComponent implements OnDestroy, OnInit {
-  locationList : Location [] = [];
 
-  location$ = this.store.select('location', 'locationList');
-
-  isCreateLocation$ = this.store.select('location', 'isAddSuccess');
-
-  removeLocation$ = this.store.select('location', 'isRemoveSuccess');
-
-  updateLocation$ = this.store.select('location', 'isUpdateSuccess');
-
-  createImageSuccess$ = this.store.select('storage', 'isCreateSuccess');
-  
+  // Arrays and variables for storing data and managing state
+  locationList: Location[] = [];
   selectedImage: string | ArrayBuffer | null = null;
   fileName: string = '';
-  
   currentLocation: Location | null = null;
   isUpdateClicked: boolean = false;
-
-  subscriptions: Subscription[] = [];
-
   isChangeFile: boolean = false;
   locationDataToUpdate: any = {};
   isUpdateLocation: boolean = false;
   fileNameToUpdate: string = '';
-  
+
+  // Reactive Form for adding a location
   addLocationForm = new FormGroup({
     locationId: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
@@ -55,42 +41,53 @@ export class PostLocationComponent implements OnDestroy, OnInit {
     image: new FormControl('', Validators.required),
   });
 
+  // Object to hold data for adding a location
   addLocationData: any = {
     locationId: '',
     name: '',
     phone: '',
     address: '',
     image: '',
-  }
+  };
 
-  detail = false;
+  // Form for example purposes
   exampleForm = new FormGroup({
     exampleControl: new FormControl(''),
   });
+
+  // Subscriptions array to manage all subscriptions
+  subscriptions: Subscription[] = [];
+
   constructor(
     private router: Router,
-    private store: Store<{
-      location: LocationState;
-      storage: StorageState;
-    }>
+    private store: Store<{ location: LocationState; storage: StorageState }>
   ) {
+    // Dispatch action to fetch locations when component initializes
     this.store.dispatch(LocationActions.get());
+
+    // Subscribe to various observables
     this.subscriptions.push(
-      this.location$.subscribe((locationList) => {
-        if(locationList.length > 0){
+      // Subscribe to locationList changes
+      this.store.select('location', 'locationList').subscribe((locationList) => {
+        if (locationList.length > 0) {
           console.log(locationList);
           this.locationList = locationList;
         }
       }),
+
+      // Subscribe to changes in the 'location' state for fallback handling
       this.store.select('location').subscribe((val) => {
         if (val != null && val != undefined) {
           this.locationList = val.locationList;
         }
       }),
-      this.createImageSuccess$.subscribe((val) => {
+
+      // Subscribe to createImageSuccess$ to handle image creation success
+      this.store.select('storage', 'isCreateSuccess').subscribe((val) => {
         console.log(val);
         if (val) {
           console.log(val);
+          // If image creation is successful, fetch the stored image
           this.store.dispatch(
             StorageAction.get({
               fileName: this.fileName,
@@ -98,25 +95,28 @@ export class PostLocationComponent implements OnDestroy, OnInit {
           );
         }
       }),
-  
+
+      // Subscribe to storage state changes for further handling after image creation
       this.store.select('storage').subscribe((val) => {
         if (val?.isGetSuccess) {
           console.log(val);
-          if(this.isUpdateLocation){
-          this.locationDataToUpdate.image = val.storage?._id;
-          console.log(this.locationDataToUpdate);
-          
-          this.store.dispatch(LocationAction.updateLocation({ location: this.locationDataToUpdate }));
-          }else
-          {this.addLocationData.image = val.storage?._id;
-          this.store.dispatch(LocationAction.createLocation({ location: this.addLocationData }));}
+          // If fetching image is successful, update location data if in update mode, otherwise create location
+          if (this.isUpdateLocation) {
+            this.locationDataToUpdate.image = val.storage?._id;
+            console.log(this.locationDataToUpdate);
+            this.store.dispatch(LocationAction.updateLocation({ location: this.locationDataToUpdate }));
+          } else {
+            this.addLocationData.image = val.storage?._id;
+            this.store.dispatch(LocationAction.createLocation({ location: this.addLocationData }));
+          }
         }
       }),
-  
-      this.isCreateLocation$.subscribe ((val) => {
+
+      // Subscribe to isCreateLocation$ for handling location creation success
+      this.store.select('location', 'isAddSuccess').subscribe((val) => {
         if (val) {
-          console.log(val);
-          alert('Tạo location thành công');
+          alert('Tạo location thành công'); // Notify success
+          // Reset form and data after successful creation
           this.addLocationData = {
             locationId: '',
             name: '',
@@ -125,18 +125,25 @@ export class PostLocationComponent implements OnDestroy, OnInit {
             image: '',
           };
           this.addLocationForm.reset();
+          // Refresh location list
           this.store.dispatch(LocationAction.get());
         }
       }),
-      this.removeLocation$.subscribe((val) => {
+
+      // Subscribe to removeLocation$ to handle successful location removal
+      this.store.select('location', 'isRemoveSuccess').subscribe((val) => {
         if (val) {
-          alert('Xóa location thành công');
+          alert('Xóa location thành công'); // Notify success
+          // Refresh location list after removal
           this.store.dispatch(LocationAction.get());
         }
       }),
-      this.updateLocation$.subscribe ((val) => {
+
+      // Subscribe to updateLocation$ to handle successful location update
+      this.store.select('location', 'isUpdateSuccess').subscribe((val) => {
         if (val) {
-          alert('Cập nhật location thành công');
+          alert('Cập nhật location thành công'); // Notify success
+          // Reset form and data after successful update
           this.addLocationData = {
             locationId: '',
             name: '',
@@ -145,23 +152,27 @@ export class PostLocationComponent implements OnDestroy, OnInit {
             image: '',
           };
           this.addLocationForm.reset();
+          // Refresh location list after update
           this.store.dispatch(LocationAction.get());
-          this.isUpdateLocation = false;
+          this.isUpdateLocation = false; // Reset update mode flag
         }
-      }),
+      })
     );
   }
-  
-  ngOnInit(): void { 
+
+  ngOnInit(): void {
+    // Initialization tasks can be added here if needed
   }
 
   ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions to prevent memory leaks
     this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();
     });
   }
 
-  formData: FormData =  new FormData();
+  // Handling file input selection
+  formData: FormData = new FormData();
   file: any;
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
@@ -170,79 +181,87 @@ export class PostLocationComponent implements OnDestroy, OnInit {
     this.formData.append('image', file, file.name);
     this.file = file;
 
+    // Read and display the selected image
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.selectedImage = reader.result;
     };
-    this.isChangeFile = true;
+    this.isChangeFile = true; // Flag to indicate file change
     console.log(this.file);
   }
 
+  // Method to create a new location
   createLocation() {
+    // Prepare data for creating a location
     this.addLocationData = {
       locationId: this.addLocationForm.value.locationId,
       name: this.addLocationForm.value.name,
       phone: this.addLocationForm.value.phone,
       address: this.addLocationForm.value.address,
-      // image: this.addLocationForm.value.image,
-     };
-    console.log('Thêm location thành công', this.addLocationData);
+      // image: this.addLocationForm.value.image, // Commented out due to using dynamic file handling
+    };
 
+    // Construct a unique file name for the uploaded image
     this.fileName = this.addLocationForm.value.locationId + '_' + this.addLocationForm.value.name;
 
     console.log(this.file);
-    
+
+    // Dispatch action to create a new storage entry for the image
     this.store.dispatch(
       StorageAction.create({ file: this.file, fileName: this.fileName })
     );
   }
 
+  // Method to remove a location
   removeLocation(locationId: string) {
     const confirmDelete = confirm("Are you sure you want to delete this location?");
     if (confirmDelete) {
       this.store.dispatch(LocationAction.removeLocation({ locationId }));
     }
   }
-  
+
+  // Method to prepare for updating a location
   updateLocation(locationId: string): void {
-    this.isUpdateClicked = true;
+    this.isUpdateClicked = true; // Set flag indicating update action
+    // Find the current location data by ID
     this.currentLocation = this.locationList.find(location => location.locationId === locationId) || null;
     if (this.currentLocation) {
+      // Populate the form with the current location data
       this.addLocationForm.setValue({
         locationId: this.currentLocation.locationId,
         name: this.currentLocation.name,
         phone: this.currentLocation.phone,
         address: this.currentLocation.address,
-        image: this.currentLocation.image._id.toString()
+        image: this.currentLocation.image._id.toString(), // Assuming image ID for update
       });
     }
   }
 
-  
+  // Method to finalize location update
   onUpdateLocation(): void {
     const locationData = {
       locationId: this.addLocationForm.value.locationId,
       name: this.addLocationForm.value.name,
       phone: this.addLocationForm.value.phone,
       address: this.addLocationForm.value.address,
-      image: this.addLocationForm.value.image,
+      image: this.addLocationForm.value.image, // Assuming image ID for update
     };
     this.locationDataToUpdate = locationData;
-    //Nếu edit được click
+
+    // If no file change, directly update the location
     if (!this.isChangeFile) {
       console.log("no change file");
-      
       this.store.dispatch(LocationAction.updateLocation({ location: locationData }));
-    }else{
+    } else {
+      // If file is changed, first create a new storage entry for the updated image
       this.fileName = this.addLocationForm.value.locationId + '_' + this.addLocationForm.value.name;
       this.store.dispatch(
         StorageAction.create({ file: this.file, fileName: this.fileName })
       );
       this.fileNameToUpdate = this.fileName;
-      this.isUpdateLocation = true;
+      this.isUpdateLocation = true; // Set flag indicating update mode with file change
       console.log("change file");
-      
     }
   }
 }

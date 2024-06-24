@@ -22,19 +22,26 @@ import * as AuthActions from '../../ngrx/actions/auth.actions';
 })
 export class LoginComponent {
 
+  // Flags for different login methods
   isLoginWithGoogle = false;
   isLoginWithAccount = false;
+
+  // Observables for user state
   user$ = this.store.select('user', 'user');
   userFirebase: UserFirebase = <UserFirebase>{};
   userFirebase$ = this.store.select('auth', 'userFirebase');
+
+  // Flag for successful user retrieval
   isGetSuccessUser = false;
   errorMessage = '';
 
+  // Form group for account login
   accountForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
 
+  // Account data object
   accountData = {
     email: '',
     password: '',
@@ -46,6 +53,7 @@ export class LoginComponent {
     private store: Store<{ auth: AuthState; user: UserState }>
   ) {
     
+    // Listen for authentication state changes
     onAuthStateChanged(this.auth, (user) => {
       if (user && user.email) {
         this.isLoginWithGoogle = true;
@@ -55,10 +63,12 @@ export class LoginComponent {
           name: user.displayName || '',
           picture: user.photoURL || '',
         };
+        // Dispatch action to get user by email
         this.store.dispatch(UserActions.getByEmail({ email: user.email || "" }));
       }
     });
 
+    // Subscribe to user observable
     this.user$.subscribe((user) => {
       if (user && user.email) {
         this.isGetSuccessUser = true;
@@ -104,6 +114,7 @@ export class LoginComponent {
     });
   }
 
+  // Method to handle login with account credentials
   loginWithAccount() {
     this.accountData = {
       email: this.accountForm.value.email || '',
@@ -112,6 +123,7 @@ export class LoginComponent {
 
     if (this.accountData.email !== '' && this.accountData.password !== '') {
       this.isLoginWithAccount = true;
+      // Dispatch action to get user by email
       this.store.dispatch(
         UserActions.getByEmail({ email: this.accountData.email })
       );
@@ -121,11 +133,14 @@ export class LoginComponent {
     }
   }
 
+  // Method to handle login with Google
   loginWithGoogle() {
     this.isLoginWithGoogle = true;
+    // Dispatch action to initiate Google login
     this.store.dispatch(AuthActions.login());
   }
 
+  // Method to handle register click
   registerclick() {
     this.isLoginWithGoogle = false;
     this.isLoginWithAccount = false;
