@@ -48,6 +48,16 @@ export class UserController {
       throw error;
     }
   }
+  // Get user by email and password
+  @Post('login')
+  async findByEmailAndPassword(@Body() loginData: { email: string, password: string }) {
+    try {
+      const user = await this.userService.findByEmailAndPassword(loginData.email, loginData.password);
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
 // put update user
   @Put('update')
   async update(@Query('id') id: string, @Body() updateUserDto: UpdateUserDto) {

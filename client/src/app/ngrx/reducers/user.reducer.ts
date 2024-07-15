@@ -26,6 +26,7 @@ export const userReducer = createReducer(
     };
     return newState;
   }),
+  
 
   on(UserActions.getByEmailSuccess, (state, action) => {
     console.log(action.type);
@@ -47,6 +48,42 @@ export const userReducer = createReducer(
       getErrMess: action.error,
     };
     console.log(action.error);
+    return newState;
+  }),
+
+  on(UserActions.getByEmailAndPassword, (state, { email, password }) => {
+    console.log(UserActions.getByEmailAndPassword);
+    let newState: UserState = {
+      ...state,
+      isGetLoading: true,
+      isGetSuccess: false,
+      getErrMess: '',
+      user: <User>{},
+    };
+    return newState;
+  }),
+
+  on(UserActions.getByEmailAndPasswordFailure, (state, action) => {
+    console.log(action.type);
+    let newState: UserState = {
+      ...state,
+      isGetLoading: false,
+      isGetSuccess: false,
+      getErrMess: action.error,
+    };
+    console.log(action.error);
+    return newState;
+  }),
+
+  on(UserActions.getByEmailAndPassword, (state, action) => {
+    console.log(action.type);
+    let newState: UserState = {
+      ...state,
+      isGetLoading: true,
+      isGetSuccess: false,
+      getErrMess: '',
+      user: <User>{},
+    };
     return newState;
   }),
 

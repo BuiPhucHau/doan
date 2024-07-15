@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { UserService } from '../../service/user/user.service';
 import { catchError, map, mergeMap, of } from 'rxjs';
 import * as UserActions from '../actions/user.actions';
+import { UserService } from '../../service/user/user.service';
+
 @Injectable()
 export class UserEffects {
   constructor(private actions$: Actions, private userService: UserService) {}
@@ -14,6 +15,18 @@ export class UserEffects {
         this.userService.getUserByEmail(action.email).pipe(
           map((user) => UserActions.getByEmailSuccess({ user: user })),
           catchError((error) => of(UserActions.getByEmailFailure({ error })))
+        )
+      )
+    )
+  );
+
+  getUserByEmailAndPassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.getByEmailAndPassword),
+      mergeMap((action) =>
+        this.userService.getUserByEmailAndPassword(action.email, action.password).pipe(
+          map((user) => UserActions.getByEmailAndPasswordSuccess({ user: user })),
+          catchError((error) => of(UserActions.getByEmailAndPasswordFailure({ error })))
         )
       )
     )

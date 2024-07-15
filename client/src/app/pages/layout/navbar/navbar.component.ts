@@ -54,24 +54,15 @@ export class NavbarComponent {
     private store: Store<{ auth: AuthState; user: UserState }>
   ) {
     this.user$.subscribe((user) => {
-      if (user && user._id != null && user._id != undefined) {
+      if (user._id != null && user._id != undefined) {
         console.log(user);
         this.user = user;
       } else {
-        this.user = {
-          _id: '',
-          uid: '',
-          avatar: '',
-          email: '',
-          name: '',
-          role: '',
-          password: '',
-          phone: '',
-          address: '',
-        };
+        const userAsJson = sessionStorage.getItem('user');
+        this.user = JSON.parse(userAsJson || '');
+        this.store.dispatch(UserActions.storedUser(this.user));
       }
     });
-
     this.store.select('user').subscribe((user) => {
       if (user != null && user != undefined) {
         this.userForm.controls.avatar.setValue(user.user.avatar);
@@ -80,7 +71,6 @@ export class NavbarComponent {
         this.userForm.controls.uid.setValue(user.user.uid);
       }
     });
-
     this.auth$.subscribe((res) => {
       if (res) {
         console.log(res);

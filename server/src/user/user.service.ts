@@ -47,10 +47,27 @@ export class UserService {
           uid: '404 user not found',
           email: '404 user not found',
           password: '404 user not found',
-          name: '404 user not found',
-          avatar: '404 user not found',
-          phone: '404 user not found',
-          Adress: '404 user not found',
+         
+        };
+        return userClone;
+      }
+      return user;
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
+  }
+  // Get user by email and password
+  async findByEmailAndPassword(email: string, password: string) {
+    try {
+      const user = await this.userModel.findOne({ email: email, password: password }).exec();
+      
+      if (!user) {
+        let userClone = {
+          _id: '404 user not found',
+          uid: '404 user not found',
+          email: '404 user not found',
+          password: '404 user not found',
+         
         };
         return userClone;
       }

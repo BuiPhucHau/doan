@@ -9,6 +9,13 @@ export const getByEmailSuccess = createAction('[User] get by email success', pro
 
 export const getByEmailFailure = createAction('[User] get by email failure', props<{ error: any }>()); 
 
+export const getByEmailAndPassword = createAction( '[User] Get By Email and Password',
+    props<{ email: string, password: string }>());
+
+export const getByEmailAndPasswordSuccess = createAction('[User] get by email success', props<{ user : User }>());
+
+export const getByEmailAndPasswordFailure = createAction('[User] get by email failure', props<{ error: any }>());
+
 export const createUser = createAction('[User] create user', props<{ user: User }>());
 
 export const createUserSuccess = createAction('[User] create user success', props<{ user: User }>());
