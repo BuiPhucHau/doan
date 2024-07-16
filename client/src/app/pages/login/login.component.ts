@@ -22,7 +22,6 @@ import { TuiAlertService } from '@taiga-ui/core';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnDestroy, OnInit {
-
   // Flags for different login methods
   isLoginWithGoogle = false;
 
@@ -55,11 +54,10 @@ export class LoginComponent implements OnDestroy, OnInit {
     @Inject(TuiAlertService)
     private readonly alerts: TuiAlertService
   ) {
-
     // Listen for authentication state changes
     onAuthStateChanged(this.auth, (user) => {
       console.log(user);
-      if (user && user.email != undefined && user.email!="") {
+      if (user && user.email != undefined && user.email != '') {
         this.isLoginWithGoogle = true;
         this.userFirebase = {
           uid: user.uid,
@@ -67,69 +65,92 @@ export class LoginComponent implements OnDestroy, OnInit {
           name: user.displayName || '',
           picture: user.photoURL || '',
         };
-        this.store.dispatch(UserActions.getByEmail({ email: user.email||"" }));
+        this.store.dispatch(
+          UserActions.getByEmail({ email: user.email || '' })
+        );
       }
     });
-
-
   }
   // Lifecycle hook that runs after the component is initialized
   ngOnInit() {
     this.subcriptions.push(
-    // Subscribe to user observable
-    this.user$.subscribe((user) => {
-      if (user != <User>{} && user != undefined && user != null&& user.email !=undefined) {
-        this.isGetSuccessUser = true;
+      // Subscribe to user observable
+      this.user$.subscribe((user) => {
+        if (
+          user != <User>{} &&
+          user != undefined &&
+          user != null &&
+          user.email != undefined
+        ) {
+          this.isGetSuccessUser = true;
 
-        if ( this.accountData.password != "" && this.accountData.email != "" && !this.isLoginWithGoogle) {
-
-          if (user.password == this.accountData.password && user.email == this.accountData.email) {
-            const userAsJson = JSON.stringify(user);
-            sessionStorage.setItem('user', userAsJson);
-            this.alerts.open('Login success.', { status: 'success' }).subscribe();
-            this.router.navigate(['/base/home']);
-            this.resetLoginState();
+          if (
+            this.accountData.password != '' &&
+            this.accountData.email != '' &&
+            !this.isLoginWithGoogle
+          ) {
+            if (
+              user.password == this.accountData.password &&
+              user.email == this.accountData.email
+            ) {
+              const userAsJson = JSON.stringify(user);
+              sessionStorage.setItem('user', userAsJson);
+              this.alerts
+                .open('Login success.', { status: 'success' })
+                .subscribe();
+              this.router.navigate(['/base/home']);
+              this.resetLoginState();
+            } else {
+              this.errorMessage = 'Email or password is incorrect.';
+              this.resetLoginState();
+            }
           } else {
-            this.errorMessage = 'Email or password is incorrect.';
-            this.resetLoginState();
-          }
-        } else {
-          if ( this.isLoginWithGoogle && this.userFirebase.email == user.email) {
-
-            console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
-            const userAsJsonGG = JSON.stringify(user);
-            sessionStorage.setItem('user', userAsJsonGG);
-            this.alerts.open('Login success.', { status: 'success' }).subscribe();
-            this.router.navigate(['/base/home']);
-            console.log('Login with google');
-            this.isGetSuccessUser = false;
+            if (
+              this.isLoginWithGoogle &&
+              this.userFirebase.email == user.email
+            ) {
+              console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
+              const userAsJsonGG = JSON.stringify(user);
+              sessionStorage.setItem('user', userAsJsonGG);
+              this.alerts
+                .open('Login success.', { status: 'success' })
+                .subscribe();
+              this.router.navigate(['/base/home']);
+              console.log('Login with google');
+              this.isGetSuccessUser = false;
+            }
           }
         }
-      } 
-      if (this.isGetSuccessUser && user.email == "404 user not found"&& this.isLoginWithGoogle)
-      {
-        this.alerts.open('You dont have an account yet, please register an account.', { status: 'error' }).subscribe();
-        this.router
-      }
-    }));
-
+        if (
+          this.isGetSuccessUser && user.email == '404 user not found' && this.isLoginWithGoogle
+        ) {
+          this.alerts
+            .open('You dont have an account yet, please register an account.', {
+              status: 'error',
+            })
+            .subscribe();
+            this.router.navigate(['/register']);
+        }
+      })
+    );
   }
-    // Lifecycle hook that runs when the component is destroyed
-    ngOnDestroy(): void {
-      // Unsubscribe from all subscriptions to prevent memory leaks
-      this.subcriptions.forEach((sub) => sub.unsubscribe());
-    }
+  // Lifecycle hook that runs when the component is destroyed
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions to prevent memory leaks
+    this.subcriptions.forEach((sub) => sub.unsubscribe());
+  }
   // Method to handle login with Account
   loginWithAccount() {
     this.accountData = {
       email: this.accountForm.value.email || '',
       password: this.accountForm.value.password || '',
     };
-    this.store.dispatch(UserActions.getByEmailAndPassword({
-      email: this.accountData.email,
-      password: this.accountData.password
-    }));
-    
+    this.store.dispatch(
+      UserActions.getByEmailAndPassword({
+        email: this.accountData.email,
+        password: this.accountData.password,
+      })
+    );
   }
 
   // Method to handle login with Google
@@ -145,7 +166,7 @@ export class LoginComponent implements OnDestroy, OnInit {
     console.log(this.isLoginWithGoogle);
   }
 
-    private resetLoginState() {
+  private resetLoginState() {
     this.isGetSuccessUser = false;
     this.accountData = {
       email: '',

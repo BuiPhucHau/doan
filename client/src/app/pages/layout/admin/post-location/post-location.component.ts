@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LocationState } from '../../../../ngrx/state/location.state';
@@ -20,12 +26,14 @@ import { Subscription } from 'rxjs';
   styleUrl: './post-location.component.scss', // Stylesheet URL
 })
 export class PostLocationComponent implements OnDestroy, OnInit {
-
   // Arrays and variables for storing data and managing state
   locationList: Location[] = [];
+
   selectedImage: string | ArrayBuffer | null = null;
   fileName: string = '';
+
   currentLocation: Location | null = null;
+
   isUpdateClicked: boolean = false;
   isChangeFile: boolean = false;
   locationDataToUpdate: any = {};
@@ -62,106 +70,112 @@ export class PostLocationComponent implements OnDestroy, OnInit {
     private router: Router,
     private store: Store<{ location: LocationState; storage: StorageState }>
   ) {
-    // Dispatch action to fetch locations when component initializes
-    this.store.dispatch(LocationActions.get());
-
-    // Subscribe to various observables
-    this.subscriptions.push(
-      // Subscribe to locationList changes
-      this.store.select('location', 'locationList').subscribe((locationList) => {
-        if (locationList.length > 0) {
-          console.log(locationList);
-          this.locationList = locationList;
-        }
-      }),
-
-      // Subscribe to changes in the 'location' state for fallback handling
-      this.store.select('location').subscribe((val) => {
-        if (val != null && val != undefined) {
-          this.locationList = val.locationList;
-        }
-      }),
-
-      // Subscribe to createImageSuccess$ to handle image creation success
-      this.store.select('storage', 'isCreateSuccess').subscribe((val) => {
-        console.log(val);
-        if (val) {
-          console.log(val);
-          // If image creation is successful, fetch the stored image
-          this.store.dispatch(
-            StorageAction.get({
-              fileName: this.fileName,
-            })
-          );
-        }
-      }),
-
-      // Subscribe to storage state changes for further handling after image creation
-      this.store.select('storage').subscribe((val) => {
-        if (val?.isGetSuccess) {
-          console.log(val);
-          // If fetching image is successful, update location data if in update mode, otherwise create location
-          if (this.isUpdateLocation) {
-            this.locationDataToUpdate.image = val.storage?._id;
-            console.log(this.locationDataToUpdate);
-            this.store.dispatch(LocationAction.updateLocation({ location: this.locationDataToUpdate }));
-          } else {
-            this.addLocationData.image = val.storage?._id;
-            this.store.dispatch(LocationAction.createLocation({ location: this.addLocationData }));
-          }
-        }
-      }),
-
-      // Subscribe to isCreateLocation$ for handling location creation success
-      this.store.select('location', 'isAddSuccess').subscribe((val) => {
-        if (val) {
-          alert('Tạo location thành công'); // Notify success
-          // Reset form and data after successful creation
-          this.addLocationData = {
-            locationId: '',
-            name: '',
-            phone: '',
-            address: '',
-            image: '',
-          };
-          this.addLocationForm.reset();
-          // Refresh location list
-          this.store.dispatch(LocationAction.get());
-        }
-      }),
-
-      // Subscribe to removeLocation$ to handle successful location removal
-      this.store.select('location', 'isRemoveSuccess').subscribe((val) => {
-        if (val) {
-          alert('Xóa location thành công'); // Notify success
-          // Refresh location list after removal
-          this.store.dispatch(LocationAction.get());
-        }
-      }),
-
-      // Subscribe to updateLocation$ to handle successful location update
-      this.store.select('location', 'isUpdateSuccess').subscribe((val) => {
-        if (val) {
-          alert('Cập nhật location thành công'); // Notify success
-          // Reset form and data after successful update
-          this.addLocationData = {
-            locationId: '',
-            name: '',
-            phone: '',
-            address: '',
-            image: '',
-          };
-          this.addLocationForm.reset();
-          // Refresh location list after update
-          this.store.dispatch(LocationAction.get());
-          this.isUpdateLocation = false; // Reset update mode flag
-        }
-      })
-    );
+   
   }
 
   ngOnInit(): void {
-    // Initialization tasks can be added here if needed
+     // Dispatch action to fetch locations when component initializes
+     this.store.dispatch(LocationActions.get());
+
+     // Subscribe to various observables
+     this.subscriptions.push(
+       // Subscribe to locationList changes
+       this.store
+         .select('location', 'locationList')
+         .subscribe((locationList) => {
+           if (locationList.length > 0) {
+             console.log(locationList);
+             this.locationList = locationList;
+           }
+         }),
+ 
+       // Subscribe to changes in the 'location' state for fallback handling
+       this.store.select('location').subscribe((val) => {
+         if (val != null && val != undefined) {
+           this.locationList = val.locationList;
+         }
+       }),
+ 
+       // Subscribe to createImageSuccess$ to handle image creation success
+       this.store.select('storage', 'isCreateSuccess').subscribe((val) => {
+         console.log(val);
+         if (val) {
+           console.log(val);
+           // If image creation is successful, fetch the stored image
+           this.store.dispatch(
+             StorageAction.get({
+               fileName: this.fileName,
+             })
+           );
+         }
+       }),
+ 
+       // Subscribe to storage state changes for further handling after image creation
+       this.store.select('storage').subscribe((val) => {
+         if (val?.isGetSuccess) {
+           console.log(val);
+           if (this.isUpdateLocation) {
+             this.locationDataToUpdate.image = val.storage?._id;
+             console.log(this.locationDataToUpdate);
+             this.store.dispatch(
+               LocationAction.updateLocation({
+                 location: this.locationDataToUpdate,
+               })
+             );
+           } else {
+             this.addLocationData.image = val.storage?._id;
+             this.store.dispatch(
+               LocationAction.createLocation({ location: this.addLocationData })
+             );
+           }
+         }
+       }),
+ 
+       this.store.select('location', 'isCreateLocationSuccess').subscribe((val) => {
+         console.log('Addsc', val);
+         if (val) {
+           alert('Create location success');
+           // Reset form and data after successful creation
+           this.addLocationData = {
+             locationId: '',
+             name: '',
+             phone: '',
+             address: '',
+             image: '',
+           };
+           this.addLocationForm.reset();
+           // Refresh location list
+           this.store.dispatch(LocationAction.get());
+         }
+       }),
+ 
+       // Subscribe to updateLocation$ to handle successful location update
+       this.store.select('location', 'isUpdateSuccess').subscribe((val) => {
+         if (val) {
+           alert('Update location success');
+           this.addLocationData = {
+             locationId: '',
+             name: '',
+             phone: '',
+             address: '',
+             image: '',
+           };
+           this.addLocationForm.reset();
+           // Refresh location list after update
+           this.store.dispatch(LocationAction.get());
+           this.isUpdateLocation = false; // Reset update mode flag
+         }
+       }),
+ 
+       // Subscribe to removeLocation$ to handle successful location removal
+       this.store.select('location', 'isRemoveSuccess').subscribe((val) => {
+         if (val) {
+           alert('Delete location success'); // Notify success
+           // Refresh location list after removal
+           this.store.dispatch(LocationAction.get());
+         }
+       })
+     );
   }
 
   ngOnDestroy(): void {
@@ -193,17 +207,18 @@ export class PostLocationComponent implements OnDestroy, OnInit {
 
   // Method to create a new location
   createLocation() {
-    // Prepare data for creating a location
     this.addLocationData = {
       locationId: this.addLocationForm.value.locationId,
       name: this.addLocationForm.value.name,
       phone: this.addLocationForm.value.phone,
       address: this.addLocationForm.value.address,
-      // image: this.addLocationForm.value.image, // Commented out due to using dynamic file handling
     };
 
     // Construct a unique file name for the uploaded image
-    this.fileName = this.addLocationForm.value.locationId + '_' + this.addLocationForm.value.name;
+    this.fileName =
+      this.addLocationForm.value.locationId +
+      '_' +
+      this.addLocationForm.value.name;
 
     console.log(this.file);
 
@@ -215,7 +230,9 @@ export class PostLocationComponent implements OnDestroy, OnInit {
 
   // Method to remove a location
   removeLocation(locationId: string) {
-    const confirmDelete = confirm("Are you sure you want to delete this location?");
+    const confirmDelete = confirm(
+      'Are you sure you want to delete this location?'
+    );
     if (confirmDelete) {
       this.store.dispatch(LocationAction.removeLocation({ locationId }));
     }
@@ -223,11 +240,13 @@ export class PostLocationComponent implements OnDestroy, OnInit {
 
   // Method to prepare for updating a location
   updateLocation(locationId: string): void {
-    this.isUpdateClicked = true; // Set flag indicating update action
+    this.isUpdateClicked = true;
     // Find the current location data by ID
-    this.currentLocation = this.locationList.find(location => location.locationId === locationId) || null;
+    this.currentLocation =
+      this.locationList.find(
+        (location) => location.locationId === locationId
+      ) || null;
     if (this.currentLocation) {
-      // Populate the form with the current location data
       this.addLocationForm.setValue({
         locationId: this.currentLocation.locationId,
         name: this.currentLocation.name,
@@ -251,17 +270,22 @@ export class PostLocationComponent implements OnDestroy, OnInit {
 
     // If no file change, directly update the location
     if (!this.isChangeFile) {
-      console.log("no change file");
-      this.store.dispatch(LocationAction.updateLocation({ location: locationData }));
+      console.log('no change file');
+      this.store.dispatch(
+        LocationAction.updateLocation({ location: locationData })
+      );
     } else {
       // If file is changed, first create a new storage entry for the updated image
-      this.fileName = this.addLocationForm.value.locationId + '_' + this.addLocationForm.value.name;
+      this.fileName =
+        this.addLocationForm.value.locationId +
+        '_' +
+        this.addLocationForm.value.name;
       this.store.dispatch(
         StorageAction.create({ file: this.file, fileName: this.fileName })
       );
       this.fileNameToUpdate = this.fileName;
       this.isUpdateLocation = true; // Set flag indicating update mode with file change
-      console.log("change file");
+      console.log('change file');
     }
   }
 }

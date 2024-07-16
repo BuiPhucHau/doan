@@ -47,7 +47,8 @@ export class UserService {
           uid: '404 user not found',
           email: '404 user not found',
           password: '404 user not found',
-         
+          phone: '404 user not found',
+          avatart: '404 user not found',
         };
         return userClone;
       }
@@ -67,7 +68,9 @@ export class UserService {
           uid: '404 user not found',
           email: '404 user not found',
           password: '404 user not found',
-         
+          phone: '404 user not found',
+          avatart: '404 user not found',
+
         };
         return userClone;
       }

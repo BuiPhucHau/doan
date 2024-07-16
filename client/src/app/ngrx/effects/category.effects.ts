@@ -9,7 +9,7 @@ export class CategoryEffects {
 
     getCategory$ = createEffect(() =>
         this.action$.pipe(
-            ofType(CategoryActions.get),
+        ofType(CategoryActions.get),
            exhaustMap(() =>
             this.categoryService.getCategories().pipe(
                 map((items) => {

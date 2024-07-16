@@ -14,8 +14,6 @@ export const getByMonthAtStatisticalFailure = createAction(
     props<{error: string}>()
     );
 
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////  
 export const getByYearAtStatistical = createAction(
     '[Bill] Get By Year At Statistical',
@@ -30,10 +28,6 @@ export const getByYearAtStatisticalFailure = createAction(
     props<{error: string}>()
     );
 
-
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////  
 export const getByDateAtStatistical = createAction(
     '[Bill] Get By Date At Statistical',
@@ -47,7 +41,6 @@ export const getByDateAtStatisticalFailure = createAction(
     '[Bill] Get By Date At Statistical Failure',
     props<{error: string}>()
     );
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 export const createAtPaymentSuccess = createAction(

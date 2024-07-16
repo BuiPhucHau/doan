@@ -66,8 +66,8 @@ export class DishEffects {
     )
   );
 
-    //Delete
-    removeDish$ = createEffect(() =>
+  //Delete
+  removeDish$ = createEffect(() =>
       this.action$.pipe(
         ofType(DishActions.removeDish),
         exhaustMap((action) =>
@@ -87,5 +87,5 @@ export class DishEffects {
           )
         )
       )
-    );
+  );
 }

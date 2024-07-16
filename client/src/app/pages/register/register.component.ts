@@ -70,6 +70,12 @@ export class RegisterComponent {
     // Subscribe to user creation success state
     this.store.select('user', 'isCreateSussess').subscribe((state) => {
       if (state) {
+
+        this.alerts
+        .open('Login Success.', {
+          status: 'success',
+        })
+        .subscribe();
         this.router.navigate(['/base/home']);
       }
     });

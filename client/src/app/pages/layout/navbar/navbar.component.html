@@ -1,52 +1,35 @@
 <div class="container">
-
     <div class="logo" (click)="home()">
-        <img src="../../../../assets/image/logo.png" class="logo_img">
-        <p class="name">CurstGourmet</p>
+      <img src="../../../../assets/image/logo.png" class="logo_img" />
+      <p class="name">CurstGourmet</p>
     </div>
-
+  
     <section class="select">
-        <button *ngFor="let page of pages; let i = index" [class.selected]="pageSelected === i" (click)="selected(i)">{{
-            page.name }}</button>
+      <button
+        *ngFor="let page of pages; let i = index"
+        [class.selected]="pageSelected === i"
+        (click)="selected(i)"
+      >
+        {{ page.name }}
+      </button>
     </section>
-
+  
     <div class="login" *ngIf="userForm.value.uid">
-        <img style="width: 35px;
-            height: 35px;
-            border-radius: 50%;" src={{userForm.value.avatar}} alt="">
-        <p style="font-size: 14px; margin-right: 1rem; margin-left: 1rem;">{{userForm.value.name}}</p>
-        <div class="profile_menu">
-            <span (click)="logout()" class="material-symbols-outlined">
-                logout
-                </span>
-        </div>
+      <img
+        style="width: 35px; height: 35px; border-radius: 50%"
+        [src]="userForm.value.avatar"
+        alt=""
+      />
+      <p style="font-size: 14px; margin-right: 1rem; margin-left: 1rem;">
+        {{ userForm.value.name }}
+      </p>
+      <div class="profile_menu">
+        <span (click)="logout()" class="material-symbols-outlined"> logout </span>
+      </div>
     </div>
-
+  
     <div class="login" *ngIf="!userForm.value.uid" (click)="login()">
-        <span class="material-symbols-outlined">
-            account_circle
-            </span>
+      <span class="material-symbols-outlined"> account_circle </span>
     </div>
-    
-</div>
-
-<!-- <div id="profile" *ngIf="userForm.value.uid">
-    <div class="profile_infor">
-        <div class="profile_img">
-            <img src={{userForm.value.avatar}} alt="">
-        </div>
-        <div class="profile_info_box">
-            <h3>Welcome</h3>
-            <p>{{userForm.value.name}}</p>
-        </div>
-    </div>
-    <div class="profile_menu">
-        <i (click)="logout()" class="fa-solid fa-right-from-bracket"></i>
-    </div>
-</div>
-
-<div id="profile" *ngIf="!userForm.value.uid">
-    <div class="btn_login" (click)="login()">
-        <p>Đăng nhập</p>
-    </div>
-</div> -->
+  </div>
+  

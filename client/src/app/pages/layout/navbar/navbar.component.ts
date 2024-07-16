@@ -29,13 +29,14 @@ export class NavbarComponent {
   pageSelected: number = 0;
   url = '';
   pages: Page[] = [
-    { id: 0, name: 'Menu', link: 'base/menu' },
-    { id: 1, name: 'Booking', link: 'base/booking' },
-    { id: 2, name: 'Location', link: 'base/location' },
-    { id: 3, name: 'News', link: 'base/new' },
+    { id: 0, name: 'Home', link: 'base/home' },
+    { id: 1, name: 'Menu', link: 'base/menu' },
+    { id: 2, name: 'Booking', link: 'base/booking' },
+    { id: 3, name: 'Location', link: 'base/location' },
     { id: 4, name: 'Order', link: 'base/order' },
-    { id: 5, name: 'Contact', link: 'base/contact' },
-    { id: 6, name: 'Admin', link: 'base/admin' },
+    { id: 5, name: 'News', link: 'base/new' },
+    { id: 6, name: 'Contact', link: 'base/contact' },
+    { id: 7, name: 'Admin', link: 'base/admin' },
   ];
   user: User = <User>{};
   route$ = this.router.events;
@@ -85,11 +86,11 @@ export class NavbarComponent {
       user: this.user$,
     }).subscribe((res) => {
       if (res.user && res.user.role != 'admin') {
-        if (this.pages.length === 7) {
-          this.pages.splice(6, 1);
+        if (this.pages.find((page) => page.id === 7)) {
+          this.pages.splice(7, 1);
         }
       } else if (res.user && res.user.role === 'admin') {
-        const adminPage = { id: 6, name: 'Admin', link: 'base/admin' };
+        const adminPage = { id: 7, name: 'Admin', link: 'base/admin' };
         if (!this.pages.find((page) => page.id === adminPage.id)) {
           this.pages.push(adminPage);
         }
@@ -97,39 +98,14 @@ export class NavbarComponent {
 
       if (this.router.url != this.url) {
         this.url = this.router.url;
-        switch (this.router.url) {
-          case '/base/home':
-            this.pageSelected = 0;
-            break;
-          case '/base/menu':
-            this.pageSelected = 1;
-            break;
-          case '/base/booking':
-            this.pageSelected = 2;
-            break;
-          case '/base/location':
-            this.pageSelected = 3;
-            break;
-          case '/base/order':
-            this.pageSelected = 4;
-            break;
-          case '/base/new':
-            this.pageSelected = 5;
-            break;
-          case '/base/contact':
-            this.pageSelected = 6;
-            break;
-          case '/base/admin':
-            this.pageSelected = 7;
-            break;
-          default:
-            break;
-        }
+        this.pageSelected = this.pages.findIndex(page => `/base/${page.name.toLowerCase()}` === this.url);
       }
     });
   }
+
   selected(index: number) {
     console.log('navigate success');
+    this.pageSelected = index;
     this.router.navigate([this.pages[index].link]);
   }
 

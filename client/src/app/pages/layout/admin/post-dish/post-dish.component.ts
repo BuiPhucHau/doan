@@ -29,25 +29,14 @@ import { Subscription } from 'rxjs';
 })
 export class PostDishComponent implements OnDestroy, OnInit {
   dishList: Dish[] = [];
-
-  dish$ = this.store.select('dish', 'dishList');
-
-  isCreateDish$ = this.store.select('dish', 'isAddSuccess');
-
-  removeDish$ = this.store.select('dish', 'isRemoveSuccess');
-
-  updateDish$ = this.store.select('dish', 'isUpdateSuccess');
-
-  categories = <Category[]>[];
-
-  createImageSuccess$ = this.store.select('storage', 'isCreateSuccess');
+  categories: Category[] = [];
 
   selectedImage: string | ArrayBuffer | null = null;
   fileName: string = '';
 
   currentDish: Dish | null = null;
-  isUpdateClicked: boolean = false;
 
+  isUpdateClicked: boolean = false;
   isChangeFile: boolean = false;
   dishDataToUpdate: any = {};
   isUpdateDish: boolean = false;
@@ -83,6 +72,11 @@ export class PostDishComponent implements OnDestroy, OnInit {
       storage: StorageState;
     }>
   ) {
+    
+  }
+
+
+  ngOnInit(): void {
     this.store.dispatch(CategoryAction.get());
     this.store.dispatch(DishActions.get({}));
     this.subscriptions.push(
@@ -91,15 +85,26 @@ export class PostDishComponent implements OnDestroy, OnInit {
           this.categories = val;
         }
       }),
+
+      this.store.select('dish', 'dishList').subscribe((dishList) => {
+        if (dishList.length > 0) {
+          console.log(dishList);
+          this.dishList = dishList;
+        }
+      }),
+
       this.store.select('dish').subscribe((val) => {
         if (val != null && val != undefined) {
           this.dishList = val.dishList;
         }
       }),
-      this.createImageSuccess$.subscribe((val) => {
+
+      // Subscribe to createImageSuccess$ to handle image creation success
+      this.store.select('storage', 'isCreateSuccess').subscribe((val) => {
         console.log(val);
         if (val) {
           console.log(val);
+          // If image creation is successful, fetch the stored image
           this.store.dispatch(
             StorageAction.get({
               fileName: this.fileName,
@@ -107,22 +112,28 @@ export class PostDishComponent implements OnDestroy, OnInit {
           );
         }
       }),
+
       this.store.select('storage').subscribe((val) => {
         if (val?.isGetSuccess) {
           console.log(val);
-          if(this.isUpdateDish){
-          this.dishDataToUpdate.image = val.storage?._id;
-          console.log(this.dishDataToUpdate);
-          
-          this.store.dispatch(DishAction.updateDish({ dish: this.dishDataToUpdate }));
-          }else
-          {this.addDishData.image = val.storage?._id;
-          this.store.dispatch(DishAction.createDish({ dish: this.addDishData }));}
+          if (this.isUpdateDish) {
+            this.dishDataToUpdate.image = val.storage?._id;
+            console.log(this.dishDataToUpdate);
+            this.store.dispatch(
+              DishAction.updateDish({ dish: this.dishDataToUpdate })
+            );
+          } else {
+            this.addDishData.image = val.storage?._id;
+            this.store.dispatch(
+              DishAction.createDish({ dish: this.addDishData })
+            );
+          }
         }
       }),
-      this.isCreateDish$.subscribe((val) => {
+
+      this.store.select('dish', 'isCreateDishSuccess').subscribe((val) => {
+        console.log('isAddSuccess', val);
         if (val) {
-          console.log(val);
           alert('Create dish success');
           this.addDishData = {
             dId: '',
@@ -136,9 +147,10 @@ export class PostDishComponent implements OnDestroy, OnInit {
           this.store.dispatch(DishAction.get({}));
         }
       }),
-      this.updateDish$.subscribe ((val) => {
+
+      this.store.select('dish', 'isUpdateSuccess').subscribe((val) => {
         if (val) {
-          alert('Cập nhật dish thành công');
+          alert('Update dish success');
           this.addDishData = {
             dId: '',
             name: '',
@@ -152,10 +164,17 @@ export class PostDishComponent implements OnDestroy, OnInit {
           this.isUpdateDish = false;
         }
       }),
+
+      // Subscribe to removeLocation$ to handle successful location removal
+      this.store.select('dish', 'isRemoveSuccess').subscribe((val) => {
+        if (val) {
+          alert('Delete dish success');
+          // Refresh location list after removal
+          this.store.dispatch(DishAction.get({}));
+        }
+      }),
     );
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => {
@@ -181,6 +200,7 @@ export class PostDishComponent implements OnDestroy, OnInit {
     console.log(this.file);
   }
 
+  // Method to create a new dish
   createDish() {
     const selectedCategory = this.categories.find(
       (category) => category._id === this.addDishForm.value._id
@@ -198,9 +218,7 @@ export class PostDishComponent implements OnDestroy, OnInit {
       description: this.addDishForm.value.description,
       featured: false,
       quantity: parseInt(this.addDishForm.value.quantity || '0'),
-      // image: this.addDishForm.value.image,
     };
-    console.log('Thêm dish thành công', this.addDishData);
 
     this.fileName =
       this.addDishForm.value.dId + '_' + this.addDishForm.value.nameDish;
@@ -214,26 +232,37 @@ export class PostDishComponent implements OnDestroy, OnInit {
   //funtion update
   updateDish(dId: string): void {
     this.isUpdateClicked = true;
-    this.currentDish = this.dishList.find(dish => dish.dId === dId) || null;
+
+    this.currentDish = this.dishList.find((dish) => dish.dId === dId) || null;
     if (this.currentDish) {
       this.addDishForm.setValue({
         dId: this.currentDish.dId,
         _id: this.currentDish.category._id,
         nameDish: this.currentDish.nameDish,
         description: this.currentDish.description,
-        price: this.currentDish.price.toString(), 
-        quantity: this.currentDish.quantity ? this.currentDish.quantity.toString() : '0',
-        image: this.currentDish.image._id.toString()
-
+        price: this.currentDish.price.toString(),
+        quantity: this.currentDish.quantity
+          ? this.currentDish.quantity.toString()
+          : '0',
+        image: this.currentDish.image._id.toString(),
       });
     }
   }
 
-   //funtion onUpdate
+  //funtion onUpdate
   onUpdateDish(): void {
+    const selectedCategory = this.categories.find(
+      (category) => category._id === this.addDishForm.value._id
+    );
+
+    if (!selectedCategory) {
+      console.error('No category found');
+      return;
+    }
+
     const dishData = {
       dId: this.addDishForm.value.dId,
-      _id: this.addDishForm.value._id,
+      category: selectedCategory, // Use the entire category object
       nameDish: this.addDishForm.value.nameDish,
       description: this.addDishForm.value.description,
       price: this.addDishForm.value.price,
@@ -242,29 +271,28 @@ export class PostDishComponent implements OnDestroy, OnInit {
       image: this.addDishForm.value.image,
     };
     this.dishDataToUpdate = dishData;
-    //Nếu edit được click
+    // Nếu edit được click
     if (!this.isChangeFile) {
-      console.log("no change file");
-      
+      console.log('no change file');
+
       this.store.dispatch(DishAction.updateDish({ dish: dishData }));
-    }else{
-      this.fileName = this.addDishForm.value.dId + '_' + this.addDishForm.value.nameDish;
+    } else {
+      this.fileName =
+        this.addDishForm.value.dId + '_' + this.addDishForm.value.nameDish;
       this.store.dispatch(
         StorageAction.create({ file: this.file, fileName: this.fileName })
       );
       this.fileNameToUpdate = this.fileName;
       this.isUpdateDish = true;
-      console.log("change file");
-      
+      console.log('change file');
     }
   }
 
   //funtion delete
   removeDish(dId: string) {
-    const confirmDelete = confirm("Are you sure you want to delete this dish?");
+    const confirmDelete = confirm('Are you sure you want to delete this dish?');
     if (confirmDelete) {
       this.store.dispatch(DishAction.removeDish({ dId }));
     }
   }
-
 }

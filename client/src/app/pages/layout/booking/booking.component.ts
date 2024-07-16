@@ -217,7 +217,7 @@ export class BookingComponent implements OnInit, OnDestroy {
       phone: this.bookingTable.value.phone ?? '',
       status: true,
     };
-    console.log('Đặt bàn thành công', addbookingTable);
+    console.log('Booking table success', addbookingTable);
     this.store.dispatch(
       ReservationActions.createReservation({ reservation: addbookingTable })
     );

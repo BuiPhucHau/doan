@@ -5,5 +5,4 @@ export interface NewState {
     isGetSuccess: boolean;
     getErrMess: string;
     newList: New[];
-
 }
