@@ -1,15 +1,32 @@
 <div class="container">
-  <div class="payment_success_container">
-    <div class="img_success">
-        <img src="../../../../assets/images/undraw_Bitcoin_re_urgq.png" alt="">
-    </div>
-    <div class="title">
-        <p>Payment success</p>
-    </div>
-    <div class="payment_total">
-        <button  class="btn btn-warning w-100" (click)="checkOut()">
-        Back to home
-        </button>
-    </div>
-</div>
+        <div class="img_success">
+            <img src="../../../../../assets/image/logo.png" alt="">
+        </div>
+        <div class="title">
+            <p>Payment success</p>
+        </div>
+        <div class="bill">
+            <div class="bill_content" *ngIf="item">
+                <h1>Bill Details</h1>
+                <p>Bill ID: {{ item.BillId }}</p>
+                <p>Order ID: {{ item.OrderId }}</p>
+                <p>Table ID: {{ item.TableId }}</p>
+                <p>Total Quantity: {{ item.QuantityTotal }}</p>
+                <p>Total Amount: {{ item.Total }}</p>
+                <p>Date Payment: {{ item.DatePayment | date:'short' }}</p>
+                <p style="font-weight: bold;">List Dish</p>
+                <ul>
+                    <li *ngFor="let item of item.dishList">
+                        {{ item.nameDish }} - Quantity: {{ item.quantity }} - Price: {{ item.price }}
+                    </li>
+                </ul>
+              
+            </div>
+        </div>
+        <div class="payment_total">
+            <button class="btn btn-warning w-100" (click)="generatePDF()">Download Bill as PDF</button>
+            <button class="btn btn-warning w-100" (click)="checkOut()">
+                Back to home
+            </button>
+        </div>
 </div>

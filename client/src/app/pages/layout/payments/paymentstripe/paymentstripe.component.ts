@@ -15,28 +15,25 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Order } from '../../../../models/order.model';
 import { ShareModule } from '../../../../shared/shared.module';
 import { MatDialog } from '@angular/material/dialog';
-import { PaymentMomoService } from '../../../../service/paymentmomo/paymentmomo.service';
-import { PaymentMomoState } from '../../../../ngrx/state/paymentmomo.state';
-import * as PaymentMomoActions from '../../../../ngrx/actions/paymentmomo.actions';
+
 import { ReservationService } from '../../../../service/reservation/reservation.service';
 import { OrderService } from '../../../../service/order/order.service';
 import * as TableActions from '../../../../ngrx/actions/table.actions';
 import * as ReservationActions from '../../../../ngrx/actions/reservation.actions'
 import { BillService } from '../../../../service/bill/bill.service';
+
 @Component({
-  selector: 'app-paymentmomo',
+  selector: 'app-paymentstripe',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ShareModule],
-  templateUrl: './paymentmomo.component.html',
-  styleUrl: './paymentmomo.component.scss',
+  imports:  [CommonModule, FormsModule, ReactiveFormsModule, ShareModule],
+  templateUrl: './paymentstripe.component.html',
+  styleUrl: './paymentstripe.component.scss'
 })
-export class PaymentmomoComponent implements OnDestroy {
+export class PaymentstripeComponent {
   subscriptions: Subscription[] = [];
   orderList: Order[] = [];
   order$ = this.store.select('order', 'orderList');
   bill: any;
-
-  paymentAtPayment$ = this.store.select('paymentmomo', 'paymentCreatedAtConfirmPayment');
   constructor(
     private router: Router,
     private cartService: CartService,
@@ -44,14 +41,12 @@ export class PaymentmomoComponent implements OnDestroy {
     private dialog: MatDialog,
     private reservationService: ReservationService,
     private orderService: OrderService,
-    private paymentMomoService: PaymentMomoService,
     private store: Store<{
       order: OrderState;
       dish: DishState;
       auth: AuthState;
       user: UserState;
       category: categoryState;
-      paymentmomo: PaymentMomoState;
     }>
   ) {
     // get all order 
@@ -63,18 +58,8 @@ export class PaymentmomoComponent implements OnDestroy {
           this.orderList = orderList;
         }
       }),
-      // get paymentmomo
-      this.paymentAtPayment$.subscribe(paymentmomo => {
-        if (paymentmomo.status) {
-          console.log('paymentmomo: ', paymentmomo);
-          window.location.href = paymentmomo.data.payUrl;
-        }
-      })
-    );
-    // const savedBill = localStorage.getItem('bill_${BillId}');
-    // if (savedBill) {
-    //   this.bill = JSON.parse(savedBill);
-    // }
+      // get payment
+  
   }
   ngOnInit() {
     this.orderItem = this.orderService.getOrderDetail();
@@ -86,17 +71,7 @@ export class PaymentmomoComponent implements OnDestroy {
           this.orderList = orderList;
         }
       }),
-      this.paymentAtPayment$.subscribe(paymentmomo => {
-        if (paymentmomo.status) {
-          console.log('paymentmomo: ', paymentmomo);
-          window.location.href = paymentmomo.data.payUrl;
-        }
-      })
     );
-    // const savedBill = localStorage.getItem('bill_${BillId}');
-    // if (savedBill) {
-    //   this.bill = JSON.parse(savedBill);
-    // }
   }
   orderItem = this.orderService.getOrderDetail();
   items = this.cartService.getSelectedDishes();

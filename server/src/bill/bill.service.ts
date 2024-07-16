@@ -21,6 +21,15 @@ export class BillService {
       throw new HttpException(error.message, error.status);
     }
   }
+  // get bill by id 
+  async findOne(id: string) {
+    try{
+      return await this.BillModel.findById(id).exec();
+    }
+    catch(error){
+      throw new HttpException(error.message, error.status);
+    }
+  }
 
 // get bill by month
   async getByMonth(month: number, year: number){
