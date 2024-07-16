@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ShareModule } from '../../shared/shared.module';
 import { TaigaModule } from '../../shared/taiga.module';
@@ -12,6 +12,7 @@ import * as UserActions from '../../ngrx/actions/user.actions';
 import { User } from '../../models/user.model';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as AuthActions from './../../ngrx/actions/auth.actions';
+import { TuiAlertService } from '@taiga-ui/core';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,6 @@ import * as AuthActions from './../../ngrx/actions/auth.actions';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-
   // Flags for different login methods
   isLoginWithGoogle = false;
 
@@ -49,13 +49,14 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private auth: Auth,
-    private store: Store<{ auth: AuthState; user: UserState }>
+    private store: Store<{ auth: AuthState; user: UserState }>,
+    @Inject(TuiAlertService)
+    private readonly alerts: TuiAlertService
   ) {
-    
     // Listen for authentication state changes
     onAuthStateChanged(this.auth, (user) => {
       console.log(user);
-      if (user && user.email != undefined && user.email!="") {
+      if (user && user.email != undefined && user.email != '') {
         this.isLoginWithGoogle = true;
         this.userFirebase = {
           uid: user.uid,
@@ -63,20 +64,38 @@ export class LoginComponent {
           name: user.displayName || '',
           picture: user.photoURL || '',
         };
-        this.store.dispatch(UserActions.getByEmail({ email: user.email||"" }));
+        this.store.dispatch(
+          UserActions.getByEmail({ email: user.email || '' })
+        );
       }
     });
 
     // Subscribe to user observable
     this.user$.subscribe((user) => {
-      if (user != <User>{} && user != undefined && user != null&& user.email !=undefined) {
+      if (
+        user != <User>{} &&
+        user != undefined &&
+        user != null &&
+        user.email != undefined
+      ) {
         this.isGetSuccessUser = true;
 
-        if ( this.accountData.password != "" && this.accountData.email != "" && !this.isLoginWithGoogle) {
-
-          if (user.password == this.accountData.password && user.email == this.accountData.email) {
+        if (
+          this.accountData.password != '' &&
+          this.accountData.email != '' &&
+          !this.isLoginWithGoogle
+        ) {
+          if (
+            user.password == this.accountData.password &&
+            user.email == this.accountData.email
+          ) {
             const userAsJson = JSON.stringify(user);
             sessionStorage.setItem('user', userAsJson);
+            this.alerts
+              .open('Login Success.', {
+                status: 'success',
+              })
+              .subscribe();
             this.router.navigate(['/base/home']);
             this.resetLoginState();
           } else {
@@ -84,21 +103,32 @@ export class LoginComponent {
             this.resetLoginState();
           }
         } else {
-          if ( this.isLoginWithGoogle && this.userFirebase.email == user.email) {
-
+          if (this.isLoginWithGoogle && this.userFirebase.email == user.email) {
             console.log('isGetSuccessUser: ' + this.isGetSuccessUser);
             const userAsJsonGG = JSON.stringify(user);
             sessionStorage.setItem('user', userAsJsonGG);
-
+            this.alerts
+              .open('Login Success.', {
+                status: 'success',
+              })
+              .subscribe();
             this.router.navigate(['/base/home']);
             console.log('Login with google');
             this.isGetSuccessUser = false;
           }
         }
-      } 
-      if (this.isGetSuccessUser && user.email == "404 user not found"&& this.isLoginWithGoogle)
-      {
-
+      }
+      if (
+        this.isGetSuccessUser &&
+        user.email == '404 user not found' &&
+        this.isLoginWithGoogle
+      ) {
+        this.alerts
+          .open('You have not registered yet, please register first.', {
+            status: 'info',
+          })
+          .subscribe();
+        this.router.navigate(['/register']);
       }
     });
   }
@@ -108,11 +138,12 @@ export class LoginComponent {
       email: this.accountForm.value.email || '',
       password: this.accountForm.value.password || '',
     };
-    this.store.dispatch(UserActions.getByEmailAndPassword({
-      email: this.accountData.email,
-      password: this.accountData.password
-    }));
-    
+    this.store.dispatch(
+      UserActions.getByEmailAndPassword({
+        email: this.accountData.email,
+        password: this.accountData.password,
+      })
+    );
   }
 
   // Method to handle login with Google
@@ -128,7 +159,7 @@ export class LoginComponent {
     console.log(this.isLoginWithGoogle);
   }
 
-    private resetLoginState() {
+  private resetLoginState() {
     this.isGetSuccessUser = false;
     this.accountData = {
       email: '',
