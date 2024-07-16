@@ -25,6 +25,16 @@ export class BillController {
     }
     
   }
+  // get bill by id
+  @Get('getById')
+  async findOne(@Query('id') id: string){
+    try{
+      return await this.billService.findOne(id);
+    }
+    catch(err){
+      return {}
+    }
+  }
   //get bill by month
   @Get('getByMonth')
   async getByMonth(@Query('month') month: number, @Query('year') year: number){

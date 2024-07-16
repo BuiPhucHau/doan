@@ -16,7 +16,7 @@ export class PaymentMomoService {
         var orderInfo = 'pay with MoMo';
         var partnerCode = 'MOMO';
         var redirectUrl = 'http://localhost:4200/base/payments/payment-success';
-        var ipnUrl = 'https://7fb1-2402-800-639d-a5d7-d19d-947c-2d8a-5159.ngrok-free.app/paymentmomo/callback';
+        var ipnUrl = 'https://97dd-2405-4803-c8a1-3e00-29aa-c68f-220f-16f5.ngrok-free.app/paymentmomo/callback';
         var requestType = "captureWallet";
         var orderId = partnerCode + createBillDto.OrderId;
         var amount = createBillDto.Total;

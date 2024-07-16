@@ -8,12 +8,6 @@ export class Bill {
 
     @Prop({ required: true, unique: true })
     BillId: string;
-
-    // @Prop({
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Voucher'
-    // })
-    // Voucher: string;
     @Prop()
     dishList: [];
     @Prop()
@@ -22,13 +16,8 @@ export class Bill {
     OrderId: string;
     @Prop()
     Total: number;
-
-    // @Prop({required: true})
-    // Discount: number;
-
     @Prop()
     QuantityTotal: number;
-
     @Prop()
     DatePayment: Date;
 }

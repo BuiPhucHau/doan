@@ -23,8 +23,6 @@
   </div>
   </td>
   </tr>
-  <tr>
-  </tr>
   </table>
   </div>
   <div class="item" *ngIf="items.length > 0">
@@ -48,24 +46,35 @@
     </table>
   </div>
   <div class="qr_code">
+    <!-- <div class="title_Qr">
+      <h2>
+        You can scan this QR code to pay with Momo
+      </h2>
+    </div>
+    <div class="image_qr" *ngFor="let paymentimage of paymentImageList">
+      <div *ngIf="paymentimage.paymentImageId === 'payment_1'">
+        <img [src]="paymentimage.paymentImage.urls" alt="{{paymentimage.paymentImage.urls}}" width="400" height="400">
+      </div>
+    </div> -->
     <div class="check_out">
       <span>
-        You need to pay for your order directly.
+        Or you can pay with this phone number: 0393054839
       </span>
-      <span>
+      <!-- <span>
         Please re-enter the amount to pay.
       </span>
       <div class="input-container">
         <input type="text" class="from-input-total" formControlName="inputTotal" [placeholder]="0">
         <span class="currency-suffix">VNĐ</span>
-      </div>
+      </div> -->
     </div>
     <div class="button">
-      <button class="btn btn-warning w-100" (click)="checkOut()">
-        Payment confirmation
+      <button class="btn btn-warning w-100" (click)="paymentmomo()">
+        Payment
       </button>
-    <button class="btn btn-warning w-100" (click)="goBackPayment()">
-      Back to your payment
-    </button>
+      <button class="btn btn-warning w-100" (click)="goBackPayment()">
+        Back to your payment
+      </button>
+    </div>
   </div>
   </div>
