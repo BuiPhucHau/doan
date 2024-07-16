@@ -18,13 +18,16 @@ import { NewModule } from './new/new.module';
 import { BillModule } from './bill/bill.module';
 import { PaymentMomoModule } from './paymentmomo/paymentmomo.module';
 
+import { ConfigModule, ConfigService } from '@nestjs/config';;
+// import { PaymentstripeModule } from './paymentstripe/paymentstripe.module';
+import Stripe from 'stripe';
 
 
 @Module({
-  imports: [MongooseModule.forRoot(
+  imports: [
+    ConfigModule.forRoot(), // Make sure you have ConfigModule set up for environment variables
+    MongooseModule.forRoot(
     'mongodb+srv://phuchau0385:buihau038@cluster0.giztluo.mongodb.net/'),
-
-
   CategoryModule,
   StorageModule,
   DishModule,
@@ -37,6 +40,8 @@ import { PaymentMomoModule } from './paymentmomo/paymentmomo.module';
   NewModule,
   BillModule,
   PaymentMomoModule,
+  // PaymentstripeModule,
+  
   
 ],
   controllers: [AppController],
