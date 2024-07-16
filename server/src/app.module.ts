@@ -41,8 +41,6 @@ import Stripe from 'stripe';
   BillModule,
   PaymentMomoModule,
   // PaymentstripeModule,
-  
-  
 ],
   controllers: [AppController],
   providers: [AppService],

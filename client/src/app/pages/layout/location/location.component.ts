@@ -17,8 +17,7 @@ import { LocationService } from '../../../service/location/location.service';
   templateUrl: './location.component.html',
   styleUrl: './location.component.scss'
 })
-export class LocationComponent implements OnDestroy, OnInit {  // Implement OnInit for ngOnInit lifecycle hook
-
+export class LocationComponent implements OnDestroy, OnInit {
   // Observable for location state
   location$ = this.store.select('location', 'locationList');
   locationList: Location[] = [];
@@ -33,17 +32,6 @@ export class LocationComponent implements OnDestroy, OnInit {  // Implement OnIn
       location: LocationState;
     }>
   ) {
-    // Dispatch action to get location data
-    this.store.dispatch(get());
-    // Subscribe to location observable
-    this.subcriptions.push(
-      this.location$.subscribe((locationList) => {
-        if (locationList.length > 0) {
-          console.log(locationList);
-          this.locationList = locationList;
-        }
-      }),
-    );
   }
 
   // Lifecycle hook that runs after the component is initialized
